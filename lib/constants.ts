@@ -56,6 +56,8 @@ export const MEDIA = {
 export const API_ENDPOINTS = {
   /** TBD: backend endpoint for newsletter sign-ups. */
   newsletter: "/newsletter/subscribe",
+  /** TBD: backend endpoint that sends a free PDF guide to the visitor's WhatsApp. */
+  guideRequest: "/guides/request",
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -330,6 +332,10 @@ export const ALBIRUNI_APP_LINKS = {
 
 /** Kept for page sections that link to support/contact. */
 export const CONTACT_HREF = ROUTES.support;
+
+/** Anchor of the open positions list on the jobs page (id set in OpenPositionsSection). */
+export const JOBS_OPEN_POSITIONS_ID = "open-positions";
+export const JOBS_OPEN_POSITIONS_HREF = `${ROUTES.jobs}#${JOBS_OPEN_POSITIONS_ID}`;
 
 /** Technologies named on elitemsr.com/our-services and in community idea stacks. */
 export const TECH_STACK: string[] = [

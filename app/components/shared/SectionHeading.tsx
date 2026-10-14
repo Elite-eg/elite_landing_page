@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Eyebrow } from "./Eyebrow";
 import { Reveal } from "./Reveal";
 
 export interface SectionHeadingProps {
@@ -6,8 +7,8 @@ export interface SectionHeadingProps {
   eyebrow?: string;
   subtitle?: string;
   align?: "center" | "start";
-  /** "dark" renders on navy backgrounds (white text). */
-  tone?: "light" | "dark";
+  /** "dark" renders on navy backgrounds, "brand" on orange CTA backgrounds (white text). */
+  tone?: "light" | "dark" | "brand";
   as?: "h1" | "h2";
   className?: string;
 }
@@ -22,7 +23,7 @@ export function SectionHeading({
   as: Heading = "h2",
   className,
 }: SectionHeadingProps) {
-  const isDark = tone === "dark";
+  const isDark = tone !== "light";
 
   return (
     <Reveal
@@ -33,15 +34,9 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <p
-          className={cn(
-            "mb-4 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-bold",
-            isDark ? "bg-white/10 text-secondary" : "bg-secondary/10 text-secondary-dark"
-          )}
-        >
-          <span className="size-1.5 rounded-full bg-secondary" aria-hidden="true" />
+        <Eyebrow tone={isDark ? "dark" : "light"} className="mb-4">
           {eyebrow}
-        </p>
+        </Eyebrow>
       )}
 
       <Heading
@@ -57,7 +52,7 @@ export function SectionHeading({
         <p
           className={cn(
             "mt-4 text-base leading-loose sm:text-lg",
-            isDark ? "text-white/75" : "text-content"
+            tone === "brand" ? "text-white/90" : isDark ? "text-white/75" : "text-content"
           )}
         >
           {subtitle}

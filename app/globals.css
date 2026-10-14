@@ -225,6 +225,12 @@
     background-size: 22px 22px;
   }
 
+  /* Same grid for navy surfaces */
+  .bg-dot-grid-light {
+    background-image: radial-gradient(rgb(var(--surface) / 0.1) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

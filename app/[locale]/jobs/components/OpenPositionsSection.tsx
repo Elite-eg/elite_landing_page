@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowLeft, FiArrowRight, FiBriefcase } from "react-icons/fi";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { JOBS_OPEN_POSITIONS_ID } from "@/lib/constants";
 import { OPEN_JOB_POSITIONS, type JobOpening } from "../data/jobsData";
 import { JobApplyModal } from "./JobApplyModal";
 
@@ -32,7 +33,7 @@ export function OpenPositionsSection() {
   const ArrowIcon = isRtl ? FiArrowLeft : FiArrowRight;
 
   return (
-    <section className="py-16 sm:py-24 bg-surface relative overflow-hidden">
+    <section id={JOBS_OPEN_POSITIONS_ID} className="py-16 sm:py-24 bg-surface relative overflow-hidden">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Heading */}
         <motion.div
