@@ -1,37 +1,32 @@
-"use client";
+import { useLocale, useTranslations } from "next-intl";
+import { COMPANY_INFO, LEGAL_NAV_ITEMS, type AppLocale } from "@/lib/constants";
+import { FooterLink } from "./FooterLink";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { LEGAL_NAV_ITEMS } from "@/lib/constants";
-
-export interface FooterBottomBarProps {
-  rightsText: string;
-  commercialRegister: string;
-}
-
-export function FooterBottomBar({
-  rightsText,
-  commercialRegister,
-}: FooterBottomBarProps) {
+export function FooterBottomBar() {
   const t = useTranslations("footer");
+  const tNav = useTranslations("nav");
+  const locale = useLocale() as AppLocale;
 
   return (
-    <div className="mt-12 pt-6 border-t border-edge/20 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-content-dark/80">
-      <div className="flex flex-wrap items-center gap-4">
-        <span>{rightsText}</span>
-        {LEGAL_NAV_ITEMS.map((item) => (
-          <span key={item.key} className="inline-flex items-center gap-4">
-            <span className="hidden sm:inline">·</span>
-            <Link href={item.href} className="hover:text-surface transition-colors">
-              {t(item.key)}
-            </Link>
-          </span>
-        ))}
+    <div className="flex flex-col gap-4 border-t border-surface/10 pt-6 text-xs text-content-dark/80 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+        <p>{t("rights", { year: new Date().getFullYear(), brand: COMPANY_INFO.brandName[locale] })}</p>
+        <nav aria-label={t("legalLabel")}>
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+            {LEGAL_NAV_ITEMS.map((item) => (
+              <li key={item.href}>
+                <FooterLink href={item.href} nudge={false} className="text-content-dark/80">
+                  {tNav(item.labelKey)}
+                </FooterLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
-      <div>
-        {t("commercialRegister")}: {commercialRegister}
-      </div>
+      <p title={t("commercialRegister")}>
+        {t("commercialRegisterShort", { number: COMPANY_INFO.commercialRegister })}
+      </p>
     </div>
   );
 }

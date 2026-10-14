@@ -5,11 +5,25 @@ import type { Transition, Variants } from "framer-motion";
  * Reduced motion is handled globally by <MotionConfig reducedMotion="user"> in Providers.
  */
 
+/** Mirrors the --motion-* tokens in app/globals.css (identity v4). Seconds / px. */
+export const MOTION = {
+  enter: 0.7,
+  rise: 28,
+  staggerHero: 0.14,
+  staggerCard: 0.08,
+  draw: 1.3,
+  popScale: 0.88,
+  float: 6,
+  floatPeriod: 2.4,
+  botDelay: 2.4,
+} as const;
+
 const EASE_SMOOTH: Transition["ease"] = [0.16, 1, 0.3, 1];
+const EASE_BACK: Transition["ease"] = [0.34, 1.56, 0.64, 1];
 
 export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24, scale: 0.985 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: EASE_SMOOTH } },
+  hidden: { opacity: 0, y: MOTION.rise },
+  visible: { opacity: 1, y: 0, transition: { duration: MOTION.enter, ease: EASE_SMOOTH } },
 };
 
 export const fadeIn: Variants = {
@@ -42,23 +56,54 @@ export const slideInRight: Variants = {
 
 export const staggerContainer: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
+  visible: { transition: { staggerChildren: MOTION.staggerCard, delayChildren: 0.04 } },
 };
 
 /** Orchestrated hero entrance: children reveal one after another. */
 export const heroStagger: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
+  visible: { transition: { staggerChildren: MOTION.staggerHero, delayChildren: 0.15 } },
 };
 
 export const heroTextReveal: Variants = {
-  hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: MOTION.rise },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.75, ease: EASE_SMOOTH },
+    transition: { duration: MOTION.enter, ease: EASE_SMOOTH },
   },
+};
+
+/** Floating cards / dots: pop from 0.88 with a back-ease. */
+export const popIn: Variants = {
+  hidden: { opacity: 0, scale: MOTION.popScale },
+  visible: { opacity: 1, scale: 1, transition: { duration: MOTION.enter, ease: EASE_BACK } },
+};
+
+/** Maher bot: pops in after 2.4s. */
+export const botEnter: Variants = {
+  hidden: { opacity: 0, scale: MOTION.popScale },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: MOTION.enter, ease: EASE_BACK, delay: MOTION.botDelay },
+  },
+};
+
+/** Connected lines / chart lines: path-trim. Apply to <motion.path>. */
+export const drawPath: Variants = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: {
+    pathLength: 1,
+    opacity: 1,
+    transition: { pathLength: { duration: MOTION.draw, ease: EASE_SMOOTH }, opacity: { duration: 0.2 } },
+  },
+};
+
+/** Dashboard bars grow from the bottom. */
+export const growY: Variants = {
+  hidden: { scaleY: 0, originY: 1 },
+  visible: { scaleY: 1, originY: 1, transition: { duration: MOTION.enter, ease: EASE_SMOOTH } },
 };
 
 /** Horizontal slide that mirrors in RTL (Start side). */
@@ -79,16 +124,16 @@ export const slideInFromEnd = (isRtl: boolean): Variants => ({
  */
 export const floatLoop: Variants = {
   animate: {
-    y: [0, -8, 0],
-    transition: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+    y: [0, -MOTION.float, 0, MOTION.float, 0],
+    transition: { duration: MOTION.floatPeriod, repeat: Infinity, ease: "easeInOut" },
   },
 };
 
 /** Moves opposite to floatLoop (down), so stacked cards drift apart rather than into each other. */
 export const floatLoopOffset: Variants = {
   animate: {
-    y: [0, 8, 0],
-    transition: { duration: 7, delay: 0.8, repeat: Infinity, ease: "easeInOut" },
+    y: [0, MOTION.float, 0, -MOTION.float, 0],
+    transition: { duration: MOTION.floatPeriod, delay: 0.8, repeat: Infinity, ease: "easeInOut" },
   },
 };
 

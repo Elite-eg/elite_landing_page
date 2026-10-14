@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
-import { IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Alexandria, Poppins, Readex_Pro } from "next/font/google";
 
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
@@ -15,15 +15,32 @@ import { Footer } from "@/app/components/shared/footer/Footer";
 import { WhatsAppButton } from "@/app/components/shared/WhatsAppButton";
 import { COMPANY_INFO } from "@/lib/constants";
 
-const ibmArabic = IBM_Plex_Sans_Arabic({
+/** Headings (Display / H2 / H3). */
+const alexandria = Alexandria({
   subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-ibm-arabic",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-alexandria",
+  display: "swap",
+});
+
+/** Body text. */
+const readexPro = Readex_Pro({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-readex",
+  display: "swap",
+});
+
+/** Fixed "Elite Tech" wordmark only. */
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#050b14",
+  themeColor: "#06142A",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -150,9 +167,9 @@ export default async function LocaleLayout({
     <html
       dir={locale === "ar" ? "rtl" : "ltr"}
       lang={locale}
-      className={`${ibmArabic.variable} overflow-x-hidden max-w-full w-full`}
+      className={`${alexandria.variable} ${readexPro.variable} ${poppins.variable} overflow-x-hidden max-w-full w-full`}
     >
-      <body className="font-ibm flex min-h-screen flex-col overflow-x-hidden max-w-full w-full relative">
+      <body className="font-sans flex min-h-screen flex-col overflow-x-hidden max-w-full w-full relative">
         <Providers locale={locale} messages={messages}>
           <Header />
           <main

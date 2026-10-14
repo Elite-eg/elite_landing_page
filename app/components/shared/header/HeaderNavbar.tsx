@@ -1,142 +1,66 @@
 "use client";
 
+import { PopoverGroup } from "@headlessui/react";
 import { useTranslations } from "next-intl";
-import { FiArrowLeft, FiArrowRight, FiMenu } from "react-icons/fi";
-import { Link, usePathname } from "@/i18n/navigation";
+import { FiArrowRight, FiMenu } from "react-icons/fi";
+import { HEADER_CTA, NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { Button } from "../Button";
+import { Container } from "../Container";
 import { Logo } from "../Logo";
-import { HeaderNavDropdown, type HeaderNavDropdownItem } from "./HeaderNavDropdown";
+import { HeaderMegaMenu } from "./HeaderMegaMenu";
+import { HeaderNavLink } from "./HeaderNavLink";
 
 export interface HeaderNavbarProps {
-  isRtl: boolean;
-  isScrolled?: boolean;
-  solutions: HeaderNavDropdownItem[];
-  products: HeaderNavDropdownItem[];
+  isScrolled: boolean;
   onOpenMobileMenu: () => void;
 }
 
-export function HeaderNavbar({ isRtl, isScrolled = false, solutions, products, onOpenMobileMenu }: HeaderNavbarProps) {
+/** White main bar: logo lockup, nav (with mega menus) and the primary CTA. */
+export function HeaderNavbar({ isScrolled, onOpenMobileMenu }: HeaderNavbarProps) {
   const t = useTranslations("nav");
-  const pathname = usePathname();
-
-  const isActive = (href: string) => {
-    if (!pathname) return false;
-    const basePath = href.split("#")[0].split("?")[0];
-    if (basePath === "/home" || basePath === "/") {
-      return pathname === "/home" || pathname === "/";
-    }
-    if (!basePath) return false;
-    return pathname === basePath || pathname.startsWith(basePath + "/");
-  };
 
   return (
     <div
       className={cn(
-        "w-full border-b transition-all duration-300",
-        isScrolled
-          ? "bg-surface/95 backdrop-blur-md border-edge/80 shadow-md"
-          : "bg-surface border-edge/60 shadow-sm"
+        "border-b transition-[background-color,box-shadow,border-color] duration-300 ease-out-brand",
+        isScrolled ? "border-edge/80 bg-surface/95 shadow-card backdrop-blur-md" : "border-edge bg-surface"
       )}
     >
-      <div className="max-w-container mx-auto h-16 sm:h-20 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
-        {/* Logo */}
-        <Logo tone="light" />
+      <Container className="flex h-16 items-center gap-4 sm:h-20 xl:grid xl:grid-cols-[1fr_auto_1fr] xl:gap-6">
+        <Logo tone="light" withWordMark className="xl:justify-self-start" />
 
-        {/* Desktop Nav Items */}
-        <nav aria-label={t("mainNav")} className="hidden lg:flex items-center gap-1 xl:gap-2">
-          {/* Home Link */}
-          <Link
-            href="/home"
-            className={cn(
-              "relative px-3.5 py-2 text-sm font-semibold transition-all duration-200 rounded-xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 select-none",
-              isActive("/home")
-                ? "text-secondary font-bold after:absolute after:bottom-0 after:inset-x-2 after:h-0.5 after:bg-secondary after:rounded-full"
-                : "text-body hover:text-secondary hover:scale-105"
-            )}
-          >
-            {t("home")}
-          </Link>
-
-          {/* Solutions Dropdown */}
-          <HeaderNavDropdown label={t("solutionsDropdown")} items={solutions} />
-
-          {/* Products Dropdown */}
-          <HeaderNavDropdown label={t("productsDropdown")} items={products} />
-
-          {/* Single Nav Links */}
-          <Link
-            href="/products/polyline"
-            className={cn(
-              "relative px-3.5 py-2 text-sm font-semibold transition-all duration-200 rounded-xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 select-none",
-              isActive("/products/polyline")
-                ? "text-secondary font-bold after:absolute after:bottom-0 after:inset-x-2 after:h-0.5 after:bg-secondary after:rounded-full"
-                : "text-body hover:text-secondary hover:scale-105"
-            )}
-          >
-            {t("polyline")}
-          </Link>
-
-          <Link
-            href="/store-pricing"
-            className={cn(
-              "relative px-3.5 py-2 text-sm font-semibold transition-all duration-200 rounded-xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 select-none",
-              isActive("/store-pricing")
-                ? "text-secondary font-bold after:absolute after:bottom-0 after:inset-x-2 after:h-0.5 after:bg-secondary after:rounded-full"
-                : "text-body hover:text-secondary hover:scale-105"
-            )}
-          >
-            {t("storePricing")}
-          </Link>
-
-          <Link
-            href="/jobs"
-            className={cn(
-              "relative px-3.5 py-2 text-sm font-semibold transition-all duration-200 rounded-xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 select-none",
-              isActive("/jobs")
-                ? "text-secondary font-bold after:absolute after:bottom-0 after:inset-x-2 after:h-0.5 after:bg-secondary after:rounded-full"
-                : "text-body hover:text-secondary hover:scale-105"
-            )}
-          >
-            {t("jobs")}
-          </Link>
-
-          <Link
-            href="/about"
-            className={cn(
-              "relative px-3.5 py-2 text-sm font-semibold transition-all duration-200 rounded-xl outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 select-none",
-              isActive("/about")
-                ? "text-secondary font-bold after:absolute after:bottom-0 after:inset-x-2 after:h-0.5 after:bg-secondary after:rounded-full"
-                : "text-body hover:text-secondary hover:scale-105"
-            )}
-          >
-            {t("about")}
-          </Link>
-        </nav>
-
-        {/* Action CTA & Mobile Toggle */}
-        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-          <Link
-            href="/book-session"
-            className="group inline-flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-secondary to-secondary-dark hover:from-secondary-dark hover:to-secondary text-surface text-[11px] sm:text-xs lg:text-sm font-bold px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full shadow-md shadow-secondary/20 hover:shadow-secondary/30 transition-all duration-300 hover:scale-[1.03] active:scale-95 whitespace-nowrap shrink-0 max-w-[170px] sm:max-w-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
-          >
-            <span className="truncate">{t("bookDiagnosticCta")}</span>
-            {isRtl ? (
-              <FiArrowLeft className="size-3.5 sm:size-4 transition-transform duration-300 group-hover:-translate-x-1 shrink-0" />
+        <PopoverGroup as="nav" aria-label={t("mainNav")} className="hidden items-center gap-1 xl:flex xl:justify-self-center">
+          {NAV_LINKS.map((entry) =>
+            entry.type === "mega" ? (
+              <HeaderMegaMenu key={entry.labelKey} labelKey={entry.labelKey} menu={entry.menu} />
             ) : (
-              <FiArrowRight className="size-3.5 sm:size-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
-            )}
-          </Link>
+              <HeaderNavLink key={entry.labelKey} item={entry} />
+            )
+          )}
+        </PopoverGroup>
 
+        <div className="ms-auto flex items-center gap-2 xl:ms-0 xl:justify-self-end">
+          <Button
+            href={HEADER_CTA.href}
+            variant="secondary"
+            size="sm"
+            icon={<FiArrowRight />}
+            flipIconInRtl
+            className="hidden sm:inline-flex"
+          >
+            {t(HEADER_CTA.labelKey)}
+          </Button>
           <button
             type="button"
             onClick={onOpenMobileMenu}
             aria-label={t("openMenu")}
-            className="p-2 sm:p-2.5 rounded-xl border border-edge text-body hover:bg-surface-alt active:scale-95 transition-all duration-200 lg:hidden cursor-pointer shrink-0 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
+            className="grid size-10 cursor-pointer place-items-center rounded-lg border border-edge text-ink-900 transition duration-200 ease-out-brand hover:border-primary/30 hover:bg-surface-alt hover:text-primary active:scale-95 xl:hidden"
           >
-            <FiMenu className="size-5 sm:size-6" />
+            <FiMenu aria-hidden className="size-5" />
           </button>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

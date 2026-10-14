@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { IconType } from "react-icons";
 import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import { Badge } from "@/app/components/shared/Badge";
-import { LinkButton } from "@/app/components/shared/LinkButton";
+import { Button } from "@/app/components/shared/Button";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { cn } from "@/lib/utils";
 
@@ -92,14 +92,15 @@ export function EcosystemCard({
         </ul>
 
         <div className="mt-auto pt-8">
-          <LinkButton
+          <Button
             href={href}
             external={external}
             variant={isPrimary ? "outline" : "secondary"}
-            icon={<FiArrowRight className="size-4 rtl:-scale-x-100" />}
+            icon={<FiArrowRight />}
+            flipIconInRtl
           >
             {ctaLabel}
-          </LinkButton>
+          </Button>
         </div>
       </div>
     </article>

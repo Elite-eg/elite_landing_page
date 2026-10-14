@@ -6,7 +6,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { CommunityGateModal } from "@/app/components/shared/CommunityGateModal";
 import { Container } from "@/app/components/shared/Container";
 import { IdeaCard } from "@/app/components/shared/IdeaCard";
-import { LinkButton } from "@/app/components/shared/LinkButton";
+import { Button } from "@/app/components/shared/Button";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
@@ -32,14 +32,15 @@ export function CommunityIdeasSection() {
             />
           </Reveal>
           <Reveal preset="slideInRight" className="shrink-0">
-            <LinkButton
+            <Button
               href={COMMUNITY_URLS.ideas}
               external
               variant="outline"
-              icon={<FiArrowUpRight className="size-4 rtl:-scale-x-100" />}
+              icon={<FiArrowUpRight />}
+              flipIconInRtl
             >
               {t("viewAll")}
-            </LinkButton>
+            </Button>
           </Reveal>
         </div>
 

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { FiMessageSquare, FiUserPlus } from "react-icons/fi";
 import { Container } from "@/app/components/shared/Container";
-import { LinkButton } from "@/app/components/shared/LinkButton";
+import { Button } from "@/app/components/shared/Button";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
 import { COMMUNITY_URLS, CONTACT_HREF, MEDIA } from "@/lib/constants";
@@ -49,25 +49,25 @@ export function CtaSection() {
                 preset="slideInRight"
                 className="flex shrink-0 flex-col gap-3 sm:flex-row"
               >
-                <LinkButton
+                <Button
                   href={COMMUNITY_URLS.register}
                   external
                   variant="secondary"
                   size="lg"
-                  icon={<FiUserPlus className="size-5" />}
+                  icon={<FiUserPlus />}
                   iconPosition="start"
                 >
                   {t("primary")}
-                </LinkButton>
-                <LinkButton
+                </Button>
+                <Button
                   href={CONTACT_HREF}
                   variant="glass"
                   size="lg"
-                  icon={<FiMessageSquare className="size-5" />}
+                  icon={<FiMessageSquare />}
                   iconPosition="start"
                 >
                   {t("secondary")}
-                </LinkButton>
+                </Button>
               </Reveal>
             </div>
           </div>

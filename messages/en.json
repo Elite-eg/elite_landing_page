@@ -3,19 +3,13 @@
     "home": "Home",
     "solutions": "Solutions",
     "solutionsDropdown": "Solutions",
-    "productsDropdown": "Products & Projects",
+    "productsDropdown": "Products & projects",
     "solutionsItems": {
-      "consulting": "Tech Consulting",
-      "web": "Web Platforms & Apps",
-      "mobile": "Mobile Apps",
-      "erp": "ERP Systems",
-      "ai": "AI & Automation"
-    },
-    "productsItems": {
-      "polyline": "Polyline",
-      "bareeq": "Bareeq X",
-      "amanCar": "Aman Car",
-      "maher": "Maher AI Assistant"
+      "consulting": "Technical consulting",
+      "web": "Web platforms",
+      "mobile": "Mobile apps",
+      "erp": "ERP systems",
+      "ai": "AI & automation"
     },
     "techPlatforms": "Tech platforms",
     "projects": "Projects & products",
@@ -26,16 +20,104 @@
     "contact": "Contact us",
     "login": "Sign in",
     "support": "Tech support",
-    "egypt": "Egypt, EGP",
-    "polyline": "Polyline",
-    "storePricing": "Store & Pricing",
     "bookDiagnosticCta": "Book a free diagnostic session",
     "joinCommunity": "Join the community",
     "mainNav": "Main navigation",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "switchLanguage": "Switch to Arabic",
-    "languageName": "العربية"
+    "languageName": "العربية",
+    "groups": {
+      "albiruni": "Albiruni ERP",
+      "solutions": "Solutions",
+      "learn": "Learning library",
+      "developers": "Developers",
+      "company": "Company"
+    },
+    "albiruniItems": {
+      "platform": "Albiruni platform",
+      "pricing": "Pricing",
+      "addons": "Add-ons store",
+      "trial": "Free 14-day trial"
+    },
+    "learnItems": {
+      "collections": "Collections guide",
+      "eInvoicing": "E-invoicing guide",
+      "videos": "Video tutorials",
+      "knowledgeBase": "Knowledge base",
+      "articles": "Articles"
+    },
+    "developersItems": {
+      "register": "Become a developer",
+      "downloads": "Downloads",
+      "installation": "Installation guide",
+      "apiDocs": "Add-on API docs"
+    },
+    "companyItems": {
+      "about": "About",
+      "ourWork": "Our work",
+      "partners": "Partner program",
+      "agents": "Albiruni agents"
+    },
+    "legalItems": {
+      "privacy": "Privacy policy",
+      "terms": "Terms & conditions",
+      "cookies": "Cookie settings",
+      "sla": "Service level (SLA)",
+      "refund": "Cancellation & refund policy"
+    },
+    "albiruniSystem": "Albiruni ERP",
+    "pricing": "Pricing",
+    "addonsStore": "Add-ons store",
+    "agents": "Our agents",
+    "sectorsItems": {
+      "distribution": "Distribution",
+      "fieldSales": "Field sales",
+      "carService": "Car service centers"
+    },
+    "sectorsDescriptions": {
+      "distribution": "Delivery routes, orders and warehouse",
+      "fieldSales": "Rep visits, collections and custody",
+      "carService": "Bookings, work orders and technicians"
+    },
+    "productsDescriptions": {
+      "albiruni": "Our platform for managing field sales and operations",
+      "pricing": "Plans by sector and number of users",
+      "addons": "Add-ons from Elite Tech and certified developers"
+    },
+    "projectsItems": {
+      "bareeq": "Bareeq X",
+      "amanCar": "Aman Car",
+      "arfa": "ARFA"
+    },
+    "projectsDescriptions": {
+      "bareeq": "Services app · Saudi Arabia",
+      "amanCar": "Car services platform · Makkah & Jeddah",
+      "arfa": "Specialized systems engineering company · Jeddah"
+    },
+    "megaMenu": {
+      "bySector": "By sector",
+      "byService": "By service",
+      "ourProducts": "Our products",
+      "projects": "Projects we're proud of",
+      "allProjects": "All our projects",
+      "solutionsPromo": {
+        "title": "Not sure what you need?",
+        "text": "30 minutes with an operations expert and a developer to pin down the problem, priorities and solution.",
+        "cta": "Book a free session"
+      },
+      "productsPromo": {
+        "title": "Try Albiruni free",
+        "text": "14 days with demo data that looks like your company. No card needed.",
+        "cta": "Start the trial"
+      }
+    },
+    "regionLabel": "Country and currency",
+    "regions": {
+      "EG": "Egypt · EGP",
+      "SA": "Saudi Arabia · SAR"
+    },
+    "utilityNav": "Quick links"
   },
   "booking": {
     "meta": {
@@ -298,18 +380,21 @@
     "close": "Close"
   },
   "footer": {
-    "tagline": "Software solutions for companies, and a community for the people who build them.",
-    "explore": "Explore",
-    "communityTitle": "Community",
-    "contactTitle": "Contact",
-    "ideas": "Ideas bank",
-    "jobs": "Jobs forum",
-    "aboutPlatform": "About the platform",
+    "tagline": "Elite Tech is an Egyptian software company building the platforms, apps and systems that run businesses. Our flagship product is Albiruni ERP.",
     "commercialRegister": "Commercial register",
     "rights": "© {year} {brand}. All rights reserved.",
-    "followUs": "Follow Us",
-    "privacy": "Privacy Policy",
-    "terms": "Terms & Conditions",
+    "navLabel": "Footer navigation",
+    "legalLabel": "Legal",
+    "socialLabel": "Social media",
+    "contactLabel": "Contact details",
+    "app": {
+      "title": "Get the Albiruni app",
+      "appStoreCaption": "Download on the",
+      "appStoreName": "App Store",
+      "googlePlayCaption": "Get it on",
+      "googlePlayName": "Google Play"
+    },
+    "commercialRegisterShort": "CR {number}",
     "newsletter": {
       "title": "Get community updates",
       "description": "New ideas, open roles and events, once a month.",

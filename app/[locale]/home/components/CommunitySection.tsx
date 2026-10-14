@@ -10,7 +10,7 @@ import {
   FiUsers,
 } from "react-icons/fi";
 import { Container } from "@/app/components/shared/Container";
-import { LinkButton } from "@/app/components/shared/LinkButton";
+import { Button } from "@/app/components/shared/Button";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
@@ -120,16 +120,16 @@ export function CommunitySection() {
             </RevealGroup>
 
             <Reveal delay={0.2} preset="slideInRight" className="mt-9">
-              <LinkButton
+              <Button
                 href={COMMUNITY_URLS.register}
                 external
                 variant="secondary"
                 size="lg"
-                icon={<FiUserPlus className="size-5" />}
+                icon={<FiUserPlus />}
                 iconPosition="start"
               >
                 {t("cta")}
-              </LinkButton>
+              </Button>
             </Reveal>
           </Reveal>
         </div>

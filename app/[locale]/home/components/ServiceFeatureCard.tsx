@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { FiArrowRight } from "react-icons/fi";
-import { LinkButton } from "@/app/components/shared/LinkButton";
+import { Button } from "@/app/components/shared/Button";
 import { CONTACT_HREF, MEDIA } from "@/lib/constants";
 
 export interface ServiceFeatureCardProps {
@@ -36,13 +36,14 @@ export function ServiceFeatureCard({
       </h3>
       <p className="mt-3 max-w-sm leading-loose text-white/80">{description}</p>
       <div className="mt-6">
-        <LinkButton
+        <Button
           href={CONTACT_HREF}
           variant="secondary"
-          icon={<FiArrowRight className="size-4 rtl:-scale-x-100" />}
+          icon={<FiArrowRight />}
+          flipIconInRtl
         >
           {ctaLabel}
-        </LinkButton>
+        </Button>
       </div>
     </article>
   );

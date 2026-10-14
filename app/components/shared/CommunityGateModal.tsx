@@ -5,7 +5,6 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/re
 import { FiLogIn, FiStar, FiUserPlus, FiX } from "react-icons/fi";
 import { COMMUNITY_URLS } from "@/lib/constants";
 import { Button } from "./Button";
-import { LinkButton } from "./LinkButton";
 
 export interface CommunityGateModalProps {
   isOpen: boolean;
@@ -48,26 +47,27 @@ export function CommunityGateModal({ isOpen, onClose, message }: CommunityGateMo
           <p className="mt-2 leading-loose text-content">{message ?? t("defaultMessage")}</p>
 
           <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-            <LinkButton
+            <Button
               href={COMMUNITY_URLS.register}
               external
               variant="secondary"
               fullWidth
-              icon={<FiUserPlus className="size-4" />}
+              icon={<FiUserPlus />}
               iconPosition="start"
             >
               {t("join")}
-            </LinkButton>
-            <LinkButton
+            </Button>
+            <Button
               href={COMMUNITY_URLS.login}
               external
               variant="outline"
               fullWidth
-              icon={<FiLogIn className="size-4 rtl:-scale-x-100" />}
+              icon={<FiLogIn />}
+              flipIconInRtl
               iconPosition="start"
             >
               {t("login")}
-            </LinkButton>
+            </Button>
           </div>
 
           <Button variant="ghost" fullWidth onClick={onClose} className="mt-2">

@@ -1,68 +1,38 @@
-"use client";
-
-import { useLocale, useTranslations } from "next-intl";
-import {
-  COMPANY_INFO,
-  COMPANY_NAV_ITEMS,
-  PRODUCTS_NAV_ITEMS,
-  SOCIAL_LINKS,
-  SOLUTIONS_NAV_ITEMS,
-  STORE_PRICING_HREF,
-} from "@/lib/constants";
+import { useTranslations } from "next-intl";
+import { FOOTER_NAV_GROUPS } from "@/lib/constants";
+import { Container } from "../Container";
+import { Reveal } from "../Reveal";
+import { RevealGroup } from "../RevealGroup";
+import { FooterBottomBar } from "./FooterBottomBar";
 import { FooterBrandColumn } from "./FooterBrandColumn";
 import { FooterNavColumn } from "./FooterNavColumn";
-import { FooterBottomBar } from "./FooterBottomBar";
 
 export function Footer() {
   const t = useTranslations("footer");
-  const tNav = useTranslations("nav");
-  const locale = useLocale();
-  const isRtl = locale === "ar";
-
-  const products = [
-    ...PRODUCTS_NAV_ITEMS.map((item) => ({
-      label: tNav(`productsItems.${item.key}` as Parameters<typeof tNav>[0]),
-      href: item.href,
-    })),
-    { label: tNav("storePricing"), href: STORE_PRICING_HREF },
-  ];
-
-  const solutions = SOLUTIONS_NAV_ITEMS.map((item) => ({
-    label: tNav(`solutionsItems.${item.key}` as Parameters<typeof tNav>[0]),
-    href: item.href,
-  }));
-
-  const company = COMPANY_NAV_ITEMS.map((item) => ({
-    label: tNav(item.key as Parameters<typeof tNav>[0]),
-    href: item.href,
-    external: "external" in item ? item.external : undefined,
-  }));
-
-  const social = SOCIAL_LINKS;
 
   return (
-    <footer className="bg-surface-dark text-content-dark border-t border-edge/20">
-      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
-          <FooterBrandColumn
-            tagline={t("tagline")}
-            address={COMPANY_INFO.address[isRtl ? "ar" : "en"]}
-          />
+    <footer className="bg-ink-900 text-content-dark">
+      <Container className="py-14 lg:py-16">
+        <RevealGroup className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+          <Reveal inGroup className="lg:col-span-4">
+            <FooterBrandColumn />
+          </Reveal>
 
-          <FooterNavColumn title={tNav("productsDropdown")} items={products} />
-          <FooterNavColumn title={tNav("solutionsDropdown")} items={solutions} />
-          <FooterNavColumn title={tNav("about")} items={company} />
-          <FooterNavColumn title={t("followUs")} items={social} />
-        </div>
+          <nav aria-label={t("navLabel")} className="lg:col-span-8">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+              {FOOTER_NAV_GROUPS.map((group) => (
+                <Reveal key={group.key} inGroup>
+                  <FooterNavColumn group={group} />
+                </Reveal>
+              ))}
+            </div>
+          </nav>
+        </RevealGroup>
 
-        <FooterBottomBar
-          rightsText={t("rights", {
-            year: new Date().getFullYear(),
-            brand: COMPANY_INFO.brandName[isRtl ? "ar" : "en"],
-          })}
-          commercialRegister={COMPANY_INFO.commercialRegister}
-        />
-      </div>
+        <Reveal preset="fadeIn" className="mt-12">
+          <FooterBottomBar />
+        </Reveal>
+      </Container>
     </footer>
   );
 }

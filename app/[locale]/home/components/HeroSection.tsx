@@ -20,7 +20,7 @@ import {
   FiUsers,
 } from "react-icons/fi";
 import { Container } from "@/app/components/shared/Container";
-import { LinkButton } from "@/app/components/shared/LinkButton";
+import { Button } from "@/app/components/shared/Button";
 import { COMMUNITY_URLS, MEDIA } from "@/lib/constants";
 import {
   fadeInUp,
@@ -147,24 +147,25 @@ export function HeroSection() {
               variants={fadeInUp}
               className="mt-9 flex flex-col gap-3 sm:flex-row"
             >
-              <LinkButton
+              <Button
                 href="/solutions"
                 variant="secondary"
                 size="lg"
-                icon={<FiArrowRight className="size-5 rtl:-scale-x-100" />}
+                icon={<FiArrowRight />}
+                flipIconInRtl
               >
                 {t("primaryCta")}
-              </LinkButton>
-              <LinkButton
+              </Button>
+              <Button
                 href={COMMUNITY_URLS.register}
                 external
                 variant="glass"
                 size="lg"
-                icon={<FiUsers className="size-5" />}
+                icon={<FiUsers />}
                 iconPosition="start"
               >
                 {t("secondaryCta")}
-              </LinkButton>
+              </Button>
             </motion.div>
 
             {/* Capability chips (mobile / tablet; desktop shows them in the floating card) */}

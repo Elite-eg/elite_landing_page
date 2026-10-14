@@ -11,12 +11,6 @@
       "erp": "أنظمة ERP",
       "ai": "الذكاء الاصطناعي والأتمتة"
     },
-    "productsItems": {
-      "polyline": "Polyline",
-      "bareeq": "Bareeq X",
-      "amanCar": "Aman Car",
-      "maher": "ماهر · المساعد الذكي"
-    },
     "techPlatforms": "القدرات التقنية",
     "projects": "مشاريعنا ومنتجاتنا",
     "careers": "الوظائف",
@@ -26,16 +20,104 @@
     "contact": "تواصل معنا",
     "login": "تسجيل الدخول",
     "support": "الدعم الفني",
-    "egypt": "مصر ، ج.م",
-    "polyline": "Polyline",
-    "storePricing": "المتجر والأسعار",
     "bookDiagnosticCta": "احجز جلسة تشخيص مجانية",
     "joinCommunity": "انضم للمجتمع",
     "mainNav": "القائمة الرئيسية",
     "openMenu": "فتح القائمة",
     "closeMenu": "إغلاق القائمة",
     "switchLanguage": "Switch to English",
-    "languageName": "English"
+    "languageName": "English",
+    "groups": {
+      "albiruni": "البيروني",
+      "solutions": "الحلول",
+      "learn": "المكتبة التعليمية",
+      "developers": "المطورون",
+      "company": "الشركة"
+    },
+    "albiruniItems": {
+      "platform": "منصة البيروني",
+      "pricing": "الأسعار",
+      "addons": "متجر الإضافات",
+      "trial": "جرّب مجاناً 14 يوماً"
+    },
+    "learnItems": {
+      "collections": "دليل تحصيل المناديب",
+      "eInvoicing": "دليل الفوترة الإلكترونية",
+      "videos": "شروحات الفيديو",
+      "knowledgeBase": "قاعدة المعرفة",
+      "articles": "المقالات"
+    },
+    "developersItems": {
+      "register": "سجّل كمطوّر",
+      "downloads": "التحميل",
+      "installation": "دليل التثبيت",
+      "apiDocs": "توثيق واجهة الإضافات"
+    },
+    "companyItems": {
+      "about": "عن إيليت تك",
+      "ourWork": "أعمالنا",
+      "partners": "برنامج الشركاء",
+      "agents": "وكلاء البيروني"
+    },
+    "legalItems": {
+      "privacy": "سياسة الخصوصية",
+      "terms": "الشروط والأحكام",
+      "cookies": "إعدادات الكوكيز",
+      "sla": "مستوى الخدمة (SLA)",
+      "refund": "سياسة الإلغاء والاسترجاع"
+    },
+    "albiruniSystem": "نظام البيروني",
+    "pricing": "الأسعار",
+    "addonsStore": "متجر الإضافات",
+    "agents": "وكلاءنا",
+    "sectorsItems": {
+      "distribution": "التوزيع",
+      "fieldSales": "المبيعات الميدانية",
+      "carService": "مراكز خدمة السيارات"
+    },
+    "sectorsDescriptions": {
+      "distribution": "مسارات التوصيل والطلبيات والمستودع",
+      "fieldSales": "زيارات المناديب والتحصيل والعهد",
+      "carService": "الحجوزات وأوامر العمل والفنيين"
+    },
+    "productsDescriptions": {
+      "albiruni": "منصتنا لإدارة المبيعات الميدانية والعمليات",
+      "pricing": "باقات حسب قطاعك وعدد المستخدمين",
+      "addons": "إضافات من إيليت تك ومطورين معتمدين"
+    },
+    "projectsItems": {
+      "bareeq": "Bareeq X",
+      "amanCar": "Aman Car",
+      "arfa": "ARFA · عرفة"
+    },
+    "projectsDescriptions": {
+      "bareeq": "تطبيق خدمات · السعودية",
+      "amanCar": "منصة خدمات سيارات · مكة وجدة",
+      "arfa": "شركة هندسية للأنظمة المتخصصة · جدة"
+    },
+    "megaMenu": {
+      "bySector": "حسب القطاع",
+      "byService": "حسب الخدمة",
+      "ourProducts": "منتجاتنا",
+      "projects": "مشاريع نفخر بها",
+      "allProjects": "كل مشاريعنا",
+      "solutionsPromo": {
+        "title": "لست متأكداً مما تحتاجه؟",
+        "text": "30 دقيقة مع خبير تشغيل ومطوّر نحدد فيها المشكلة والأولويات والحل.",
+        "cta": "احجز جلسة مجانية"
+      },
+      "productsPromo": {
+        "title": "جرّب البيروني مجاناً",
+        "text": "14 يوماً ببيانات تجريبية تشبه شركتك بدون بطاقة.",
+        "cta": "ابدأ التجربة"
+      }
+    },
+    "regionLabel": "الدولة والعملة",
+    "regions": {
+      "EG": "مصر · ج.م",
+      "SA": "السعودية · ر.س"
+    },
+    "utilityNav": "روابط سريعة"
   },
   "booking": {
     "meta": {
@@ -298,18 +380,21 @@
     "close": "إغلاق"
   },
   "footer": {
-    "tagline": "حلول برمجية للشركات، ومجتمع لمن يبنونها.",
-    "explore": "استكشف",
-    "communityTitle": "المجتمع",
-    "contactTitle": "تواصل معنا",
-    "ideas": "بنك الأفكار",
-    "jobs": "منتدى التوظيف",
-    "aboutPlatform": "عن المنصة",
+    "tagline": "شركة برمجيات مصرية ناشئة، نخدم الشركات في مصر والخليج.",
     "commercialRegister": "السجل التجاري",
     "rights": "© {year} {brand}. جميع الحقوق محفوظة.",
-    "followUs": "تابعنا",
-    "privacy": "سياسة الخصوصية",
-    "terms": "الشروط والأحكام",
+    "navLabel": "روابط التذييل",
+    "legalLabel": "الروابط القانونية",
+    "socialLabel": "حساباتنا على مواقع التواصل",
+    "contactLabel": "بيانات التواصل",
+    "app": {
+      "title": "حمّل تطبيق البيروني",
+      "appStoreCaption": "حمّله من",
+      "appStoreName": "App Store",
+      "googlePlayCaption": "متوفر على",
+      "googlePlayName": "Google Play"
+    },
+    "commercialRegisterShort": "س.ت {number}",
     "newsletter": {
       "title": "تابع أخبار المجتمع",
       "description": "أفكار جديدة ووظائف متاحة وفعاليات، مرة واحدة شهرياً.",
