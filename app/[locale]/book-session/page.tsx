@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BookingHero } from "@/app/[locale]/book-session/components/BookingHero";
-import { WhatHappensNextSection } from "@/app/[locale]/book-session/components/WhatHappensNextSection";
+import { NextStepsSection } from "@/app/[locale]/book-session/components/NextStepsSection";
 import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
 
 interface BookSessionPageProps {
@@ -28,7 +28,7 @@ export default async function BookSessionPage() {
   return (
     <>
       <BookingHero />
-      <WhatHappensNextSection />
+      <NextStepsSection />
     </>
   );
 }

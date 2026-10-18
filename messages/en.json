@@ -125,8 +125,8 @@
       "description": "We sit down with you to understand how your company actually operates, identify where time and money are lost, and determine the right tech solution."
     },
     "badge": "Free · 30 minutes · No commitment",
-    "title": "Book a diagnostic session with an expert & developer.",
-    "subtitle": "We sit down with you to understand how your company actually operates, identify where time and money are lost, and determine the right tech solution.",
+    "title": "A free diagnostic session with an expert & developer.",
+    "subtitle": "30 minutes to learn how your company works and agree together on improvement priorities and the right technical solution.",
     "whatYouGetTitle": "What do you get from the session?",
     "outcomes": {
       "one": {
@@ -139,12 +139,14 @@
       },
       "three": {
         "title": "Written requirements list",
-        "subtitle": "Base your decisions on it, with us or anyone else"
+        "subtitle": "Base your decision on it, with us or anyone else"
       }
     },
     "attendeeCard": {
       "title": "Attending with you: Operations Expert + Developer",
-      "subtitle": "Tailored to your sector: Finance, Procurement, or Field Sales"
+      "subtitle": "Tailored to your sector: Finance, Procurement, or Field Sales",
+      "expertInitial": "E",
+      "developerInitial": "D"
     },
     "steps": {
       "date": "1 · Date",
@@ -156,8 +158,7 @@
       "whatsapp": "WhatsApp",
       "office": "Office Visit (Cairo)"
     },
-    "availableTimesLabel": "Available Slots - Monday 12 October · Cairo Time",
-    "availableSlotsHeader": "Available Slots - {date} · Cairo Time",
+    "availableSlotsHeader": "Available slots · {date} · Cairo time",
     "summary": {
       "date": "Date",
       "time": "Time",
@@ -201,7 +202,32 @@
         "title": "Session & Action Plan",
         "desc": "Within 2 days after the session, you receive the full requirements list and next steps."
       }
-    }
+    },
+    "stepsLabel": "Booking steps",
+    "meetingTypesLabel": "Meeting type",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "weekdays": {
+      "short": {
+        "sat": "Sat",
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri"
+      },
+      "long": {
+        "sat": "Saturday",
+        "sun": "Sunday",
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday"
+      }
+    },
+    "slotDate": "{weekday}, {month} {day}"
   },
   "home": {
     "meta": {

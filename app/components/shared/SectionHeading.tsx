@@ -10,8 +10,21 @@ export interface SectionHeadingProps {
   /** "dark" renders on navy backgrounds, "brand" on orange CTA backgrounds (white text). */
   tone?: "light" | "dark" | "brand";
   as?: "h1" | "h2";
+  /** "compact" is the smaller 32px title used under busy heroes (e.g. book-session). */
+  size?: "default" | "compact";
   className?: string;
 }
+
+const SIZE_CLASSES: Record<NonNullable<SectionHeadingProps["size"]>, { wrapper: string; heading: string }> = {
+  default: {
+    wrapper: "mb-12 sm:mb-14",
+    heading: "text-3xl leading-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]",
+  },
+  compact: {
+    wrapper: "mb-7",
+    heading: "text-2xl leading-snug sm:text-[2rem]",
+  },
+};
 
 /** The only way to render section titles (elite-rules.txt §7). */
 export function SectionHeading({
@@ -21,6 +34,7 @@ export function SectionHeading({
   align = "center",
   tone = "light",
   as: Heading = "h2",
+  size = "default",
   className,
 }: SectionHeadingProps) {
   const isDark = tone !== "light";
@@ -28,7 +42,8 @@ export function SectionHeading({
   return (
     <Reveal
       className={cn(
-        "mb-12 max-w-2xl sm:mb-14",
+        "max-w-2xl",
+        SIZE_CLASSES[size].wrapper,
         align === "center" ? "mx-auto text-center" : "text-start",
         className
       )}
@@ -41,7 +56,8 @@ export function SectionHeading({
 
       <Heading
         className={cn(
-          "text-balance text-3xl font-bold leading-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]",
+          "text-balance font-bold",
+          SIZE_CLASSES[size].heading,
           isDark ? "text-white" : "text-primary"
         )}
       >

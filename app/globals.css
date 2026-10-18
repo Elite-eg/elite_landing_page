@@ -21,6 +21,8 @@
     /* ── Palette (v4) ─────────────────────────────────────────────── */
     --navy-50: 243 246 250;   /* #F3F6FA */
     --navy-100: 231 237 245;  /* #E7EDF5 */
+    --navy-200: 200 213 230;  /* #C8D5E6 · unavailable dates */
+    --navy-300: 159 181 209;  /* #9FB5D1 · muted text on navy */
     --navy-500: 58 106 163;   /* #3A6AA3 */
     --navy-700: 24 64 104;    /* #184068 · Brand */
     --navy-900: 10 33 64;     /* #0A2140 */
@@ -30,6 +32,8 @@
     --orange-500: 240 120 16; /* #F07810 · CTA */
     --orange-600: 208 98 8;   /* #D06208 · CTA hover/pressed (derived) */
 
+    --ink-400: 132 148 170;   /* #8494AA · hints, weekday labels */
+    --ink-700: 47 64 88;      /* #2F4058 · chip labels */
     --ink-900: 12 26 44;      /* #0C1A2C */
     --albiruni-teal: 14 77 87; /* #0E4D57 */
 

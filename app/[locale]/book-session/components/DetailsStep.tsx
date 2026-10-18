@@ -21,21 +21,21 @@ export interface BookingFormData {
   notes: string;
 }
 
-export interface BookingDetailsFormProps {
-  formData: BookingFormData;
+export interface DetailsStepProps {
+  data: BookingFormData;
   isRtl: boolean;
-  onFormChange: (data: BookingFormData) => void;
+  onChange: (data: BookingFormData) => void;
   onBack: () => void;
   onSubmit: () => void;
 }
 
-export function BookingDetailsForm({
-  formData,
+export function DetailsStep({
+  data,
   isRtl,
-  onFormChange,
+  onChange,
   onBack,
   onSubmit,
-}: BookingDetailsFormProps) {
+}: DetailsStepProps) {
   const t = useTranslations("booking");
 
   return (
@@ -55,8 +55,8 @@ export function BookingDetailsForm({
         label={t("form.name")}
         type="text"
         required
-        value={formData.name}
-        onChange={(e) => onFormChange({ ...formData, name: e.target.value })}
+        value={data.name}
+        onChange={(e) => onChange({ ...data, name: e.target.value })}
         placeholder={t("form.namePlaceholder")}
         icon={<FiUser className="size-4" />}
       />
@@ -65,8 +65,8 @@ export function BookingDetailsForm({
         label={t("form.phone")}
         type="tel"
         required
-        value={formData.phone}
-        onChange={(e) => onFormChange({ ...formData, phone: e.target.value })}
+        value={data.phone}
+        onChange={(e) => onChange({ ...data, phone: e.target.value })}
         placeholder={t("form.phonePlaceholder")}
         icon={<FiPhone className="size-4" />}
       />
@@ -75,8 +75,8 @@ export function BookingDetailsForm({
         label={t("form.email")}
         type="email"
         required
-        value={formData.email}
-        onChange={(e) => onFormChange({ ...formData, email: e.target.value })}
+        value={data.email}
+        onChange={(e) => onChange({ ...data, email: e.target.value })}
         placeholder={t("form.emailPlaceholder")}
         icon={<FiMail className="size-4" />}
       />
@@ -84,8 +84,8 @@ export function BookingDetailsForm({
       <InputField
         label={t("form.company")}
         type="text"
-        value={formData.company}
-        onChange={(e) => onFormChange({ ...formData, company: e.target.value })}
+        value={data.company}
+        onChange={(e) => onChange({ ...data, company: e.target.value })}
         placeholder={t("form.companyPlaceholder")}
         icon={<FiBriefcase className="size-4" />}
       />
@@ -94,8 +94,8 @@ export function BookingDetailsForm({
         as="textarea"
         rows={3}
         label={t("form.notes")}
-        value={formData.notes}
-        onChange={(e) => onFormChange({ ...formData, notes: e.target.value })}
+        value={data.notes}
+        onChange={(e) => onChange({ ...data, notes: e.target.value })}
         placeholder={t("form.notesPlaceholder")}
         icon={<FiMessageSquare className="size-4" />}
       />
