@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { LinkButton } from "@/components/shared/LinkButton";
+import { FiArrowRight } from "react-icons/fi";
+import { Button } from "@/app/components/shared/Button";
 import { CONTACT_HREF, MEDIA } from "@/lib/constants";
 
 export interface ServiceFeatureCardProps {
@@ -11,7 +11,12 @@ export interface ServiceFeatureCardProps {
 }
 
 /** Large photo tile that anchors the services bento grid. */
-export function ServiceFeatureCard({ title, description, ctaLabel, imageAlt }: ServiceFeatureCardProps) {
+export function ServiceFeatureCard({
+  title,
+  description,
+  ctaLabel,
+  imageAlt,
+}: ServiceFeatureCardProps) {
   return (
     <article className="group relative isolate flex h-full min-h-[26rem] flex-col justify-end overflow-hidden rounded-3xl bg-primary-deep p-7 shadow-lift sm:p-8">
       <Image
@@ -26,12 +31,19 @@ export function ServiceFeatureCard({ title, description, ctaLabel, imageAlt }: S
         aria-hidden="true"
       />
 
-      <h3 className="text-2xl font-bold leading-snug text-white sm:text-3xl">{title}</h3>
+      <h3 className="text-2xl font-bold leading-snug text-white sm:text-3xl">
+        {title}
+      </h3>
       <p className="mt-3 max-w-sm leading-loose text-white/80">{description}</p>
       <div className="mt-6">
-        <LinkButton href={CONTACT_HREF} variant="secondary" icon={<ArrowRight className="size-4 rtl:-scale-x-100" />}>
+        <Button
+          href={CONTACT_HREF}
+          variant="secondary"
+          icon={<FiArrowRight />}
+          flipIconInRtl
+        >
           {ctaLabel}
-        </LinkButton>
+        </Button>
       </div>
     </article>
   );

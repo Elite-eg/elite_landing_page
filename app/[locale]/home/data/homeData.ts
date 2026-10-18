@@ -1,5 +1,5 @@
-import type { LucideIcon } from "lucide-react";
-import { Building2, BrainCircuit, ChartColumn, CodeXml, Globe, PenTool, Smartphone } from "lucide-react";
+import type { IconType } from "react-icons";
+import { FiBarChart2, FiBriefcase, FiCode, FiCpu, FiFeather, FiGlobe, FiSmartphone } from "react-icons/fi";
 
 /** Keys map to `home.services.items.<key>` in messages. Services from elitemsr.com/our-services. */
 export type ServiceKey =
@@ -13,17 +13,17 @@ export type ServiceKey =
 
 export interface ServiceItem {
   key: ServiceKey;
-  icon: LucideIcon;
+  icon: IconType;
 }
 
 export const HOME_SERVICES: ServiceItem[] = [
-  { key: "customSoftware", icon: CodeXml },
-  { key: "webPlatforms", icon: Globe },
-  { key: "mobileApps", icon: Smartphone },
-  { key: "erpSystems", icon: Building2 },
-  { key: "aiAutomation", icon: BrainCircuit },
-  { key: "uiux", icon: PenTool },
-  { key: "dataBi", icon: ChartColumn },
+  { key: "customSoftware", icon: FiCode },
+  { key: "webPlatforms", icon: FiGlobe },
+  { key: "mobileApps", icon: FiSmartphone },
+  { key: "erpSystems", icon: FiBriefcase },
+  { key: "aiAutomation", icon: FiCpu },
+  { key: "uiux", icon: FiFeather },
+  { key: "dataBi", icon: FiBarChart2 },
 ];
 
 /** Keys map to `home.ideas.items.<key>`. Ideas published on community.elitemsr.com/ideas. */

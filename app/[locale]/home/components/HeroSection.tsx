@@ -3,18 +3,40 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, BrainCircuit, Building2, ChevronDown, Globe, Lightbulb, Smartphone, Users } from "lucide-react";
-import { Container } from "@/components/shared/Container";
-import { LinkButton } from "@/components/shared/LinkButton";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import {
+  FiArrowRight,
+  FiBriefcase,
+  FiChevronDown,
+  FiCpu,
+  FiGlobe,
+  FiSmartphone,
+  FiSun,
+  FiUsers,
+} from "react-icons/fi";
+import { Container } from "@/app/components/shared/Container";
+import { Button } from "@/app/components/shared/Button";
 import { COMMUNITY_URLS, MEDIA } from "@/lib/constants";
-import { fadeInUp, floatLoop, floatLoopOffset, heroStagger, heroTextReveal, slideInFromEnd, withDelay } from "@/lib/animations";
+import {
+  fadeInUp,
+  floatLoop,
+  floatLoopOffset,
+  heroStagger,
+  heroTextReveal,
+  slideInFromEnd,
+  withDelay,
+} from "@/lib/animations";
 
 const CAPABILITIES = [
-  { key: "web", icon: Globe },
-  { key: "mobile", icon: Smartphone },
-  { key: "erp", icon: Building2 },
-  { key: "ai", icon: BrainCircuit },
+  { key: "web", icon: FiGlobe },
+  { key: "mobile", icon: FiSmartphone },
+  { key: "erp", icon: FiBriefcase },
+  { key: "ai", icon: FiCpu },
 ] as const;
 
 export function HeroSection() {
@@ -24,7 +46,10 @@ export function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
 
   // Subtle parallax: media drifts down and content fades as the hero scrolls away.
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
   const mediaY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
@@ -32,7 +57,7 @@ export function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-primary-deep pb-24 pt-[calc(var(--header-height)+3rem)]"
+      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-primary-deep pb-24 pt-8 sm:pt-12 lg:pt-16"
     >
       {/* Background media: poster image always, video on md+ (skipped for reduced motion) */}
       <motion.div
@@ -40,7 +65,14 @@ export function HeroSection() {
         style={prefersReducedMotion ? undefined : { y: mediaY }}
         aria-hidden="true"
       >
-        <Image src={MEDIA.heroPoster} alt="" fill priority sizes="100vw" className="object-cover" />
+        <Image
+          src={MEDIA.heroPoster}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
         <video
           className="absolute inset-0 hidden size-full object-cover md:block motion-reduce:hidden"
           autoPlay
@@ -53,24 +85,42 @@ export function HeroSection() {
           <source src={MEDIA.heroVideo} type="video/mp4" />
         </video>
       </motion.div>
-      <div className="absolute inset-0 -z-10 bg-primary-deep/70" aria-hidden="true" />
+      <div
+        className="absolute inset-0 -z-10 bg-primary-deep/70"
+        aria-hidden="true"
+      />
       <div
         className="absolute inset-0 -z-10 bg-gradient-to-t from-primary-deep via-primary-deep/20 to-primary-deep/50"
         aria-hidden="true"
       />
-      <div className="absolute -top-40 start-[-10%] -z-10 size-[34rem] rounded-full bg-accent/25 blur-3xl" aria-hidden="true" />
-      <div className="absolute -bottom-48 end-[-8%] -z-10 size-[30rem] rounded-full bg-secondary/25 blur-3xl" aria-hidden="true" />
+      <div
+        className="absolute -top-40 start-[-10%] -z-10 size-[34rem] rounded-full bg-accent/25 blur-3xl animate-pulse"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute -bottom-48 end-[-8%] -z-10 size-[30rem] rounded-full bg-secondary/25 blur-3xl animate-pulse"
+        aria-hidden="true"
+      />
 
       <Container>
         <motion.div
           className="grid items-center gap-12 lg:grid-cols-12"
-          style={prefersReducedMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+          style={
+            prefersReducedMotion
+              ? undefined
+              : { y: contentY, opacity: contentOpacity }
+          }
         >
           {/* Copy */}
-          <motion.div className="lg:col-span-7" variants={heroStagger} initial="hidden" animate="visible">
+          <motion.div
+            className="lg:col-span-7"
+            variants={heroStagger}
+            initial="hidden"
+            animate="visible"
+          >
             <motion.p
               variants={fadeInUp}
-              className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-md"
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-md shadow-sm transition-all hover:bg-white/15"
             >
               <span className="relative flex size-2.5" aria-hidden="true">
                 <span className="absolute inline-flex size-full rounded-full bg-secondary opacity-75 motion-safe:animate-ping" />
@@ -86,40 +136,53 @@ export function HeroSection() {
               {t("title")}
             </motion.h1>
 
-            <motion.p variants={fadeInUp} className="mt-6 max-w-prose text-lg leading-loose text-white/80">
+            <motion.p
+              variants={fadeInUp}
+              className="mt-6 max-w-prose text-lg leading-loose text-white/80"
+            >
               {t("subtitle")}
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <LinkButton
+            <motion.div
+              variants={fadeInUp}
+              className="mt-9 flex flex-col gap-3 sm:flex-row"
+            >
+              <Button
                 href="/solutions"
                 variant="secondary"
                 size="lg"
-                icon={<ArrowRight className="size-5 rtl:-scale-x-100" />}
+                icon={<FiArrowRight />}
+                flipIconInRtl
               >
                 {t("primaryCta")}
-              </LinkButton>
-              <LinkButton
+              </Button>
+              <Button
                 href={COMMUNITY_URLS.register}
                 external
                 variant="glass"
                 size="lg"
-                icon={<Users className="size-5" />}
+                icon={<FiUsers />}
                 iconPosition="start"
               >
                 {t("secondaryCta")}
-              </LinkButton>
+              </Button>
             </motion.div>
 
             {/* Capability chips (mobile / tablet; desktop shows them in the floating card) */}
-            <motion.ul variants={fadeInUp} className="mt-10 flex flex-wrap gap-2 lg:hidden">
+            <motion.ul
+              variants={fadeInUp}
+              className="mt-10 flex flex-wrap gap-2 lg:hidden max-w-full overflow-hidden"
+            >
               {CAPABILITIES.map(({ key, icon: Icon }) => (
                 <li
                   key={key}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-2 text-sm text-white/90 backdrop-blur-md"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-2 text-xs sm:text-sm text-white/90 backdrop-blur-md transition-all hover:bg-white/20 max-w-full"
                 >
-                  <Icon className="size-4 text-secondary" aria-hidden="true" />
-                  {t(`chips.${key}`)}
+                  <Icon
+                    className="size-4 text-secondary shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span className="truncate">{t(`chips.${key}`)}</span>
                 </li>
               ))}
             </motion.ul>
@@ -136,15 +199,20 @@ export function HeroSection() {
             <motion.div
               variants={floatLoop}
               animate="animate"
-              className="relative z-0 w-80 self-end rounded-3xl border border-white/15 bg-primary-deep/80 p-6 text-white shadow-lift will-change-transform"
+              className="relative z-0 w-80 self-end rounded-3xl border border-white/15 bg-primary-deep/80 p-6 text-white shadow-lift backdrop-blur-md will-change-transform transition-all duration-300 hover:border-white/30"
             >
               <ul className="space-y-3">
                 {CAPABILITIES.map(({ key, icon: Icon }) => (
-                  <li key={key} className="flex items-center gap-3 rounded-2xl bg-white/10 p-3">
+                  <li
+                    key={key}
+                    className="flex items-center gap-3 rounded-2xl bg-white/10 p-3 transition-all duration-300 hover:bg-white/20 hover:scale-[1.02]"
+                  >
                     <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white text-primary shadow-sm">
                       <Icon className="size-5" aria-hidden="true" />
                     </span>
-                    <span className="font-semibold leading-snug">{t(`chips.${key}`)}</span>
+                    <span className="font-semibold leading-snug">
+                      {t(`chips.${key}`)}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -156,18 +224,23 @@ export function HeroSection() {
               rel="noopener noreferrer"
               variants={floatLoopOffset}
               animate="animate"
-              className="group relative z-10 -mt-4 w-80 self-start rounded-3xl bg-surface p-5 shadow-lift transition-shadow duration-300 will-change-transform hover:shadow-glow"
+              className="group relative z-10 -mt-4 w-80 self-start rounded-3xl bg-surface p-5 shadow-lift transition-all duration-300 will-change-transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/20"
             >
               <span className="flex items-center gap-2 text-sm font-bold text-secondary-dark">
-                <span className="grid size-8 place-items-center rounded-lg bg-secondary/15">
-                  <Lightbulb className="size-4" aria-hidden="true" />
+                <span className="grid size-8 place-items-center rounded-lg bg-secondary/15 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+                  <FiSun className="size-4" aria-hidden="true" />
                 </span>
                 {t("ideaCard.label")}
               </span>
-              <span className="mt-3 block font-bold leading-snug text-primary">{t("ideaCard.title")}</span>
+              <span className="mt-3 block font-bold leading-snug text-primary transition-colors duration-200 group-hover:text-secondary-dark">
+                {t("ideaCard.title")}
+              </span>
               <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-content group-hover:text-primary">
                 {t("ideaCard.cta")}
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" aria-hidden="true" />
+                <FiArrowRight
+                  className="size-4 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
+                  aria-hidden="true"
+                />
               </span>
             </motion.a>
           </motion.div>
@@ -184,7 +257,7 @@ export function HeroSection() {
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           aria-hidden="true"
         >
-          <ChevronDown className="size-5" />
+          <FiChevronDown className="size-5" />
         </motion.span>
       </a>
     </section>

@@ -3,35 +3,57 @@
 @tailwind utilities;
 
 /*
- * Design tokens (light theme).
- * Values extracted from community.elitemsr.com (the only source site exposing its CSS):
- *   primary   #1A365D  (btn-primary, section titles)
- *   primary-dark #102A43 (btn-primary:hover)
- *   primary-deep #0A192F (hero gradient start)
- *   secondary #F6993F  (btn-secondary, "Community" wordmark)
- *   secondary-dark #DD6B20 (btn-secondary:hover)
- *   accent    #0EA5E9  (sky "Contact us" button)
- *   surface-alt #F7FAFC, surface-muted #EDF2F7, surface-info #EBF4FF
- *   body #2D3748, content #4A5568, edge #E2E8F0
- * Stored as RGB channels so Tailwind opacity modifiers (bg-primary/10) work.
+ * Elite Tech · Site identity v4 — design tokens (light theme).
+ *
+ * Colour rules:
+ *   - Original Elite navy (#184068, navy-700) is the base brand colour.
+ *   - Orange (#F07810, orange-500) is reserved for the PRIMARY call to action only.
+ *   - Albiruni teal (#0E4D57) is used only for the Albiruni product (temporary name),
+ *     matching the mobile app.
+ *
+ * Fonts: Alexandria for headings, Readex Pro for body text, Poppins for the fixed
+ * "Elite Tech" wordmark (loaded with next/font in app/[locale]/layout.tsx).
+ *
+ * Colours are stored as RGB channels so Tailwind opacity modifiers (bg-primary/10) work.
  */
 @layer base {
   :root {
-    --primary: 26 54 93;
-    --primary-dark: 16 42 67;
-    --primary-deep: 10 25 47;
-    --secondary: 246 153 63;
-    --secondary-dark: 221 107 32;
-    --accent: 14 165 233;
+    /* ── Palette (v4) ─────────────────────────────────────────────── */
+    --navy-50: 243 246 250;   /* #F3F6FA */
+    --navy-100: 231 237 245;  /* #E7EDF5 */
+    --navy-500: 58 106 163;   /* #3A6AA3 */
+    --navy-700: 24 64 104;    /* #184068 · Brand */
+    --navy-900: 10 33 64;     /* #0A2140 */
+    --navy-950: 6 20 42;      /* #06142A */
+
+    --orange-50: 255 245 235; /* #FFF5EB */
+    --orange-500: 240 120 16; /* #F07810 · CTA */
+    --orange-600: 208 98 8;   /* #D06208 · CTA hover/pressed (derived) */
+
+    --ink-900: 12 26 44;      /* #0C1A2C */
+    --albiruni-teal: 14 77 87; /* #0E4D57 */
+
+    /* ── Semantic aliases (names used across the codebase) ───────── */
+    --primary: var(--navy-700);
+    --primary-dark: var(--navy-900);
+    --primary-deep: var(--navy-950);
+    --secondary: var(--orange-500);
+    --secondary-dark: var(--orange-600);
+    --accent: var(--navy-500);
 
     --surface: 255 255 255;
-    --surface-alt: 247 250 252;
-    --surface-muted: 237 242 247;
-    --surface-info: 235 244 255;
+    --surface-alt: var(--navy-50);
+    --surface-muted: var(--navy-100);
+    --surface-info: var(--navy-100);
+    --surface-warm: var(--orange-50);
+    --surface-dark: var(--navy-950);
+    --surface-navy: var(--navy-900);
 
-    --body: 45 55 72;
-    --content: 74 85 104;
-    --edge: 226 232 240;
+    --body: var(--ink-900);
+    --body-dark: var(--navy-50);
+    --content: 72 88 112;      /* #485870 — secondary text on light */
+    --content-dark: 190 204 222; /* #BECCDE — secondary text on navy */
+    --edge: 221 229 239;       /* #DDE5EF */
 
     --success: 22 163 74;
     --warning: 217 119 6;
@@ -40,17 +62,70 @@
     --whatsapp: 37 211 102;
     --whatsapp-dark: 32 189 90;
 
+    /* ── Typography ───────────────────────────────────────────────── */
+    --font-heading: var(--font-alexandria), var(--font-readex), system-ui, sans-serif;
+    --font-body: var(--font-readex), system-ui, sans-serif;
+    --font-logo: var(--font-poppins), system-ui, sans-serif;
+
+    /* Spec sizes are desktop values; display/h2/h3 scale down fluidly on small screens. */
+    --text-display: clamp(2.25rem, 1.45rem + 3.4vw, 3.5rem); /* 36 → 56px */
+    --text-h2: clamp(1.75rem, 1.3rem + 1.9vw, 2.5rem);       /* 28 → 40px */
+    --text-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);     /* 20 → 24px */
+    --text-body-lg: 1.125rem;                                /* 18px */
+    --text-body: 1rem;                                       /* 16px */
+    --text-caption: 0.875rem;                                /* 14px */
+
+    /* Arabic glyphs need taller line boxes than Latin. */
+    --leading-display: 1.2;
+    --leading-h2: 1.25;
+    --leading-h3: 1.4;
+    --leading-body-lg: 1.8;
+    --leading-body: 1.75;
+    --leading-caption: 1.6;
+
+    /* ── Motion ───────────────────────────────────────────────────── */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+
+    --motion-enter: 0.7s;        /* hero + scroll reveal duration */
+    --motion-rise: 28px;         /* fade-up distance */
+    --motion-stagger-hero: 0.14s;
+    --motion-stagger-card: 0.08s;
+    --motion-draw: 1.3s;         /* connected lines path-trim */
+    --motion-pop-scale: 0.88;
+    --motion-float: 6px;         /* ± float distance */
+    --motion-float-period: 2.4s;
+    --motion-bot-delay: 2.4s;    /* Maher bot entrance */
+
     --header-height: 5rem;
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden !important;
+    max-width: 100vw;
+    width: 100%;
   }
 
   body {
     @apply bg-surface text-body antialiased;
-    overflow-x: hidden;
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    overflow-x: hidden !important;
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
   }
 
   /* Visible keyboard focus on every interactive element */
@@ -83,6 +158,66 @@
   }
 }
 
+/* ── Keyframes (available on every page) ─────────────────────────── */
+
+/* Hero entrance + scroll reveal: fade in while rising 28px. */
+@keyframes et-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--motion-rise), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Connected lines: path-trim. Use on SVG paths with pathLength="1". */
+@keyframes et-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Floating cards / dots / bot: pop from 0.88 with a back-ease. */
+@keyframes et-pop {
+  from {
+    opacity: 0;
+    transform: scale(var(--motion-pop-scale));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Gentle ±6px float, starting and ending at rest so it chains after et-pop. */
+@keyframes et-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(0, calc(var(--motion-float) * -1), 0);
+  }
+  75% {
+    transform: translate3d(0, var(--motion-float), 0);
+  }
+}
+
+/* Dashboard bars grow from the bottom. */
+@keyframes et-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
 @layer utilities {
   /* Subtle dotted grid used behind light sections */
   .bg-dot-grid {
@@ -90,7 +225,89 @@
     background-size: 22px 22px;
   }
 
+  /* Same grid for navy surfaces */
+  .bg-dot-grid-light {
+    background-image: radial-gradient(rgb(var(--surface) / 0.1) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* ── Motion utilities ─────────────────────────────────────────────
+   * Stagger by setting --i on each item: style={{ "--i": index }}.
+   */
+
+  /* Hero: staggered fade-up, 0.14s apart. */
+  .animate-hero-rise {
+    animation: et-rise var(--motion-enter) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * var(--motion-stagger-hero));
+  }
+
+  /* Sections below the hero: hidden until JS adds .is-visible (IntersectionObserver). */
+  .reveal {
+    opacity: 0;
+  }
+  .reveal.is-visible {
+    animation: et-rise var(--motion-enter) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * var(--motion-stagger-card));
+  }
+
+  /* Connected lines: add pathLength="1" to the <path>. */
+  .animate-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: et-draw var(--motion-draw) var(--ease-out) forwards;
+  }
+  /* Dots that appear once the lines finish drawing. */
+  .animate-draw-dot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: et-pop 0.45s var(--ease-back) both;
+    animation-delay: calc(var(--motion-draw) + var(--i, 0) * var(--motion-stagger-card));
+  }
+
+  /* Floating cards: pop in, then float ±6px every 2.4s. */
+  .animate-pop-float {
+    animation:
+      et-pop var(--motion-enter) var(--ease-back) both,
+      et-float var(--motion-float-period) var(--ease-in-out) var(--motion-enter) infinite;
+  }
+  .animate-pop {
+    animation: et-pop var(--motion-enter) var(--ease-back) both;
+  }
+
+  /* Dashboard: chart lines use .animate-draw; bars grow from the bottom. */
+  .animate-grow-y {
+    transform-origin: bottom;
+    animation: et-grow-y var(--motion-enter) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * var(--motion-stagger-card));
+  }
+
+  /* Maher bot: pops in after 2.4s, docked bottom-left in Arabic, bottom-right in English. */
+  .bot-dock {
+    position: fixed;
+    bottom: 1.5rem;
+    inset-inline-end: 1.5rem;
+    animation: et-pop var(--motion-enter) var(--ease-back) var(--motion-bot-delay) both;
+  }
+}
+
+/* Reduced motion: no movement, content just appears. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-rise,
+  .reveal,
+  .reveal.is-visible,
+  .animate-draw,
+  .animate-draw-dot,
+  .animate-pop-float,
+  .animate-pop,
+  .animate-grow-y,
+  .bot-dock {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
   }
 }

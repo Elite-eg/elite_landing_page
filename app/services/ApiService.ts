@@ -1,12 +1,12 @@
 import axios from "axios";
-import environment from "../config/environment";
+// import environment from "../config/environment";
 
 /**
  * Singleton Axios instance. All network traffic flows through here.
  * Every request/response/error is now fully logged.
  */
 const ApiService = axios.create({
-  baseURL: environment.apiBaseUrl,
+  // baseURL: environment.apiBaseUrl,
   // withCredentials: true,
   validateStatus: () => true,
 });

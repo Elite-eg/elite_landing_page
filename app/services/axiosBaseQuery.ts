@@ -1,7 +1,7 @@
 import type { BaseQueryFn } from "@reduxjs/toolkit/query";
 import type { AxiosRequestConfig } from "axios";
 import ApiService from "./ApiService";
-import { ApiResponse } from "../types/api";
+import { ApiResponse } from "../../lib/types";
 
 type AxiosQueryArgs = {
   url: string;

@@ -2,18 +2,206 @@
   "nav": {
     "home": "Home",
     "solutions": "Solutions",
+    "solutionsDropdown": "Solutions",
+    "productsDropdown": "Products & projects",
+    "solutionsItems": {
+      "consulting": "Technical consulting",
+      "web": "Web platforms",
+      "mobile": "Mobile apps",
+      "erp": "ERP systems",
+      "ai": "AI & automation"
+    },
     "techPlatforms": "Tech platforms",
     "projects": "Projects & products",
     "careers": "Careers",
-    "about": "About us",
+    "jobs": "Careers",
+    "about": "About Elite Tech",
     "community": "Community",
     "contact": "Contact us",
+    "login": "Sign in",
+    "support": "Tech support",
+    "bookDiagnosticCta": "Book a free diagnostic session",
     "joinCommunity": "Join the community",
     "mainNav": "Main navigation",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "switchLanguage": "Switch to Arabic",
-    "languageName": "العربية"
+    "languageName": "العربية",
+    "groups": {
+      "albiruni": "Albiruni ERP",
+      "solutions": "Solutions",
+      "learn": "Learning library",
+      "developers": "Developers",
+      "company": "Company"
+    },
+    "albiruniItems": {
+      "platform": "Albiruni platform",
+      "pricing": "Pricing",
+      "addons": "Add-ons store",
+      "trial": "Free 14-day trial"
+    },
+    "learnItems": {
+      "collections": "Collections guide",
+      "eInvoicing": "E-invoicing guide",
+      "videos": "Video tutorials",
+      "knowledgeBase": "Knowledge base",
+      "articles": "Articles"
+    },
+    "developersItems": {
+      "register": "Become a developer",
+      "downloads": "Downloads",
+      "installation": "Installation guide",
+      "apiDocs": "Add-on API docs"
+    },
+    "companyItems": {
+      "about": "About",
+      "ourWork": "Our work",
+      "partners": "Partner program",
+      "agents": "Albiruni agents"
+    },
+    "legalItems": {
+      "privacy": "Privacy policy",
+      "terms": "Terms & conditions",
+      "cookies": "Cookie settings",
+      "sla": "Service level (SLA)",
+      "refund": "Cancellation & refund policy"
+    },
+    "albiruniSystem": "Albiruni ERP",
+    "pricing": "Pricing",
+    "addonsStore": "Add-ons store",
+    "agents": "Our agents",
+    "sectorsItems": {
+      "distribution": "Distribution",
+      "fieldSales": "Field sales",
+      "carService": "Car service centers"
+    },
+    "sectorsDescriptions": {
+      "distribution": "Delivery routes, orders and warehouse",
+      "fieldSales": "Rep visits, collections and custody",
+      "carService": "Bookings, work orders and technicians"
+    },
+    "productsDescriptions": {
+      "albiruni": "Our platform for managing field sales and operations",
+      "pricing": "Plans by sector and number of users",
+      "addons": "Add-ons from Elite Tech and certified developers"
+    },
+    "projectsItems": {
+      "bareeq": "Bareeq X",
+      "amanCar": "Aman Car",
+      "arfa": "ARFA"
+    },
+    "projectsDescriptions": {
+      "bareeq": "Services app · Saudi Arabia",
+      "amanCar": "Car services platform · Makkah & Jeddah",
+      "arfa": "Specialized systems engineering company · Jeddah"
+    },
+    "megaMenu": {
+      "bySector": "By sector",
+      "byService": "By service",
+      "ourProducts": "Our products",
+      "projects": "Projects we're proud of",
+      "allProjects": "All our projects",
+      "solutionsPromo": {
+        "title": "Not sure what you need?",
+        "text": "30 minutes with an operations expert and a developer to pin down the problem, priorities and solution.",
+        "cta": "Book a free session"
+      },
+      "productsPromo": {
+        "title": "Try Albiruni free",
+        "text": "14 days with demo data that looks like your company. No card needed.",
+        "cta": "Start the trial"
+      }
+    },
+    "regionLabel": "Country and currency",
+    "regions": {
+      "EG": "Egypt · EGP",
+      "SA": "Saudi Arabia · SAR"
+    },
+    "utilityNav": "Quick links"
+  },
+  "booking": {
+    "meta": {
+      "title": "Book a Diagnostic Session with an Expert & Developer | {brand}",
+      "description": "We sit down with you to understand how your company actually operates, identify where time and money are lost, and determine the right tech solution."
+    },
+    "badge": "Free · 30 minutes · No commitment",
+    "title": "Book a diagnostic session with an expert & developer.",
+    "subtitle": "We sit down with you to understand how your company actually operates, identify where time and money are lost, and determine the right tech solution.",
+    "whatYouGetTitle": "What do you get from the session?",
+    "outcomes": {
+      "one": {
+        "title": "Clear problem roadmap",
+        "subtitle": "Where operations stall, and why"
+      },
+      "two": {
+        "title": "Solution priorities",
+        "subtitle": "What gets built first, and what gets deferred"
+      },
+      "three": {
+        "title": "Written requirements list",
+        "subtitle": "Base your decisions on it, with us or anyone else"
+      }
+    },
+    "attendeeCard": {
+      "title": "Attending with you: Operations Expert + Developer",
+      "subtitle": "Tailored to your sector: Finance, Procurement, or Field Sales"
+    },
+    "steps": {
+      "date": "1 · Date",
+      "details": "2 · Details",
+      "confirm": "3 · Confirm"
+    },
+    "meetingTypes": {
+      "video": "Video Call",
+      "whatsapp": "WhatsApp",
+      "office": "Office Visit (Cairo)"
+    },
+    "availableTimesLabel": "Available Slots - Monday 12 October · Cairo Time",
+    "availableSlotsHeader": "Available Slots - {date} · Cairo Time",
+    "summary": {
+      "date": "Date",
+      "time": "Time",
+      "meeting": "Meeting"
+    },
+    "nextDetailsCta": "Next: Your Details",
+    "confirmBookingCta": "Confirm Booking",
+    "backCta": "Back",
+    "note": "We will send confirmation and meeting link on WhatsApp and email.",
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "phone": "Phone / WhatsApp",
+      "phonePlaceholder": "+20 100 000 0000",
+      "email": "Email Address",
+      "emailPlaceholder": "name@company.com",
+      "company": "Company / Sector",
+      "companyPlaceholder": "e.g. Retail or Logistics",
+      "notes": "Brief about your challenge or request",
+      "notesPlaceholder": "Briefly describe your key operational challenges..."
+    },
+    "success": {
+      "title": "Diagnostic Session Booked Successfully!",
+      "subtitle": "Appointment details and meeting link have been sent to your email and WhatsApp.",
+      "backHome": "Back to Home"
+    },
+    "whatHappensNext": {
+      "title": "What happens after booking?",
+      "step1": {
+        "num": "01",
+        "title": "Confirmation in minutes",
+        "desc": "WhatsApp message with date, link, and assigned expert."
+      },
+      "step2": {
+        "num": "02",
+        "title": "Two quick questions before session",
+        "desc": "We send two brief questions so we can prepare for your company."
+      },
+      "step3": {
+        "num": "03",
+        "title": "Session & Action Plan",
+        "desc": "Within 2 days after the session, you receive the full requirements list and next steps."
+      }
+    }
   },
   "home": {
     "meta": {
@@ -192,15 +380,21 @@
     "close": "Close"
   },
   "footer": {
-    "tagline": "Software solutions for companies, and a community for the people who build them.",
-    "explore": "Explore",
-    "communityTitle": "Community",
-    "contactTitle": "Contact",
-    "ideas": "Ideas bank",
-    "jobs": "Jobs forum",
-    "aboutPlatform": "About the platform",
+    "tagline": "Elite Tech is an Egyptian software company building the platforms, apps and systems that run businesses. Our flagship product is Albiruni ERP.",
     "commercialRegister": "Commercial register",
     "rights": "© {year} {brand}. All rights reserved.",
+    "navLabel": "Footer navigation",
+    "legalLabel": "Legal",
+    "socialLabel": "Social media",
+    "contactLabel": "Contact details",
+    "app": {
+      "title": "Get the Albiruni app",
+      "appStoreCaption": "Download on the",
+      "appStoreName": "App Store",
+      "googlePlayCaption": "Get it on",
+      "googlePlayName": "Google Play"
+    },
+    "commercialRegisterShort": "CR {number}",
     "newsletter": {
       "title": "Get community updates",
       "description": "New ideas, open roles and events, once a month.",
@@ -214,7 +408,14 @@
   },
   "validation": {
     "emailRequired": "Enter your email address.",
-    "emailInvalid": "Enter a valid email, like name@company.com."
+    "emailInvalid": "Enter a valid email, like name@company.com.",
+    "nameRequired": "Enter your name.",
+    "phoneRequired": "Enter your WhatsApp number.",
+    "phoneInvalid": "Enter a valid number with the country code, like +20 100 000 0000.",
+    "companyNameRequired": "Enter your company name.",
+    "cardNumberInvalid": "Enter a valid card number of 13 to 19 digits.",
+    "cardExpiryInvalid": "Enter the expiry date as MM/YY, like 08/27.",
+    "cardCvcInvalid": "Enter the 3 or 4 digit security code."
   },
   "whatsapp": {
     "label": "Chat with us on WhatsApp"
@@ -224,5 +425,330 @@
     "description": "The link may be outdated or the page may have moved. Head back to the home page or get in touch with us.",
     "home": "Back to home",
     "contact": "Contact us"
+  },
+  "jobs": {
+    "meta": {
+      "title": "Careers & Job Opportunities | {brand}",
+      "description": "Join the Elite Tech team and build real enterprise software used across Egypt & Saudi Arabia."
+    },
+    "badge": "Careers · 1 open position",
+    "heroTitle": "Build products real people actually use.",
+    "heroSubtitle": "Small team with big responsibilities. Work on PolyLine and live client projects in Saudi Arabia, seeing direct field impact.",
+    "howWeWork": {
+      "title": "How We Work",
+      "card1": {
+        "title": "Remote Evaluation Period",
+        "subtitle": "Three months full-time remote prior to joining the team."
+      },
+      "card2": {
+        "title": "Then Full-Time In-Office",
+        "subtitle": "At our Maadi headquarters with an official contract & permanent job."
+      },
+      "card3": {
+        "title": "Real Enterprise Products",
+        "subtitle": "Work on PolyLine and live enterprise platforms in Saudi Arabia."
+      },
+      "card4": {
+        "title": "Modern Tech Stack",
+        "subtitle": "Next.js, React, Flutter & Laravel"
+      },
+      "maherBadge": "Ask Maher · AI Assistant, replies instantly"
+    },
+    "openPositions": {
+      "title": "Available Openings",
+      "categories": {
+        "all": "All Departments",
+        "engineering": "Engineering",
+        "product": "Product Management",
+        "design": "UI/UX & Design",
+        "sales": "Sales & Growth",
+        "qa": "Software QA"
+      },
+      "applyNow": "Apply Now",
+      "noJobsFound": "No open positions found in this department."
+    },
+    "applyModal": {
+      "title": "Apply for Position",
+      "subtitle": "{jobTitle}",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "example@domain.com",
+      "phone": "Phone / WhatsApp Number",
+      "phonePlaceholder": "+201000000000",
+      "cvLink": "CV / LinkedIn Profile Link",
+      "cvLinkPlaceholder": "https://linkedin.com/in/... or Google Drive link",
+      "coverNote": "Brief summary of your experience",
+      "coverNotePlaceholder": "Tell us briefly about projects you've built...",
+      "submit": "Submit Application",
+      "submitting": "Submitting...",
+      "orApplyWhatsapp": "Or apply directly via WhatsApp",
+      "successToast": "Application received successfully! We will contact you shortly."
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About us",
+      "description": "{brand} is an Egyptian software startup based in Maadi, Cairo, building accurate, simple systems for companies in Egypt and the Gulf, including the Albiruni platform."
+    },
+    "hero": {
+      "eyebrow": "About us",
+      "title": "An Egyptian startup, with services reaching from Egypt to the Gulf.",
+      "description": "{brand} is an Egyptian software startup founded in April 2025 and based in Maadi, Cairo. We design solutions, apps and systems and roll them out inside companies across Egypt and the Gulf, staying with our clients from the first idea to full operation.",
+      "visualAlt": "{brand} logo"
+    },
+    "statements": {
+      "label": "Our mission and vision",
+      "mission": {
+        "label": "Our mission",
+        "title": "Accurate, simple systems that sales reps use in the field and managers use in the office, without the complexity.",
+        "text": "We understand your processes first, then build solutions that stay with you from setup to full operation."
+      },
+      "vision": {
+        "label": "Our vision",
+        "title": "To be a trusted tech partner for growing companies in Egypt and the Gulf, and to make Albiruni a daily tool that managers and reps rely on.",
+        "text": "One platform that brings field work and management together in a simple, direct way."
+      }
+    },
+    "albiruni": {
+      "eyebrow": "Albiruni platform",
+      "title": "One system for all of your company's work, from the field to the office.",
+      "subtitle": "Albiruni brings sales, collections, inventory and invoicing into one platform, and grows with your company step by step.",
+      "features": {
+        "allInOne": {
+          "title": "Every service in one platform",
+          "text": "Sales, collections, inventory, invoicing and reports in one system instead of scattered tools."
+        },
+        "scalable": {
+          "title": "Scales with your company",
+          "text": "Start with what you need today, then add users, branches and add-ons as you grow."
+        },
+        "sectors": {
+          "title": "Built for your sector",
+          "text": "Ready-made setups for distribution, field sales and car service centers."
+        },
+        "fieldApp": {
+          "title": "An app for reps, a dashboard for managers",
+          "text": "Reps log orders and visits from their phone while managers follow everything live."
+        },
+        "cashSettlement": {
+          "title": "Fast, instant cash settlement for reps",
+          "text": "A clear daily close for cash and collections, with no paperwork or long reviews."
+        },
+        "eInvoicing": {
+          "title": "E-invoicing ready",
+          "text": "Issue e-invoices straight from the system, with no extra software."
+        }
+      },
+      "primaryCta": "Try Albiruni free for 14 days",
+      "secondaryCta": "Explore Albiruni"
+    },
+    "values": {
+      "title": "What we believe in",
+      "items": {
+        "clarity": {
+          "title": "Clarity first",
+          "text": "We agree on scope, cost and timelines before we start, and we stick to them."
+        },
+        "ownership": {
+          "title": "We own the product",
+          "text": "We build Albiruni ourselves, so we own its quality and long-term support."
+        },
+        "closeness": {
+          "title": "Close to our clients",
+          "text": "A team that answers you directly and understands how your local market works."
+        },
+        "improvement": {
+          "title": "Better every month",
+          "text": "Regular updates driven by real feedback from the people who use it."
+        }
+      }
+    }
+  },
+  "joinTeamCta": {
+    "title": "Want to be part of the team?",
+    "subtitle": "We're always looking for developers, designers and consultants who love building software people use every day.",
+    "primary": "View open positions",
+    "secondary": "Send your CV"
+  },
+  "guides": {
+    "common": {
+      "eyebrow": "Free guide · PDF",
+      "contentsTitle": "What's inside?",
+      "form": {
+        "label": "Request the free guide",
+        "name": "Name",
+        "namePlaceholder": "Your full name",
+        "phone": "WhatsApp number",
+        "phonePlaceholder": "+20 100 000 0000",
+        "submit": "Send me the free guide",
+        "submitting": "Sending...",
+        "note": "We send the guide on WhatsApp and never share your number.",
+        "success": "We sent the guide to your WhatsApp.",
+        "error": "We couldn't send the guide right now. Check your connection and try again."
+      }
+    },
+    "collections": {
+      "meta": {
+        "title": "Field rep collections and custody guide",
+        "description": "A free PDF guide to controlling field rep collections and custody, and closing every rep's day with no discrepancies."
+      },
+      "title": "How to simplify collections and settlement with your field reps",
+      "description": "A practical guide to controlling sales collections and rep custody: know what every rep is holding at any moment, and close each day with no discrepancies or paperwork.",
+      "contents": {
+        "custody": "What custody covers: cash, stock and documents",
+        "receipts": "Collection rules and serial e-receipts",
+        "dailyClose": "End-of-day settlement in clear, paper-free steps",
+        "differences": "Handling discrepancies, returns and cheques",
+        "policyTemplate": "A ready-to-adopt custody policy template"
+      },
+      "cover": {
+        "title": "Field rep custody settlement guide",
+        "edition": "From the Albiruni playbook · 2026"
+      }
+    },
+    "eInvoicing": {
+      "meta": {
+        "title": "E-invoicing guide for distribution companies",
+        "description": "A free PDF guide to e-invoicing requirements in Egypt and Saudi Arabia, and how to prepare your distribution company before integration."
+      },
+      "title": "E-invoicing guide for distribution companies",
+      "description": "What Egypt's e-invoicing system and Saudi Arabia's Fatoora platform require from you, and how to prepare your operations before integration.",
+      "contents": {
+        "whoMustComply": "Who must use e-invoicing, and when",
+        "egyptVsSaudi": "How Egypt's and Saudi Arabia's requirements differ",
+        "requiredFields": "Mandatory invoice fields and item codes",
+        "fieldInvoicing": "Issuing invoices from the rep's phone in the field",
+        "checklist": "A pre-integration checklist"
+      },
+      "cover": {
+        "title": "E-invoicing guide",
+        "edition": "Egypt & Saudi Arabia · 2026"
+      }
+    }
+  },
+  "checkout": {
+    "meta": {
+      "title": "Complete your subscription",
+      "description": "Add your company details and choose a payment method to activate your Albiruni subscription."
+    },
+    "steps": {
+      "label": "Subscription steps",
+      "company": "Company details",
+      "payment": "Payment",
+      "activation": "Activation"
+    },
+    "countries": {
+      "EG": "Egypt",
+      "SA": "Saudi Arabia"
+    },
+    "company": {
+      "title": "Company details",
+      "subtitle": "We use these details to create your company account and issue your tax invoice.",
+      "country": "Company country",
+      "companyName": "Company name",
+      "companyNamePlaceholder": "e.g. Al Nour Distribution",
+      "taxNumber": "Tax number (optional)",
+      "taxNumberPlaceholder": "Shown on the invoice",
+      "contactName": "Contact person",
+      "contactNamePlaceholder": "Full name",
+      "phone": "Mobile number",
+      "phonePlaceholder": {
+        "EG": "+20 100 000 0000",
+        "SA": "+966 50 000 0000"
+      },
+      "email": "Email",
+      "emailPlaceholder": "name@company.com",
+      "submit": "Continue to payment",
+      "note": "We never share your company details with anyone."
+    },
+    "payment": {
+      "title": "Payment method",
+      "subtitle": "Choose the payment method that works for you in {country}.",
+      "methods": {
+        "card": {
+          "label": "Bank card",
+          "description": "{country, select, SA {mada, Visa or Mastercard} other {Visa, Mastercard or Meeza}}"
+        },
+        "fawry": {
+          "label": "Fawry",
+          "description": "Pay cash at any Fawry outlet with a reference number."
+        },
+        "wallet": {
+          "label": "Mobile wallet",
+          "description": "Vodafone Cash, Etisalat Cash, Orange Cash or WE Pay."
+        },
+        "instapay": {
+          "label": "InstaPay",
+          "description": "Instant transfer from your banking app."
+        },
+        "applePay": {
+          "label": "Apple Pay",
+          "description": "Pay with a tap from your phone."
+        },
+        "stcPay": {
+          "label": "STC Pay",
+          "description": "Pay from your STC Pay wallet."
+        },
+        "bankTransfer": {
+          "label": "Bank transfer",
+          "description": "Transfer the amount to our account; we activate once it arrives."
+        }
+      },
+      "card": {
+        "number": "Card number",
+        "numberPlaceholder": "0000 0000 0000 0000",
+        "expiry": "Expiry date",
+        "expiryPlaceholder": "MM/YY",
+        "cvc": "Security code (CVC)",
+        "cvcPlaceholder": "123"
+      },
+      "pay": "Pay {amount}",
+      "confirmTransfer": "Confirm order and pay by transfer",
+      "processing": "Confirming...",
+      "secureNote": "Encrypted, secure payments. We never store your card details.",
+      "back": "Edit company details"
+    },
+    "summary": {
+      "title": "Order summary",
+      "product": "Albiruni",
+      "plan": "Plan",
+      "planName": "Business plan",
+      "users": "Users",
+      "usersValue": "{count} users",
+      "billing": "Billing cycle",
+      "billingValue": "Yearly",
+      "subtotal": "Subtotal before VAT",
+      "vat": "VAT ({rate}%)",
+      "total": "Total"
+    },
+    "success": {
+      "title": "Your Albiruni subscription is active",
+      "text": "We sent your login details and invoice to {email}.",
+      "amountPaid": "Amount paid",
+      "orderNumber": "Order number",
+      "nextStepsTitle": "Next steps",
+      "nextSteps": {
+        "setup": "Sign in and finish setting up your company details.",
+        "team": "Add your reps and users and set their permissions.",
+        "onboarding": "Book an onboarding session with our team to get running fast."
+      },
+      "primary": "Book your onboarding session"
+    },
+    "pending": {
+      "title": "Waiting for your bank transfer",
+      "text": "We've recorded your order. Transfer the amount to the account below and we'll activate your subscription once it arrives.",
+      "bank": "Bank",
+      "accountName": "Account name",
+      "iban": "IBAN",
+      "reference": "Order number",
+      "amount": "Amount due",
+      "note": "Add the order number in the transfer notes so we can match your payment quickly.",
+      "primary": "Send the transfer receipt on WhatsApp",
+      "whatsappMessage": "Hello, I'm sending the bank transfer receipt for order {order}."
+    },
+    "result": {
+      "home": "Back to home"
+    }
   }
 }

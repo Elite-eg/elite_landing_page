@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowUpRight } from "lucide-react";
-import { CommunityGateModal } from "@/components/shared/CommunityGateModal";
-import { Container } from "@/components/shared/Container";
-import { IdeaCard } from "@/components/shared/IdeaCard";
-import { LinkButton } from "@/components/shared/LinkButton";
-import { Reveal } from "@/components/shared/Reveal";
-import { RevealGroup } from "@/components/shared/RevealGroup";
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import { FiArrowUpRight } from "react-icons/fi";
+import { CommunityGateModal } from "@/app/components/shared/CommunityGateModal";
+import { Container } from "@/app/components/shared/Container";
+import { IdeaCard } from "@/app/components/shared/IdeaCard";
+import { Button } from "@/app/components/shared/Button";
+import { Reveal } from "@/app/components/shared/Reveal";
+import { RevealGroup } from "@/app/components/shared/RevealGroup";
+import { SectionHeading } from "@/app/components/shared/SectionHeading";
 import { COMMUNITY_URLS, COMPANY_INFO, type AppLocale } from "@/lib/constants";
 import { HOME_IDEAS } from "../data/homeData";
 
@@ -32,20 +32,31 @@ export function CommunityIdeasSection() {
             />
           </Reveal>
           <Reveal preset="slideInRight" className="shrink-0">
-            <LinkButton
+            <Button
               href={COMMUNITY_URLS.ideas}
               external
               variant="outline"
-              icon={<ArrowUpRight className="size-4 rtl:-scale-x-100" />}
+              icon={<FiArrowUpRight />}
+              flipIconInRtl
             >
               {t("viewAll")}
-            </LinkButton>
+            </Button>
           </Reveal>
         </div>
 
         <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {HOME_IDEAS.map(({ key, techStack }, idx) => (
-            <Reveal key={key} inGroup preset={idx === 0 ? "slideInLeft" : idx === 1 ? "scaleIn" : "slideInRight"}>
+            <Reveal
+              key={key}
+              inGroup
+              preset={
+                idx === 0
+                  ? "slideInLeft"
+                  : idx === 1
+                    ? "scaleIn"
+                    : "slideInRight"
+              }
+            >
               <IdeaCard
                 author={COMPANY_INFO.brandName[locale]}
                 category={t(`items.${key}.category`)}

@@ -1,0 +1,287 @@
+# Elite Tech: Design & Code Rules
+
+> The rules this codebase actually follows. Read this before you build or change a page.
+> It replaces the old `elite-rules.txt`, which was written before the brand was defined.
+> Wherever the two disagreed, this file describes what the code really does.
+
+**Keywords:** MUST / NEVER = hard rule. SHOULD = default; only deviate with a stated reason.
+**TBD** = not confirmed by the owner. Never invent a value for a TBD item; mark it and ask.
+
+---
+
+## 1. Project at a glance
+
+| Item | Value |
+|---|---|
+| Client | Elite Tech (إيليت تك لتقنية المعلومات), Maadi, Cairo |
+| Product inside the site | Albiruni (البيروني): field sales / collections / ERP platform |
+| Stack | Next.js 15 App Router + Turbopack, React 19, TypeScript strict, Tailwind **v3** |
+| Locales | `ar` (default, RTL) and `en` (LTR), via next-intl |
+| Dev server | `npm run dev` on **port 5000** |
+| Checks before "done" | `npx tsc --noEmit`, `npm run lint`, then `npm run build` |
+
+Company data (brand name, phones, email, address, WhatsApp) lives ONLY in `lib/constants.ts` → `COMPANY_INFO`.
+The Arabic brand spelling comes from `COMPANY_INFO.brandName`. Never type it into a component;
+pass it to messages as `{brand}`.
+
+---
+
+## 2. Brand identity (identity v4)
+
+### 2.1 Colours
+All colours are CSS variables in `app/globals.css` (RGB channels), mapped in `tailwind.config.js`.
+NEVER write hex, `rgb()` or arbitrary colour values in components. Use the token classes.
+
+| Token class | Value | Use |
+|---|---|---|
+| `primary` | navy #184068 | Headings, primary buttons, icons, key text |
+| `primary-dark` / `primary-deep` | #0A2140 / #06142A | Hover, dark cards, hero tiles, gradients |
+| `secondary` | orange #F07810 | **The main CTA only** (one orange action per view), eyebrow dot, highlights |
+| `secondary-dark` | #D06208 | Orange hover, orange text on light backgrounds (better contrast) |
+| `accent` | #3A6AA3 | Soft glows / decorative blur only |
+| `surface` / `surface-alt` / `surface-muted` | white / #F3F6FA / #E7EDF5 | Page, alternate section, chips |
+| `surface-warm` | #FFF5EB | Info / notice boxes |
+| `body` / `content` | #0C1A2C / #485870 | Main text / secondary text |
+| `content-dark` | #BECCDE | Secondary text on navy |
+| `edge` | #DDE5EF | Borders and dividers |
+| `success` / `warning` / `danger` | green / amber / red | Status, form errors |
+| `albiruni` | teal #0E4D57 | Reserved for the Albiruni app identity only |
+
+Colour rules:
+- Orange is precious. Use one orange (`secondary`) button per view. Make the other actions `primary`, `outline` or `ghost`.
+- Section rhythm: white → `surface-alt` → white. Use a navy section or card only as the page's one "bold" moment.
+- On navy: titles `text-white`, body `text-white/75` or `text-content-dark`, eyebrow `tone="dark"`.
+- On orange (CTA banner): titles white, body `text-white/90`, using `SectionHeading tone="brand"`.
+
+### 2.2 Typography
+Fonts load only through `next/font` in `app/[locale]/layout.tsx`. Never use `<link>` or `@import`.
+
+| Role | Font | Class |
+|---|---|---|
+| Headings (h1–h4) | Alexandria | `font-heading` (applied automatically to h1–h4) |
+| Body | Readex Pro | `font-sans` (default) |
+| "Elite Tech" wordmark | Poppins | `font-logo` (Latin wordmark, always `dir="ltr"`) |
+
+Type scale (fluid tokens, MUST be used for these roles):
+
+| Class | Size | Use |
+|---|---|---|
+| `text-display` | 36 → 56px, bold | Page h1 (one per page) |
+| `text-h2` | 28 → 40px, bold | Big numbers, CTA-sized titles |
+| `text-h3` | 20 → 24px, semibold | Card titles, panel titles, statement titles |
+| `text-body-lg` | 18px, leading 1.8 | Hero paragraphs |
+| (default) | 16px, leading 1.75 | Body |
+| `text-caption` | 14px | Card descriptions, labels, summary rows |
+| `text-xs` | 12px | Form labels, helper notes |
+
+- Section titles MUST go through `SectionHeading`. It owns the h2 size and spacing.
+- Use `text-balance` on headings and `max-w-prose` (68ch) on paragraphs to keep lines under about 80 characters.
+- Arabic needs generous line height. Never tighten leading below the tokens.
+
+### 2.3 Radius & shadow scale (by hierarchy, not one radius for everything)
+
+| Element | Radius |
+|---|---|
+| Hero tiles, CTA banner | `rounded-[2rem]` |
+| Large feature cards (statements) | `rounded-3xl` |
+| Cards, panels, forms, summary | `rounded-2xl` |
+| Inputs, buttons (md/lg), icon tiles, list rows | `rounded-xl` |
+| Small icon tiles, sm buttons | `rounded-lg` |
+| Pills, eyebrows, step circles | `rounded-full` |
+
+Shadows: `shadow-card` (default card), `shadow-lift` (dark/hero tiles), `shadow-glow` (orange CTA).
+Don't stack shadows under everything. Light cards SHOULD use `border border-edge` + `shadow-card` at most.
+
+### 2.4 Imagery & brand visuals
+- Logos: `/images/logo.png` (light backgrounds), `/images/logo-light.png` (navy backgrounds), `/images/logo-square.jpeg`.
+- Prefer brand visuals built in code (navy gradient tile + logo + `bg-dot-grid-light` + soft `secondary`/`accent`
+  blur glows) over generated images. Examples: `AboutHeroVisual`, `GuideCover`.
+- Every image uses `next/image` with `width`/`height` or `fill` + `sizes`. Decorative images get `alt=""` and their
+  wrapper gets `aria-hidden`. Meaningful images get a localized alt (from messages).
+- Background utilities: `bg-dot-grid` (navy dots, light sections), `bg-dot-grid-light` (white dots, navy surfaces).
+  Fade them out with `[mask-image:linear-gradient(to_bottom,black,transparent)]`.
+
+### 2.5 Design principles
+- Build from the brand and the real content. Avoid the generic SaaS look (gradient washes everywhere, identical floating cards).
+- Spend boldness in ONE place per page (hero visual or one navy card). Keep the rest quiet.
+- Eyebrows only where they help orient the reader (hero, product sections). Not above every heading.
+- Use number markers (01, 02 / 1, 2, 3) only for real sequences or ranked lists (values, steps, stepper).
+  Use check marks for plain lists ("what's inside").
+- No "→" on every button. Use arrow icons for forward navigation only, and flip them in RTL.
+- Layout pattern for split heroes: copy `lg:col-span-7`, visual `lg:col-span-5`. Copy comes first in the DOM,
+  so it sits on the start side (right in Arabic).
+
+---
+
+## 3. Motion
+
+Presets live in `lib/animations.ts`. Components import them and MUST NOT define their own variants inline.
+Available: `fadeInUp`, `fadeIn`, `scaleIn`, `imageReveal`, `slideInLeft/Right`, `slideInFromStart/End(isRtl)`,
+`staggerContainer`, `heroStagger`, `heroTextReveal`, `popIn`, `floatLoop`, `floatLoopOffset`, `drawPath`, `growY`,
+`withDelay`, `viewportOnce`. CSS equivalents live in `globals.css` (`animate-draw`, `animate-draw-dot`, `animate-pop`,
+`animate-pop-float`, `animate-hero-rise`, ...).
+
+Rules:
+- One orchestrated hero moment per page: `heroStagger` on the copy (eyebrow → h1 `heroTextReveal` → paragraph →
+  extras with `fadeInUp`), then the visual `withDelay(slideInFromEnd(isRtl), 0.45)`, optionally `floatLoop`.
+- Below the hero, reveal content with the shared wrappers: `<Reveal>` for single blocks and `<RevealGroup>` +
+  `<Reveal inGroup>` for staggered grids. They trigger once (`viewportOnce`).
+- Hover states: change colour or border only (e.g. icon tile turns navy). No lift on every card. Only buttons lift (built in).
+- Horizontal slides MUST mirror in RTL (`slideInFromStart/End(isRtl)`).
+- Animate `transform` and `opacity` only. Reduced motion is handled globally (`MotionConfig reducedMotion="user"`
+  + the CSS `prefers-reduced-motion` block). Don't bypass it.
+- Step changes in multi-step flows: re-key a `motion.div` with `fadeInUp` and scroll to top.
+
+---
+
+## 4. RTL & internationalisation
+
+- ALL user-facing text lives in `messages/ar.json` and `messages/en.json`, with the same keys in both. Never hardcode text.
+- Namespace per page/feature: `about`, `guides.<key>`, `checkout`, `joinTeamCta`, `validation`, ...
+- Use ICU params for dynamic values (`{brand}`, `{email}`, `{amount}`, `{count}`) and ICU `select` for
+  per-country variants (e.g. card networks by `{country}`).
+- Use logical utilities only: `ms/me`, `ps/pe`, `start/end`, `text-start/end`, `border-s/e`, `rounded-s/e`.
+  NEVER `ml/mr/pl/pr/left/right/text-left/text-right` for layout.
+- Directional icons flip with `rtl:-scale-x-100`, or `flipIconInRtl` on `Button`.
+- LTR data inside Arabic UI (phones, emails, IBANs, card numbers, order numbers, the wordmark) uses `dir="ltr"`.
+  For LTR inputs in Arabic, add `inputClassName="rtl:text-end"` so text aligns with the label.
+- Money: format with `Intl.NumberFormat("ar-EG-u-nu-latn" | "en-US", { style: "currency" })` so digits are Latin
+  in both locales and the server and client render the same string.
+- Internal links go through `@/i18n/navigation` (or `Button href`), never `next/link` directly.
+- Editing messages: merge new namespaces with a small Node script (`JSON.stringify(obj, null, 2)`). This keeps
+  formatting identical. Then check `git diff --stat` to confirm only additions.
+
+---
+
+## 5. Project structure & placement
+
+```
+app/
+  globals.css                 tokens, keyframes, utilities
+  components/shared/          used by 2+ pages
+    Button, Badge, Container, Eyebrow, SectionHeading, Reveal, RevealGroup, InputField, ...
+    cta/                      CtaBanner, CtaBannerButton, JoinTeamCta
+    guide/                    GuideLanding + parts (template for all free-PDF guide pages)
+    header/, footer/
+  [locale]/
+    <page>/page.tsx           server component: generateMetadata + sections
+    <page>/components/        page-only components
+    <page>/data/              typed static data (keys, icons, sample values)
+lib/  constants.ts  animations.ts  validation.ts  utils.ts (cn)  types.ts
+messages/  ar.json  en.json
+```
+
+- Something used by 2+ pages MUST live in `app/components/shared/`. Never import one page's `components/` from another page.
+- One component per file, file name = component name (PascalCase). Route folders are kebab-case.
+- Routes, nav links, external URLs, API endpoints and company data live ONLY in `lib/constants.ts`.
+  Exception: draft routes (e.g. `/draft`) are deliberately NOT added to `ROUTES` until approved.
+- Data files hold keys, icons and config, not copy. Copy stays in messages and is looked up by key
+  (e.g. `ALBIRUNI_FEATURES = [{ key, icon }]` → `t(\`features.${key}.title\`)`).
+- Template pages: when several pages share a layout, build one shared template driven by a key + config
+  (`GuideLanding guide="eInvoicing"`). Each route file is then about 15 lines.
+
+---
+
+## 6. Components & clean code
+
+- Keep components small and focused (roughly under 100 lines). Split by visual part (e.g. Card / List / Section / Visual).
+- Server components by default. Add `"use client"` only for state, effects, browser APIs or Framer Motion.
+  Push it as low as possible (sections stay server components; `Reveal` handles motion).
+- Props typed with an explicit `interface`. No `any`. No unused props ("just in case" props get removed).
+- Variant styling uses a typed lookup map (`Record<Variant, string>`) + `cn()`. No string concatenation.
+- Merge classes with `cn()` from `lib/utils.ts`.
+- Icons: `react-icons/fi` (Feather) is the set used across the codebase. `FaWhatsapp`/`FaApple` from `fa6` for brand marks.
+  Icons are `aria-hidden`; icon-only controls need an `aria-label`.
+- No `console.log`. Use `log` from `app/services/logger`.
+
+### Shared building blocks (reuse before creating)
+
+| Component | Use |
+|---|---|
+| `Container` | Page width + horizontal padding (`max-w-container`; narrower via `className`, e.g. `max-w-5xl`) |
+| `SectionHeading` | Every section title. Props: `title`, `eyebrow`, `subtitle`, `align`, `tone` (`light`/`dark`/`brand`), `as` |
+| `Eyebrow` | Orange pill label (hero + section eyebrows). `tone="dark"` on navy |
+| `Button` | All buttons/links. Variants: `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`. Supports `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth` |
+| `Reveal` / `RevealGroup` | Scroll reveals with shared presets |
+| `InputField` | Every text input/textarea (visible label, error, hint, disabled) |
+| `CtaBanner` | Orange closing banner; text + actions via props |
+| `JoinTeamCta` | `CtaBanner` preset for careers. Drop `<JoinTeamCta />` at the end of any page |
+| `GuideLanding` | Free-PDF guide landing template (hero copy, contents, request form, book cover) |
+
+---
+
+## 7. Forms
+
+- React Hook Form + Zod + `zodResolver`. The schema is the single source of validation.
+- Zod messages are KEYS in the `validation` namespace (`"phoneInvalid"`), translated with `useTranslations("validation")`.
+- Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `cardNumber`, `cardExpiry`, `cardCvc`).
+- Conditional rules use `superRefine` (e.g. card fields only when `method === "card"`).
+- Every input has a visible label, an error state and a disabled state while submitting. Submit buttons use `isLoading`.
+- Choice controls (country toggle, payment methods) use Headless UI `RadioGroup`/`Radio` for keyboard and screen-reader
+  support. Never put inputs inside a `Radio`. Render them as a sibling block under the selected option.
+- HTTP goes through `ApiService` only. Endpoints go in `API_ENDPOINTS` (mark unknown ones TBD).
+- Feedback: React Hot Toast. Success says what happened ("We sent the guide to your WhatsApp"). Errors say what failed
+  and what to do ("Check your connection and try again"), never apologise and never stay vague.
+
+---
+
+## 8. Copy & voice
+
+- Arabic: Modern Standard Arabic, simple and direct. Existing style uses tanween on alif (مجاناً، يوماً).
+- English: sentence case, plain verbs, no filler.
+- CTAs name the outcome: "أرسل لي الدليل مجاناً", "متابعة إلى الدفع", "شاهد الوظائف المتاحة". Never "Submit"/"Click here".
+- An action keeps one name through the flow (button "Send me the guide" → toast "We sent the guide…").
+- Don't invent facts, prices, stats, client names or legal claims. If a design needs sample data, put it in
+  `data/` under a `SAMPLE_` name with a `DRAFT SAMPLE / TBD` comment, and list it in the task report.
+
+---
+
+## 9. Pages & SEO
+
+- Every page exports `generateMetadata` with a localized title and description, `alternates.canonical` +
+  `languages`, and Open Graph. Template pages share a builder (e.g. `buildGuideMetadata`).
+- Titles: the root layout already appends `| {brand}` (title template). Page titles MUST NOT include the brand again.
+- Draft pages set `robots: { index: false, follow: false }`.
+- One `h1` per page (the hero). Sections use `h2` via `SectionHeading`, cards use `h3`. Unlabeled `<section>`s that
+  have no heading get `aria-label`.
+- Landmarks: `nav` for steppers/menus, `aside` for summaries, `article` for cards, `dl` for label/value data.
+
+---
+
+## 10. Pages built so far
+
+| Route | Notes |
+|---|---|
+| `/home` | Video hero, services, community, ideas, navy CTA (`home/components/CtaSection`) |
+| `/about` | Hero + brand tile, mission/vision cards, Albiruni features, values 01–04, `JoinTeamCta` |
+| `/jobs` | Hero, how we work, open positions (anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID`) |
+| `/book-session` | Booking calendar flow |
+| `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form |
+| `/draft` | DRAFT subscription checkout: company details → payment (EG / SA methods) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing |
+
+---
+
+## 11. Verification workflow
+
+1. Plan: list the sections, components, data shape and message keys before coding.
+2. Build: tokens → shared components → page sections → messages (ar + en together).
+3. Check: `npx tsc --noEmit` and `npx eslint <changed paths>` must report zero errors.
+4. Smoke test: `curl` each new route in both locales. Confirm HTTP 200, the correct `<title>`/`<h1>`, and no raw
+   message keys in the HTML.
+5. Visual: check `/ar` and `/en` at 360 / 768 / 1280 px.
+6. Report: files changed, assumptions, sample/TBD data, and anything not verified.
+
+---
+
+## 12. Open items (owner to provide)
+
+| # | Item | Affects |
+|---|---|---|
+| 1 | Final copy for About, guides and checkout (current text was transcribed from low-res designs) | messages |
+| 2 | Founding date confirmation ("April 2025") | About hero |
+| 3 | Albiruni pricing, plans, user tiers | `draft/data/checkoutData.ts` |
+| 4 | Real bank accounts (bank name, IBAN) for EG / SA | Bank transfer screen |
+| 5 | Backend endpoints: guide request, newsletter, checkout/payment gateway | `API_ENDPOINTS` |
+| 6 | Whether checkout uses a minimal header (needs a route-group layout split) | Layout |
+| 7 | Official Arabic spelling (إيليت تك vs إليت تك) | `COMPANY_INFO` |
+| 8 | Icon set decision: keep Feather (`react-icons/fi`) or migrate to Lucide | All components |

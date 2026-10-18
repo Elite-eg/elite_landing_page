@@ -12,6 +12,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        navy: {
+          50: token("navy-50"),
+          100: token("navy-100"),
+          500: token("navy-500"),
+          700: token("navy-700"),
+          900: token("navy-900"),
+          950: token("navy-950"),
+        },
+        orange: {
+          50: token("orange-50"),
+          500: token("orange-500"),
+          600: token("orange-600"),
+        },
+        ink: {
+          900: token("ink-900"),
+        },
+        albiruni: token("albiruni-teal"),
         primary: {
           DEFAULT: token("primary"),
           dark: token("primary-dark"),
@@ -27,9 +44,18 @@ module.exports = {
           alt: token("surface-alt"),
           muted: token("surface-muted"),
           info: token("surface-info"),
+          warm: token("surface-warm"),
+          dark: token("surface-dark"),
+          navy: token("surface-navy"),
         },
-        body: token("body"),
-        content: token("content"),
+        body: {
+          DEFAULT: token("body"),
+          dark: token("body-dark"),
+        },
+        content: {
+          DEFAULT: token("content"),
+          dark: token("content-dark"),
+        },
         edge: token("edge"),
         success: token("success"),
         warning: token("warning"),
@@ -40,8 +66,26 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-ibm-arabic)", "system-ui", "sans-serif"],
-        ibm: ["var(--font-ibm-arabic)", "sans-serif"],
+        sans: ["var(--font-body)"],
+        heading: ["var(--font-heading)"],
+        logo: ["var(--font-logo)"],
+        /** Legacy alias, now the body font. */
+        ibm: ["var(--font-body)"],
+      },
+      fontSize: {
+        display: ["var(--text-display)", { lineHeight: "var(--leading-display)", fontWeight: "700" }],
+        h2: ["var(--text-h2)", { lineHeight: "var(--leading-h2)", fontWeight: "700" }],
+        h3: ["var(--text-h3)", { lineHeight: "var(--leading-h3)", fontWeight: "600" }],
+        "body-lg": ["var(--text-body-lg)", { lineHeight: "var(--leading-body-lg)" }],
+        caption: ["var(--text-caption)", { lineHeight: "var(--leading-caption)" }],
+      },
+      transitionDuration: {
+        DEFAULT: "200ms",
+      },
+      transitionTimingFunction: {
+        DEFAULT: "var(--ease-out)",
+        "out-brand": "var(--ease-out)",
+        back: "var(--ease-back)",
       },
       maxWidth: {
         container: "80rem",

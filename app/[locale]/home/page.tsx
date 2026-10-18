@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Footer } from "@/components/shared/Footer";
-import { Header } from "@/components/shared/Header";
-import { WhatsAppButton } from "@/components/shared/WhatsAppButton";
 import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
 import { CommunityIdeasSection } from "./components/CommunityIdeasSection";
 import { CommunitySection } from "./components/CommunitySection";
@@ -16,7 +13,6 @@ interface HomePageProps {
   params: Promise<{ locale: string }>;
 }
 
-/** The [locale] layout already 404s unknown locales, so narrowing here is safe. */
 const toAppLocale = (locale: string): AppLocale => (locale === "en" ? "en" : "ar");
 
 export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
@@ -49,18 +45,13 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <>
-      <Header transparentOnTop />
-      <main id="main">
-        <HeroSection />
-        <TechStackSection />
-        <EcosystemSection locale={locale} />
-        <ServicesSection />
-        <CommunitySection />
-        <CommunityIdeasSection />
-        <CtaSection />
-      </main>
-      <Footer />
-      <WhatsAppButton />
+      <HeroSection />
+      <TechStackSection />
+      <EcosystemSection locale={locale} />
+      <ServicesSection />
+      <CommunitySection />
+      <CommunityIdeasSection />
+      <CtaSection />
     </>
   );
 }
