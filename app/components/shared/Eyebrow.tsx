@@ -13,8 +13,10 @@ export function Eyebrow({ children, tone = "light", className }: EyebrowProps) {
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-caption font-bold",
-        tone === "dark" ? "bg-white/10 text-secondary" : "bg-secondary/10 text-secondary-dark",
+        "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-caption",
+        tone === "dark"
+          ? "border border-white/15 bg-white/[0.06] font-medium text-content-dark"
+          : "font-bold bg-secondary/10 text-secondary-dark",
         className
       )}
     >

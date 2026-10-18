@@ -3,21 +3,21 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { FiCheckCircle } from "react-icons/fi";
-import type { MeetingType } from "./BookingMeetingTypes";
+import type { MeetingType } from "../data/bookingData";
 
-export interface BookingSuccessStateProps {
-  formattedSelectedDate: string;
-  selectedTime: string;
+export interface SuccessStepProps {
+  dateLabel: string;
+  timeLabel: string;
   meetingType: MeetingType;
   onReset: () => void;
 }
 
-export function BookingSuccessState({
-  formattedSelectedDate,
-  selectedTime,
+export function SuccessStep({
+  dateLabel,
+  timeLabel,
   meetingType,
   onReset,
-}: BookingSuccessStateProps) {
+}: SuccessStepProps) {
   const t = useTranslations("booking");
 
   const meetingTypeLabel =
@@ -58,11 +58,11 @@ export function BookingSuccessState({
       <div className="bg-surface-alt rounded-2xl p-4 text-start text-xs space-y-2 border border-edge/60 shadow-sm">
         <div className="flex items-center justify-between">
           <span className="text-content">{t("summary.date")}:</span>
-          <span className="font-bold text-body">{formattedSelectedDate}</span>
+          <span className="font-bold text-body">{dateLabel}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-content">{t("summary.time")}:</span>
-          <span className="font-bold text-body">{selectedTime}</span>
+          <span className="font-bold text-body">{timeLabel}</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-content">{t("summary.meeting")}:</span>

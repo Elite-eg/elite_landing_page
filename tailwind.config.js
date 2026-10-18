@@ -15,6 +15,8 @@ module.exports = {
         navy: {
           50: token("navy-50"),
           100: token("navy-100"),
+          200: token("navy-200"),
+          300: token("navy-300"),
           500: token("navy-500"),
           700: token("navy-700"),
           900: token("navy-900"),
@@ -26,6 +28,8 @@ module.exports = {
           600: token("orange-600"),
         },
         ink: {
+          400: token("ink-400"),
+          700: token("ink-700"),
           900: token("ink-900"),
         },
         albiruni: token("albiruni-teal"),
@@ -94,6 +98,7 @@ module.exports = {
       boxShadow: {
         card: "0 1px 3px rgb(var(--primary) / 0.06), 0 8px 24px -12px rgb(var(--primary) / 0.12)",
         lift: "0 28px 56px -24px rgb(var(--primary) / 0.32)",
+        widget: "0 30px 60px -14px rgb(var(--primary-deep) / 0.45)",
         glow: "0 14px 32px -12px rgb(var(--secondary) / 0.6)",
         "glow-accent": "0 14px 32px -12px rgb(var(--accent) / 0.55)",
       },
