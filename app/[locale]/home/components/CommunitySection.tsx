@@ -85,7 +85,7 @@ export function CommunitySection() {
             >
               <p className="inline-flex items-center gap-2 rounded-2xl border border-white/60 bg-surface/90 px-4 py-3 text-sm font-bold text-primary shadow-lift backdrop-blur-md transition-transform duration-300 hover:scale-105">
                 <FiStar
-                  className="size-4 text-secondary animate-spin-slow"
+                  className="size-4 text-secondary"
                   aria-hidden="true"
                 />
                 {t("imageBadge")}

@@ -1,12 +1,14 @@
 /**
  * Single source of truth for company data, navigation and external links.
- * Values marked TBD still need owner confirmation (see elite-rules.txt §11).
+ * Values marked TBD still need owner confirmation (see elite-design-rules.txt, "Open items").
  */
 
 import type { IconType } from "react-icons";
 import { FiHeadphones, FiLogIn, FiMapPin, FiTool, FiTruck } from "react-icons/fi";
+import type { routing } from "@/i18n/routing";
 
-export type AppLocale = "ar" | "en";
+/** "ar" | "en", derived from the next-intl routing config so the locale list lives in one place. */
+export type AppLocale = (typeof routing.locales)[number];
 
 export interface LocalizedText {
   ar: string;
@@ -34,8 +36,18 @@ export const COMPANY_INFO = {
   email: "info@elitemsr.com",
 } as const;
 
+/**
+ * Company time zone. Booking slots are in Cairo time, and the server and the browser both format
+ * dates in this zone, so the rendered markup never differs between them (no hydration mismatch).
+ */
+export const APP_TIME_ZONE = "Africa/Cairo";
+
+/** WhatsApp chat with the company number, optionally with a prefilled (already translated) message. */
+export const whatsappUrl = (text?: string) =>
+  `https://wa.me/${COMPANY_INFO.whatsappPhone}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
+
 /** Direct WhatsApp chat with the company number. */
-export const WHATSAPP_URL = `https://wa.me/${COMPANY_INFO.whatsappPhone}`;
+export const WHATSAPP_URL = whatsappUrl();
 
 /** Live community platform. Used until the (community) route group is built. */
 export const COMMUNITY_URLS = {
@@ -61,6 +73,10 @@ export const API_ENDPOINTS = {
   newsletter: "/newsletter/subscribe",
   /** TBD: backend endpoint that sends a free PDF guide to the visitor's WhatsApp. */
   guideRequest: "/guides/request",
+  /** TBD: backend endpoint that books a diagnostic session (book-session widget). */
+  bookSession: "/sessions/book",
+  /** TBD: backend endpoint that receives job applications (jobs page modal). */
+  jobApplication: "/jobs/apply",
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -77,6 +93,7 @@ export const ROUTES = {
   partners: "/partners",
   agents: "/agents",
   solutions: {
+    all: "/solutions",
     consulting: "/solutions/consulting",
     web: "/solutions/web-apps",
     mobile: "/solutions/mobile-apps",

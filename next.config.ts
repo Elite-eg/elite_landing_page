@@ -5,9 +5,7 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ["elite-tech.com"],
-  },
-  };
+  // All images are local files in /public. Add `images.remotePatterns` before using a remote image.
+};
 
 export default withNextIntl(nextConfig);

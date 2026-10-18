@@ -18,7 +18,7 @@ export function CommunityGateModal({ isOpen, onClose, message }: CommunityGateMo
   const t = useTranslations("gate");
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-[80]">
+    <Dialog open={isOpen} onClose={onClose} className="relative z-[130]">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-primary-deep/55 backdrop-blur-sm transition-opacity duration-300 data-[closed]:opacity-0"
@@ -40,7 +40,7 @@ export function CommunityGateModal({ isOpen, onClose, message }: CommunityGateMo
           </button>
 
           <div className="mb-4 grid size-12 place-items-center rounded-2xl bg-secondary/15 text-secondary-dark">
-            <FiStar className="size-6 text-secondary animate-pulse" aria-hidden="true" />
+            <FiStar className="size-6 text-secondary motion-safe:animate-pulse" aria-hidden="true" />
           </div>
 
           <DialogTitle className="text-xl font-bold text-primary">{t("title")}</DialogTitle>

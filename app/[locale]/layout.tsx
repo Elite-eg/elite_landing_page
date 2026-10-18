@@ -6,7 +6,7 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import type { AbstractIntlMessages } from "next-intl";
 import Providers from "./providers/providers";
 import { Toaster } from "react-hot-toast";
@@ -14,6 +14,8 @@ import { Header } from "@/app/components/shared/header/Header";
 import { Footer } from "@/app/components/shared/footer/Footer";
 import { WhatsAppButton } from "@/app/components/shared/WhatsAppButton";
 import { COMPANY_INFO } from "@/lib/constants";
+import { toAppLocale } from "@/lib/locale";
+import { DEFAULT_OG_IMAGE, OG_LOCALES, SITE_KEYWORDS, SITE_URL } from "@/lib/metadata";
 
 /** Headings (Display / H2 / H3). */
 const alexandria = Alexandria({
@@ -40,48 +42,35 @@ const poppins = Poppins({
 });
 
 export const viewport: Viewport = {
+  /** primary-deep. Browser UI color: metadata needs a literal value, not a CSS variable. */
   themeColor: "#06142A",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
 
-
+/**
+ * Site-wide defaults. Every page overrides title, description, alternates, openGraph and twitter
+ * through buildPageMetadata (lib/metadata.ts); these values only show on pages that don't (404).
+ */
 export async function generateMetadata({
   params,
 }: LocaleLayoutProps): Promise<Metadata> {
-  const { locale = routing.defaultLocale } = await params;
-  const isAr = locale === "ar";
-
-  const brand = COMPANY_INFO.brandName[isAr ? "ar" : "en"];
-  const title = isAr
-    ? "إيليت تك | حلول برمجية للشركات ومجتمع للمطورين"
-    : "Elite Tech | Enterprise Software Solutions & Builders Community";
-  const description = isAr
-    ? "نساعد الشركات والمؤسسات في بناء وتطوير حلولها البرمجية الخاصة، من تطبيقات الويب والجوال وأنظمة ERP وأتمتة الذكاء الاصطناعي، إلى مجتمع تقني مشارك."
-    : "We help companies build custom software, web and mobile apps, ERP systems, AI automation, and foster a thriving tech community.";
-
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://elitemsr.com";
+  const locale = toAppLocale((await params).locale);
+  const t = await getTranslations({ locale, namespace: "site.meta" });
+  const brand = COMPANY_INFO.brandName[locale];
+  const title = t("title", { brand });
+  const description = t("description");
 
   return {
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: title,
       template: `%s | ${brand}`,
     },
     description,
-    keywords: [
-      "Elite Tech",
-      "إيليت تك",
-      "حلول برمجية",
-      "Software Solutions",
-      "تطبيقات الويب",
-      "تطبيقات الجوال",
-      "ERP systems",
-      "AI Automation",
-      "الذكاء الاصطناعي",
-    ],
-    authors: [{ name: brand, url: siteUrl }],
+    keywords: SITE_KEYWORDS,
+    authors: [{ name: brand, url: SITE_URL }],
     creator: brand,
     publisher: brand,
 
@@ -96,41 +85,18 @@ export async function generateMetadata({
 
     openGraph: {
       type: "website",
-      locale: isAr ? "ar_EG" : "en_US",
-      url: `${siteUrl}/${locale}`,
+      locale: OG_LOCALES[locale],
       siteName: brand,
       title,
       description,
-      images: [
-        {
-          url: "/images/hero-office.png",
-          width: 1200,
-          height: 630,
-          alt: brand,
-        },
-        {
-          url: "/images/logo-square.jpeg",
-          width: 500,
-          height: 500,
-          alt: brand,
-        },
-      ],
+      images: [{ ...DEFAULT_OG_IMAGE, alt: brand }],
     },
 
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/hero-office.png"],
-      creator: "@elitemsr",
-    },
-
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        ar: "/ar",
-        en: "/en",
-      },
+      images: [DEFAULT_OG_IMAGE.url],
     },
 
     robots: {

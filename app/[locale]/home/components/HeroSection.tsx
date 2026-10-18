@@ -21,7 +21,7 @@ import {
 } from "react-icons/fi";
 import { Container } from "@/app/components/shared/Container";
 import { Button } from "@/app/components/shared/Button";
-import { COMMUNITY_URLS, MEDIA } from "@/lib/constants";
+import { COMMUNITY_URLS, MEDIA, ROUTES } from "@/lib/constants";
 import {
   fadeInUp,
   floatLoop,
@@ -94,11 +94,11 @@ export function HeroSection() {
         aria-hidden="true"
       />
       <div
-        className="absolute -top-40 start-[-10%] -z-10 size-[34rem] rounded-full bg-accent/25 blur-3xl animate-pulse"
+        className="absolute -top-40 start-[-10%] -z-10 size-[34rem] rounded-full bg-accent/25 blur-3xl motion-safe:animate-pulse"
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-48 end-[-8%] -z-10 size-[30rem] rounded-full bg-secondary/25 blur-3xl animate-pulse"
+        className="absolute -bottom-48 end-[-8%] -z-10 size-[30rem] rounded-full bg-secondary/25 blur-3xl motion-safe:animate-pulse"
         aria-hidden="true"
       />
 
@@ -148,7 +148,7 @@ export function HeroSection() {
               className="mt-9 flex flex-col gap-3 sm:flex-row"
             >
               <Button
-                href="/solutions"
+                href={ROUTES.solutions.all}
                 variant="secondary"
                 size="lg"
                 icon={<FiArrowRight />}

@@ -2,7 +2,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { FiClock, FiInfo } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa6";
 import { Button } from "@/app/components/shared/Button";
-import { COMPANY_INFO, type AppLocale, type RegionCode } from "@/lib/constants";
+import { COMPANY_INFO, whatsappUrl, type AppLocale, type RegionCode } from "@/lib/constants";
 import { SAMPLE_BANK_ACCOUNTS, SAMPLE_ORDER, getOrderTotals } from "../data/checkoutData";
 import { formatMoney } from "../utils/formatMoney";
 import { DetailList } from "./DetailList";
@@ -19,7 +19,6 @@ export function BankTransferPending({ country }: BankTransferPendingProps) {
   const locale = useLocale() as AppLocale;
   const { total, currency } = getOrderTotals(country);
   const account = SAMPLE_BANK_ACCOUNTS[country];
-  const whatsappText = encodeURIComponent(t("whatsappMessage", { order: SAMPLE_ORDER.orderNumber }));
 
   return (
     <ResultCard icon={FiClock} tone="pending" title={t("title")} text={t("text")}>
@@ -40,7 +39,7 @@ export function BankTransferPending({ country }: BankTransferPendingProps) {
       </p>
 
       <Button
-        href={`https://wa.me/${COMPANY_INFO.whatsappPhone}?text=${whatsappText}`}
+        href={whatsappUrl(t("whatsappMessage", { order: SAMPLE_ORDER.orderNumber }))}
         external
         variant="secondary"
         size="lg"

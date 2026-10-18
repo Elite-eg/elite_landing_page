@@ -40,9 +40,11 @@ export function HeaderMegaMenu({ labelKey, menu }: HeaderMegaMenuProps) {
         />
       </PopoverButton>
 
+      {/* Anchored (Floating UI): opens under the trigger and shifts to keep 16px from the viewport edges. */}
       <PopoverPanel
         transition
-        className="absolute start-0 top-full z-[110] mt-3 w-[46rem] max-w-[calc(100vw-2rem)] origin-top rounded-2xl border border-edge bg-surface p-5 shadow-lift transition duration-200 ease-out-brand data-[closed]:-translate-y-2 data-[closed]:opacity-0 motion-reduce:transition-none"
+        anchor={{ to: "bottom start", gap: 12, padding: 16 }}
+        className="z-[110] w-[46rem] max-w-[calc(100vw-2rem)] origin-top rounded-2xl border border-edge bg-surface p-5 shadow-lift transition duration-200 ease-out-brand data-[closed]:-translate-y-2 data-[closed]:opacity-0 motion-reduce:transition-none"
       >
         <div className="grid grid-cols-[1fr_1fr_14rem] gap-5">
           {menu.sections.map((section) => (

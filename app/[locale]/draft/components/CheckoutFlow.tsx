@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Container } from "@/app/components/shared/Container";
 import { useRegion } from "@/app/store/useRegion";
@@ -21,6 +22,7 @@ const STEP_INDEX: Record<CheckoutStep, number> = { company: 0, payment: 1, resul
  * DRAFT: state is local only; nothing is sent to a backend yet.
  */
 export function CheckoutFlow() {
+  const t = useTranslations("checkout.meta");
   const { region } = useRegion();
   const [step, setStep] = useState<CheckoutStep>("company");
   const [country, setCountry] = useState<RegionCode | null>(null);
@@ -39,6 +41,8 @@ export function CheckoutFlow() {
   return (
     <section className="min-h-[70vh] bg-surface-alt py-10 sm:py-14">
       <Container className="max-w-5xl">
+        {/* The flow has no hero, so the page's single h1 is visually hidden. */}
+        <h1 className="sr-only">{t("title")}</h1>
         <CheckoutStepper current={STEP_INDEX[step]} isComplete={step === "result" && !isPending} />
 
         <motion.div key={step} variants={fadeInUp} initial="hidden" animate="visible" className="mt-10">

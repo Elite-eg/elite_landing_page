@@ -1,30 +1,23 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { BookingHero } from "@/app/[locale]/book-session/components/BookingHero";
-import { NextStepsSection } from "@/app/[locale]/book-session/components/NextStepsSection";
-import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
+import { ROUTES } from "@/lib/constants";
+import { toAppLocale } from "@/lib/locale";
+import { buildPageMetadata } from "@/lib/metadata";
+import { BookingHero } from "./components/BookingHero";
+import { NextStepsSection } from "./components/NextStepsSection";
 
 interface BookSessionPageProps {
   params: Promise<{ locale: string }>;
 }
 
-const toAppLocale = (locale: string): AppLocale =>
-  locale === "en" ? "en" : "ar";
-
-export async function generateMetadata({
-  params,
-}: BookSessionPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: BookSessionPageProps): Promise<Metadata> {
   const locale = toAppLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: "booking.meta" });
-  const brand = COMPANY_INFO.brandName[locale];
 
-  return {
-    title: t("title", { brand }),
-    description: t("description"),
-  };
+  return buildPageMetadata({ locale, path: ROUTES.bookSession, title: t("title"), description: t("description") });
 }
 
-export default async function BookSessionPage() {
+export default function BookSessionPage() {
   return (
     <>
       <BookingHero />

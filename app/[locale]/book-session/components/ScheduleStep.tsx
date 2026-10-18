@@ -46,6 +46,7 @@ export function ScheduleStep({ schedule, meetingType, onMeetingTypeChange, onNex
         minDate={schedule.minDate}
         selectedDay={schedule.selectedDay}
         onSelectDay={schedule.selectDay}
+        dayLabel={schedule.dayLabel}
       />
 
       <TimeSlotPicker
