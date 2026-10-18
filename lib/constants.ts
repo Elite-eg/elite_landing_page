@@ -34,6 +34,9 @@ export const COMPANY_INFO = {
   email: "info@elitemsr.com",
 } as const;
 
+/** Direct WhatsApp chat with the company number. */
+export const WHATSAPP_URL = `https://wa.me/${COMPANY_INFO.whatsappPhone}`;
+
 /** Live community platform. Used until the (community) route group is built. */
 export const COMMUNITY_URLS = {
   home: "https://community.elitemsr.com",
@@ -328,6 +331,17 @@ export const SOCIAL_LINKS = [
 export const ALBIRUNI_APP_LINKS = {
   appStore: "https://apps.apple.com/",
   googlePlay: "https://play.google.com/store/apps",
+} as const;
+
+/** Public links of client projects shown on case study pages. */
+export const PROJECT_LINKS = {
+  bareeq: {
+    website: "https://bareeqx.com",
+    /** TBD: Bareeq X App Store listing (not linked from bareeqx.com yet). */
+    appStore: "https://apps.apple.com/",
+    /** TBD: Bareeq X Google Play listing (not linked from bareeqx.com yet). */
+    googlePlay: "https://play.google.com/store/apps",
+  },
 } as const;
 
 /** Kept for page sections that link to support/contact. */

@@ -46,6 +46,7 @@ NEVER write hex, `rgb()` or arbitrary colour values in components. Use the token
 | `edge` | #DDE5EF | Borders and dividers |
 | `success` / `warning` / `danger` | green / amber / red | Status, form errors |
 | `albiruni` | teal #0E4D57 | Reserved for the Albiruni app identity only |
+| `bareeq` / `bareeq-950` / `-200` / `-50` | teal #0E7490 → #06333A, tints #A5E4EC / #E0F7FA | Client identity, Bareeq X case study only (hero, icon tiles, timeline) |
 
 Colour rules:
 - Orange is precious. Use one orange (`secondary`) button per view. Make the other actions `primary`, `outline` or `ghost`.
@@ -117,7 +118,7 @@ Don't stack shadows under everything. Light cards SHOULD use `border border-edge
 
 Presets live in `lib/animations.ts`. Components import them and MUST NOT define their own variants inline.
 Available: `fadeInUp`, `fadeIn`, `scaleIn`, `imageReveal`, `slideInLeft/Right`, `slideInFromStart/End(isRtl)`,
-`staggerContainer`, `heroStagger`, `heroTextReveal`, `popIn`, `floatLoop`, `floatLoopOffset`, `drawPath`, `growY`,
+`staggerContainer`, `heroStagger`, `heroTextReveal`, `popIn`, `floatLoop`, `floatLoopOffset`, `drawPath`, `growY`, `growYFromTop` (timeline connectors),
 `withDelay`, `viewportOnce`. CSS equivalents live in `globals.css` (`animate-draw`, `animate-draw-dot`, `animate-pop`,
 `animate-pop-float`, `animate-hero-rise`, ...).
 
@@ -257,6 +258,7 @@ messages/  ar.json  en.json
 | `/jobs` | Hero, how we work, open positions (anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID`) |
 | `/book-session` | Booking calendar flow |
 | `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form |
+| `/projects/bareeq-x` | Case study: teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
 | `/draft` | DRAFT subscription checkout: company details → payment (EG / SA methods) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing |
 
 ---
@@ -285,3 +287,4 @@ messages/  ar.json  en.json
 | 6 | Whether checkout uses a minimal header (needs a route-group layout split) | Layout |
 | 7 | Official Arabic spelling (إيليت تك vs إليت تك) | `COMPANY_INFO` |
 | 8 | Icon set decision: keep Feather (`react-icons/fi`) or migrate to Lucide | All components |
+| 9 | Bareeq X: App Store / Google Play listing URLs, real app screenshots, partner's official English name | `PROJECT_LINKS.bareeq`, `PhoneMockup`, `caseStudies.bareeqX` (en) |

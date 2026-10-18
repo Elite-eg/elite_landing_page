@@ -776,5 +776,124 @@
     "result": {
       "home": "Back to home"
     }
+  },
+  "caseStudies": {
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "ourWork": "Our work"
+    },
+    "sections": {
+      "challenge": "The challenge",
+      "solution": "The solution",
+      "result": "The result"
+    },
+    "bareeqX": {
+      "meta": {
+        "title": "Bareeq X case study",
+        "description": "How the {brand} team built a complete mobile steam car wash system in Saudi Arabia, from the customer and field agent apps to the admin dashboard and website, and launched it in 3 months."
+      },
+      "hero": {
+        "name": "Bareeq X",
+        "tagline": "How we built a complete mobile steam car wash system in Saudi Arabia and launched it in 3 months.",
+        "tagsLabel": "About the project",
+        "tags": {
+          "mobile": "Mobile app",
+          "web": "Web platform",
+          "country": "Saudi Arabia",
+          "live": "Live now"
+        },
+        "facts": {
+          "duration": {
+            "value": "3 months",
+            "label": "From first build to launch"
+          },
+          "interfaces": {
+            "value": "4",
+            "label": "Interfaces in one system"
+          },
+          "stores": {
+            "value": "2",
+            "label": "Stores: Google Play and App Store"
+          }
+        }
+      },
+      "challenge": {
+        "title": "A field service needs a whole system, not just an app.",
+        "text": "A mobile wash service means bookings, locations, field agents and payments all moving at the same moment. Our partner, <partner>Maharat Al-Code IT</partner>, needed a complete tech system and a partner who would stay with them in operation after launch."
+      },
+      "solution": {
+        "title": "Four interfaces working as one system.",
+        "interfaces": {
+          "website": {
+            "title": "Smart website",
+            "text": "Multilingual with localized paths"
+          },
+          "customer": {
+            "title": "Customer app",
+            "text": "Location, package and booking"
+          },
+          "agent": {
+            "title": "Field agent app",
+            "text": "Live orders and location sharing"
+          },
+          "admin": {
+            "title": "Admin dashboard",
+            "text": "Order dispatch and analytics"
+          }
+        },
+        "techTitle": "Technologies",
+        "tech": {
+          "flutter": "Flutter / Dart",
+          "nextjs": "Next.js",
+          "tailwind": "Tailwind CSS",
+          "laravel": "Laravel",
+          "sql": "SQL",
+          "moyasar": "Moyasar gateway",
+          "otp": "OTP SMS",
+          "server": "Nginx · Ubuntu"
+        }
+      },
+      "result": {
+        "title": "From idea to the app stores in 3 months.",
+        "timeline": {
+          "kickoff": {
+            "date": "October 2025",
+            "title": "Development started",
+            "text": "Feasibility study, UX/UI design and architecture"
+          },
+          "launch": {
+            "date": "January 2026",
+            "title": "First version launched",
+            "text": "Apps on Google Play and the App Store, plus the bareeqx.com website"
+          },
+          "now": {
+            "date": "Now",
+            "title": "Ongoing operation and development",
+            "text": "{brand} is the main tech partner in operation"
+          }
+        },
+        "linksLabel": "Project links",
+        "links": {
+          "website": {
+            "caption": "bareeqx.com",
+            "label": "View BAREEQ X"
+          },
+          "googlePlay": {
+            "caption": "Get it on",
+            "label": "Google Play"
+          },
+          "appStore": {
+            "caption": "Download on the",
+            "label": "App Store"
+          }
+        }
+      },
+      "cta": {
+        "title": "Have an idea like Bareeq X?",
+        "subtitle": "Describe it to us in a short form, or book a free diagnostic session.",
+        "book": "Book your free session",
+        "whatsapp": "Chat on WhatsApp"
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { StoreBadge } from "@/app/components/shared/StoreBadge";
 import { ALBIRUNI_APP_LINKS } from "@/lib/constants";
-import { StoreBadge } from "./StoreBadge";
 
 export function FooterAppBadges() {
   const t = useTranslations("footer.app");
@@ -13,13 +13,13 @@ export function FooterAppBadges() {
         <StoreBadge
           href={ALBIRUNI_APP_LINKS.appStore}
           caption={t("appStoreCaption")}
-          storeName={t("appStoreName")}
+          label={t("appStoreName")}
           logo={<Image src="/images/app-store.svg" alt="" width={24} height={24} unoptimized className="size-full" />}
         />
         <StoreBadge
           href={ALBIRUNI_APP_LINKS.googlePlay}
           caption={t("googlePlayCaption")}
-          storeName={t("googlePlayName")}
+          label={t("googlePlayName")}
           logo={<Image src="/images/google-play.svg" alt="" width={24} height={24} unoptimized className="size-full" />}
         />
       </div>

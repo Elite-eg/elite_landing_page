@@ -776,5 +776,124 @@
     "result": {
       "home": "العودة إلى الرئيسية"
     }
+  },
+  "caseStudies": {
+    "breadcrumb": {
+      "label": "مسار الصفحة",
+      "ourWork": "أعمالنا"
+    },
+    "sections": {
+      "challenge": "التحدي",
+      "solution": "الحل",
+      "result": "النتيجة"
+    },
+    "bareeqX": {
+      "meta": {
+        "title": "دراسة حالة Bareeq X",
+        "description": "كيف بنى فريق {brand} منظومة كاملة لغسيل السيارات المتنقل بالبخار في السعودية، من تطبيقي العميل والمندوب إلى لوحة الإدارة والموقع، وأطلقها خلال 3 أشهر."
+      },
+      "hero": {
+        "name": "Bareeq X",
+        "tagline": "كيف بنينا منظومة كاملة لغسيل السيارات المتنقل بالبخار في السعودية، وأطلقناها خلال 3 أشهر.",
+        "tagsLabel": "عن المشروع",
+        "tags": {
+          "mobile": "تطبيق جوال",
+          "web": "منصة ويب",
+          "country": "السعودية",
+          "live": "يعمل الآن"
+        },
+        "facts": {
+          "duration": {
+            "value": "3 أشهر",
+            "label": "من بدء التطوير للإطلاق"
+          },
+          "interfaces": {
+            "value": "4",
+            "label": "واجهات في منظومة واحدة"
+          },
+          "stores": {
+            "value": "2",
+            "label": "متجر: Google Play وApp Store"
+          }
+        }
+      },
+      "challenge": {
+        "title": "خدمة ميدانية تحتاج منظومة لا تطبيقًا فقط.",
+        "text": "خدمة غسيل متنقلة تعني حجوزات ومواقع ومناديب ومدفوعات تتحرك في نفس اللحظة. احتاج الشريك <partner>مهارات الكود لتقنية المعلومات</partner> منظومة تقنية كاملة، وشريكًا يستمر معه في التشغيل بعد الإطلاق."
+      },
+      "solution": {
+        "title": "أربع واجهات تعمل كمنظومة واحدة.",
+        "interfaces": {
+          "website": {
+            "title": "الموقع الذكي",
+            "text": "متعدد اللغات بمسارات محلية"
+          },
+          "customer": {
+            "title": "تطبيق العميل",
+            "text": "الموقع، والباقة، والحجز"
+          },
+          "agent": {
+            "title": "تطبيق المندوب",
+            "text": "طلبات لحظية ومشاركة الموقع"
+          },
+          "admin": {
+            "title": "لوحة الإدارة",
+            "text": "توزيع الطلبات والتحليلات"
+          }
+        },
+        "techTitle": "التقنيات",
+        "tech": {
+          "flutter": "Flutter / Dart",
+          "nextjs": "Next.js",
+          "tailwind": "Tailwind CSS",
+          "laravel": "Laravel",
+          "sql": "SQL",
+          "moyasar": "بوابة Moyasar",
+          "otp": "OTP SMS",
+          "server": "Nginx · Ubuntu"
+        }
+      },
+      "result": {
+        "title": "من الفكرة إلى المتاجر في 3 أشهر.",
+        "timeline": {
+          "kickoff": {
+            "date": "أكتوبر 2025",
+            "title": "بدء التطوير",
+            "text": "دراسة الجدوى، وتصميم UX/UI، وبناء المعمارية"
+          },
+          "launch": {
+            "date": "يناير 2026",
+            "title": "إطلاق النسخة الأولى",
+            "text": "التطبيقات على Google Play وApp Store، والموقع bareeqx.com"
+          },
+          "now": {
+            "date": "الآن",
+            "title": "التشغيل والتطوير المستمر",
+            "text": "{brand} الشريك التقني الأساسي في التشغيل"
+          }
+        },
+        "linksLabel": "روابط المشروع",
+        "links": {
+          "website": {
+            "caption": "bareeqx.com",
+            "label": "تصفّح BAREEQ X"
+          },
+          "googlePlay": {
+            "caption": "متوفر على",
+            "label": "Google Play"
+          },
+          "appStore": {
+            "caption": "حمّله من",
+            "label": "App Store"
+          }
+        }
+      },
+      "cta": {
+        "title": "عندك فكرة مثل Bareeq X؟",
+        "subtitle": "اشرحها لنا في نموذج قصير، أو احجز جلسة تشخيص مجانية.",
+        "book": "احجز جلستك المجانية",
+        "whatsapp": "تحدّث على واتساب"
+      }
+    }
   }
 }

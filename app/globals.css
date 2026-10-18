@@ -10,6 +10,7 @@
  *   - Orange (#F07810, orange-500) is reserved for the PRIMARY call to action only.
  *   - Albiruni teal (#0E4D57) is used only for the Albiruni product (temporary name),
  *     matching the mobile app.
+ *   - Bareeq teal (#0E7490) is the client identity of the Bareeq X case study only.
  *
  * Fonts: Alexandria for headings, Readex Pro for body text, Poppins for the fixed
  * "Elite Tech" wordmark (loaded with next/font in app/[locale]/layout.tsx).
@@ -36,6 +37,12 @@
     --ink-700: 47 64 88;      /* #2F4058 · chip labels */
     --ink-900: 12 26 44;      /* #0C1A2C */
     --albiruni-teal: 14 77 87; /* #0E4D57 */
+
+    /* Bareeq X case study (client identity, /projects/bareeq-x only) */
+    --bareeq-50: 224 247 250;  /* #E0F7FA · hero tagline */
+    --bareeq-200: 165 228 236; /* #A5E4EC · muted text on teal */
+    --bareeq-600: 14 116 144;  /* #0E7490 · hero, icon tiles, timeline */
+    --bareeq-950: 6 51 58;     /* #06333A · hero gradient end */
 
     /* ── Semantic aliases (names used across the codebase) ───────── */
     --primary: var(--navy-700);

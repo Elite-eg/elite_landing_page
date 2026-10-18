@@ -1,7 +1,7 @@
 import { Container } from "@/app/components/shared/Container";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
-import { CtaBannerButton, type CtaBannerAction } from "./CtaBannerButton";
+import { CtaBannerButton, type CtaBannerAction, type CtaBannerButtonVariant } from "./CtaBannerButton";
 
 export interface CtaBannerProps {
   title: string;
@@ -10,10 +10,18 @@ export interface CtaBannerProps {
   primaryAction: CtaBannerAction;
   /** Light button next to the primary one. */
   secondaryAction?: CtaBannerAction;
+  /** "outline" = white button (default), "glass" = white outline only. */
+  secondaryVariant?: Extract<CtaBannerButtonVariant, "outline" | "glass">;
 }
 
 /** Orange closing banner shared by inner pages (About, Solutions, ...). */
-export function CtaBanner({ title, subtitle, primaryAction, secondaryAction }: CtaBannerProps) {
+export function CtaBanner({
+  title,
+  subtitle,
+  primaryAction,
+  secondaryAction,
+  secondaryVariant = "outline",
+}: CtaBannerProps) {
   return (
     <section className="bg-surface py-20 sm:py-24">
       <Container>
@@ -31,7 +39,7 @@ export function CtaBanner({ title, subtitle, primaryAction, secondaryAction }: C
               />
               <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
                 <CtaBannerButton action={primaryAction} variant="primary" />
-                {secondaryAction && <CtaBannerButton action={secondaryAction} variant="outline" />}
+                {secondaryAction && <CtaBannerButton action={secondaryAction} variant={secondaryVariant} />}
               </div>
             </div>
           </div>
