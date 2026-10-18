@@ -6,6 +6,7 @@ import { MotionConfig } from "framer-motion";
 import { type ReactNode } from "react";
 import { Provider } from "react-redux";
 import { store } from "@/app/store";
+import { APP_TIME_ZONE } from "@/lib/constants";
 
 interface ProvidersProps {
   children: ReactNode;
@@ -18,14 +19,13 @@ export default function Providers({
   locale,
   messages,
 }: ProvidersProps) {
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
   return (
     <Provider store={store}>
+      {/* Same fixed time zone as i18n/request.ts: the browser's own zone would differ from the server's. */}
       <NextIntlClientProvider
         locale={locale}
         messages={messages}
-        timeZone={timeZone}
+        timeZone={APP_TIME_ZONE}
       >
         <MotionConfig reducedMotion="user">{children}</MotionConfig>
       </NextIntlClientProvider>

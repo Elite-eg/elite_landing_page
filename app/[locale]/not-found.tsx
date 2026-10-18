@@ -1,56 +1,59 @@
-"use client";
-
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
-import { FiArrowLeft, FiArrowRight, FiHome, FiHelpCircle } from "react-icons/fi";
+import { getTranslations } from "next-intl/server";
+import { FiArrowRight, FiHelpCircle, FiHome } from "react-icons/fi";
 import { Link } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
+import { ROUTES } from "@/lib/constants";
 
+/** Localized tab title; overrides the layout's "index, follow" so 404s carry a single noindex signal. */
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("notFound");
+  return { title: t("title"), robots: { index: false, follow: false } };
+}
+
+/** Localized 404, rendered inside the locale layout (unmatched paths reach it through [...rest]). */
 export default function LocalizedNotFound() {
   const t = useTranslations("notFound");
-  const locale = useLocale();
-  const isRtl = locale === "ar";
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 bg-surface-alt relative overflow-hidden">
-      {/* Background ambient glow */}
-      <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 size-96 bg-secondary/10 blur-[130px] rounded-full pointer-events-none animate-pulse" />
-      <div className="absolute bottom-10 end-10 size-72 bg-accent/10 blur-[100px] rounded-full pointer-events-none animate-pulse" />
+    <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-surface-alt px-4 py-16 sm:px-6 lg:px-8">
+      {/* Background ambient glow (inset-0 + m-auto centres it in both directions) */}
+      <div className="pointer-events-none absolute inset-0 m-auto size-96 rounded-full bg-secondary/10 blur-[130px] motion-safe:animate-pulse" aria-hidden="true" />
+      <div className="pointer-events-none absolute bottom-10 end-10 size-72 rounded-full bg-accent/10 blur-[100px] motion-safe:animate-pulse" aria-hidden="true" />
 
-      <div className="max-w-xl w-full text-center space-y-8 relative z-10">
-        {/* Animated Badge & Hero Graphic */}
+      <div className="relative z-10 w-full max-w-xl space-y-8 text-center">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface border border-edge/60 text-secondary text-xs font-bold shadow-sm transition-transform duration-300 hover:scale-105">
-            <FiHelpCircle className="size-4 animate-bounce text-secondary" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-edge/60 bg-surface px-4 py-1.5 text-xs font-bold text-secondary shadow-sm transition-transform duration-300 hover:scale-105">
+            <FiHelpCircle className="size-4 text-secondary motion-safe:animate-bounce" aria-hidden="true" />
             <span>404 · {t("title")}</span>
           </div>
 
-          <h1 className="text-7xl sm:text-9xl font-black bg-gradient-to-r from-secondary to-secondary-dark bg-clip-text text-transparent tracking-tighter drop-shadow-sm select-none transition-transform duration-500 hover:scale-105">
+          <p
+            dir="ltr"
+            aria-hidden="true"
+            className="select-none bg-gradient-to-r from-secondary to-secondary-dark bg-clip-text text-7xl font-black tracking-tighter text-transparent drop-shadow-sm transition-transform duration-500 hover:scale-105 sm:text-9xl"
+          >
             404
-          </h1>
+          </p>
         </div>
 
-        {/* Localized Content */}
-        <div className="bg-surface rounded-3xl p-8 sm:p-10 shadow-xl border border-edge/60 space-y-4 backdrop-blur-md transition-all duration-300 hover:shadow-2xl">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-body">
-            {t("title")}
-          </h2>
-          <p className="text-content leading-relaxed text-sm sm:text-base max-w-md mx-auto">
-            {t("description")}
-          </p>
+        <div className="space-y-4 rounded-3xl border border-edge/60 bg-surface p-8 shadow-xl backdrop-blur-md transition-all duration-300 hover:shadow-2xl sm:p-10">
+          <h1 className="text-2xl font-extrabold text-body sm:text-3xl">{t("title")}</h1>
+          <p className="mx-auto max-w-md text-sm leading-relaxed text-content sm:text-base">{t("description")}</p>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row">
             <Link
-              href="/home"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-secondary to-secondary-dark hover:from-secondary-dark hover:to-secondary text-surface font-bold px-6 py-3.5 rounded-2xl text-sm shadow-md shadow-secondary/20 hover:shadow-secondary/30 transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
+              href={ROUTES.home}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-secondary to-secondary-dark px-6 py-3.5 text-sm font-bold text-surface shadow-md shadow-secondary/20 transition-all duration-300 hover:-translate-y-0.5 hover:from-secondary-dark hover:to-secondary hover:shadow-secondary/30 active:scale-95 motion-reduce:transform-none sm:w-auto"
             >
-              <FiHome className="size-4" />
+              <FiHome className="size-4" aria-hidden="true" />
               <span>{t("home")}</span>
-              {isRtl ? <FiArrowLeft className="size-4" /> : <FiArrowRight className="size-4" />}
+              <FiArrowRight className="size-4 rtl:-scale-x-100" aria-hidden="true" />
             </Link>
 
             <Link
-              href="/book-session"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-surface-alt border border-edge/80 text-body font-bold px-6 py-3.5 rounded-2xl text-sm hover:bg-surface-muted transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
+              href={ROUTES.bookSession}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-edge/80 bg-surface-alt px-6 py-3.5 text-sm font-bold text-body transition-all duration-300 hover:-translate-y-0.5 hover:bg-surface-muted active:scale-95 motion-reduce:transform-none sm:w-auto"
             >
               <span>{t("contact")}</span>
             </Link>

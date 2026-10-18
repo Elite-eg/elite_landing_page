@@ -8,6 +8,7 @@ import {
   COMMUNITY_URLS,
   COMPANY_INFO,
   MEDIA,
+  ROUTES,
   type AppLocale,
 } from "@/lib/constants";
 import { EcosystemCard } from "./EcosystemCard";
@@ -52,7 +53,7 @@ export function EcosystemSection({ locale }: EcosystemSectionProps) {
               description={t("enterprise.description")}
               points={POINT_KEYS.map((key) => t(`enterprise.points.${key}`))}
               ctaLabel={t("enterprise.cta")}
-              href="/solutions"
+              href={ROUTES.solutions.all}
             />
           </Reveal>
           <Reveal inGroup preset="slideInRight">

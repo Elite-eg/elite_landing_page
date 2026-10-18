@@ -106,6 +106,12 @@ export const growY: Variants = {
   visible: { scaleY: 1, originY: 1, transition: { duration: MOTION.enter, ease: EASE_SMOOTH } },
 };
 
+/** Timeline connectors: the line draws downward from the marker above it. */
+export const growYFromTop: Variants = {
+  hidden: { scaleY: 0, originY: 0 },
+  visible: { scaleY: 1, originY: 0, transition: { duration: MOTION.enter, ease: EASE_SMOOTH } },
+};
+
 /** Horizontal slide that mirrors in RTL (Start side). */
 export const slideInFromStart = (isRtl: boolean): Variants => ({
   hidden: { opacity: 0, x: isRtl ? 44 : -44, scale: 0.98 },

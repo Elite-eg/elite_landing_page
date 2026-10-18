@@ -33,6 +33,13 @@ module.exports = {
           900: token("ink-900"),
         },
         albiruni: token("albiruni-teal"),
+        /** Bareeq X case study only (client identity). */
+        bareeq: {
+          50: token("bareeq-50"),
+          200: token("bareeq-200"),
+          DEFAULT: token("bareeq-600"),
+          950: token("bareeq-950"),
+        },
         primary: {
           DEFAULT: token("primary"),
           dark: token("primary-dark"),

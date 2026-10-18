@@ -1,5 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
@@ -11,118 +15,146 @@ import {
   FiPhone,
   FiUser,
 } from "react-icons/fi";
+import { Button } from "@/app/components/shared/Button";
 import { InputField } from "@/app/components/shared/InputField";
+import { fadeInUp } from "@/lib/animations";
+import { PATTERNS } from "@/lib/validation";
 
-export interface BookingFormData {
-  name: string;
-  phone: string;
-  email: string;
-  company: string;
-  notes: string;
-}
+/** Error messages are message keys inside the "validation" namespace. */
+const detailsSchema = z.object({
+  name: z.string().trim().min(1, "nameRequired"),
+  phone: z
+    .string()
+    .trim()
+    .min(1, "phoneRequired")
+    .regex(PATTERNS.phone, "phoneInvalid"),
+  email: z.string().trim().min(1, "emailRequired").email("emailInvalid"),
+  company: z.string().trim(),
+  notes: z.string().trim(),
+});
+
+export type BookingFormData = z.infer<typeof detailsSchema>;
 
 export interface DetailsStepProps {
-  data: BookingFormData;
-  isRtl: boolean;
-  onChange: (data: BookingFormData) => void;
+  defaultValues: BookingFormData;
+  /** Receives every edit, so the values survive going back to the schedule step. */
+  onChange: (values: BookingFormData) => void;
   onBack: () => void;
-  onSubmit: () => void;
+  /** Sends the booking. The form stays disabled (loading button) until it settles. */
+  onSubmit: (values: BookingFormData) => Promise<void>;
 }
 
+/** Step 2: contact details. */
 export function DetailsStep({
-  data,
-  isRtl,
+  defaultValues,
   onChange,
   onBack,
   onSubmit,
 }: DetailsStepProps) {
   const t = useTranslations("booking");
+  const tValidation = useTranslations("validation");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<BookingFormData>({
+    resolver: zodResolver(detailsSchema),
+    defaultValues,
+  });
+
+  useEffect(() => {
+    // Every field has a default value, so the watched values are always complete.
+    const subscription = watch((values) => onChange(values as BookingFormData));
+    return () => subscription.unsubscribe();
+  }, [watch, onChange]);
+
+  const errorText = (key?: string) => (key ? tValidation(key) : undefined);
+  const field = { disabled: isSubmitting } as const;
+  const ltrField = { ...field, dir: "ltr" } as const;
 
   return (
     <motion.form
-      key="details"
-      initial={{ opacity: 0, x: isRtl ? -16 : 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: isRtl ? 16 : -16 }}
-      transition={{ duration: 0.25, ease: "easeInOut" }}
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit();
-      }}
+      variants={fadeInUp}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
       className="space-y-4"
     >
       <InputField
         label={t("form.name")}
-        type="text"
-        required
-        value={data.name}
-        onChange={(e) => onChange({ ...data, name: e.target.value })}
         placeholder={t("form.namePlaceholder")}
+        autoComplete="name"
         icon={<FiUser className="size-4" />}
+        error={errorText(errors.name?.message)}
+        {...field}
+        {...register("name")}
       />
-
       <InputField
-        label={t("form.phone")}
         type="tel"
-        required
-        value={data.phone}
-        onChange={(e) => onChange({ ...data, phone: e.target.value })}
+        inputMode="tel"
+        label={t("form.phone")}
         placeholder={t("form.phonePlaceholder")}
+        autoComplete="tel"
         icon={<FiPhone className="size-4" />}
+        error={errorText(errors.phone?.message)}
+        {...ltrField}
+        {...register("phone")}
       />
-
       <InputField
-        label={t("form.email")}
         type="email"
-        required
-        value={data.email}
-        onChange={(e) => onChange({ ...data, email: e.target.value })}
+        label={t("form.email")}
         placeholder={t("form.emailPlaceholder")}
+        autoComplete="email"
         icon={<FiMail className="size-4" />}
+        error={errorText(errors.email?.message)}
+        {...ltrField}
+        {...register("email")}
       />
-
       <InputField
         label={t("form.company")}
-        type="text"
-        value={data.company}
-        onChange={(e) => onChange({ ...data, company: e.target.value })}
         placeholder={t("form.companyPlaceholder")}
+        autoComplete="organization"
         icon={<FiBriefcase className="size-4" />}
+        {...field}
+        {...register("company")}
       />
-
       <InputField
         as="textarea"
         rows={3}
         label={t("form.notes")}
-        value={data.notes}
-        onChange={(e) => onChange({ ...data, notes: e.target.value })}
         placeholder={t("form.notesPlaceholder")}
         icon={<FiMessageSquare className="size-4" />}
+        {...field}
+        {...register("notes")}
       />
 
       <div className="flex items-center gap-3 pt-2">
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.96 }}
-          type="button"
+        <Button
+          variant="outline"
+          size="lg"
           onClick={onBack}
-          className="py-3 px-4 rounded-xl text-xs font-bold border border-edge/60 text-content hover:bg-surface-alt transition-all duration-200 cursor-pointer"
+          disabled={isSubmitting}
+          icon={<FiArrowLeft />}
+          iconPosition="start"
+          flipIconInRtl
+          className="border-edge/60 text-content hover:shadow-none"
         >
           {t("backCta")}
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.01, y: -2 }}
-          whileTap={{ scale: 0.98 }}
+        </Button>
+        <Button
           type="submit"
-          className="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-secondary to-secondary-dark hover:from-secondary-dark hover:to-secondary text-surface font-bold py-3.5 px-6 rounded-2xl text-sm shadow-lg shadow-secondary/20 transition-all duration-300 cursor-pointer"
+          variant="secondary"
+          size="lg"
+          isLoading={isSubmitting}
+          icon={<FiArrowRight />}
+          flipIconInRtl
+          className="flex-1 bg-gradient-to-r from-secondary to-secondary-dark shadow-lg shadow-secondary/20 hover:from-secondary-dark hover:to-secondary disabled:bg-none"
         >
-          <span>{t("confirmBookingCta")}</span>
-          {isRtl ? (
-            <FiArrowLeft className="size-4" />
-          ) : (
-            <FiArrowRight className="size-4" />
-          )}
-        </motion.button>
+          {isSubmitting ? t("submitting") : t("confirmBookingCta")}
+        </Button>
       </div>
     </motion.form>
   );

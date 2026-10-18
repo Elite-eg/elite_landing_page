@@ -1,18 +1,16 @@
-import {getRequestConfig} from 'next-intl/server';
-import {hasLocale} from 'next-intl';
-import {routing} from "@/i18n/routing";
+import { getRequestConfig } from "next-intl/server";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { APP_TIME_ZONE } from "@/lib/constants";
 
-export default getRequestConfig(async ({requestLocale}) => {
+export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;
-  const locale = hasLocale(routing.locales, requested)
-    ? requested
-    : routing.defaultLocale;
-
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
 
   return {
     locale,
-    timeZone: timeZone,
-    messages: (await import(`@/messages/${locale}.json`)).default
+    // Fixed zone (not the server's), matching the client provider in providers.tsx.
+    timeZone: APP_TIME_ZONE,
+    messages: (await import(`@/messages/${locale}.json`)).default,
   };
 });

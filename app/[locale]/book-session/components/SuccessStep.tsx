@@ -2,83 +2,58 @@
 
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { FiCheckCircle } from "react-icons/fi";
+import { FiCheckCircle, FiHome } from "react-icons/fi";
+import { Button } from "@/app/components/shared/Button";
+import { ROUTES } from "@/lib/constants";
+import { fadeInUp, popIn } from "@/lib/animations";
+import { cn } from "@/lib/utils";
 import type { MeetingType } from "../data/bookingData";
 
 export interface SuccessStepProps {
   dateLabel: string;
   timeLabel: string;
   meetingType: MeetingType;
-  onReset: () => void;
 }
 
-export function SuccessStep({
-  dateLabel,
-  timeLabel,
-  meetingType,
-  onReset,
-}: SuccessStepProps) {
+/** Step 3: shown only after the booking endpoint confirmed the session. */
+export function SuccessStep({ dateLabel, timeLabel, meetingType }: SuccessStepProps) {
   const t = useTranslations("booking");
-
-  const meetingTypeLabel =
-    meetingType === "video"
-      ? t("meetingTypes.video")
-      : meetingType === "whatsapp"
-        ? t("meetingTypes.whatsapp")
-        : t("meetingTypes.office");
+  const summary = [
+    { label: t("summary.date"), value: dateLabel },
+    { label: t("summary.time"), value: timeLabel },
+    { label: t("summary.meeting"), value: t(`meetingTypes.${meetingType}`), emphasis: true },
+  ];
 
   return (
-    <motion.div
-      key="success"
-      initial={{ opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.92 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="text-center py-6 space-y-5"
-    >
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: [0, 1.2, 1] }}
-        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-        className="inline-flex items-center justify-center size-16 rounded-full bg-surface-info text-success shadow-inner"
-      >
-        <FiCheckCircle className="size-10 text-success" />
-      </motion.div>
+    <motion.div variants={fadeInUp} initial="hidden" animate="visible" exit="hidden" className="space-y-5 py-6 text-center">
+      <motion.span variants={popIn} className="mx-auto grid size-16 place-items-center rounded-full bg-surface-info text-success shadow-inner">
+        <FiCheckCircle className="size-10" aria-hidden="true" />
+      </motion.span>
 
       <div className="space-y-2">
-        <h3 className="text-lg sm:text-xl font-bold text-body">
-          {t("success.title")}
-        </h3>
-        <p className="text-xs sm:text-sm text-content max-w-xs mx-auto">
-          {t("success.subtitle")}
-        </p>
+        <h3 className="text-lg font-bold text-body sm:text-xl">{t("success.title")}</h3>
+        <p className="mx-auto max-w-xs text-xs text-content sm:text-sm">{t("success.subtitle")}</p>
       </div>
 
-      {/* Booking Summary Box */}
-      <div className="bg-surface-alt rounded-2xl p-4 text-start text-xs space-y-2 border border-edge/60 shadow-sm">
-        <div className="flex items-center justify-between">
-          <span className="text-content">{t("summary.date")}:</span>
-          <span className="font-bold text-body">{dateLabel}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-content">{t("summary.time")}:</span>
-          <span className="font-bold text-body">{timeLabel}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-content">{t("summary.meeting")}:</span>
-          <span className="font-bold text-secondary">{meetingTypeLabel}</span>
-        </div>
-      </div>
+      <dl className="space-y-2 rounded-2xl border border-edge/60 bg-surface-alt p-4 text-start text-xs shadow-sm">
+        {summary.map(({ label, value, emphasis }) => (
+          <div key={label} className="flex items-center justify-between gap-4">
+            <dt className="text-content">{label}</dt>
+            <dd className={cn("font-bold", emphasis ? "text-secondary" : "text-body")}>{value}</dd>
+          </div>
+        ))}
+      </dl>
 
-      <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.96 }}
-        type="button"
-        onClick={onReset}
-        className="w-full py-3 px-4 rounded-xl bg-primary-deep text-surface text-xs font-bold hover:bg-primary-dark transition-all duration-200 cursor-pointer shadow-md"
+      <Button
+        href={ROUTES.home}
+        variant="primary"
+        fullWidth
+        icon={<FiHome />}
+        iconPosition="start"
+        className="bg-primary-deep shadow-md hover:bg-primary-dark"
       >
         {t("success.backHome")}
-      </motion.button>
+      </Button>
     </motion.div>
   );
 }

@@ -9,10 +9,12 @@ export interface CalendarGridProps {
   minDate: Date;
   selectedDay: number;
   onSelectDay: (day: number) => void;
+  /** Full date ("Saturday 31 October") read by screen readers instead of the bare day number. */
+  dayLabel: (day: number) => string;
 }
 
 /** Saturday-first month grid. Past days and Fridays are shown but can't be picked. */
-export function CalendarGrid({ year, month, minDate, selectedDay, onSelectDay }: CalendarGridProps) {
+export function CalendarGrid({ year, month, minDate, selectedDay, onSelectDay, dayLabel }: CalendarGridProps) {
   const t = useTranslations("booking.weekdays");
   const startOffset = weekdayColumn(new Date(year, month, 1));
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -43,6 +45,7 @@ export function CalendarGrid({ year, month, minDate, selectedDay, onSelectDay }:
               type="button"
               disabled={!isAvailable}
               aria-pressed={isSelected}
+              aria-label={dayLabel(day)}
               onClick={() => onSelectDay(day)}
               className={cn(
                 "flex h-11 items-center justify-center rounded-xl font-heading text-sm transition-colors",
