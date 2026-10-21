@@ -459,58 +459,68 @@
   "jobs": {
     "meta": {
       "title": "الوظائف والفرص المتاحة",
-      "description": "انضم إلى فريق {brand} واعمل على منتجات برمجية حقيقية يستخدمها الناس في مصر والسعودية."
+      "description": "انضم إلى فريق {brand} وابنِ معنا تقنية تُدار بها الشركات في مصر والخليج."
     },
     "badge": "الوظائف · {count, plural, zero {لا توجد فرص متاحة} one {فرصة واحدة متاحة} two {فرصتان متاحتان} few {# فرص متاحة} many {# فرصة متاحة} other {# فرصة متاحة}}",
-    "heroTitle": "اعمل على منتجات يستخدمها الناس فعلاً.",
-    "heroSubtitle": "فريق صغير بمسؤوليات كبيرة. تعمل على PolyLine ومشاريع عملائنا في السعودية، وترى أثر عملك في الميدان مباشرةً.",
+    "heroTitle": "ابنِ معنا تقنية تُدار بها الشركات.",
+    "heroSubtitle": "فريق صغير بمسؤوليات كبيرة. تعمل على البيروني ومشاريع عملائنا في مصر والخليج، وترى أثر عملك في الميدان مباشرة.",
     "howWeWork": {
       "title": "كيف نعمل",
-      "card1": {
+      "remoteEvaluation": {
         "title": "فترة تقييم عن بُعد",
-        "subtitle": "ثلاثة أشهر بدوام كامل عن بُعد قبل الانضمام للفريق."
+        "text": "ثلاثة أشهر بدوام كامل عن بُعد قبل الانضمام للفريق."
       },
-      "card2": {
+      "fullTimeOffice": {
         "title": "ثم دوام كامل في المكتب",
-        "subtitle": "في مقرنا بالمعادي، بعقد رسمي ووظيفة دائمة."
+        "text": "في مقرّنا بالمعادي، بعقد رسمي ووظيفة دائمة."
       },
-      "card3": {
+      "realProducts": {
         "title": "منتجات حقيقية",
-        "subtitle": "تعمل على PolyLine ومشاريع تعمل الآن في السعودية."
+        "text": "تعمل على البيروني ومشاريع تعمل الآن في السعودية."
       },
-      "card4": {
+      "modernStack": {
         "title": "تقنيات حديثة",
-        "subtitle": "Laravel و Flutter و React و Next.js"
-      },
-      "maherBadge": "اسأل ماهر · مساعدك الذكي، يرد فوريًا"
+        "text": "Laravel وFlutter وReact وNext.js."
+      }
     },
     "openPositions": {
       "title": "الوظائف المتاحة",
       "categories": {
         "all": "كل الأقسام",
-        "engineering": "هندسة البرمجيات",
-        "product": "إدارة المنتجات",
-        "design": "التصميم وتجربة المستخدم",
-        "sales": "المبيعات والنمو",
-        "qa": "جودة البرمجيات"
+        "engineering": "هندسة",
+        "product": "منتجات",
+        "design": "تصميم",
+        "sales": "مبيعات",
+        "qa": "جودة"
       },
       "applyNow": "قدّم الآن",
-      "noJobsFound": "لا توجد وظائف شاغرة حالياً في هذا القسم.",
       "filterLabel": "تصفية الوظائف حسب القسم",
-      "tagsLabel": "تفاصيل الوظيفة",
+      "metaLabel": "تفاصيل الوظيفة",
+      "resultsCount": "{count, plural, zero {لا توجد وظائف معروضة} one {وظيفة واحدة معروضة} two {وظيفتان معروضتان} few {# وظائف معروضة} many {# وظيفة معروضة} other {# وظيفة معروضة}}",
+      "place": "{location} · {workMode}",
       "locations": {
         "cairo": "القاهرة"
       },
       "workModes": {
-        "remoteThenOnsite": "تقييم عن بعد ثم في المكتب",
+        "remoteThenOnsite": "تقييم عن بُعد ثم في المكتب",
         "onsite": "دوام في المكتب"
       },
       "employmentTypes": {
         "fullTime": "وظيفة دائمة"
+      },
+      "openApplication": {
+        "title": "لم تجد الدور المناسب لك؟",
+        "emptyTitle": "لا توجد وظائف متاحة الآن.",
+        "text": "أرسل لنا سيرتك الذاتية عبر واتساب، وأخبرنا بما تجيده.",
+        "cta": "أرسل سيرتك عبر واتساب",
+        "whatsappMessage": "مرحباً {brand}، أرغب في إرسال سيرتي الذاتية للفرص القادمة."
       }
     },
     "applyModal": {
       "title": "التقديم على وظيفة",
+      "aboutRole": "عن الوظيفة",
+      "requirementsTitle": "ما الذي نبحث عنه",
+      "formTitle": "بياناتك",
       "fullName": "الاسم بالكامل",
       "fullNamePlaceholder": "أدخل اسمك بالكامل",
       "email": "البريد الإلكتروني",
@@ -518,21 +528,21 @@
       "phone": "رقم الهاتف / الواتساب",
       "phonePlaceholder": "+201000000000",
       "cvLink": "رابط السيرة الذاتية (CV / LinkedIn)",
-      "cvLinkPlaceholder": "https://linkedin.com/in/... أو Google Drive",
+      "cvLinkPlaceholder": "رابط LinkedIn أو Google Drive",
       "coverNote": "نبذة عن خبراتك وأهم أعمالك",
       "coverNotePlaceholder": "اكتب نبذة مختصرة عن التقنيات والمشاريع التي عملت عليها...",
       "submit": "إرسال طلب التقديم",
       "submitting": "جاري الإرسال...",
       "orApplyWhatsapp": "أو قدّم مباشرة عبر الواتساب",
-      "successToast": "تم استلام طلب التقديم بنجاح! سنتواصل معك قريباً.",
+      "successToast": "تم إرسال طلب التقديم. سنتواصل معك قريباً.",
       "close": "إغلاق",
       "errorToast": "لم نتمكن من إرسال طلبك الآن. تأكد من اتصالك وحاول مرة أخرى، أو قدّم عبر الواتساب.",
       "whatsappMessage": "مرحباً {brand}، أرغب في التقديم على وظيفة: {jobTitle}"
     },
     "positions": {
       "senior-backend-engineer": {
-        "title": "مهندس تكنولوجيا أول Backend (Senior Backend Engineer)",
-        "summary": "نبحث عن مهندس باك إند خبير للانضمام إلى فريقنا وتطوير المنصات والأنظمة المعقدة لعملائنا في مصر والسعودية مثل PolyLine و Bareeq X.",
+        "title": "مهندس Backend أول (Senior Backend Engineer)",
+        "summary": "نبحث عن مهندس باك إند خبير للانضمام إلى فريقنا وتطوير المنصات والأنظمة المعقدة لعملائنا في مصر والسعودية مثل البيروني وBareeq X.",
         "requirements": [
           "خبرة لا تقل عن 4 سنوات في تطوير تطبيقات Laravel أو Node.js/Python",
           "خبرة في تصميم قواعد البيانات PostgreSQL / MySQL وتحسين الأداء",

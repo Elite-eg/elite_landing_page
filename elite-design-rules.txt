@@ -161,7 +161,7 @@ public/images, public/videos   Media files (paths referenced from MEDIA or a pag
 | `surface-muted` | navy-100 | #E7EDF5 | Chips, icon tiles, available calendar days |
 | `surface-info` | navy-100 | #E7EDF5 | Info / icon tiles (same value as surface-muted) |
 | `surface-warm` | orange-50 | #FFF5EB | Notice boxes, selected chips |
-| `surface-dark` | navy-950 | #06142A | Darkest surface; jobs page headings and badge |
+| `surface-dark` | navy-950 | #06142A | Darkest surface; jobs apply modal close button (hover) |
 | `surface-navy` | navy-900 | #0A2140 | Navy surface |
 | `body` | ink-900 | #0C1A2C | Main text |
 | `body-dark` | navy-50 | #F3F6FA | Main text on dark surfaces |
@@ -190,7 +190,7 @@ public/images, public/videos   Media files (paths referenced from MEDIA or a pag
 |---|---|
 | `footer/FooterSocialLinks.tsx`, `footer/GooglePlayLogo.tsx` | Official third-party brand colors, kept in one map each |
 | `app/[locale]/layout.tsx` | `viewport.themeColor` needs a literal value (= primary-deep) |
-| `jobs/components/JobsHero.tsx`, `jobs/components/JobApplyModal.tsx` | Original hero gradient and modal backdrop kept as designed (owner decision) |
+| `jobs/components/JobApplyModal.tsx` | Original modal backdrop kept as designed (owner decision) |
 
 Any new exception MUST be added to `HEX_ALLOWED` in `scripts/check-rules.mjs` with its reason, and to this table.
 
@@ -248,6 +248,8 @@ Type scale (fluid tokens; MUST be used for these roles):
 ### 5.1 Layout
 - Page width: `Container` (`max-w-container` = 80rem, padding `px-4 sm:px-6 lg:px-8`). Narrower via `className`
   (e.g. `max-w-5xl`); this works because `cn()` knows `max-w-container`.
+- `html` reserves the scrollbar gutter (`scrollbar-gutter: stable` in globals.css), so a dialog's scroll lock doesn't shift
+  fixed elements (header, WhatsApp button); while a dialog is open the gutter is tinted like the dimmed page.
 - Sections: `py-20 sm:py-24` by default. `<main>` already offsets the fixed header (`pt-16 sm:pt-20 lg:pt-28`);
   anchors get `scroll-padding-top: 7rem`.
 - Split heroes: copy `lg:col-span-7`, visual `lg:col-span-5`. Copy comes first in the DOM, so it sits on the start
@@ -317,8 +319,10 @@ Presets live in `lib/animations.ts`. Components import them and MUST NOT define 
 | `withDelay(slideInFromEnd(isRtl), 0.45)` | The hero visual, after the copy |
 | `floatLoop`, `floatLoopOffset` | Gentle loops on hero visuals (easeInOut) |
 | `fadeInUp`, `fadeIn`, `scaleIn`, `imageReveal`, `slideInLeft/Right` | Reveals (through `<Reveal preset>`) |
-| `slideInFromStart/End(isRtl)` | Horizontal slides that mirror in RTL |
+| `slideInFromStart/End(isRtl)` | Horizontal slides that mirror in RTL (also `<Reveal preset="slideInFromStart/End">`) |
 | `staggerContainer` | Grids (through `<RevealGroup>`) |
+| `listItemFromEnd(isRtl)` + `custom={index}`, `listSwap`, `heightTransition` | Filterable lists (jobs openings): rows slide in from the end side one after another; a filter change fades the list out (`AnimatePresence mode="wait"`), brings the new rows in from the top, and `AnimatedHeight` lets the content below glide to its new place |
+| `layoutTransition` | Selection indicators gliding between options (`layoutId`), e.g. the jobs department pills |
 | `popIn` | Result icons, floating dots |
 | `growY`, `growYFromTop`, `drawPath` | Chart bars, timeline connectors, line drawing |
 | `botEnter` | Maher bot entrance |
@@ -331,7 +335,10 @@ Rules:
 - One orchestrated hero moment per page. Below the hero, reveal with `<Reveal>` (single blocks) and
   `<RevealGroup>` + `<Reveal inGroup>` (staggered grids). They trigger once.
 - Hover states change color or border only (e.g. icon tile turns navy). No lift on every card; only buttons lift (built in).
-- Animate `transform` and `opacity` only.
+- Animate `transform` and `opacity` only. Two exceptions, both height on a single container: `jobs/components/AnimatedHeight`
+  (the note and footer follow a filtered list; transforms can't move content outside the component) and accordion-style
+  expand / collapse with `expandCollapse` + `expandTransition` (the requirements in the jobs apply modal). Height isn't
+  covered by `MotionConfig`, so both pass `{ duration: 0 }` when `useReducedMotion()` is true.
 - Reduced motion: Framer Motion is handled by `MotionConfig reducedMotion="user"`; the CSS utilities by the
   `prefers-reduced-motion` block. Tailwind's looping animations (`animate-pulse`, `-ping`, `-bounce`) MUST be written
   `motion-safe:animate-*`. A loading spinner (`animate-spin`) is allowed.
@@ -393,12 +400,12 @@ Rules:
 | Component | Use |
 |---|---|
 | `Container` | Page width + horizontal padding. Narrower via `className` (`max-w-5xl`) |
-| `SectionHeading` | Every section title. Props: `title`, `eyebrow`, `subtitle`, `align` (`center`/`start`), `tone` (`light`/`dark`/`brand`), `as` (`h1`/`h2`), `size` (`default`/`compact`), `className` |
+| `SectionHeading` | Every section title. Props: `title`, `eyebrow`, `subtitle`, `align` (`center`/`start`), `tone` (`light`/`dark`/`brand`), `as` (`h1`/`h2`), `size` (`default`/`compact`), `revealPreset` (entrance, default `fadeInUp`), `headingClassName` (e.g. `text-body` for ink headings), `className` |
 | `Eyebrow` | Orange pill label (hero + section eyebrows). `tone="dark"` on navy |
-| `Button` | All buttons and button-links. Variants `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`; sizes `sm`/`md`/`lg`; `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth`, `disabled`. `buttonClasses()` styles other elements as buttons |
+| `Button` | All buttons and button-links. Variants `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`; sizes `sm`/`md`/`lg`; `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth`, `disabled`, `lift` (default true; `false` for buttons that should stay still on hover, e.g. a pinned action bar). `buttonClasses()` styles other elements as buttons |
 | `Badge` | Small labels. Variants `primary`, `secondary`, `accent`, `neutral`, `glass`; sizes `sm`/`md`; optional `icon` |
 | `InputField` | Every text input / textarea: visible label (or `hideLabel`), `error`, `hint`, `icon`, `disabled`, `dir`, `inputClassName`, `as="textarea"` |
-| `Reveal` / `RevealGroup` | Scroll reveals with the shared presets |
+| `Reveal` / `RevealGroup` | Scroll reveals with the shared presets; `slideInFromStart` / `slideInFromEnd` mirror in RTL |
 | `Logo` | Mark (+ `withWordMark`), `tone` (`light`/`dark`), `priority` (header only) |
 | `StoreBadge` | External store / site badge with logo, caption and label; `tone` (`dark` footer, `light` sections) |
 | `WhatsAppButton` | Floating WhatsApp shortcut (in the layout) |
@@ -492,7 +499,7 @@ Rules:
 |---|---|
 | `/home` | Video hero, tech marquee, ecosystem, services bento, community, ideas (+ gate modal), navy CTA |
 | `/about` | Hero + brand tile, mission/vision cards, Albiruni features, values 01–04, `JoinTeamCta` |
-| `/jobs` | Hero (count from data), how we work, filterable openings (radio pills), apply modal → `API_ENDPOINTS.jobApplication` (TBD) or WhatsApp. Anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID` |
+| `/jobs` | Figma v4 "Careers": navy gradient hero (count from data), how we work (Lucide icons as in the Figma), open positions with the department filter on the title row (pills only for departments with openings, sliding indicator) and an animated filterable list, open-application note on WhatsApp (doubles as the empty state), apply modal with role summary + requirements → `API_ENDPOINTS.jobApplication` (TBD) or WhatsApp. Anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID` |
 | `/book-session` | Booking widget: meeting type + Cairo-time calendar → details (validated) → success. Until the backend exists the POST to `API_ENDPOINTS.bookSession` is commented out and success shows without sending (TODO in `BookingWidget.tsx`) |
 | `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form → `API_ENDPOINTS.guideRequest` (TBD) |
 | `/projects/bareeq-x` | Case study: teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
@@ -526,10 +533,10 @@ Rules:
 | Where | Deviation |
 |---|---|
 | Home | Cards lift on hover (`IdeaCard`, `ServiceCard`, `EcosystemCard`, community tiles); hero h1 uses `text-4xl/5xl` instead of `text-display`; `IdeaCard`, `ServiceCard`, `CommunityGateModal` live in shared but only home uses them |
-| Jobs | Hex colors (§3.5); headings kept in `surface-dark` through `className="[&_h2]:text-surface-dark"`; `shadow-sm/md/lg` instead of shadow tokens |
+| Jobs | Apply modal keeps its hex backdrop (§3.5). Perk icons come from `react-icons/lu` (Lucide, the Figma's icon set) instead of `fi`: Feather has no graduation cap |
 | 404 page | Original custom design (gradient buttons, hover lifts, `rounded-2xl` buttons) instead of `Button` |
 | Book-session | Pixel values from the Figma file (`text-[0.78125rem]`, …); hero h1 not `text-display`; detail/success buttons restyle `Button` with color overrides |
-| Messages | `jobs.positions.<id>.summary/requirements` and `footer.newsletter.title/description` are not rendered yet |
+| Messages | `footer.newsletter.title/description` are not rendered yet |
 | Media | `hero-office.png` and the other photos are JPEG files with a `.png` extension |
 | Rendering | All routes render on demand (no `generateStaticParams` / `setRequestLocale`), so nothing is prerendered |
 | Dependencies | Not imported anywhere: `@heroicons/react`, `@radix-ui/react-accordion`, `leaflet`, `leaflet-draw`, `react-leaflet`, `react-leaflet-draw`, `react-time-picker`, `recharts`, `uuid`, `redux-logger` (+ their `@types`); `lucide-react` waits for the icon decision |

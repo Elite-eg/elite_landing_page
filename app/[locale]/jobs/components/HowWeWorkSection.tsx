@@ -6,24 +6,19 @@ import { SectionHeading } from "@/app/components/shared/SectionHeading";
 import { HOW_WE_WORK } from "../data/jobsData";
 import { HowWeWorkCard } from "./HowWeWorkCard";
 
+/** How the team works: the hiring path (remote evaluation → office) and what you work on. */
 export function HowWeWorkSection() {
   const t = useTranslations("jobs.howWeWork");
 
   return (
-    <section className="bg-surface-alt py-16 sm:py-24">
+    <section className="bg-surface pb-16 pt-20 sm:pb-24 sm:pt-24">
       <Container>
-        {/* The jobs page keeps its original darker heading color (surface-dark). */}
-        <SectionHeading title={t("title")} className="[&_h2]:text-surface-dark" />
+        <SectionHeading title={t("title")} align="start" size="compact" headingClassName="text-body" />
 
-        <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {HOW_WE_WORK.map(({ key, icon, hasMaherBadge }) => (
+        <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {HOW_WE_WORK.map(({ key, icon }) => (
             <Reveal key={key} inGroup>
-              <HowWeWorkCard
-                icon={icon}
-                title={t(`${key}.title`)}
-                text={t(`${key}.subtitle`)}
-                badge={hasMaherBadge ? t("maherBadge") : undefined}
-              />
+              <HowWeWorkCard icon={icon} title={t(`${key}.title`)} text={t(`${key}.text`)} />
             </Reveal>
           ))}
         </RevealGroup>
