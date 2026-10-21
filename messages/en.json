@@ -458,73 +458,83 @@
   },
   "jobs": {
     "meta": {
-      "title": "Careers & Job Opportunities",
-      "description": "Join the {brand} team and build real enterprise software used across Egypt & Saudi Arabia."
+      "title": "Careers and open positions",
+      "description": "Join the {brand} team and help build the technology businesses run on across Egypt and the Gulf."
     },
     "badge": "Careers · {count, plural, =0 {no open positions} one {# open position} other {# open positions}}",
-    "heroTitle": "Build products real people actually use.",
-    "heroSubtitle": "Small team with big responsibilities. Work on PolyLine and live client projects in Saudi Arabia, seeing direct field impact.",
+    "heroTitle": "Build the technology businesses run on.",
+    "heroSubtitle": "A small team with big responsibilities. You'll work on Albiruni and our clients' projects in Egypt and the Gulf, and see the impact of your work in the field firsthand.",
     "howWeWork": {
-      "title": "How We Work",
-      "card1": {
-        "title": "Remote Evaluation Period",
-        "subtitle": "Three months full-time remote prior to joining the team."
+      "title": "How we work",
+      "remoteEvaluation": {
+        "title": "Remote evaluation period",
+        "text": "Three months, full-time and remote, before you join the team."
       },
-      "card2": {
-        "title": "Then Full-Time In-Office",
-        "subtitle": "At our Maadi headquarters with an official contract & permanent job."
+      "fullTimeOffice": {
+        "title": "Then full-time at the office",
+        "text": "At our Maadi office, with an official contract and a permanent role."
       },
-      "card3": {
-        "title": "Real Enterprise Products",
-        "subtitle": "Work on PolyLine and live enterprise platforms in Saudi Arabia."
+      "realProducts": {
+        "title": "Real products",
+        "text": "Work on Albiruni and on projects running live in Saudi Arabia."
       },
-      "card4": {
-        "title": "Modern Tech Stack",
-        "subtitle": "Next.js, React, Flutter & Laravel"
-      },
-      "maherBadge": "Ask Maher · AI Assistant, replies instantly"
+      "modernStack": {
+        "title": "Modern technologies",
+        "text": "Laravel, Flutter, React and Next.js."
+      }
     },
     "openPositions": {
-      "title": "Available Openings",
+      "title": "Open positions",
       "categories": {
-        "all": "All Departments",
+        "all": "All departments",
         "engineering": "Engineering",
-        "product": "Product Management",
-        "design": "UI/UX & Design",
-        "sales": "Sales & Growth",
-        "qa": "Software QA"
+        "product": "Product",
+        "design": "Design",
+        "sales": "Sales",
+        "qa": "QA"
       },
-      "applyNow": "Apply Now",
-      "noJobsFound": "No open positions found in this department.",
+      "applyNow": "Apply now",
       "filterLabel": "Filter openings by department",
-      "tagsLabel": "Job details",
+      "metaLabel": "Role details",
+      "resultsCount": "{count, plural, =0 {No roles shown} one {# role shown} other {# roles shown}}",
+      "place": "{location} · {workMode}",
       "locations": {
         "cairo": "Cairo"
       },
       "workModes": {
-        "remoteThenOnsite": "Remote eval then On-site",
+        "remoteThenOnsite": "Remote evaluation, then on-site",
         "onsite": "On-site"
       },
       "employmentTypes": {
         "fullTime": "Full-time"
+      },
+      "openApplication": {
+        "title": "Don't see the right role?",
+        "emptyTitle": "There are no open roles right now.",
+        "text": "Send us your CV on WhatsApp and tell us what you do best.",
+        "cta": "Send your CV on WhatsApp",
+        "whatsappMessage": "Hello {brand}, I'd like to send my CV for future openings."
       }
     },
     "applyModal": {
-      "title": "Apply for Position",
-      "fullName": "Full Name",
+      "title": "Apply for this role",
+      "aboutRole": "About the role",
+      "requirementsTitle": "What we're looking for",
+      "formTitle": "Your details",
+      "fullName": "Full name",
       "fullNamePlaceholder": "Enter your full name",
-      "email": "Email Address",
+      "email": "Email address",
       "emailPlaceholder": "example@domain.com",
-      "phone": "Phone / WhatsApp Number",
+      "phone": "Phone / WhatsApp number",
       "phonePlaceholder": "+201000000000",
-      "cvLink": "CV / LinkedIn Profile Link",
-      "cvLinkPlaceholder": "https://linkedin.com/in/... or Google Drive link",
-      "coverNote": "Brief summary of your experience",
-      "coverNotePlaceholder": "Tell us briefly about projects you've built...",
-      "submit": "Submit Application",
-      "submitting": "Submitting...",
-      "orApplyWhatsapp": "Or apply directly via WhatsApp",
-      "successToast": "Application received successfully! We will contact you shortly.",
+      "cvLink": "CV or LinkedIn link",
+      "cvLinkPlaceholder": "LinkedIn or Google Drive link",
+      "coverNote": "A short summary of your experience",
+      "coverNotePlaceholder": "Tell us briefly about the technologies and projects you've worked on...",
+      "submit": "Send application",
+      "submitting": "Sending...",
+      "orApplyWhatsapp": "Or apply directly on WhatsApp",
+      "successToast": "Application sent. We'll contact you soon.",
       "close": "Close",
       "errorToast": "We couldn't send your application right now. Check your connection and try again, or apply on WhatsApp.",
       "whatsappMessage": "Hello {brand}, I'd like to apply for the {jobTitle} position."

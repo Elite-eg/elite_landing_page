@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Eyebrow } from "./Eyebrow";
-import { Reveal } from "./Reveal";
+import { Reveal, type RevealPreset } from "./Reveal";
 
 export interface SectionHeadingProps {
   title: string;
@@ -12,6 +12,10 @@ export interface SectionHeadingProps {
   as?: "h1" | "h2";
   /** "compact" is the smaller 32px title used under busy heroes (e.g. book-session). */
   size?: "default" | "compact";
+  /** Entrance motion. Match it to siblings that reveal together (e.g. "slideInFromEnd" for a title + filter row). */
+  revealPreset?: RevealPreset;
+  /** Extra heading classes, merged last (e.g. "text-body" where a design sets ink headings). */
+  headingClassName?: string;
   className?: string;
 }
 
@@ -35,12 +39,15 @@ export function SectionHeading({
   tone = "light",
   as: Heading = "h2",
   size = "default",
+  revealPreset,
+  headingClassName,
   className,
 }: SectionHeadingProps) {
   const isDark = tone !== "light";
 
   return (
     <Reveal
+      preset={revealPreset}
       className={cn(
         "max-w-2xl",
         SIZE_CLASSES[size].wrapper,
@@ -58,7 +65,8 @@ export function SectionHeading({
         className={cn(
           "text-balance font-bold",
           SIZE_CLASSES[size].heading,
-          isDark ? "text-white" : "text-primary"
+          isDark ? "text-white" : "text-primary",
+          headingClassName
         )}
       >
         {title}

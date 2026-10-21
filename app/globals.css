@@ -119,6 +119,17 @@
     overflow-x: hidden !important;
     max-width: 100vw;
     width: 100%;
+    /*
+     * Keeps the scrollbar's space when a dialog locks scrolling, so the fixed header doesn't widen and shift
+     * (Headless UI's own padding only covers in-flow content; with a stable gutter it computes 0).
+     */
+    scrollbar-gutter: stable;
+    transition: background-color 300ms var(--ease-out);
+  }
+
+  /* Fixed layers can't paint into the reserved gutter, so while a dialog is open tint it like the dimmed page. */
+  html:has([aria-modal="true"]) {
+    background-color: rgb(var(--primary-deep) / 0.45);
   }
 
   body {
