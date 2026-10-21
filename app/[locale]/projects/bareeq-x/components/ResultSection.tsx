@@ -6,9 +6,13 @@ import { StoreBadge } from "@/app/components/shared/StoreBadge";
 import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
 import { BAREEQ_LINKS, BAREEQ_TIMELINE } from "../data/bareeqData";
 import { CaseStudySection } from "./CaseStudySection";
+import { SitePreview } from "./SitePreview";
 import { TimelineItem } from "./TimelineItem";
 
-/** Last chapter. No bottom padding: the CTA banner below brings its own top spacing. */
+/**
+ * Last chapter: timeline, the live website, then the project links.
+ * No bottom padding: the CTA banner below brings its own top spacing.
+ */
 export function ResultSection() {
   const t = useTranslations("caseStudies");
   const brand = COMPANY_INFO.brandName[useLocale() as AppLocale];
@@ -31,6 +35,13 @@ export function ResultSection() {
       </RevealGroup>
 
       <Reveal className="mt-8">
+        <h3 className="text-caption font-semibold text-content">{t("bareeqX.result.preview.title")}</h3>
+        <div className="mt-3">
+          <SitePreview />
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-6">
         <ul aria-label={t("bareeqX.result.linksLabel")} className="flex flex-wrap gap-3">
           {BAREEQ_LINKS.map(({ key, href, logo }) => (
             <li key={key}>
