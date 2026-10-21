@@ -121,7 +121,7 @@
   },
   "booking": {
     "meta": {
-      "title": "Book a Diagnostic Session with an Expert & Developer | {brand}",
+      "title": "Book a Diagnostic Session with an Expert & Developer",
       "description": "We sit down with you to understand how your company actually operates, identify where time and money are lost, and determine the right tech solution."
     },
     "badge": "Free · 30 minutes · No commitment",
@@ -227,11 +227,13 @@
         "fri": "Friday"
       }
     },
-    "slotDate": "{weekday}, {month} {day}"
+    "slotDate": "{weekday}, {month} {day}",
+    "submitting": "Sending your booking…",
+    "errorToast": "We couldn't send your booking right now. Check your connection and try again, or message us on WhatsApp."
   },
   "home": {
     "meta": {
-      "title": "{brand} | Software solutions and developer community",
+      "title": "Software solutions and developer community",
       "description": "Custom software, web platforms, mobile apps and ERP systems for growing companies, plus an open community where developers and founders build ideas together."
     },
     "hero": {
@@ -441,7 +443,9 @@
     "companyNameRequired": "Enter your company name.",
     "cardNumberInvalid": "Enter a valid card number of 13 to 19 digits.",
     "cardExpiryInvalid": "Enter the expiry date as MM/YY, like 08/27.",
-    "cardCvcInvalid": "Enter the 3 or 4 digit security code."
+    "cardCvcInvalid": "Enter the 3 or 4 digit security code.",
+    "linkRequired": "Enter a link to your CV.",
+    "linkInvalid": "Enter a valid link that starts with https://"
   },
   "whatsapp": {
     "label": "Chat with us on WhatsApp"
@@ -454,10 +458,10 @@
   },
   "jobs": {
     "meta": {
-      "title": "Careers & Job Opportunities | {brand}",
-      "description": "Join the Elite Tech team and build real enterprise software used across Egypt & Saudi Arabia."
+      "title": "Careers & Job Opportunities",
+      "description": "Join the {brand} team and build real enterprise software used across Egypt & Saudi Arabia."
     },
-    "badge": "Careers · 1 open position",
+    "badge": "Careers · {count, plural, =0 {no open positions} one {# open position} other {# open positions}}",
     "heroTitle": "Build products real people actually use.",
     "heroSubtitle": "Small team with big responsibilities. Work on PolyLine and live client projects in Saudi Arabia, seeing direct field impact.",
     "howWeWork": {
@@ -491,11 +495,22 @@
         "qa": "Software QA"
       },
       "applyNow": "Apply Now",
-      "noJobsFound": "No open positions found in this department."
+      "noJobsFound": "No open positions found in this department.",
+      "filterLabel": "Filter openings by department",
+      "tagsLabel": "Job details",
+      "locations": {
+        "cairo": "Cairo"
+      },
+      "workModes": {
+        "remoteThenOnsite": "Remote eval then On-site",
+        "onsite": "On-site"
+      },
+      "employmentTypes": {
+        "fullTime": "Full-time"
+      }
     },
     "applyModal": {
       "title": "Apply for Position",
-      "subtitle": "{jobTitle}",
       "fullName": "Full Name",
       "fullNamePlaceholder": "Enter your full name",
       "email": "Email Address",
@@ -509,7 +524,103 @@
       "submit": "Submit Application",
       "submitting": "Submitting...",
       "orApplyWhatsapp": "Or apply directly via WhatsApp",
-      "successToast": "Application received successfully! We will contact you shortly."
+      "successToast": "Application received successfully! We will contact you shortly.",
+      "close": "Close",
+      "errorToast": "We couldn't send your application right now. Check your connection and try again, or apply on WhatsApp.",
+      "whatsappMessage": "Hello {brand}, I'd like to apply for the {jobTitle} position."
+    },
+    "positions": {
+      "senior-backend-engineer": {
+        "title": "Senior Backend Engineer",
+        "summary": "We are seeking an experienced Senior Backend Engineer to join our core team and build enterprise software platforms across Egypt and Saudi Arabia.",
+        "requirements": [
+          "4+ years of experience in backend development (Laravel / Node.js)",
+          "Strong database design skills (PostgreSQL / MySQL)",
+          "Experience building robust RESTful APIs & microservices architecture",
+          "Ability to work remotely during the 3-month evaluation period, then on-site in Maadi, Cairo"
+        ]
+      },
+      "senior-frontend-engineer": {
+        "title": "Senior Frontend Engineer",
+        "summary": "Looking for an advanced Frontend Engineer proficient in Next.js & React to craft responsive and high-performance web applications.",
+        "requirements": [
+          "3+ years of experience with React, Next.js, TypeScript & TailwindCSS",
+          "Deep knowledge of web performance, SEO & RTL/LTR accessibility",
+          "Experience with modern state management & REST API integrations"
+        ]
+      },
+      "mobile-app-developer": {
+        "title": "Flutter Mobile Developer",
+        "summary": "Build native-quality mobile applications for iOS & Android using Flutter for field sales and logistics products.",
+        "requirements": [
+          "3+ years of experience with Flutter & Dart",
+          "Proficiency in state management (Bloc/Provider) & Maps integration",
+          "Proven track record publishing apps on App Store & Google Play"
+        ]
+      },
+      "devops-cloud-engineer": {
+        "title": "DevOps & Cloud Systems Engineer",
+        "summary": "Manage and optimize cloud architecture, Docker containers, CI/CD pipelines, and server reliability.",
+        "requirements": [
+          "Hands-on experience with Docker, Kubernetes, AWS/DigitalOcean & NGINX",
+          "Building automated CI/CD pipelines via GitHub Actions",
+          "Solid background in cloud security, monitoring & automated backups"
+        ]
+      },
+      "ui-ux-designer": {
+        "title": "Senior UI/UX Designer",
+        "summary": "Design intuitive user journeys, interactive wireframes, and modern visual systems for enterprise platforms.",
+        "requirements": [
+          "Mastery of Figma and constructing design systems",
+          "Proven experience designing bilingual UI (Arabic & English)",
+          "Conducting user research and usability testing for complex dashboards"
+        ]
+      },
+      "product-manager": {
+        "title": "Technical Product Manager",
+        "summary": "Lead product roadmaps, define feature requirements, and bridge communication between engineering teams and business stakeholders.",
+        "requirements": [
+          "3+ years managing B2B SaaS or enterprise software products",
+          "Strong technical foundation with deep understanding of Agile software development",
+          "Exceptional analytical skills and clear PRD documentation writing"
+        ]
+      },
+      "qa-automation-engineer": {
+        "title": "QA Automation Engineer",
+        "summary": "Ensure flawless quality, regression stability, and high performance across all mobile and web software platforms.",
+        "requirements": [
+          "Experience writing manual and automated test suites (Playwright / Cypress)",
+          "API testing expertise using Postman & JMeter performance load tests",
+          "Solid understanding of bug tracking lifecycles and CI test automation"
+        ]
+      },
+      "technical-sales-specialist": {
+        "title": "Technical Sales Consultant",
+        "summary": "Consult with enterprise clients, demonstrate custom software platforms, and drive B2B growth across KSA & Egypt.",
+        "requirements": [
+          "Proven experience in B2B enterprise software or ERP solution sales",
+          "Strong presentation skills and ability to analyze business operational needs",
+          "Excellent negotiation and relationship-building capabilities"
+        ]
+      },
+      "fullstack-developer": {
+        "title": "Full Stack Engineer (Next.js & Laravel)",
+        "summary": "Build end-to-end features from database queries to modern React/Next.js client interfaces.",
+        "requirements": [
+          "Proficiency in Laravel, React / Next.js & TypeScript",
+          "Experience with REST APIs, SQL databases & Redis caching",
+          "Ability to swiftly convert business requirements into robust code"
+        ]
+      },
+      "ai-solutions-engineer": {
+        "title": "AI Automation Solutions Engineer",
+        "summary": "Build and integrate custom AI agents, LLM automation flows, and intelligent assistants into enterprise workflows.",
+        "requirements": [
+          "Experience with OpenAI APIs, LangChain / LlamaIndex & Python",
+          "Solid grasp of Vector Databases & RAG (Retrieval-Augmented Generation)",
+          "Integrating AI automation pipelines into existing B2B systems"
+        ]
+      }
     }
   },
   "about": {
@@ -775,6 +886,136 @@
     },
     "result": {
       "home": "Back to home"
+    }
+  },
+  "caseStudies": {
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "ourWork": "Our work"
+    },
+    "sections": {
+      "challenge": "The challenge",
+      "solution": "The solution",
+      "result": "The result"
+    },
+    "bareeqX": {
+      "meta": {
+        "title": "Bareeq X case study",
+        "description": "How the {brand} team built a complete mobile steam car wash system in Saudi Arabia, from the customer and field agent apps to the admin dashboard and website, and launched it in 3 months."
+      },
+      "hero": {
+        "name": "Bareeq X",
+        "tagline": "How we built a complete mobile steam car wash system in Saudi Arabia and launched it in 3 months.",
+        "tagsLabel": "About the project",
+        "tags": {
+          "mobile": "Mobile app",
+          "web": "Web platform",
+          "country": "Saudi Arabia",
+          "live": "Live now"
+        },
+        "facts": {
+          "duration": {
+            "value": "3 months",
+            "label": "From first build to launch"
+          },
+          "interfaces": {
+            "value": "4",
+            "label": "Interfaces in one system"
+          },
+          "stores": {
+            "value": "2",
+            "label": "Stores: Google Play and App Store"
+          }
+        }
+      },
+      "challenge": {
+        "title": "A field service needs a whole system, not just an app.",
+        "text": "A mobile wash service means bookings, locations, field agents and payments all moving at the same moment. Our partner, <partner>Maharat Al-Code IT</partner>, needed a complete tech system and a partner who would stay with them in operation after launch."
+      },
+      "solution": {
+        "title": "Four interfaces working as one system.",
+        "interfaces": {
+          "website": {
+            "title": "Smart website",
+            "text": "Multilingual with localized paths"
+          },
+          "customer": {
+            "title": "Customer app",
+            "text": "Location, package and booking"
+          },
+          "agent": {
+            "title": "Field agent app",
+            "text": "Live orders and location sharing"
+          },
+          "admin": {
+            "title": "Admin dashboard",
+            "text": "Order dispatch and analytics"
+          }
+        },
+        "techTitle": "Technologies",
+        "tech": {
+          "flutter": "Flutter / Dart",
+          "nextjs": "Next.js",
+          "tailwind": "Tailwind CSS",
+          "laravel": "Laravel",
+          "sql": "SQL",
+          "moyasar": "Moyasar gateway",
+          "otp": "OTP SMS",
+          "server": "Nginx · Ubuntu"
+        }
+      },
+      "result": {
+        "title": "From idea to the app stores in 3 months.",
+        "timeline": {
+          "kickoff": {
+            "date": "October 2025",
+            "title": "Development started",
+            "text": "Feasibility study, UX/UI design and architecture"
+          },
+          "launch": {
+            "date": "January 2026",
+            "title": "First version launched",
+            "text": "Apps on Google Play and the App Store, plus the bareeqx.com website"
+          },
+          "now": {
+            "date": "Now",
+            "title": "Ongoing operation and development",
+            "text": "{brand} is the main tech partner in operation"
+          }
+        },
+        "preview": {
+          "title": "Try the live website",
+          "frameTitle": "Live preview of the Bareeq X website",
+          "open": "Open {site} in a new tab"
+        },
+        "linksLabel": "Project links",
+        "links": {
+          "website": {
+            "caption": "bareeqx.com",
+            "label": "View BAREEQ X"
+          },
+          "googlePlay": {
+            "caption": "Get it on",
+            "label": "Google Play"
+          },
+          "appStore": {
+            "caption": "Download on the",
+            "label": "App Store"
+          }
+        }
+      },
+      "cta": {
+        "title": "Have an idea like Bareeq X?",
+        "subtitle": "Describe it to us in a short form, or book a free diagnostic session.",
+        "book": "Book your free session",
+        "whatsapp": "Chat on WhatsApp"
+      }
+    }
+  },
+  "site": {
+    "meta": {
+      "title": "{brand} | Enterprise Software Solutions & Builders Community",
+      "description": "We help companies build custom software, web and mobile apps, ERP systems, AI automation, and foster a thriving tech community."
     }
   }
 }

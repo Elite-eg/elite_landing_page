@@ -1,51 +1,34 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { routing } from "@/i18n/routing";
-import { COMPANY_INFO } from "@/lib/constants";
-import { JobsHero } from "./components/JobsHero";
+import { COMPANY_INFO, ROUTES } from "@/lib/constants";
+import { toAppLocale } from "@/lib/locale";
+import { buildPageMetadata } from "@/lib/metadata";
 import { HowWeWorkSection } from "./components/HowWeWorkSection";
+import { JobsHero } from "./components/JobsHero";
 import { OpenPositionsSection } from "./components/OpenPositionsSection";
 
 interface JobsPageProps {
   params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: JobsPageProps): Promise<Metadata> {
-  const { locale = routing.defaultLocale } = await params;
-  const isAr = locale === "ar";
-  const brand = COMPANY_INFO.brandName[isAr ? "ar" : "en"];
+export async function generateMetadata({ params }: JobsPageProps): Promise<Metadata> {
+  const locale = toAppLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: "jobs.meta" });
 
-  const title = t("title", { brand });
-  const description = t("description");
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "website",
-      url: `/${locale}/jobs`,
-    },
-    alternates: {
-      canonical: `/${locale}/jobs`,
-      languages: {
-        ar: "/ar/jobs",
-        en: "/en/jobs",
-      },
-    },
-  };
+  return buildPageMetadata({
+    locale,
+    path: ROUTES.jobs,
+    title: t("title"),
+    description: t("description", { brand: COMPANY_INFO.brandName[locale] }),
+  });
 }
 
-export default async function JobsPage() {
+export default function JobsPage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <JobsHero />
       <HowWeWorkSection />
       <OpenPositionsSection />
-    </div>
+    </>
   );
 }

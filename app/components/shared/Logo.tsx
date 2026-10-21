@@ -9,10 +9,12 @@ export interface LogoProps {
   tone?: "light" | "dark";
   /** Shows the fixed "Elite Tech" wordmark (Poppins) next to the mark. */
   withWordMark?: boolean;
+  /** Preload the image. Only for the logo above the fold (header bar), not the footer or drawer. */
+  priority?: boolean;
   className?: string;
 }
 
-export function Logo({ tone = "light", withWordMark = false, className }: LogoProps) {
+export function Logo({ tone = "light", withWordMark = false, priority = false, className }: LogoProps) {
   const locale = useLocale() as AppLocale;
   const logoSrc =
     tone === "dark" ? "/images/logo-light.png" : "/images/logo.png";
@@ -32,7 +34,7 @@ export function Logo({ tone = "light", withWordMark = false, className }: LogoPr
         alt={withWordMark ? "" : brandName}
         width={180}
         height={105}
-        priority
+        priority={priority}
         className={cn(
           "w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]",
           withWordMark ? "h-8" : "h-10 sm:h-11",

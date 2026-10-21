@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { FaWhatsapp } from "react-icons/fa6";
-import { COMPANY_INFO } from "@/lib/constants";
+import { WHATSAPP_URL } from "@/lib/constants";
 
 /** Floating WhatsApp shortcut, anchored to the inline end so it mirrors in RTL. */
 export function WhatsAppButton() {
@@ -8,7 +8,7 @@ export function WhatsAppButton() {
 
   return (
     <a
-      href={`https://wa.me/${COMPANY_INFO.whatsappPhone}`}
+      href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t("label")}

@@ -1,10 +1,11 @@
 # Elite Tech: Design & Code Rules
 
-> The rules this codebase actually follows. Read this before you build or change a page.
-> It replaces the old `elite-rules.txt`, which was written before the brand was defined.
-> Wherever the two disagreed, this file describes what the code really does.
+> The rules this codebase follows. Read this before you build or change a page.
+> Everything is shared: one color system, one set of components, one place for each kind of data.
+> Before calling any change done, run `npm run check` (types + lint + the rule checks in §15), then `npm run build`.
 
-**Keywords:** MUST / NEVER = hard rule. SHOULD = default; only deviate with a stated reason.
+**Keywords:** MUST / NEVER = hard rule (most are enforced by `npm run check:rules`).
+SHOULD = default; only deviate with a stated reason.
 **TBD** = not confirmed by the owner. Never invent a value for a TBD item; mark it and ask.
 
 ---
@@ -15,45 +16,206 @@
 |---|---|
 | Client | Elite Tech (إيليت تك لتقنية المعلومات), Maadi, Cairo |
 | Product inside the site | Albiruni (البيروني): field sales / collections / ERP platform |
-| Stack | Next.js 15 App Router + Turbopack, React 19, TypeScript strict, Tailwind **v3** |
-| Locales | `ar` (default, RTL) and `en` (LTR), via next-intl |
+| Stack | Next.js 15 App Router + Turbopack, React 19, TypeScript strict, Tailwind **v3**, next-intl 4, Framer Motion 12, Headless UI 2, React Hook Form + Zod 4, Redux Toolkit, axios |
+| Locales | `ar` (default, RTL) and `en` (LTR) |
 | Dev server | `npm run dev` on **port 5000** |
-| Checks before "done" | `npx tsc --noEmit`, `npm run lint`, then `npm run build` |
+| Checks before "done" | `npm run check`, then `npm run build` (must finish with zero warnings) |
 
 Company data (brand name, phones, email, address, WhatsApp) lives ONLY in `lib/constants.ts` → `COMPANY_INFO`.
-The Arabic brand spelling comes from `COMPANY_INFO.brandName`. Never type it into a component;
+The Arabic brand spelling comes from `COMPANY_INFO.brandName`. Never type it into a component or a message;
 pass it to messages as `{brand}`.
 
 ---
 
-## 2. Brand identity (identity v4)
+## 2. Code structure
 
-### 2.1 Colours
-All colours are CSS variables in `app/globals.css` (RGB channels), mapped in `tailwind.config.js`.
-NEVER write hex, `rgb()` or arbitrary colour values in components. Use the token classes.
+### 2.1 Folder map
 
-| Token class | Value | Use |
+```
+app/
+  globals.css                  Design tokens (colors, type scale, motion), keyframes, utilities
+  [locale]/
+    layout.tsx                 <html lang dir>, fonts (next/font), Providers, Header, Footer,
+                               WhatsApp button, Toaster, site-wide default metadata
+    providers/providers.tsx    Redux + NextIntlClientProvider (fixed time zone) + MotionConfig
+    not-found.tsx              Localized 404 page (+ its own metadata: title, noindex)
+    [...rest]/page.tsx         Sends every unmatched path to not-found inside the locale layout
+    <route>/page.tsx           Server component: generateMetadata (buildPageMetadata) + sections
+    <route>/components/        Components used by this page only
+    <route>/data/              Typed static data: keys, icons, config, SAMPLE_ values (never copy)
+    <route>/hooks/  utils/     Page-only hooks and helpers (see book-session)
+  components/shared/           Used by 2+ pages (catalog in §9)
+    cta/ guide/ header/ footer/   Component families that belong together
+  services/
+    ApiService.ts              The only HTTP client (axios)
+    logger.ts                  log.debug / info / warn / error
+    axiosBaseQuery.ts          RTK Query adapter (not used yet)
+  store/                       Redux store, appSlice (region), useRegion hook
+i18n/
+  routing.ts                   Locales, default locale, LOCALE_COOKIE
+  navigation.ts                Locale-aware Link, useRouter, usePathname, redirect
+  request.ts                   next-intl request config (messages + APP_TIME_ZONE)
+lib/
+  constants.ts                 Company data, ROUTES, navigation, API_ENDPOINTS, links, cookies, whatsappUrl
+  metadata.ts                  buildPageMetadata, SITE_URL, DEFAULT_OG_IMAGE, OG_LOCALES, SITE_KEYWORDS
+  locale.ts                    toAppLocale, intlLocale
+  animations.ts                Framer Motion presets + MOTION timings
+  utils.ts                     cn() = clsx + tailwind-merge configured for the custom tokens
+  validation.ts                PATTERNS for Zod (phone, card number, expiry, CVC)
+  types.ts                     ApiResponse, LocalizedType
+messages/ar.json, en.json      All user-facing text (same keys in both files)
+middleware.ts                  Locale redirects + next-intl
+scripts/check-rules.mjs        Static rule checks (npm run check:rules)
+tailwind.config.js             Maps the CSS tokens to Tailwind classes
+public/images, public/videos   Media files (paths referenced from MEDIA or a page's data/)
+```
+
+### 2.2 Where new things go
+
+| You are adding | Put it in |
+|---|---|
+| A page | `app/[locale]/<route>/page.tsx` + its path in `ROUTES` |
+| A component one page uses | `app/[locale]/<route>/components/` |
+| A component 2+ pages use | `app/components/shared/` (or its family folder). Move it there as soon as a 2nd page needs it |
+| Static data (keys, icons, config) | `app/[locale]/<route>/data/` |
+| Text of any kind | `messages/ar.json` + `messages/en.json`, same key in both |
+| A color, font size, shadow, radius, easing | `app/globals.css` + `tailwind.config.js` (see §3.6) |
+| A route, external link, endpoint, company fact, cookie name | `lib/constants.ts` (cookie for language: `i18n/routing.ts`) |
+| A motion preset | `lib/animations.ts` |
+| A validation regex | `lib/validation.ts` |
+| An HTTP call | `ApiService` + an entry in `API_ENDPOINTS` |
+
+### 2.3 Single sources of truth (never duplicate these)
+
+| What | Where | How to use it |
 |---|---|---|
-| `primary` | navy #184068 | Headings, primary buttons, icons, key text |
-| `primary-dark` / `primary-deep` | #0A2140 / #06142A | Hover, dark cards, hero tiles, gradients |
-| `secondary` | orange #F07810 | **The main CTA only** (one orange action per view), eyebrow dot, highlights |
-| `secondary-dark` | #D06208 | Orange hover, orange text on light backgrounds (better contrast) |
-| `accent` | #3A6AA3 | Soft glows / decorative blur only |
-| `surface` / `surface-alt` / `surface-muted` | white / #F3F6FA / #E7EDF5 | Page, alternate section, chips |
-| `surface-warm` | #FFF5EB | Info / notice boxes |
-| `body` / `content` | #0C1A2C / #485870 | Main text / secondary text |
-| `content-dark` | #BECCDE | Secondary text on navy |
-| `edge` | #DDE5EF | Borders and dividers |
-| `success` / `warning` / `danger` | green / amber / red | Status, form errors |
-| `albiruni` | teal #0E4D57 | Reserved for the Albiruni app identity only |
+| Locales | `i18n/routing.ts` | `routing.locales`, type `AppLocale` (lib/constants.ts) |
+| Route param → locale | `lib/locale.ts` | `toAppLocale(params.locale)` |
+| Number / money / date locale | `lib/locale.ts` | `intlLocale(locale)` (Latin digits in both languages) |
+| Time zone | `lib/constants.ts` | `APP_TIME_ZONE` ("Africa/Cairo") |
+| Internal paths | `lib/constants.ts` | `ROUTES.*`. Draft routes (e.g. `/draft`) stay out of ROUTES until approved |
+| Header / footer navigation | `lib/constants.ts` | `NAV_LINKS`, `HEADER_*`, `FOOTER_NAV_GROUPS`, `LEGAL_NAV_ITEMS` |
+| WhatsApp links | `lib/constants.ts` | `WHATSAPP_URL`, or `whatsappUrl(t("…message"))` for a prefilled message |
+| Endpoints | `lib/constants.ts` | `API_ENDPOINTS.*` (unknown ones marked TBD) |
+| Page metadata | `lib/metadata.ts` | `buildPageMetadata({...})` (§13) |
+| Media paths | `lib/constants.ts` | `MEDIA.*` |
+| Colors and tokens | `app/globals.css` → `tailwind.config.js` | Tailwind classes (§3) |
+| Motion | `lib/animations.ts` | Presets, never inline variants (§6) |
 
-Colour rules:
-- Orange is precious. Use one orange (`secondary`) button per view. Make the other actions `primary`, `outline` or `ghost`.
-- Section rhythm: white → `surface-alt` → white. Use a navy section or card only as the page's one "bold" moment.
+### 2.4 File conventions
+
+- One component per file; file name = component name (PascalCase). Route folders are kebab-case.
+- Hooks: `useSomething.ts`. Data files: `<page>Data.ts`. Schemas: `<thing>Schema.ts`.
+- Keep components small and focused (roughly under 100 lines). Split by visual part (Card / List / Section / Visual / Form).
+- Never import one page's `components/` from another page.
+
+---
+
+## 3. Colors (design system)
+
+### 3.1 How colors work
+
+- Every color is a CSS variable in `app/globals.css`, stored as RGB channels (`--primary: 24 64 104`),
+  so opacity modifiers work: `bg-primary/10`, `border-white/25`.
+- `tailwind.config.js` maps each variable to a class with `token("name")`.
+- ALL colors below belong to the design system and stay available. Do not remove, rename or re-map a token
+  without the owner's approval. Keep every value listed in this section.
+- NEVER write hex, `rgb()` or arbitrary color values in components. The only exceptions are listed in §3.5.
+- NEVER use Tailwind's default palettes (`gray-*`, `slate-*`, `blue-*`, other `orange-*` shades, …).
+  Only the shades below exist in the design system.
+- Choose by role: if a semantic name exists for the role (§3.3), use it (`text-primary` for headings, `bg-surface-alt`
+  for a band). Use a palette shade (§3.2) for exact design roles that have no semantic name (e.g. `text-navy-300`
+  for muted text on navy).
+
+### 3.2 Brand palette (raw scales)
+
+| Class | CSS variable | Hex | Notes |
+|---|---|---|---|
+| `navy-50` | `--navy-50` | #F3F6FA | Same value as `surface-alt` |
+| `navy-100` | `--navy-100` | #E7EDF5 | Same value as `surface-muted` / `surface-info` |
+| `navy-200` | `--navy-200` | #C8D5E6 | Unavailable calendar dates |
+| `navy-300` | `--navy-300` | #9FB5D1 | Muted text on navy |
+| `navy-500` | `--navy-500` | #3A6AA3 | Same value as `accent` |
+| `navy-700` | `--navy-700` | #184068 | **Brand navy**, same value as `primary` |
+| `navy-900` | `--navy-900` | #0A2140 | Same value as `primary-dark` / `surface-navy` |
+| `navy-950` | `--navy-950` | #06142A | Same value as `primary-deep` / `surface-dark`; browser theme color |
+| `orange-50` | `--orange-50` | #FFF5EB | Same value as `surface-warm` |
+| `orange-500` | `--orange-500` | #F07810 | **Brand orange (CTA)**, same value as `secondary` |
+| `orange-600` | `--orange-600` | #D06208 | CTA hover / pressed, same value as `secondary-dark` |
+| `ink-400` | `--ink-400` | #8494AA | Hints, weekday labels, small notes |
+| `ink-700` | `--ink-700` | #2F4058 | Chip labels, emphasized paragraphs |
+| `ink-900` | `--ink-900` | #0C1A2C | Same value as `body`; header top bar + footer background |
+
+### 3.3 Semantic tokens
+
+| Class | Maps to | Hex | Use |
+|---|---|---|---|
+| `primary` | navy-700 | #184068 | Headings, primary buttons, icons, key text |
+| `primary-dark` | navy-900 | #0A2140 | Hover, dark cards, gradients |
+| `primary-deep` | navy-950 | #06142A | Hero tiles, dark sections, gradient ends |
+| `secondary` | orange-500 | #F07810 | **The main CTA only** (one orange action per view), eyebrow dot, highlights |
+| `secondary-dark` | orange-600 | #D06208 | Orange hover; orange text on light backgrounds (better contrast) |
+| `accent` | navy-500 | #3A6AA3 | Soft glows / decorative blur |
+| `surface` | (white) | #FFFFFF | Page and card background; `text-surface` = white text |
+| `surface-alt` | navy-50 | #F3F6FA | Alternate section band, input background |
+| `surface-muted` | navy-100 | #E7EDF5 | Chips, icon tiles, available calendar days |
+| `surface-info` | navy-100 | #E7EDF5 | Info / icon tiles (same value as surface-muted) |
+| `surface-warm` | orange-50 | #FFF5EB | Notice boxes, selected chips |
+| `surface-dark` | navy-950 | #06142A | Darkest surface; jobs page headings and badge |
+| `surface-navy` | navy-900 | #0A2140 | Navy surface |
+| `body` | ink-900 | #0C1A2C | Main text |
+| `body-dark` | navy-50 | #F3F6FA | Main text on dark surfaces |
+| `content` | (own value) | #485870 | Secondary text on light |
+| `content-dark` | (own value) | #BECCDE | Secondary text on navy |
+| `edge` | (own value) | #DDE5EF | Borders and dividers (`border-edge/60` for softer lines) |
+| `success` | (own value) | #16A34A | Done states, completed steps |
+| `warning` | (own value) | #D97706 | Pending states (awaiting payment) |
+| `danger` | (own value) | #DC2626 | Form errors |
+
+### 3.4 Identity colors (only where the identity appears)
+
+| Class | Hex | Use |
+|---|---|---|
+| `albiruni` | #0E4D57 | Albiruni app identity only |
+| `bareeq` (DEFAULT, from `--bareeq-600`) | #0E7490 | Bareeq X case study: hero, icon tiles, timeline |
+| `bareeq-950` | #06333A | Bareeq hero gradient end |
+| `bareeq-200` | #A5E4EC | Muted text on teal |
+| `bareeq-50` | #E0F7FA | Hero tagline, highlight marks |
+| `whatsapp` / `whatsapp-dark` | #25D366 / #20BD5A | WhatsApp actions only (floating button, apply on WhatsApp) |
+| `white` (+ `/10`…`/90`) | #FFFFFF | Text and "glass" layers on dark backgrounds |
+
+### 3.5 Allowed exceptions (hex in code)
+
+| File | Why |
+|---|---|
+| `footer/FooterSocialLinks.tsx`, `footer/GooglePlayLogo.tsx` | Official third-party brand colors, kept in one map each |
+| `app/[locale]/layout.tsx` | `viewport.themeColor` needs a literal value (= primary-deep) |
+| `jobs/components/JobsHero.tsx`, `jobs/components/JobApplyModal.tsx` | Original hero gradient and modal backdrop kept as designed (owner decision) |
+
+Any new exception MUST be added to `HEX_ALLOWED` in `scripts/check-rules.mjs` with its reason, and to this table.
+
+### 3.6 Adding or changing a color
+
+1. Get the owner's approval (colors are part of the design system).
+2. Add the RGB channels to `:root` in `app/globals.css`, with the hex in a comment.
+3. Map it in `tailwind.config.js` with `token("name")`.
+4. Add it to the tables above. If it is a new palette shade, also add it to `PALETTE_SHADES` in `scripts/check-rules.mjs`.
+
+Non-color tokens (font size, shadow, max width, easing, font) MUST also be added to the `extendTailwindMerge` lists
+in `lib/utils.ts`. Otherwise `cn()` misreads them (e.g. `text-caption` as a color) and drops or keeps the wrong class.
+
+### 3.7 Color rules
+
+- Orange is precious: one orange (`secondary`) button per view. Other actions are `primary`, `outline` or `ghost`.
+- Section rhythm: white → `surface-alt` → white. A navy section or card is the page's one "bold" moment.
 - On navy: titles `text-white`, body `text-white/75` or `text-content-dark`, eyebrow `tone="dark"`.
-- On orange (CTA banner): titles white, body `text-white/90`, using `SectionHeading tone="brand"`.
+- On orange (CTA banner): titles white, body `text-white/90`, via `SectionHeading tone="brand"`.
+- Orange text on white uses `text-secondary-dark` (contrast). `ink-400` text is for small supporting notes only.
 
-### 2.2 Typography
+---
+
+## 4. Typography
+
 Fonts load only through `next/font` in `app/[locale]/layout.tsx`. Never use `<link>` or `@import`.
 
 | Role | Font | Class |
@@ -61,12 +223,13 @@ Fonts load only through `next/font` in `app/[locale]/layout.tsx`. Never use `<li
 | Headings (h1–h4) | Alexandria | `font-heading` (applied automatically to h1–h4) |
 | Body | Readex Pro | `font-sans` (default) |
 | "Elite Tech" wordmark | Poppins | `font-logo` (Latin wordmark, always `dir="ltr"`) |
+| Legacy alias | Readex Pro | `font-ibm` (kept; same as the body font) |
 
-Type scale (fluid tokens, MUST be used for these roles):
+Type scale (fluid tokens; MUST be used for these roles):
 
 | Class | Size | Use |
 |---|---|---|
-| `text-display` | 36 → 56px, bold | Page h1 (one per page) |
+| `text-display` | 36 → 56px, bold | Hero h1 (one per page) |
 | `text-h2` | 28 → 40px, bold | Big numbers, CTA-sized titles |
 | `text-h3` | 20 → 24px, semibold | Card titles, panel titles, statement titles |
 | `text-body-lg` | 18px, leading 1.8 | Hero paragraphs |
@@ -74,214 +237,318 @@ Type scale (fluid tokens, MUST be used for these roles):
 | `text-caption` | 14px | Card descriptions, labels, summary rows |
 | `text-xs` | 12px | Form labels, helper notes |
 
-- Section titles MUST go through `SectionHeading`. It owns the h2 size and spacing.
+- Section titles MUST go through `SectionHeading`; it owns the h2 size (30 → 36 → 44px, or 24 → 32px with `size="compact"`) and spacing.
 - Use `text-balance` on headings and `max-w-prose` (68ch) on paragraphs to keep lines under about 80 characters.
 - Arabic needs generous line height. Never tighten leading below the tokens.
 
-### 2.3 Radius & shadow scale (by hierarchy, not one radius for everything)
+---
+
+## 5. Layout, radius, shadow, z-index
+
+### 5.1 Layout
+- Page width: `Container` (`max-w-container` = 80rem, padding `px-4 sm:px-6 lg:px-8`). Narrower via `className`
+  (e.g. `max-w-5xl`); this works because `cn()` knows `max-w-container`.
+- Sections: `py-20 sm:py-24` by default. `<main>` already offsets the fixed header (`pt-16 sm:pt-20 lg:pt-28`);
+  anchors get `scroll-padding-top: 7rem`.
+- Split heroes: copy `lg:col-span-7`, visual `lg:col-span-5`. Copy comes first in the DOM, so it sits on the start
+  side (right in Arabic).
+
+### 5.2 Radius (by hierarchy, not one radius for everything)
 
 | Element | Radius |
 |---|---|
 | Hero tiles, CTA banner | `rounded-[2rem]` |
-| Large feature cards (statements) | `rounded-3xl` |
+| Large feature cards (statements), modals | `rounded-3xl` |
 | Cards, panels, forms, summary | `rounded-2xl` |
 | Inputs, buttons (md/lg), icon tiles, list rows | `rounded-xl` |
 | Small icon tiles, sm buttons | `rounded-lg` |
 | Pills, eyebrows, step circles | `rounded-full` |
 
-Shadows: `shadow-card` (default card), `shadow-lift` (dark/hero tiles), `shadow-glow` (orange CTA).
+### 5.3 Shadows (tinted with the tokens)
+
+| Class | Use |
+|---|---|
+| `shadow-card` | Default light card |
+| `shadow-lift` | Dark / hero tiles, modals, menus |
+| `shadow-widget` | Floating widgets on navy (booking widget, phone mockups) |
+| `shadow-glow` | Orange CTA |
+| `shadow-glow-accent` | Accent glow |
+
 Don't stack shadows under everything. Light cards SHOULD use `border border-edge` + `shadow-card` at most.
 
-### 2.4 Imagery & brand visuals
+### 5.4 Z-index scale
+
+| Layer | Value |
+|---|---|
+| Local stacking inside a component | `z-0`, `z-10`, `-z-10` (+ `isolate` on the parent) |
+| Floating WhatsApp button | `z-50` |
+| Fixed header | `z-[100]` |
+| Mega menu panel | `z-[110]` |
+| Mobile drawer | `z-[120]` |
+| Modals (Headless UI Dialog) and anchored menus | `z-[130]` (MUST be above the header, so the backdrop dims it) |
+| Toasts | react-hot-toast default (above everything) |
+
+### 5.5 Imagery
 - Logos: `/images/logo.png` (light backgrounds), `/images/logo-light.png` (navy backgrounds), `/images/logo-square.jpeg`.
 - Prefer brand visuals built in code (navy gradient tile + logo + `bg-dot-grid-light` + soft `secondary`/`accent`
   blur glows) over generated images. Examples: `AboutHeroVisual`, `GuideCover`.
 - Every image uses `next/image` with `width`/`height` or `fill` + `sizes`. Decorative images get `alt=""` and their
   wrapper gets `aria-hidden`. Meaningful images get a localized alt (from messages).
+- `priority` only for images above the fold (the header logo, hero images). `Logo` takes a `priority` prop for this.
 - Background utilities: `bg-dot-grid` (navy dots, light sections), `bg-dot-grid-light` (white dots, navy surfaces).
-  Fade them out with `[mask-image:linear-gradient(to_bottom,black,transparent)]`.
+  Fade them with `[mask-image:linear-gradient(to_bottom,black,transparent)]`.
 
-### 2.5 Design principles
+### 5.6 Design principles
 - Build from the brand and the real content. Avoid the generic SaaS look (gradient washes everywhere, identical floating cards).
 - Spend boldness in ONE place per page (hero visual or one navy card). Keep the rest quiet.
 - Eyebrows only where they help orient the reader (hero, product sections). Not above every heading.
-- Use number markers (01, 02 / 1, 2, 3) only for real sequences or ranked lists (values, steps, stepper).
-  Use check marks for plain lists ("what's inside").
-- No "→" on every button. Use arrow icons for forward navigation only, and flip them in RTL.
-- Layout pattern for split heroes: copy `lg:col-span-7`, visual `lg:col-span-5`. Copy comes first in the DOM,
-  so it sits on the start side (right in Arabic).
+- Number markers (01, 02 / 1, 2, 3) only for real sequences or ranked lists. Check marks for plain lists.
+- No "→" on every button. Arrow icons for forward navigation only, flipped in RTL.
 
 ---
 
-## 3. Motion
+## 6. Motion
 
 Presets live in `lib/animations.ts`. Components import them and MUST NOT define their own variants inline.
-Available: `fadeInUp`, `fadeIn`, `scaleIn`, `imageReveal`, `slideInLeft/Right`, `slideInFromStart/End(isRtl)`,
-`staggerContainer`, `heroStagger`, `heroTextReveal`, `popIn`, `floatLoop`, `floatLoopOffset`, `drawPath`, `growY`,
-`withDelay`, `viewportOnce`. CSS equivalents live in `globals.css` (`animate-draw`, `animate-draw-dot`, `animate-pop`,
-`animate-pop-float`, `animate-hero-rise`, ...).
+
+| Preset | Use |
+|---|---|
+| `heroStagger` + `heroTextReveal` + `fadeInUp` | The hero copy (eyebrow → h1 → paragraph → extras) |
+| `withDelay(slideInFromEnd(isRtl), 0.45)` | The hero visual, after the copy |
+| `floatLoop`, `floatLoopOffset` | Gentle loops on hero visuals (easeInOut) |
+| `fadeInUp`, `fadeIn`, `scaleIn`, `imageReveal`, `slideInLeft/Right` | Reveals (through `<Reveal preset>`) |
+| `slideInFromStart/End(isRtl)` | Horizontal slides that mirror in RTL |
+| `staggerContainer` | Grids (through `<RevealGroup>`) |
+| `popIn` | Result icons, floating dots |
+| `growY`, `growYFromTop`, `drawPath` | Chart bars, timeline connectors, line drawing |
+| `botEnter` | Maher bot entrance |
+| `withDelay(preset, s)`, `viewportOnce`, `MOTION` | Helpers and timings (mirror the `--motion-*` CSS tokens) |
+
+CSS equivalents in `globals.css`: `animate-hero-rise`, `.reveal` + `.is-visible`, `animate-draw`, `animate-draw-dot`,
+`animate-pop`, `animate-pop-float`, `animate-grow-y`, `.bot-dock`; in Tailwind: `animate-marquee`, `animate-accordion-down/up`.
 
 Rules:
-- One orchestrated hero moment per page: `heroStagger` on the copy (eyebrow → h1 `heroTextReveal` → paragraph →
-  extras with `fadeInUp`), then the visual `withDelay(slideInFromEnd(isRtl), 0.45)`, optionally `floatLoop`.
-- Below the hero, reveal content with the shared wrappers: `<Reveal>` for single blocks and `<RevealGroup>` +
-  `<Reveal inGroup>` for staggered grids. They trigger once (`viewportOnce`).
-- Hover states: change colour or border only (e.g. icon tile turns navy). No lift on every card. Only buttons lift (built in).
-- Horizontal slides MUST mirror in RTL (`slideInFromStart/End(isRtl)`).
-- Animate `transform` and `opacity` only. Reduced motion is handled globally (`MotionConfig reducedMotion="user"`
-  + the CSS `prefers-reduced-motion` block). Don't bypass it.
-- Step changes in multi-step flows: re-key a `motion.div` with `fadeInUp` and scroll to top.
+- One orchestrated hero moment per page. Below the hero, reveal with `<Reveal>` (single blocks) and
+  `<RevealGroup>` + `<Reveal inGroup>` (staggered grids). They trigger once.
+- Hover states change color or border only (e.g. icon tile turns navy). No lift on every card; only buttons lift (built in).
+- Animate `transform` and `opacity` only.
+- Reduced motion: Framer Motion is handled by `MotionConfig reducedMotion="user"`; the CSS utilities by the
+  `prefers-reduced-motion` block. Tailwind's looping animations (`animate-pulse`, `-ping`, `-bounce`) MUST be written
+  `motion-safe:animate-*`. A loading spinner (`animate-spin`) is allowed.
+- Every `animate-*` class must exist (Tailwind default, tailwind.config.js or globals.css); a typo silently does nothing.
+- Step changes in multi-step flows: re-key a `motion.div` with `fadeInUp` (and scroll to top for full-page steps).
 
 ---
 
-## 4. RTL & internationalisation
+## 7. RTL & internationalization
 
-- ALL user-facing text lives in `messages/ar.json` and `messages/en.json`, with the same keys in both. Never hardcode text.
-- Namespace per page/feature: `about`, `guides.<key>`, `checkout`, `joinTeamCta`, `validation`, ...
-- Use ICU params for dynamic values (`{brand}`, `{email}`, `{amount}`, `{count}`) and ICU `select` for
-  per-country variants (e.g. card networks by `{country}`).
+- ALL user-facing text lives in `messages/ar.json` and `messages/en.json`, with the same keys and the same
+  `{arguments}` in both. Never hardcode text (Arabic or English) in a component, including toasts, Zod messages,
+  WhatsApp messages and placeholders.
+- Namespace per page/feature: `home`, `about`, `jobs`, `booking`, `guides.<key>`, `checkout`, `caseStudies`,
+  `joinTeamCta`, `validation`, `site`, `nav`, `footer`, `notFound`, …
+- ICU params for dynamic values (`{brand}`, `{email}`, `{amount}`, `{count}`), ICU `plural` for counts
+  (e.g. `jobs.badge`), ICU `select` for per-country variants (`{country, select, SA {…} other {…}}`).
+- Rich text: `t.rich("key", { br: () => <br /> })` with `<br></br>` in the message. Languages may differ in tags.
 - Use logical utilities only: `ms/me`, `ps/pe`, `start/end`, `text-start/end`, `border-s/e`, `rounded-s/e`.
   NEVER `ml/mr/pl/pr/left/right/text-left/text-right` for layout.
 - Directional icons flip with `rtl:-scale-x-100`, or `flipIconInRtl` on `Button`.
-- LTR data inside Arabic UI (phones, emails, IBANs, card numbers, order numbers, the wordmark) uses `dir="ltr"`.
-  For LTR inputs in Arabic, add `inputClassName="rtl:text-end"` so text aligns with the label.
-- Money: format with `Intl.NumberFormat("ar-EG-u-nu-latn" | "en-US", { style: "currency" })` so digits are Latin
-  in both locales and the server and client render the same string.
-- Internal links go through `@/i18n/navigation` (or `Button href`), never `next/link` directly.
-- Editing messages: merge new namespaces with a small Node script (`JSON.stringify(obj, null, 2)`). This keeps
-  formatting identical. Then check `git diff --stat` to confirm only additions.
+- LTR data inside Arabic UI (phones, emails, links, IBANs, card numbers, order numbers, the wordmark) uses `dir="ltr"`.
+  LTR inputs without an icon add `inputClassName="rtl:text-end"` so text lines up with the label.
+- Build quirk: Turbopack compiles logical utilities into physical `left`/`right` rules keyed on the element's
+  **language** (`:lang(ar)`), not on `dir`. A nested `dir="ltr"` block on an Arabic page still maps `ps-*` /
+  `start-*` to the right. Use `dir` for text direction; don't expect it to flip spacing. `InputField` handles
+  icon + `dir` for you.
+- Numbers, money and dates: `new Intl.NumberFormat(intlLocale(locale), …)` / `Intl.DateTimeFormat(intlLocale(locale), …)`,
+  so digits are Latin in both locales and the server and the browser render the same string.
+- "Today" on the server: compute it in `APP_TIME_ZONE` (see `book-session/utils/bookingDates.ts`). Never use the
+  server's or the browser's local zone for rendered dates; they differ and break hydration.
+- Internal links go through `@/i18n/navigation` (or `Button href`), never `next/link` or `next/navigation` hooks directly.
+- The language toggle (`useLocaleToggle`) stores the choice in `LOCALE_COOKIE`; `middleware.ts` uses it for unprefixed URLs.
+- Editing messages: merge with a small Node script (`JSON.stringify(obj, null, 2)` + newline) to keep formatting identical,
+  then check `git diff --stat` shows only the intended keys.
 
 ---
 
-## 5. Project structure & placement
+## 8. Clean code
 
-```
-app/
-  globals.css                 tokens, keyframes, utilities
-  components/shared/          used by 2+ pages
-    Button, Badge, Container, Eyebrow, SectionHeading, Reveal, RevealGroup, InputField, ...
-    cta/                      CtaBanner, CtaBannerButton, JoinTeamCta
-    guide/                    GuideLanding + parts (template for all free-PDF guide pages)
-    header/, footer/
-  [locale]/
-    <page>/page.tsx           server component: generateMetadata + sections
-    <page>/components/        page-only components
-    <page>/data/              typed static data (keys, icons, sample values)
-lib/  constants.ts  animations.ts  validation.ts  utils.ts (cn)  types.ts
-messages/  ar.json  en.json
-```
-
-- Something used by 2+ pages MUST live in `app/components/shared/`. Never import one page's `components/` from another page.
-- One component per file, file name = component name (PascalCase). Route folders are kebab-case.
-- Routes, nav links, external URLs, API endpoints and company data live ONLY in `lib/constants.ts`.
-  Exception: draft routes (e.g. `/draft`) are deliberately NOT added to `ROUTES` until approved.
-- Data files hold keys, icons and config, not copy. Copy stays in messages and is looked up by key
-  (e.g. `ALBIRUNI_FEATURES = [{ key, icon }]` → `t(\`features.${key}.title\`)`).
-- Template pages: when several pages share a layout, build one shared template driven by a key + config
+- Server components by default. Add `"use client"` only for state, effects, browser APIs or Framer Motion, and push it
+  as low as possible (sections stay server components; `Reveal` handles motion).
+- Props typed with an explicit `interface`. No `any`. No unused props ("just in case" props get removed).
+- Variant styling uses a typed lookup map (`Record<Variant, string>`) + `cn()`. No class string concatenation.
+- Merge classes with `cn()` from `lib/utils.ts` (it knows the custom tokens; see §3.6).
+- Icons: `react-icons/fi` (Feather) everywhere; `react-icons/fa6` for brand marks (WhatsApp, Apple). Icons are
+  `aria-hidden`; icon-only controls need an `aria-label`.
+- No `console.*`. Use `log` from `app/services/logger` (ApiService logs in development only, never headers).
+- Data files hold keys, icons and config, not copy: `ALBIRUNI_FEATURES = [{ key, icon }]` → `t(\`features.${key}.title\`)`.
+- Template pages: when several pages share a layout, build one template driven by a key + config
   (`GuideLanding guide="eInvoicing"`). Each route file is then about 15 lines.
 
 ---
 
-## 6. Components & clean code
+## 9. Shared building blocks (reuse before creating)
 
-- Keep components small and focused (roughly under 100 lines). Split by visual part (e.g. Card / List / Section / Visual).
-- Server components by default. Add `"use client"` only for state, effects, browser APIs or Framer Motion.
-  Push it as low as possible (sections stay server components; `Reveal` handles motion).
-- Props typed with an explicit `interface`. No `any`. No unused props ("just in case" props get removed).
-- Variant styling uses a typed lookup map (`Record<Variant, string>`) + `cn()`. No string concatenation.
-- Merge classes with `cn()` from `lib/utils.ts`.
-- Icons: `react-icons/fi` (Feather) is the set used across the codebase. `FaWhatsapp`/`FaApple` from `fa6` for brand marks.
-  Icons are `aria-hidden`; icon-only controls need an `aria-label`.
-- No `console.log`. Use `log` from `app/services/logger`.
-
-### Shared building blocks (reuse before creating)
+### 9.1 Components (`app/components/shared/`)
 
 | Component | Use |
 |---|---|
-| `Container` | Page width + horizontal padding (`max-w-container`; narrower via `className`, e.g. `max-w-5xl`) |
-| `SectionHeading` | Every section title. Props: `title`, `eyebrow`, `subtitle`, `align`, `tone` (`light`/`dark`/`brand`), `as` |
+| `Container` | Page width + horizontal padding. Narrower via `className` (`max-w-5xl`) |
+| `SectionHeading` | Every section title. Props: `title`, `eyebrow`, `subtitle`, `align` (`center`/`start`), `tone` (`light`/`dark`/`brand`), `as` (`h1`/`h2`), `size` (`default`/`compact`), `className` |
 | `Eyebrow` | Orange pill label (hero + section eyebrows). `tone="dark"` on navy |
-| `Button` | All buttons/links. Variants: `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`. Supports `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth` |
-| `Reveal` / `RevealGroup` | Scroll reveals with shared presets |
-| `InputField` | Every text input/textarea (visible label, error, hint, disabled) |
-| `CtaBanner` | Orange closing banner; text + actions via props |
-| `JoinTeamCta` | `CtaBanner` preset for careers. Drop `<JoinTeamCta />` at the end of any page |
-| `GuideLanding` | Free-PDF guide landing template (hero copy, contents, request form, book cover) |
+| `Button` | All buttons and button-links. Variants `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`; sizes `sm`/`md`/`lg`; `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth`, `disabled`. `buttonClasses()` styles other elements as buttons |
+| `Badge` | Small labels. Variants `primary`, `secondary`, `accent`, `neutral`, `glass`; sizes `sm`/`md`; optional `icon` |
+| `InputField` | Every text input / textarea: visible label (or `hideLabel`), `error`, `hint`, `icon`, `disabled`, `dir`, `inputClassName`, `as="textarea"` |
+| `Reveal` / `RevealGroup` | Scroll reveals with the shared presets |
+| `Logo` | Mark (+ `withWordMark`), `tone` (`light`/`dark`), `priority` (header only) |
+| `StoreBadge` | External store / site badge with logo, caption and label; `tone` (`dark` footer, `light` sections) |
+| `WhatsAppButton` | Floating WhatsApp shortcut (in the layout) |
+| `CommunityGateModal` | "Sign in to continue" dialog for members-only community actions |
+| `IdeaCard`, `ServiceCard` | Community idea card, service card (home today; ready for community/services pages) |
+| `cta/CtaBanner` | Orange closing banner; title, subtitle, `primaryAction`, `secondaryAction`, `secondaryVariant` |
+| `cta/JoinTeamCta` | `CtaBanner` preset for careers. Drop `<JoinTeamCta />` at the end of any page |
+| `guide/GuideLanding` | Free-PDF guide landing template (+ `buildGuideMetadata`, `GUIDES` config) |
+| `header/*`, `footer/*` | Site chrome, driven entirely by the navigation data in `lib/constants.ts` |
+| Not used yet | `CustomDropdown` (pass a translated `placeholder`), `NewsletterForm`, `header/HeaderRegionSwitcher`, `footer/GooglePlayLogo`; `LocaleSwitcher` is superseded by `header/HeaderLanguageToggle` (don't use) |
+
+### 9.2 Helpers
+
+| Helper | From | Use |
+|---|---|---|
+| `cn()` | `lib/utils.ts` | Merge classes |
+| `toAppLocale()`, `intlLocale()` | `lib/locale.ts` | Locale narrowing, Intl locale |
+| `buildPageMetadata()` | `lib/metadata.ts` | Every page's metadata |
+| `whatsappUrl()`, `WHATSAPP_URL` | `lib/constants.ts` | WhatsApp links |
+| `PATTERNS` | `lib/validation.ts` | Zod regexes |
+| `ApiService` | `app/services/ApiService.ts` | All HTTP |
+| `log` | `app/services/logger.ts` | Logging |
+| `useRegion()` | `app/store/useRegion.ts` | Visitor country / currency (Redux + `region` cookie) |
+| `useLocaleToggle()`, `useActiveRoute()` | `components/shared/header/` | Language switch, active nav item |
+| `Link`, `useRouter`, `usePathname`, `redirect` | `i18n/navigation.ts` | Locale-aware navigation |
 
 ---
 
-## 7. Forms
+## 10. Forms & submissions
 
-- React Hook Form + Zod + `zodResolver`. The schema is the single source of validation.
-- Zod messages are KEYS in the `validation` namespace (`"phoneInvalid"`), translated with `useTranslations("validation")`.
+- React Hook Form + Zod + `zodResolver`. The schema is the single source of validation; forms use `noValidate`.
+- Zod messages are KEYS in the `validation` namespace (`"phoneInvalid"`), shown with `useTranslations("validation")`.
 - Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `cardNumber`, `cardExpiry`, `cardCvc`).
 - Conditional rules use `superRefine` (e.g. card fields only when `method === "card"`).
-- Every input has a visible label, an error state and a disabled state while submitting. Submit buttons use `isLoading`.
-- Choice controls (country toggle, payment methods) use Headless UI `RadioGroup`/`Radio` for keyboard and screen-reader
-  support. Never put inputs inside a `Radio`. Render them as a sibling block under the selected option.
-- HTTP goes through `ApiService` only. Endpoints go in `API_ENDPOINTS` (mark unknown ones TBD).
+- Every input has a visible label, an error state, the right `autoComplete`/`inputMode`, and is disabled while
+  submitting (`disabled={isSubmitting}`). Submit buttons use `isLoading`.
+- Multi-step forms keep typed values when the visitor goes back (see `book-session/components/DetailsStep.tsx`).
+- Choice controls (country toggle, payment methods, meeting types, filters) use Headless UI `RadioGroup`/`Radio`.
+  Never put inputs inside a `Radio`; render them as a sibling block under the selected option.
+- HTTP goes through `ApiService` only, to an endpoint in `API_ENDPOINTS`. Show success ONLY when the response is 2xx.
+  NEVER fake a success with a timeout or a local state change: while an endpoint is TBD the visitor sees the error
+  toast (which offers WhatsApp as the alternative). Exceptions, each marked in code: draft prototypes (`/draft`) and
+  the booking widget until its endpoint exists (TODO in `BookingWidget.tsx`).
 - Feedback: React Hot Toast. Success says what happened ("We sent the guide to your WhatsApp"). Errors say what failed
-  and what to do ("Check your connection and try again"), never apologise and never stay vague.
+  and what to do ("Check your connection and try again"); never apologize, never stay vague.
+- Modals: Headless UI `Dialog` at `z-[130]`, a close button with `aria-label`, Escape closes, focus is trapped.
 
 ---
 
-## 8. Copy & voice
+## 11. Copy & voice
 
 - Arabic: Modern Standard Arabic, simple and direct. Existing style uses tanween on alif (مجاناً، يوماً).
 - English: sentence case, plain verbs, no filler.
 - CTAs name the outcome: "أرسل لي الدليل مجاناً", "متابعة إلى الدفع", "شاهد الوظائف المتاحة". Never "Submit"/"Click here".
-- An action keeps one name through the flow (button "Send me the guide" → toast "We sent the guide…").
-- Don't invent facts, prices, stats, client names or legal claims. If a design needs sample data, put it in
-  `data/` under a `SAMPLE_` name with a `DRAFT SAMPLE / TBD` comment, and list it in the task report.
+- An action keeps one name through the flow (button "Send me the guide" → toast "We sent the guide…"), and a button
+  does what its label says ("Back to home" goes home).
+- Counts come from data, never typed into copy (`jobs.badge` uses `{count}` = number of openings).
+- Don't invent facts, prices, stats, client names, social handles or legal claims. Sample data goes in `data/` under a
+  `SAMPLE_` name with a `DRAFT SAMPLE / TBD` comment, and is listed in the task report.
 
 ---
 
-## 9. Pages & SEO
+## 12. Accessibility checklist
 
-- Every page exports `generateMetadata` with a localized title and description, `alternates.canonical` +
-  `languages`, and Open Graph. Template pages share a builder (e.g. `buildGuideMetadata`).
-- Titles: the root layout already appends `| {brand}` (title template). Page titles MUST NOT include the brand again.
-- Draft pages set `robots: { index: false, follow: false }`.
-- One `h1` per page (the hero). Sections use `h2` via `SectionHeading`, cards use `h3`. Unlabeled `<section>`s that
-  have no heading get `aria-label`.
-- Landmarks: `nav` for steppers/menus, `aside` for summaries, `article` for cards, `dl` for label/value data.
+- One `h1` per page. Flows without a hero use a visually hidden `<h1 className="sr-only">` (draft checkout).
+- Sections use `h2` via `SectionHeading`, cards `h3`. Unlabeled `<section>`s without a heading get `aria-label`.
+- Landmarks: `nav` for menus and steppers, `aside` for summaries, `article` for cards, `dl` for label/value data.
+- Icon-only buttons: `aria-label`. Decorative icons and images: `aria-hidden` / `alt=""`.
+- Repeated buttons ("Apply now" ×10) get `aria-describedby` pointing at their card title.
+- Calendar days carry the full date as `aria-label`; toggles expose state (`aria-pressed`, radio `aria-checked`).
+- Keyboard: Headless UI handles menus, dialogs and radio groups; the global `:focus-visible` ring must stay visible.
 
 ---
 
-## 10. Pages built so far
+## 13. Pages & SEO
+
+- Every page exports `generateMetadata` and returns
+  `buildPageMetadata({ locale, path: ROUTES.x, title, description, type?, noIndex? })`.
+  It sets the title, description, canonical + hreflang (incl. `x-default`), Open Graph (with the shared image) and
+  Twitter tags. NEVER hand-write `openGraph`, `twitter` or `alternates`: Next.js replaces (does not merge) a parent's
+  objects, so the page silently loses the image and URL.
+- Titles: the root layout already appends `| {brand}`. Page titles MUST NOT include the brand. Descriptions may use `{brand}`.
+- Draft pages pass `noIndex: true`. The 404 page sets its own title and `noindex` in `not-found.tsx`.
+- Site-wide defaults (title, description, keywords, icons, robots) live in the root layout + `site` messages.
+
+---
+
+## 14. Pages built so far
 
 | Route | Notes |
 |---|---|
-| `/home` | Video hero, services, community, ideas, navy CTA (`home/components/CtaSection`) |
+| `/home` | Video hero, tech marquee, ecosystem, services bento, community, ideas (+ gate modal), navy CTA |
 | `/about` | Hero + brand tile, mission/vision cards, Albiruni features, values 01–04, `JoinTeamCta` |
-| `/jobs` | Hero, how we work, open positions (anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID`) |
-| `/book-session` | Booking calendar flow |
-| `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form |
-| `/draft` | DRAFT subscription checkout: company details → payment (EG / SA methods) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing |
+| `/jobs` | Hero (count from data), how we work, filterable openings (radio pills), apply modal → `API_ENDPOINTS.jobApplication` (TBD) or WhatsApp. Anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID` |
+| `/book-session` | Booking widget: meeting type + Cairo-time calendar → details (validated) → success. Until the backend exists the POST to `API_ENDPOINTS.bookSession` is commented out and success shows without sending (TODO in `BookingWidget.tsx`) |
+| `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form → `API_ENDPOINTS.guideRequest` (TBD) |
+| `/projects/bareeq-x` | Case study: teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
+| `/draft` | DRAFT subscription checkout: company details → payment (EG / SA methods) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing, payment simulated |
+| any unknown path | Localized 404 (`not-found.tsx`) inside the site layout |
 
 ---
 
-## 11. Verification workflow
+## 15. Verification workflow
 
 1. Plan: list the sections, components, data shape and message keys before coding.
 2. Build: tokens → shared components → page sections → messages (ar + en together).
-3. Check: `npx tsc --noEmit` and `npx eslint <changed paths>` must report zero errors.
-4. Smoke test: `curl` each new route in both locales. Confirm HTTP 200, the correct `<title>`/`<h1>`, and no raw
-   message keys in the HTML.
-5. Visual: check `/ar` and `/en` at 360 / 768 / 1280 px.
-6. Report: files changed, assumptions, sample/TBD data, and anything not verified.
+3. `npm run check` MUST pass. It runs `tsc --noEmit`, `eslint` and `scripts/check-rules.mjs`, which enforces:
+   - messages: same keys in ar/en, valid ICU syntax, same `{arguments}`; every literal `t("key")` exists
+   - colors: no hex (except §3.5), no Tailwind default palettes, only palette shades that exist
+   - RTL: no physical direction utilities; i18n: no `next/link` / `next/navigation` hooks, no Arabic copy in components
+   - routes from `ROUTES` (no `href="/…"` literals), no `console.*`, no `any`
+   - motion: `motion-safe:` on looping Tailwind animations, no undefined `animate-*` classes
+4. `npm run build` MUST finish with zero warnings.
+5. Smoke test: start the build (`npx next start`) and `curl` each route in both locales: HTTP 200, correct `<title>`
+   (brand once), one `<h1>`, correct canonical / `og:url` / `og:image`, no raw message keys.
+6. Browser: `/ar` and `/en` at 360 / 768 / 1280 px: no horizontal overflow, no console errors. Exercise every form
+   (empty submit → localized errors; valid submit → request sent), modals (Escape, close label, above the header),
+   the mobile drawer, mega menus (inside the viewport) and the language toggle.
+7. Report: files changed, assumptions, sample/TBD data, and anything not verified.
 
 ---
 
-## 12. Open items (owner to provide)
+## 16. Known deviations (fix when touching these files)
+
+| Where | Deviation |
+|---|---|
+| Home | Cards lift on hover (`IdeaCard`, `ServiceCard`, `EcosystemCard`, community tiles); hero h1 uses `text-4xl/5xl` instead of `text-display`; `IdeaCard`, `ServiceCard`, `CommunityGateModal` live in shared but only home uses them |
+| Jobs | Hex colors (§3.5); headings kept in `surface-dark` through `className="[&_h2]:text-surface-dark"`; `shadow-sm/md/lg` instead of shadow tokens |
+| 404 page | Original custom design (gradient buttons, hover lifts, `rounded-2xl` buttons) instead of `Button` |
+| Book-session | Pixel values from the Figma file (`text-[0.78125rem]`, …); hero h1 not `text-display`; detail/success buttons restyle `Button` with color overrides |
+| Messages | `jobs.positions.<id>.summary/requirements` and `footer.newsletter.title/description` are not rendered yet |
+| Media | `hero-office.png` and the other photos are JPEG files with a `.png` extension |
+| Rendering | All routes render on demand (no `generateStaticParams` / `setRequestLocale`), so nothing is prerendered |
+| Dependencies | Not imported anywhere: `@heroicons/react`, `@radix-ui/react-accordion`, `leaflet`, `leaflet-draw`, `react-leaflet`, `react-leaflet-draw`, `react-time-picker`, `recharts`, `uuid`, `redux-logger` (+ their `@types`); `lucide-react` waits for the icon decision |
+
+---
+
+## 17. Open items (owner to provide)
 
 | # | Item | Affects |
 |---|---|---|
-| 1 | Final copy for About, guides and checkout (current text was transcribed from low-res designs) | messages |
+| 1 | Final copy for About, guides, checkout and jobs (current text was transcribed from low-res designs) | messages |
 | 2 | Founding date confirmation ("April 2025") | About hero |
 | 3 | Albiruni pricing, plans, user tiers | `draft/data/checkoutData.ts` |
 | 4 | Real bank accounts (bank name, IBAN) for EG / SA | Bank transfer screen |
-| 5 | Backend endpoints: guide request, newsletter, checkout/payment gateway | `API_ENDPOINTS` |
+| 5 | Backend: API base URL + endpoints for guide request, newsletter, session booking, job application, checkout / payment gateway | `ApiService`, `API_ENDPOINTS` |
 | 6 | Whether checkout uses a minimal header (needs a route-group layout split) | Layout |
 | 7 | Official Arabic spelling (إيليت تك vs إليت تك) | `COMPANY_INFO` |
 | 8 | Icon set decision: keep Feather (`react-icons/fi`) or migrate to Lucide | All components |
+| 9 | Bareeq X: App Store / Google Play listing URLs, real app screenshots, partner's official English name | `PROJECT_LINKS.bareeq`, `PhoneMockup`, `caseStudies.bareeqX` (en) |
+| 10 | Browser support targets. Setting a modern `browserslist` would ship native logical CSS (no `:lang()` workaround, smaller CSS) | `package.json` |
+| 11 | X / Twitter handle (none is listed in `SOCIAL_LINKS`, so none is published) | `lib/metadata.ts` |
+| 12 | Keep or delete the unused components and dependencies listed in §9.1 and §16 | Repo hygiene |

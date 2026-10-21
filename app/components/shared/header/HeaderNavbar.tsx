@@ -28,7 +28,7 @@ export function HeaderNavbar({ isScrolled, onOpenMobileMenu }: HeaderNavbarProps
       )}
     >
       <Container className="flex h-16 items-center gap-4 sm:h-20 xl:grid xl:grid-cols-[1fr_auto_1fr] xl:gap-6">
-        <Logo tone="light" withWordMark className="xl:justify-self-start" />
+        <Logo tone="light" withWordMark priority className="xl:justify-self-start" />
 
         <PopoverGroup as="nav" aria-label={t("mainNav")} className="hidden items-center gap-1 xl:flex xl:justify-self-center">
           {NAV_LINKS.map((entry) =>

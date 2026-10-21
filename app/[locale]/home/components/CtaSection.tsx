@@ -27,11 +27,11 @@ export function CtaSection() {
               aria-hidden="true"
             />
             <div
-              className="absolute -bottom-32 -end-24 -z-10 size-96 rounded-full bg-secondary/30 blur-3xl animate-pulse"
+              className="absolute -bottom-32 -end-24 -z-10 size-96 rounded-full bg-secondary/30 blur-3xl motion-safe:animate-pulse"
               aria-hidden="true"
             />
             <div
-              className="absolute -top-32 -start-24 -z-10 size-80 rounded-full bg-accent/25 blur-3xl animate-pulse"
+              className="absolute -top-32 -start-24 -z-10 size-80 rounded-full bg-accent/25 blur-3xl motion-safe:animate-pulse"
               aria-hidden="true"
             />
 

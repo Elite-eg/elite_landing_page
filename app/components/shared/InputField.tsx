@@ -31,7 +31,7 @@ export type InputFieldProps = BaseInputFieldProps &
       >)
   );
 
-/** Shared text input / textarea: visible label, error, and disabled states (elite-rules.txt §5.7). */
+/** Shared text input / textarea: visible label, error, and disabled states (elite-design-rules.txt, "Forms"). */
 export const InputField = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
   InputFieldProps
@@ -46,6 +46,7 @@ export const InputField = forwardRef<
     inputClassName,
     id,
     disabled,
+    dir,
     as = "input",
     ...restProps
   } = props;
@@ -84,7 +85,8 @@ export const InputField = forwardRef<
         {label}
       </label>
 
-      <div className="relative">
+      {/* `dir` also goes on the wrapper, so an icon sits on the same side as the input's start padding. */}
+      <div className="relative" dir={dir}>
         {icon && (
           <span
             className={cn(
@@ -101,6 +103,7 @@ export const InputField = forwardRef<
           <textarea
             ref={ref as React.Ref<HTMLTextAreaElement>}
             id={inputId}
+            dir={dir}
             disabled={disabled}
             aria-invalid={error ? true : undefined}
             aria-describedby={describedBy}
@@ -111,6 +114,7 @@ export const InputField = forwardRef<
           <input
             ref={ref as React.Ref<HTMLInputElement>}
             id={inputId}
+            dir={dir}
             disabled={disabled}
             aria-invalid={error ? true : undefined}
             aria-describedby={describedBy}
@@ -124,7 +128,7 @@ export const InputField = forwardRef<
         <p
           id={`${inputId}-error`}
           role="alert"
-          className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-danger animate-fadeIn"
+          className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-danger"
         >
           <FiAlertCircle className="size-4 shrink-0" aria-hidden="true" />
           {error}

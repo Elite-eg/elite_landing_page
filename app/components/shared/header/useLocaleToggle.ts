@@ -4,6 +4,7 @@ import { useCallback, useTransition } from "react";
 import { useLocale } from "next-intl";
 import { setCookie } from "cookies-next/client";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { LOCALE_COOKIE } from "@/i18n/routing";
 
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
@@ -16,7 +17,7 @@ export function useLocaleToggle() {
 
   const toggleLocale = useCallback(() => {
     const nextLocale = locale === "ar" ? "en" : "ar";
-    setCookie("NEXT_LOCALE", nextLocale, { maxAge: ONE_YEAR, path: "/" });
+    setCookie(LOCALE_COOKIE, nextLocale, { maxAge: ONE_YEAR, path: "/" });
     startTransition(() => {
       router.replace(pathname, { locale: nextLocale });
     });

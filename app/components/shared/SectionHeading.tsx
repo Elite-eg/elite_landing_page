@@ -26,7 +26,7 @@ const SIZE_CLASSES: Record<NonNullable<SectionHeadingProps["size"]>, { wrapper: 
   },
 };
 
-/** The only way to render section titles (elite-rules.txt §7). */
+/** The only way to render section titles (elite-design-rules.txt, "Typography"). */
 export function SectionHeading({
   title,
   eyebrow,

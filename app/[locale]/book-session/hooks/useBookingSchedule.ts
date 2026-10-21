@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { intlLocale } from "@/lib/locale";
 import { DEFAULT_TIME_SLOT, TIME_SLOTS, type TimeSlot } from "../data/bookingData";
-import { firstBookableDay, startOfTomorrow, toDateLocale, weekdayKeyOf } from "../utils/bookingDates";
+import { firstBookableDay, startOfTomorrow, toIsoDate, weekdayKeyOf } from "../utils/bookingDates";
 
 /** Calendar month shown, selected day and time slot, plus their localized labels. */
 export function useBookingSchedule() {
   const t = useTranslations("booking");
-  const dateLocale = toDateLocale(useLocale());
+  const dateLocale = intlLocale(useLocale());
 
   const [minDate] = useState(startOfTomorrow);
   const [view, setView] = useState(() => ({ year: minDate.getFullYear(), month: minDate.getMonth() }));
@@ -33,7 +34,15 @@ export function useBookingSchedule() {
     );
   };
 
-  const selectedDate = new Date(view.year, view.month, selectedDay);
+  /** "Saturday 31 October": slot header text and the accessible name of each calendar day. */
+  const dayLabel = (day: number) => {
+    const date = new Date(view.year, view.month, day);
+    return t("slotDate", {
+      weekday: t(`weekdays.long.${weekdayKeyOf(date)}`),
+      day: String(day),
+      month: new Intl.DateTimeFormat(dateLocale, { month: "long" }).format(date),
+    });
+  };
 
   return {
     minDate,
@@ -48,11 +57,10 @@ export function useBookingSchedule() {
     monthLabel: new Intl.DateTimeFormat(dateLocale, { month: "long", year: "numeric" }).format(
       new Date(view.year, view.month, 1)
     ),
-    selectedDateLabel: t("slotDate", {
-      weekday: t(`weekdays.long.${weekdayKeyOf(selectedDate)}`),
-      day: String(selectedDay),
-      month: new Intl.DateTimeFormat(dateLocale, { month: "long" }).format(selectedDate),
-    }),
+    dayLabel,
+    selectedDateLabel: dayLabel(selectedDay),
+    /** "YYYY-MM-DD" of the picked day, sent to the booking endpoint. */
+    selectedDateIso: toIsoDate(new Date(view.year, view.month, selectedDay)),
     timeSlots: TIME_SLOTS.map((value) => ({ value, label: formatTime(value) })),
     selectedTimeLabel: formatTime(selectedTime),
   };
