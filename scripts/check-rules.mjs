@@ -147,8 +147,7 @@ const HEX_ALLOWED = new Set([
   "app/components/shared/footer/GooglePlayLogo.tsx",
   // viewport.themeColor needs a literal value.
   "app/[locale]/layout.tsx",
-  // Jobs page keeps its original hero gradient and modal backdrop colors (owner decision).
-  "app/[locale]/jobs/components/JobsHero.tsx",
+  // Jobs apply modal keeps its original backdrop color (owner decision).
   "app/[locale]/jobs/components/JobApplyModal.tsx",
 ]);
 

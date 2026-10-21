@@ -124,6 +124,51 @@ export const slideInFromEnd = (isRtl: boolean): Variants => ({
   visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.65, ease: EASE_SMOOTH } },
 });
 
+/** Rows past this index share the last stagger delay, so long lists finish quickly (they start below the fold). */
+const LIST_STAGGER_CAP = 5;
+/** Tighter than MOTION.staggerCard, so rows fill a growing list about as fast as its height opens. */
+const LIST_STAGGER = 0.05;
+
+/**
+ * Rows of a filterable list: slide 30px in from the end side and fade in (Figma "Role" motion), one after another.
+ * Each row animates itself (pass its index as `custom`): variant propagation from a parent only reaches children
+ * present on its first run, so rows mounted by a filter change would otherwise appear without motion.
+ */
+export const listItemFromEnd = (isRtl: boolean): Variants => ({
+  hidden: { opacity: 0, x: isRtl ? -30 : 30 },
+  visible: (index: number = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, ease: EASE_SMOOTH, delay: Math.min(index, LIST_STAGGER_CAP) * LIST_STAGGER },
+  }),
+});
+
+/** A whole list swapped for another (filter change, AnimatePresence mode="wait"): quick fade out first. */
+export const listSwap: Variants = {
+  exit: { opacity: 0, transition: { duration: 0.15, ease: "easeOut" } },
+};
+
+/**
+ * Accordion-style expand / collapse (height "auto"), e.g. the requirements in the jobs apply modal.
+ * Timing lives in `expandTransition` (not in the variants), so reduced motion can swap it for `{ duration: 0 }`:
+ * MotionConfig only stops transforms, and a variant's own transition would win over the prop.
+ */
+export const expandCollapse: Variants = {
+  collapsed: { height: 0, opacity: 0 },
+  open: { height: "auto", opacity: 1 },
+};
+
+export const expandTransition: Transition = { duration: 0.35, ease: EASE_SMOOTH };
+
+/** Container height following its content (AnimatedHeight), so what sits below glides instead of jumping. */
+export const heightTransition: Transition = { duration: 0.4, ease: EASE_SMOOTH };
+
+/**
+ * Layout animations (`layoutId`): a selection indicator gliding between options. Framer Motion runs them as
+ * transforms, so the layout itself never animates.
+ */
+export const layoutTransition: Transition = { layout: { duration: 0.4, ease: EASE_SMOOTH } };
+
 /**
  * Gentle looping float for decorative cards. Loops must use easeInOut: an ease-out curve
  * makes velocity jump at each turnaround, which reads as a stutter.

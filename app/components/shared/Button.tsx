@@ -18,11 +18,18 @@ export interface ButtonStyleOptions {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  /**
+   * Hover lift + press scale on boxed variants (default true). Turn it off where buttons should stay still,
+   * e.g. a pinned action bar: a transform transition moves the button to its own GPU layer, where the label
+   * loses subpixel antialiasing and visibly thins while hovered.
+   */
+  lift?: boolean;
   className?: string;
 }
 
 /** Subtle lift for boxed variants only (text/ghost stay flat). */
 const LIFT = "hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] motion-reduce:transform-none";
+const LIFTING_VARIANTS: ReadonlySet<ButtonVariant> = new Set(["primary", "secondary", "outline", "glass"]);
 
 /** Disabled look from the design: faded white box with a light border. Covers <button disabled> and aria-disabled links. */
 const BOXED_DISABLED =
@@ -30,18 +37,16 @@ const BOXED_DISABLED =
   "aria-disabled:border-edge aria-disabled:bg-surface/60 aria-disabled:text-content/40 aria-disabled:shadow-none aria-disabled:backdrop-blur-none";
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: cn("border-transparent bg-primary text-surface shadow-card hover:bg-primary-dark", LIFT, BOXED_DISABLED),
-  secondary: cn("border-transparent bg-secondary text-surface shadow-glow hover:bg-secondary-dark", LIFT, BOXED_DISABLED),
+  primary: cn("border-transparent bg-primary text-surface shadow-card hover:bg-primary-dark", BOXED_DISABLED),
+  secondary: cn("border-transparent bg-secondary text-surface shadow-glow hover:bg-secondary-dark", BOXED_DISABLED),
   outline: cn(
     "border-edge bg-surface text-primary hover:border-primary/30 hover:bg-surface-alt hover:shadow-card",
-    LIFT,
     BOXED_DISABLED
   ),
   text: "border-0 bg-transparent text-secondary hover:text-secondary-dark disabled:text-content/40 aria-disabled:text-content/40",
   ghost: cn("border-transparent bg-transparent text-content hover:bg-surface-alt hover:text-primary", BOXED_DISABLED),
   glass: cn(
     "border-white/25 bg-white/10 text-surface backdrop-blur-md hover:border-white/40 hover:bg-white/20",
-    LIFT,
     BOXED_DISABLED
   ),
 };
@@ -70,6 +75,7 @@ export function buttonClasses({
   variant = "primary",
   size = "md",
   fullWidth = false,
+  lift = true,
   className,
 }: ButtonStyleOptions = {}): string {
   return cn(
@@ -77,6 +83,7 @@ export function buttonClasses({
     "transition duration-200 ease-out-brand",
     "disabled:pointer-events-none aria-disabled:pointer-events-none",
     VARIANT_CLASSES[variant],
+    lift && LIFTING_VARIANTS.has(variant) && LIFT,
     variant === "text" ? TEXT_SIZE_CLASSES[size] : SIZE_CLASSES[size],
     fullWidth && "w-full",
     className
@@ -158,6 +165,7 @@ export function Button(props: ButtonProps) {
     variant,
     size = "md",
     fullWidth,
+    lift,
     className,
     children,
     icon,
@@ -167,7 +175,7 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props;
 
-  const classes = buttonClasses({ variant, size, fullWidth, className });
+  const classes = buttonClasses({ variant, size, fullWidth, lift, className });
   const content = renderButtonContent({ children, icon, iconPosition, flipIconInRtl, isLoading, size });
 
   if (rest.href !== undefined) {

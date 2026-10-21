@@ -1,33 +1,26 @@
 import type { IconType } from "react-icons";
-import { FiMessageSquare } from "react-icons/fi";
 
 export interface HowWeWorkCardProps {
   icon: IconType;
   title: string;
   text: string;
-  /** Already-translated badge shown under the text (the Maher assistant callout). */
-  badge?: string;
 }
 
-export function HowWeWorkCard({ icon: Icon, title, text, badge }: HowWeWorkCardProps) {
+/**
+ * Grey perk card (Figma "Perks"). Hover keeps the grey fill: a soft border appears, the icon tile turns navy and
+ * the icon grows slightly (color + a small transform, no lift).
+ */
+export function HowWeWorkCard({ icon: Icon, title, text }: HowWeWorkCardProps) {
   return (
-    <article className="flex h-full flex-col justify-between rounded-2xl border border-edge/60 bg-surface p-6 shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-7">
-      <div>
-        <span className="mb-5 grid size-12 place-items-center rounded-xl bg-surface-info text-primary shadow-inner">
-          <Icon className="size-6" aria-hidden="true" />
-        </span>
-        <h3 className="mb-2 text-base font-bold text-surface-dark sm:text-lg">{title}</h3>
-        <p className="text-xs leading-relaxed text-content sm:text-sm">{text}</p>
-      </div>
-
-      {badge && (
-        <div className="mt-6 border-t border-edge/40 pt-4">
-          <span className="inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-gradient-to-r from-secondary/15 to-primary/10 px-3 py-1.5 text-xs font-semibold text-secondary-dark">
-            <FiMessageSquare className="size-3.5 shrink-0 text-secondary" aria-hidden="true" />
-            {badge}
-          </span>
-        </div>
-      )}
+    <article className="group flex h-full flex-col items-start gap-3 rounded-3xl border border-transparent bg-surface-alt px-6 py-7 transition-colors duration-300 ease-out-brand hover:border-edge">
+      <span className="grid place-items-center rounded-xl bg-surface p-2.5 text-primary transition-colors duration-300 ease-out-brand group-hover:bg-primary group-hover:text-white">
+        <Icon
+          className="size-[1.375rem] transition-transform duration-300 ease-out-brand group-hover:scale-110 motion-reduce:transform-none"
+          aria-hidden="true"
+        />
+      </span>
+      <h3 className="text-lg font-semibold leading-snug text-body">{title}</h3>
+      <p className="text-caption text-content">{text}</p>
     </article>
   );
 }
