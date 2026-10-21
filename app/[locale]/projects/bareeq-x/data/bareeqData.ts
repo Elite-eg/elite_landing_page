@@ -2,6 +2,9 @@ import type { IconType } from "react-icons";
 import { FiBarChart2, FiMapPin, FiMonitor, FiSmartphone } from "react-icons/fi";
 import { PROJECT_LINKS } from "@/lib/constants";
 
+/** Hero background photo (decorative, under a teal overlay). */
+export const BAREEQ_HERO_IMAGE = "/images/hero-bareeq.jpeg";
+
 /** Keys map to `caseStudies.bareeqX.hero.tags.<key>`. Order = reading order (start → end). */
 export type BareeqTagKey = "mobile" | "web" | "country" | "live";
 

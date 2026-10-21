@@ -983,6 +983,11 @@
             "text": "{brand} is the main tech partner in operation"
           }
         },
+        "preview": {
+          "title": "Try the live website",
+          "frameTitle": "Live preview of the Bareeq X website",
+          "open": "Open {site} in a new tab"
+        },
         "linksLabel": "Project links",
         "links": {
           "website": {

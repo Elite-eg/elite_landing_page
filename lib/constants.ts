@@ -354,6 +354,8 @@ export const ALBIRUNI_APP_LINKS = {
 export const PROJECT_LINKS = {
   bareeq: {
     website: "https://bareeqx.com",
+    /** Embedded on the case study, in the visitor's language. Needs bareeqx.com to allow framing (frame-ancestors). */
+    preview: { ar: "https://bareeqx.com/ar", en: "https://bareeqx.com/en" },
     /** TBD: Bareeq X App Store listing (not linked from bareeqx.com yet). */
     appStore: "https://apps.apple.com/",
     /** TBD: Bareeq X Google Play listing (not linked from bareeqx.com yet). */
