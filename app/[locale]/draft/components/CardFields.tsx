@@ -2,7 +2,7 @@
 
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { InputField } from "@/app/components/shared/InputField";
+import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import type { PaymentValues } from "../data/paymentSchema";
 
 interface CardFieldsProps {

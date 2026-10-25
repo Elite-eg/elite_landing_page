@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -12,28 +12,36 @@ import {
   FiBriefcase,
   FiMail,
   FiMessageSquare,
-  FiPhone,
   FiUser,
 } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
-import { InputField } from "@/app/components/shared/InputField";
+import { useRegion } from "@/app/store/useRegion";
+import { InputField } from "@/app/components/shared/form-handlers/InputField";
+import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { fadeInUp } from "@/lib/animations";
-import { PATTERNS } from "@/lib/validation";
+import type { RegionCode } from "@/lib/constants";
+import { internationalPhone } from "@/lib/phone";
+import { mobileNumberCheck, phoneFieldsSchema } from "@/lib/validation";
 
-/** Error messages are message keys inside the "validation" namespace. */
-const detailsSchema = z.object({
-  name: z.string().trim().min(1, "nameRequired"),
-  phone: z
-    .string()
-    .trim()
-    .min(1, "phoneRequired")
-    .regex(PATTERNS.phone, "phoneInvalid"),
-  email: z.string().trim().min(1, "emailRequired").email("emailInvalid"),
-  company: z.string().trim(),
-  notes: z.string().trim(),
-});
+/**
+ * Error messages are message keys inside the "validation" namespace. Built per region: the phone number is checked
+ * against the automatic code (the visitor's region) until the visitor picks one.
+ */
+const detailsSchema = (region: RegionCode) =>
+  z
+    .object({
+      name: z.string().trim().min(1, "nameRequired"),
+      ...phoneFieldsSchema(),
+      email: z.string().trim().min(1, "emailRequired").email("emailInvalid"),
+      company: z.string().trim(),
+      notes: z.string().trim(),
+    })
+    .superRefine(mobileNumberCheck(region));
 
-export type BookingFormData = z.infer<typeof detailsSchema>;
+export type BookingFormData = z.infer<ReturnType<typeof detailsSchema>>;
+
+/** What the widget sends: the form values with the phone number in international form (dial code included). */
+export type BookingDetails = Omit<BookingFormData, "phoneCountry">;
 
 export interface DetailsStepProps {
   defaultValues: BookingFormData;
@@ -41,7 +49,7 @@ export interface DetailsStepProps {
   onChange: (values: BookingFormData) => void;
   onBack: () => void;
   /** Sends the booking. The form stays disabled (loading button) until it settles. */
-  onSubmit: (values: BookingFormData) => Promise<void>;
+  onSubmit: (details: BookingDetails) => Promise<void>;
 }
 
 /** Step 2: contact details. */
@@ -53,15 +61,19 @@ export function DetailsStep({
 }: DetailsStepProps) {
   const t = useTranslations("booking");
   const tValidation = useTranslations("validation");
+  const { region } = useRegion();
+  const schema = useMemo(() => detailsSchema(region), [region]);
+  const form = useForm<BookingFormData>({ resolver: zodResolver(schema), defaultValues });
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<BookingFormData>({
-    resolver: zodResolver(detailsSchema),
-    defaultValues,
-  });
+  } = form;
+  const phone = usePhoneField({ form, codeName: "phoneCountry", numberName: "phone" });
+
+  const submitDetails = ({ phoneCountry: pickedCode, phone: number, ...details }: BookingFormData) =>
+    onSubmit({ ...details, phone: internationalPhone(pickedCode || phone.code, number) });
 
   useEffect(() => {
     // Every field has a default value, so the watched values are always complete.
@@ -79,7 +91,7 @@ export function DetailsStep({
       initial="hidden"
       animate="visible"
       exit="hidden"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(submitDetails)}
       noValidate
       className="space-y-4"
     >
@@ -93,15 +105,11 @@ export function DetailsStep({
         {...register("name")}
       />
       <InputField
-        type="tel"
-        inputMode="tel"
+        as="phone"
         label={t("form.phone")}
-        placeholder={t("form.phonePlaceholder")}
-        autoComplete="tel"
-        icon={<FiPhone className="size-4" />}
+        {...phone.fieldProps}
         error={errorText(errors.phone?.message)}
-        {...ltrField}
-        {...register("phone")}
+        {...field}
       />
       <InputField
         type="email"

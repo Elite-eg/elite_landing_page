@@ -172,7 +172,6 @@
       "name": "Full Name",
       "namePlaceholder": "Enter your full name",
       "phone": "Phone / WhatsApp",
-      "phonePlaceholder": "+20 100 000 0000",
       "email": "Email Address",
       "emailPlaceholder": "name@company.com",
       "company": "Company / Sector",
@@ -445,7 +444,20 @@
     "cardExpiryInvalid": "Enter the expiry date as MM/YY, like 08/27.",
     "cardCvcInvalid": "Enter the 3 or 4 digit security code.",
     "linkRequired": "Enter a link to your CV.",
-    "linkInvalid": "Enter a valid link that starts with https://"
+    "linkInvalid": "Enter a valid link that starts with https://",
+    "mobileRequired": "Enter your mobile number.",
+    "companySizeRequired": "Choose the number of employees.",
+    "needRequired": "Choose what you need.",
+    "mobileInvalidEG": "Enter a 10-digit Egyptian mobile number starting with 10, 11, 12 or 15, like 11 2299 9933.",
+    "mobileInvalidSA": "Enter a 9-digit Saudi mobile number starting with 5, like 50 123 4567."
+  },
+  "countries": {
+    "EG": "Egypt",
+    "SA": "Saudi Arabia"
+  },
+  "phoneField": {
+    "countryCode": "Country code",
+    "countryCodeDetected": "Country code set automatically"
   },
   "whatsapp": {
     "label": "Chat with us on WhatsApp"
@@ -526,7 +538,6 @@
       "email": "Email address",
       "emailPlaceholder": "example@domain.com",
       "phone": "Phone / WhatsApp number",
-      "phonePlaceholder": "+201000000000",
       "cvLink": "CV or LinkedIn link",
       "cvLinkPlaceholder": "LinkedIn or Google Drive link",
       "coverNote": "A short summary of your experience",
@@ -631,6 +642,80 @@
           "Integrating AI automation pipelines into existing B2B systems"
         ]
       }
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact us",
+      "description": "Talk to a {brand} expert and get a clear recommendation within one business day, through the form, WhatsApp, phone or email."
+    },
+    "eyebrow": "Contact us",
+    "title": "Talk to an expert,<br></br>get a clear recommendation.",
+    "subtitle": "Leave your details and a consultant will contact you within one business day. Or pick the channel that suits you.",
+    "channels": {
+      "label": "Ways to reach us",
+      "whatsapp": {
+        "title": "WhatsApp"
+      },
+      "maher": {
+        "title": "Ask Maher",
+        "value": "Our AI assistant, available around the clock"
+      },
+      "phone": {
+        "title": "Phone"
+      },
+      "email": {
+        "title": "Email"
+      },
+      "address": {
+        "title": "Our office"
+      }
+    },
+    "form": {
+      "title": "Contact us",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "e.g. Ahmed Salem",
+      "companyName": "Company name",
+      "companyNamePlaceholder": "e.g. Al Hulool Distribution",
+      "email": "Email",
+      "emailPlaceholder": "name@company.com",
+      "phone": "Mobile number",
+      "country": "Country",
+      "companySize": "Number of employees",
+      "companySizePlaceholder": "Choose a range",
+      "companySizes": {
+        "micro": "1 – 10",
+        "small": "11 – 50",
+        "medium": "51 – 200",
+        "large": "201 – 500",
+        "enterprise": "More than 500"
+      },
+      "need": "What do you need?",
+      "needPlaceholder": "Choose what you need",
+      "needs": {
+        "albiruniDistribution": "Albiruni platform · Distribution",
+        "albiruniFieldSales": "Albiruni platform · Field sales",
+        "albiruniCarService": "Albiruni platform · Car service centers",
+        "consulting": "Technical consulting",
+        "webApps": "Web platforms and apps",
+        "mobileApps": "Mobile apps",
+        "erp": "ERP systems",
+        "ai": "AI & automation",
+        "other": "Something else"
+      },
+      "message": "Your message (optional)",
+      "messagePlaceholder": "Briefly tell us how your team works today…",
+      "submit": "Send request",
+      "submitting": "Sending…",
+      "privacyNote": "By sending the request, you agree to our <link>privacy policy</link>. We never share your data with anyone.",
+      "errorToast": "We couldn't send your request right now. Check your connection and try again, or message us on WhatsApp."
+    },
+    "success": {
+      "title": "Your request has been sent!",
+      "subtitle": "One of our consultants will contact you within one business day on the number below.",
+      "message": "Your message",
+      "newMessage": "Send a new message",
+      "backHome": "Back to home"
     }
   },
   "about": {
@@ -784,10 +869,6 @@
       "company": "Company details",
       "payment": "Payment",
       "activation": "Activation"
-    },
-    "countries": {
-      "EG": "Egypt",
-      "SA": "Saudi Arabia"
     },
     "company": {
       "title": "Company details",

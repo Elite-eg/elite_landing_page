@@ -46,6 +46,7 @@ app/
     <route>/hooks/  utils/     Page-only hooks and helpers (see book-session)
   components/shared/           Used by 2+ pages (catalog in §9)
     cta/ guide/ header/ footer/   Component families that belong together
+    form-handlers/             Form controls: InputField, SelectField, SelectMenu, FieldFeedback, fieldStyles, usePhoneField
   services/
     ApiService.ts              The only HTTP client (axios)
     logger.ts                  log.debug / info / warn / error
@@ -95,7 +96,9 @@ public/images, public/videos   Media files (paths referenced from MEDIA or a pag
 | Time zone | `lib/constants.ts` | `APP_TIME_ZONE` ("Africa/Cairo") |
 | Internal paths | `lib/constants.ts` | `ROUTES.*`. Draft routes (e.g. `/draft`) stay out of ROUTES until approved |
 | Header / footer navigation | `lib/constants.ts` | `NAV_LINKS`, `HEADER_*`, `FOOTER_NAV_GROUPS`, `LEGAL_NAV_ITEMS` |
-| WhatsApp links | `lib/constants.ts` | `WHATSAPP_URL`, or `whatsappUrl(t("…message"))` for a prefilled message |
+| WhatsApp links | `lib/constants.ts` | `WHATSAPP_URL`, or `whatsappUrl(t("…message"))` for a prefilled message; `WHATSAPP_DISPLAY_PHONE` to show the number |
+| Phone / email / map links | `lib/constants.ts` | `telUrl(phone)`, `EMAIL_URL`, `COMPANY_MAP_URL` (TBD: real Maps place link) |
+| Dial codes, mobile numbers | `lib/constants.ts`, `lib/validation.ts`, `lib/phone.ts` | `REGIONS[].dialCode` and `.mobile` (length, display groups, placeholder), `regionByCode(code)`; `PATTERNS.mobile` / `mobilePrefix` (which digits are valid); lib/phone.ts formats, cleans pastes and builds the number to send. Country names: `countries` messages |
 | Endpoints | `lib/constants.ts` | `API_ENDPOINTS.*` (unknown ones marked TBD) |
 | Page metadata | `lib/metadata.ts` | `buildPageMetadata({...})` (§13) |
 | Media paths | `lib/constants.ts` | `MEDIA.*` |
@@ -404,11 +407,15 @@ Rules:
 | `Eyebrow` | Orange pill label (hero + section eyebrows). `tone="dark"` on navy |
 | `Button` | All buttons and button-links. Variants `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`; sizes `sm`/`md`/`lg`; `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth`, `disabled`, `lift` (default true; `false` for buttons that should stay still on hover, e.g. a pinned action bar). `buttonClasses()` styles other elements as buttons |
 | `Badge` | Small labels. Variants `primary`, `secondary`, `accent`, `neutral`, `glass`; sizes `sm`/`md`; optional `icon` |
-| `InputField` | Every text input / textarea: visible label (or `hideLabel`), `error`, `hint`, `icon`, `disabled`, `dir`, `inputClassName`, `as="textarea"` |
+| `form-handlers/InputField` | Every text entry, picked with `as`: `"input"` (default), `"textarea"`, `"phone"` (grey "+20 ▾" dial code segment whose list shows the dial codes only, divider, number, in one LTR box. The number (no leading 0) is formatted while typing or pasting: digits only, Arabic digits converted, grouped per country ("11 2299 9933"), no typing past the country's length; a paste drops a leading 0, and a pasted "+966 …" / "0020 …" switches the code. Schema: `phoneFieldsSchema()` + `.superRefine(mobileNumberCheck(autoCode))`; everything else from `usePhoneField({ form, codeName, numberName, fallback? })` spread as `{...phone.fieldProps}`: live check while typing (error once the number can't be valid or is complete; unfinished numbers on blur / submit), "set automatically" hint until a code is picked. Send `internationalPhone(picked || phone.code, number)` from lib/phone.ts). Used by contact, the jobs apply modal and book-session. Shared props: visible label (or `hideLabel`), `error`, `hint` + `hintTone`, `icon`, `disabled`, `dir`, `inputClassName` |
+| `form-handlers/SelectField` | Every dropdown field: the field box + a Headless UI Listbox opening `SelectMenu`. Controlled (`value`, `onChange`, `onBlur`, `name`, ref), so use a react-hook-form `Controller`. `options` (`value` + `label`), `placeholder` (value `""`, shown muted), `error`, `hint`. A country field lists the names only: `REGIONS` + `countries` messages |
+| `form-handlers/SelectMenu` | The open list shared by SelectField and the phone code picker: white panel, one row per option, selected = tinted + check. Modal (Headless UI default) like a native select: the page doesn't scroll while it's open, so the list stays attached to its field. (The Figma "Country menu" with title, currency and code badge is for the header country switcher, not form fields) |
+| `form-handlers/fieldStyles` + `FieldFeedback` | The shared field look from the Figma (14px medium label; white box, `border-edge`, `rounded-xl`, 52px `FIELD_HEIGHT`; focus = orange border + 0.5px ring; `FIELD_LABEL_CLASSES`, `fieldBoxClasses()`, `FIELD_OPEN_CLASSES`, `FIELD_INNER_CONTROL_CLASSES`) and the error / hint line under a control. A new kind of field becomes another `as` of InputField (or a sibling in `form-handlers/`) built from these, never a per-page restyle |
 | `Reveal` / `RevealGroup` | Scroll reveals with the shared presets; `slideInFromStart` / `slideInFromEnd` mirror in RTL |
 | `Logo` | Mark (+ `withWordMark`), `tone` (`light`/`dark`), `priority` (header only) |
 | `StoreBadge` | External store / site badge with logo, caption and label; `tone` (`dark` footer, `light` sections) |
 | `WhatsAppButton` | Floating WhatsApp shortcut (in the layout) |
+| `SuccessPanel` | Confirmation in place of a finished flow: green check, title (`as` h2/h3, `focusTitle` moves focus to it), subtitle, summary rows (`details`: one line each, cut with "…" and shown in full on hover; `wide` = long text under its label, 3 lines max; `emphasis`, `ltr`) and actions as children. Book-session step 3, contact form card |
 | `CommunityGateModal` | "Sign in to continue" dialog for members-only community actions |
 | `IdeaCard`, `ServiceCard` | Community idea card, service card (home today; ready for community/services pages) |
 | `cta/CtaBanner` | Orange closing banner; title, subtitle, `primaryAction`, `secondaryAction`, `secondaryVariant` |
@@ -438,7 +445,9 @@ Rules:
 
 - React Hook Form + Zod + `zodResolver`. The schema is the single source of validation; forms use `noValidate`.
 - Zod messages are KEYS in the `validation` namespace (`"phoneInvalid"`), shown with `useTranslations("validation")`.
-- Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `cardNumber`, `cardExpiry`, `cardCvc`).
+- Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `mobile.EG` / `mobile.SA`, `mobilePrefix.EG` / `.SA`, `cardNumber`,
+  `cardExpiry`, `cardCvc`). Mobile numbers have no leading 0 after the dial code: EG `^1[0125]\d{8}$` (10 / 11 / 12 / 15),
+  SA `^5[013-9]\d{7}$`. Typing a 0 first is an error; pasting drops it ("01122999933" → "11 2299 9933").
 - Conditional rules use `superRefine` (e.g. card fields only when `method === "card"`).
 - Every input has a visible label, an error state, the right `autoComplete`/`inputMode`, and is disabled while
   submitting (`disabled={isSubmitting}`). Submit buttons use `isLoading`.
@@ -500,6 +509,7 @@ Rules:
 | `/home` | Video hero, tech marquee, ecosystem, services bento, community, ideas (+ gate modal), navy CTA |
 | `/about` | Hero + brand tile, mission/vision cards, Albiruni features, values 01–04, `JoinTeamCta` |
 | `/jobs` | Figma v4 "Careers": navy gradient hero (count from data), how we work (Lucide icons as in the Figma), open positions with the department filter on the title row (pills only for departments with openings, sliding indicator) and an animated filterable list, open-application note on WhatsApp (doubles as the empty state), apply modal with role summary + requirements → `API_ENDPOINTS.jobApplication` (TBD) or WhatsApp. Anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID` |
+| `/contact` | Figma v4 "Contact" (top section only; the file repeats it): intro + channel cards (WhatsApp, Maher, phones, email, office, all from `COMPANY_INFO`) on the start side, request form on the end side (below lg: intro → form → channels). Form → `API_ENDPOINTS.contactRequest` (TBD); phone code and country follow the visitor's region until changed. On a 2xx the card swaps to `SuccessPanel` with everything sent (message as a `wide` row; "Send a new message" / "Back to home") |
 | `/book-session` | Booking widget: meeting type + Cairo-time calendar → details (validated) → success. Until the backend exists the POST to `API_ENDPOINTS.bookSession` is commented out and success shows without sending (TODO in `BookingWidget.tsx`) |
 | `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form → `API_ENDPOINTS.guideRequest` (TBD) |
 | `/projects/bareeq-x` | Case study: teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
@@ -536,6 +546,7 @@ Rules:
 | Jobs | Apply modal keeps its hex backdrop (§3.5). Perk icons come from `react-icons/lu` (Lucide, the Figma's icon set) instead of `fi`: Feather has no graduation cap |
 | 404 page | Original custom design (gradient buttons, hover lifts, `rounded-2xl` buttons) instead of `Button` |
 | Book-session | Pixel values from the Figma file (`text-[0.78125rem]`, …); hero h1 not `text-display`; detail/success buttons restyle `Button` with color overrides |
+| Contact | Hero h1 uses the 30 → 36 → 44px section-title scale (the Figma's 44px) instead of `text-display`; the "Ask Maher" card is not a link until the bot exists |
 | Messages | `footer.newsletter.title/description` are not rendered yet |
 | Media | `hero-office.png` and the other photos are JPEG files with a `.png` extension |
 | Rendering | All routes render on demand (no `generateStaticParams` / `setRequestLocale`), so nothing is prerendered |

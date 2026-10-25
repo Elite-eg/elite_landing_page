@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -9,24 +9,33 @@ import { useLocale, useTranslations } from "next-intl";
 import { FiSend } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
+import { useRegion } from "@/app/store/useRegion";
 import { Button } from "@/app/components/shared/Button";
-import { InputField } from "@/app/components/shared/InputField";
-import { API_ENDPOINTS, COMPANY_INFO, whatsappUrl, type AppLocale } from "@/lib/constants";
-import { PATTERNS } from "@/lib/validation";
+import { InputField } from "@/app/components/shared/form-handlers/InputField";
+import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
+import { API_ENDPOINTS, COMPANY_INFO, whatsappUrl, type AppLocale, type RegionCode } from "@/lib/constants";
+import { internationalPhone } from "@/lib/phone";
+import { mobileNumberCheck, phoneFieldsSchema } from "@/lib/validation";
 import { WhatsAppApplyButton } from "./WhatsAppApplyButton";
 
-/** Error messages are message keys inside the "validation" namespace. */
-const applySchema = z.object({
-  fullName: z.string().trim().min(1, "nameRequired"),
-  email: z.string().trim().min(1, "emailRequired").email("emailInvalid"),
-  phone: z.string().trim().min(1, "phoneRequired").regex(PATTERNS.phone, "phoneInvalid"),
-  cvLink: z.string().trim().min(1, "linkRequired").url("linkInvalid"),
-  coverNote: z.string().trim(),
-});
+/**
+ * Error messages are message keys inside the "validation" namespace. Built per region: the phone number is checked
+ * against the automatic code (the visitor's region) until the visitor picks one.
+ */
+const applySchema = (region: RegionCode) =>
+  z
+    .object({
+      fullName: z.string().trim().min(1, "nameRequired"),
+      email: z.string().trim().min(1, "emailRequired").email("emailInvalid"),
+      ...phoneFieldsSchema(),
+      cvLink: z.string().trim().min(1, "linkRequired").url("linkInvalid"),
+      coverNote: z.string().trim(),
+    })
+    .superRefine(mobileNumberCheck(region));
 
-type ApplyValues = z.infer<typeof applySchema>;
+type ApplyValues = z.infer<ReturnType<typeof applySchema>>;
 
-const EMPTY_APPLICATION: ApplyValues = { fullName: "", email: "", phone: "", cvLink: "", coverNote: "" };
+const EMPTY_APPLICATION: ApplyValues = { fullName: "", email: "", phoneCountry: "", phone: "", cvLink: "", coverNote: "" };
 
 export interface JobApplyFormProps {
   jobId: string;
@@ -47,16 +56,24 @@ export function JobApplyForm({ jobId, jobTitle, onSent, children }: JobApplyForm
   const t = useTranslations("jobs.applyModal");
   const tValidation = useTranslations("validation");
   const brand = COMPANY_INFO.brandName[useLocale() as AppLocale];
+  const { region } = useRegion();
+  const schema = useMemo(() => applySchema(region), [region]);
+  const form = useForm<ApplyValues>({ resolver: zodResolver(schema), defaultValues: EMPTY_APPLICATION });
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<ApplyValues>({ resolver: zodResolver(applySchema), defaultValues: EMPTY_APPLICATION });
+  } = form;
+  const phone = usePhoneField({ form, codeName: "phoneCountry", numberName: "phone" });
 
-  const onSubmit = async (values: ApplyValues) => {
+  const onSubmit = async ({ phoneCountry: pickedCode, phone: number, ...values }: ApplyValues) => {
     try {
-      const response = await ApiService.post(API_ENDPOINTS.jobApplication, { jobId, ...values });
+      const response = await ApiService.post(API_ENDPOINTS.jobApplication, {
+        jobId,
+        ...values,
+        phone: internationalPhone(pickedCode || phone.code, number),
+      });
       if (response.status >= 200 && response.status < 300) {
         toast.success(t("successToast"));
         reset();
@@ -85,7 +102,7 @@ export function JobApplyForm({ jobId, jobTitle, onSent, children }: JobApplyForm
           <div className="grid gap-4 sm:grid-cols-2">
             <InputField label={t("fullName")} placeholder={t("fullNamePlaceholder")} autoComplete="name" error={errorText(errors.fullName?.message)} {...field} {...register("fullName")} />
             <InputField type="email" label={t("email")} placeholder={t("emailPlaceholder")} autoComplete="email" error={errorText(errors.email?.message)} {...ltrField} {...register("email")} />
-            <InputField type="tel" inputMode="tel" label={t("phone")} placeholder={t("phonePlaceholder")} autoComplete="tel" error={errorText(errors.phone?.message)} {...ltrField} {...register("phone")} />
+            <InputField as="phone" label={t("phone")} error={errorText(errors.phone?.message)} {...phone.fieldProps} {...field} />
             <InputField type="url" inputMode="url" label={t("cvLink")} placeholder={t("cvLinkPlaceholder")} error={errorText(errors.cvLink?.message)} {...ltrField} {...register("cvLink")} />
             <InputField as="textarea" rows={3} label={t("coverNote")} placeholder={t("coverNotePlaceholder")} className="sm:col-span-2" {...field} {...register("coverNote")} />
           </div>

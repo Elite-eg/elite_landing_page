@@ -26,7 +26,7 @@ interface PaymentStepProps {
 /** P-02a (Egypt) / P-02b (Saudi Arabia) · Payment method. */
 export function PaymentStep({ country, onBack, onComplete }: PaymentStepProps) {
   const t = useTranslations("checkout.payment");
-  const tCountries = useTranslations("checkout.countries");
+  const tCountries = useTranslations("countries");
   const locale = useLocale() as AppLocale;
   const { total, currency } = getOrderTotals(country);
   const {
