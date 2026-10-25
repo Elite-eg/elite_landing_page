@@ -46,6 +46,7 @@ app/
     <route>/hooks/  utils/     Page-only hooks and helpers (see book-session)
   components/shared/           Used by 2+ pages (catalog in §9)
     cta/ guide/ header/ footer/   Component families that belong together
+    form-handlers/             Form controls: InputField, SelectField, SelectMenu, ChoiceChips, CheckboxField, FieldFeedback, fieldStyles, usePhoneField
   services/
     ApiService.ts              The only HTTP client (axios)
     logger.ts                  log.debug / info / warn / error
@@ -95,7 +96,9 @@ public/images, public/videos   Media files (paths referenced from MEDIA or a pag
 | Time zone | `lib/constants.ts` | `APP_TIME_ZONE` ("Africa/Cairo") |
 | Internal paths | `lib/constants.ts` | `ROUTES.*`. Draft routes (e.g. `/draft`) stay out of ROUTES until approved |
 | Header / footer navigation | `lib/constants.ts` | `NAV_LINKS`, `HEADER_*`, `FOOTER_NAV_GROUPS`, `LEGAL_NAV_ITEMS` |
-| WhatsApp links | `lib/constants.ts` | `WHATSAPP_URL`, or `whatsappUrl(t("…message"))` for a prefilled message |
+| WhatsApp links | `lib/constants.ts` | `WHATSAPP_URL`, or `whatsappUrl(t("…message"))` for a prefilled message; `WHATSAPP_DISPLAY_PHONE` to show the number |
+| Phone / email / map links | `lib/constants.ts` | `telUrl(phone)`, `EMAIL_URL`, `COMPANY_MAP_URL` (TBD: real Maps place link) |
+| Dial codes, mobile numbers | `lib/constants.ts`, `lib/validation.ts`, `lib/phone.ts` | `REGIONS[].dialCode` and `.mobile` (length, display groups, placeholder), `regionByCode(code)`; `PATTERNS.mobile` / `mobilePrefix` (which digits are valid); lib/phone.ts formats, cleans pastes and builds the number to send. Country names: `countries` messages |
 | Endpoints | `lib/constants.ts` | `API_ENDPOINTS.*` (unknown ones marked TBD) |
 | Page metadata | `lib/metadata.ts` | `buildPageMetadata({...})` (§13) |
 | Media paths | `lib/constants.ts` | `MEDIA.*` |
@@ -271,6 +274,7 @@ Type scale (fluid tokens; MUST be used for these roles):
 | Class | Use |
 |---|---|
 | `shadow-card` | Default light card |
+| `shadow-card-hover` | Hovered light card (same layers as `shadow-card`, larger). Use through `CARD_HOVER_CLASSES` (§9.1), not by hand |
 | `shadow-lift` | Dark / hero tiles, modals, menus |
 | `shadow-widget` | Floating widgets on navy (booking widget, phone mockups) |
 | `shadow-glow` | Orange CTA |
@@ -324,6 +328,8 @@ Presets live in `lib/animations.ts`. Components import them and MUST NOT define 
 | `listItemFromEnd(isRtl)` + `custom={index}`, `listSwap`, `heightTransition` | Filterable lists (jobs openings): rows slide in from the end side one after another; a filter change fades the list out (`AnimatePresence mode="wait"`), brings the new rows in from the top, and `AnimatedHeight` lets the content below glide to its new place |
 | `layoutTransition` | Selection indicators gliding between options (`layoutId`), e.g. the jobs department pills |
 | `popIn` | Result icons, floating dots |
+| `checkPop` | Check marks in choice controls (`ChoiceChips`, `CheckboxField`): pop in with a slight overshoot, leave quickly; inside `<AnimatePresence>` |
+| `fillIn` | A selection indicator appearing where nothing was selected (first `ChoiceChips` answer); afterwards it glides with `layoutTransition` |
 | `growY`, `growYFromTop`, `drawPath` | Chart bars, timeline connectors, line drawing |
 | `botEnter` | Maher bot entrance |
 | `withDelay(preset, s)`, `viewportOnce`, `MOTION` | Helpers and timings (mirror the `--motion-*` CSS tokens) |
@@ -334,7 +340,10 @@ CSS equivalents in `globals.css`: `animate-hero-rise`, `.reveal` + `.is-visible`
 Rules:
 - One orchestrated hero moment per page. Below the hero, reveal with `<Reveal>` (single blocks) and
   `<RevealGroup>` + `<Reveal inGroup>` (staggered grids). They trigger once.
-- Hover states change color or border only (e.g. icon tile turns navy). No lift on every card; only buttons lift (built in).
+- Hover states change color, border or shadow only (e.g. icon tile turns navy). Every light content card takes
+  `CARD_HOVER_CLASSES` (rests on `shadow-card`, grows to `shadow-card-hover`, 300ms) plus its own hover border. No lift on cards;
+  only buttons lift (built in). Form choice controls animate their state change: dropdown lists drop in (200ms ease-out) and
+  close faster (150ms ease-in), chips and checkboxes fade their fill and pop their check.
 - Animate `transform` and `opacity` only. Two exceptions, both height on a single container: `jobs/components/AnimatedHeight`
   (the note and footer follow a filtered list; transforms can't move content outside the component) and accordion-style
   expand / collapse with `expandCollapse` + `expandTransition` (the requirements in the jobs apply modal). Height isn't
@@ -343,6 +352,10 @@ Rules:
   `prefers-reduced-motion` block. Tailwind's looping animations (`animate-pulse`, `-ping`, `-bounce`) MUST be written
   `motion-safe:animate-*`. A loading spinner (`animate-spin`) is allowed.
 - Every `animate-*` class must exist (Tailwind default, tailwind.config.js or globals.css); a typo silently does nothing.
+- A motion element inside an `<AnimatePresence initial={false}>` (e.g. a form swapped for its success panel) never plays its
+  `initial` animation, even when it mounts later. Give late-mounting elements their own `<AnimatePresence>` (see `ChoiceChips`).
+- `layout` elements re-animate on any re-render that moves them; pass `layoutDependency` so they only animate when their own
+  state changes (otherwise they slide in late when, say, error lines push the form down).
 - Step changes in multi-step flows: re-key a `motion.div` with `fadeInUp` (and scroll to top for full-page steps).
 
 ---
@@ -400,15 +413,22 @@ Rules:
 | Component | Use |
 |---|---|
 | `Container` | Page width + horizontal padding. Narrower via `className` (`max-w-5xl`) |
+| `cardStyles` | `CARD_HOVER_CLASSES`: the one hover of light content cards (small shadow at rest, bigger on hover, 300ms ease). Add it with `cn()` next to the card's own classes and hover border. Used by every light card (home, about, book-session, contact, jobs, Bareeq, agents). Not for dark cards, form / summary panels, modals or menus |
 | `SectionHeading` | Every section title. Props: `title`, `eyebrow`, `subtitle`, `align` (`center`/`start`), `tone` (`light`/`dark`/`brand`), `as` (`h1`/`h2`), `size` (`default`/`compact`), `revealPreset` (entrance, default `fadeInUp`), `headingClassName` (e.g. `text-body` for ink headings), `className` |
 | `Eyebrow` | Orange pill label (hero + section eyebrows). `tone="dark"` on navy |
 | `Button` | All buttons and button-links. Variants `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`; sizes `sm`/`md`/`lg`; `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth`, `disabled`, `lift` (default true; `false` for buttons that should stay still on hover, e.g. a pinned action bar). `buttonClasses()` styles other elements as buttons |
-| `Badge` | Small labels. Variants `primary`, `secondary`, `accent`, `neutral`, `glass`; sizes `sm`/`md`; optional `icon` |
-| `InputField` | Every text input / textarea: visible label (or `hideLabel`), `error`, `hint`, `icon`, `disabled`, `dir`, `inputClassName`, `as="textarea"` |
+| `Badge` | Small labels. Variants `primary`, `secondary`, `accent`, `neutral`, `success` (dark text on a green tint; pass a green icon, green text fails AA), `glass`; sizes `sm`/`md`; optional `icon` |
+| `form-handlers/InputField` | Every text entry, picked with `as`: `"input"` (default), `"textarea"`, `"phone"` (grey "+20 ▾" dial code segment whose list shows the dial codes only, divider, number, in one LTR box. The number (no leading 0) is formatted while typing or pasting: digits only, Arabic digits converted, grouped per country ("11 2299 9933"), no typing past the country's length; a paste drops a leading 0, and a pasted "+966 …" / "0020 …" switches the code. Schema: `phoneFieldsSchema()` + `.superRefine(mobileNumberCheck(autoCode))`; everything else from `usePhoneField({ form, codeName, numberName, fallback? })` spread as `{...phone.fieldProps}`: live check while typing (error once the number can't be valid or is complete; unfinished numbers on blur / submit), "set automatically" hint until a code is picked. Send `internationalPhone(picked || phone.code, number)` from lib/phone.ts). Used by contact, the jobs apply modal and book-session. Shared props: visible label (or `hideLabel`), `error`, `hint` + `hintTone`, `icon`, `disabled`, `dir`, `inputClassName` |
+| `form-handlers/SelectField` | Every dropdown field: the field box + a Headless UI Listbox opening `SelectMenu`. Controlled (`value`, `onChange`, `onBlur`, `name`, ref), so use a react-hook-form `Controller`. `options` (`value` + `label`), `placeholder` (value `""`, shown muted), `error`, `hint`. A country field lists the names only: `REGIONS` + `countries` messages |
+| `form-handlers/SelectMenu` | The open list shared by SelectField and the phone code picker: white panel, one row per option, selected = tinted + check. Modal (Headless UI default) like a native select: the page doesn't scroll while it's open, so the list stays attached to its field. (The Figma "Country menu" with title, currency and code badge is for the header country switcher, not form fields) |
+| `form-handlers/ChoiceChips` | A question answered with pill chips (Figma "chip": white + `border-edge`, chosen = `primary-dark` with white text). One answer = Headless UI `RadioGroup`; `multiple` = Headless UI `Checkbox` per chip (chosen ones show a check). Label, `error`, `disabled`; controlled, so use a `Controller`. Agents form (business activities, yes / no) |
+| `form-handlers/CheckboxField` | Checkbox + label beside it (Figma "Checkbox": 20px box, navy with a white check). The label may hold links (`t.rich`); clicking the link doesn't tick the box. Controlled (`checked`, `onChange`, ref for error focus). Agents form consent line |
+| `form-handlers/fieldStyles` + `FieldFeedback` | The shared field look from the Figma (14px medium label; white box, `border-edge`, `rounded-xl`, 52px `FIELD_HEIGHT`; focus = orange border + 0.5px ring; `FIELD_LABEL_CLASSES`, `fieldBoxClasses()`, `FIELD_OPEN_CLASSES`, `FIELD_INNER_CONTROL_CLASSES`) and the error / hint line under a control. A new kind of field becomes another `as` of InputField (or a sibling in `form-handlers/`) built from these, never a per-page restyle |
 | `Reveal` / `RevealGroup` | Scroll reveals with the shared presets; `slideInFromStart` / `slideInFromEnd` mirror in RTL |
 | `Logo` | Mark (+ `withWordMark`), `tone` (`light`/`dark`), `priority` (header only) |
 | `StoreBadge` | External store / site badge with logo, caption and label; `tone` (`dark` footer, `light` sections) |
 | `WhatsAppButton` | Floating WhatsApp shortcut (in the layout) |
+| `SuccessPanel` | Confirmation in place of a finished flow: green check, title (`as` h2/h3, `focusTitle` moves focus to it), subtitle, summary rows (`details`: one line each, cut with "…" and shown in full on hover; `wide` = long text under its label, 3 lines max; `emphasis`, `ltr`) and actions as children. Book-session step 3, contact form card |
 | `CommunityGateModal` | "Sign in to continue" dialog for members-only community actions |
 | `IdeaCard`, `ServiceCard` | Community idea card, service card (home today; ready for community/services pages) |
 | `cta/CtaBanner` | Orange closing banner; title, subtitle, `primaryAction`, `secondaryAction`, `secondaryVariant` |
@@ -438,12 +458,15 @@ Rules:
 
 - React Hook Form + Zod + `zodResolver`. The schema is the single source of validation; forms use `noValidate`.
 - Zod messages are KEYS in the `validation` namespace (`"phoneInvalid"`), shown with `useTranslations("validation")`.
-- Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `cardNumber`, `cardExpiry`, `cardCvc`).
+- Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `mobile.EG` / `mobile.SA`, `mobilePrefix.EG` / `.SA`, `cardNumber`,
+  `cardExpiry`, `cardCvc`). Mobile numbers have no leading 0 after the dial code: EG `^1[0125]\d{8}$` (10 / 11 / 12 / 15),
+  SA `^5[013-9]\d{7}$`. Typing a 0 first is an error; pasting drops it ("01122999933" → "11 2299 9933").
 - Conditional rules use `superRefine` (e.g. card fields only when `method === "card"`).
 - Every input has a visible label, an error state, the right `autoComplete`/`inputMode`, and is disabled while
   submitting (`disabled={isSubmitting}`). Submit buttons use `isLoading`.
 - Multi-step forms keep typed values when the visitor goes back (see `book-session/components/DetailsStep.tsx`).
-- Choice controls (country toggle, payment methods, meeting types, filters) use Headless UI `RadioGroup`/`Radio`.
+- Choice controls (country toggle, payment methods, meeting types, filters) use Headless UI `RadioGroup`/`Radio`
+  (questions inside a form: `ChoiceChips`).
   Never put inputs inside a `Radio`; render them as a sibling block under the selected option.
 - HTTP goes through `ApiService` only, to an endpoint in `API_ENDPOINTS`. Show success ONLY when the response is 2xx.
   NEVER fake a success with a timeout or a local state change: while an endpoint is TBD the visitor sees the error
@@ -500,6 +523,8 @@ Rules:
 | `/home` | Video hero, tech marquee, ecosystem, services bento, community, ideas (+ gate modal), navy CTA |
 | `/about` | Hero + brand tile, mission/vision cards, Albiruni features, values 01–04, `JoinTeamCta` |
 | `/jobs` | Figma v4 "Careers": navy gradient hero (count from data), how we work (Lucide icons as in the Figma), open positions with the department filter on the title row (pills only for departments with openings, sliding indicator) and an animated filterable list, open-application note on WhatsApp (doubles as the empty state), apply modal with role summary + requirements → `API_ENDPOINTS.jobApplication` (TBD) or WhatsApp. Anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID` |
+| `/contact` | Figma v4 "Contact" (top section only; the file repeats it): intro + channel cards (WhatsApp, Maher, phones, email, office, all from `COMPANY_INFO`) on the start side, request form on the end side (below lg: intro → form → channels). Form → `API_ENDPOINTS.contactRequest` (TBD); phone code and country follow the visitor's region until changed. On a 2xx the card swaps to `SuccessPanel` with everything sent (message as a `wide` row; "Send a new message" / "Back to home") |
+| `/agents` | Figma v4 "Agents": navy hero (apply → `#agency-form`, meet our agent → `#our-agent`), authorized agent card (logo tile from the Figma in `public/images/agents/`, contacts in `AGENT_CONTACTS`), benefits, numbered steps, agency application form → `API_ENDPOINTS.agencyApplication` (TBD). Country is Egypt or Saudi Arabia (`REGIONS`, starting at the visitor's region); the phone code follows the country. On a 2xx the card swaps to `SuccessPanel` |
 | `/book-session` | Booking widget: meeting type + Cairo-time calendar → details (validated) → success. Until the backend exists the POST to `API_ENDPOINTS.bookSession` is commented out and success shows without sending (TODO in `BookingWidget.tsx`) |
 | `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form → `API_ENDPOINTS.guideRequest` (TBD) |
 | `/projects/bareeq-x` | Case study: teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
@@ -532,10 +557,11 @@ Rules:
 
 | Where | Deviation |
 |---|---|
-| Home | Cards lift on hover (`IdeaCard`, `ServiceCard`, `EcosystemCard`, community tiles); hero h1 uses `text-4xl/5xl` instead of `text-display`; `IdeaCard`, `ServiceCard`, `CommunityGateModal` live in shared but only home uses them |
+| Home | Hero h1 uses `text-4xl/5xl` instead of `text-display`; `IdeaCard`, `ServiceCard`, `CommunityGateModal` live in shared but only home uses them |
 | Jobs | Apply modal keeps its hex backdrop (§3.5). Perk icons come from `react-icons/lu` (Lucide, the Figma's icon set) instead of `fi`: Feather has no graduation cap |
 | 404 page | Original custom design (gradient buttons, hover lifts, `rounded-2xl` buttons) instead of `Button` |
 | Book-session | Pixel values from the Figma file (`text-[0.78125rem]`, …); hero h1 not `text-display`; detail/success buttons restyle `Button` with color overrides |
+| Contact | Hero h1 uses the 30 → 36 → 44px section-title scale (the Figma's 44px) instead of `text-display`; the "Ask Maher" card is not a link until the bot exists |
 | Messages | `footer.newsletter.title/description` are not rendered yet |
 | Media | `hero-office.png` and the other photos are JPEG files with a `.png` extension |
 | Rendering | All routes render on demand (no `generateStaticParams` / `setRequestLocale`), so nothing is prerendered |
@@ -559,3 +585,4 @@ Rules:
 | 10 | Browser support targets. Setting a modern `browserslist` would ship native logical CSS (no `:lang()` workaround, smaller CSS) | `package.json` |
 | 11 | X / Twitter handle (none is listed in `SOCIAL_LINKS`, so none is published) | `lib/metadata.ts` |
 | 12 | Keep or delete the unused components and dependencies listed in §9.1 and §16 | Repo hygiene |
+| 13 | Agents page: the sales team ranges, and the agent's official English name (the Figma says "Mharat Alcode Information Technology Est.", the Bareeq case study "Maharat Al-Code IT") | `SALES_TEAM_SIZES`, `agents` / `caseStudies` messages |

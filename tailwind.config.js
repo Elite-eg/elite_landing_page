@@ -104,6 +104,8 @@ module.exports = {
       },
       boxShadow: {
         card: "0 1px 3px rgb(var(--primary) / 0.06), 0 8px 24px -12px rgb(var(--primary) / 0.12)",
+        /* Same two layers as `card`, larger and a little deeper: the hovered state of a resting card. */
+        "card-hover": "0 2px 6px rgb(var(--primary) / 0.08), 0 20px 40px -16px rgb(var(--primary) / 0.2)",
         lift: "0 28px 56px -24px rgb(var(--primary) / 0.32)",
         widget: "0 30px 60px -14px rgb(var(--primary-deep) / 0.45)",
         glow: "0 14px 32px -12px rgb(var(--secondary) / 0.6)",

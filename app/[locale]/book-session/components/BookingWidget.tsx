@@ -9,12 +9,13 @@ import { log } from "@/app/services/logger";
 import { API_ENDPOINTS } from "@/lib/constants";
 import type { MeetingType } from "../data/bookingData";
 import { useBookingSchedule } from "../hooks/useBookingSchedule";
-import { DetailsStep, type BookingFormData } from "./DetailsStep";
+import { DetailsStep, type BookingDetails, type BookingFormData } from "./DetailsStep";
 import { ScheduleStep } from "./ScheduleStep";
 import { StepPills, type BookingStep } from "./StepPills";
 import { SuccessStep } from "./SuccessStep";
 
-const EMPTY_FORM: BookingFormData = { name: "", phone: "", email: "", company: "", notes: "" };
+/** The phone code starts automatic (""), following the visitor's region. */
+const EMPTY_FORM: BookingFormData = { name: "", phoneCountry: "", phone: "", email: "", company: "", notes: "" };
 
 /** White booking widget: schedule → details → success (only once the backend accepted the booking). */
 export function BookingWidget() {
@@ -25,7 +26,7 @@ export function BookingWidget() {
   const [meetingType, setMeetingType] = useState<MeetingType>("video");
   const [formData, setFormData] = useState<BookingFormData>(EMPTY_FORM);
 
-  const submitBooking = async (values: BookingFormData) => {
+  const submitBooking = async (values: BookingDetails) => {
     // try {
     //   const response = await ApiService.post(API_ENDPOINTS.bookSession, {
     //     date: schedule.selectedDateIso,

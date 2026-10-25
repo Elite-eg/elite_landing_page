@@ -1,4 +1,6 @@
 import type { IconType } from "react-icons";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
+import { cn } from "@/lib/utils";
 
 export interface HowWeWorkCardProps {
   icon: IconType;
@@ -12,7 +14,7 @@ export interface HowWeWorkCardProps {
  */
 export function HowWeWorkCard({ icon: Icon, title, text }: HowWeWorkCardProps) {
   return (
-    <article className="group flex h-full flex-col items-start gap-3 rounded-3xl border border-transparent bg-surface-alt px-6 py-7 transition-colors duration-300 ease-out-brand hover:border-edge">
+    <article className={cn("group flex h-full flex-col items-start gap-3 rounded-3xl border border-transparent bg-surface-alt px-6 py-7 hover:border-edge", CARD_HOVER_CLASSES)}>
       <span className="grid place-items-center rounded-xl bg-surface p-2.5 text-primary transition-colors duration-300 ease-out-brand group-hover:bg-primary group-hover:text-white">
         <Icon
           className="size-[1.375rem] transition-transform duration-300 ease-out-brand group-hover:scale-110 motion-reduce:transform-none"

@@ -1,6 +1,8 @@
 import { useTranslations } from "next-intl";
 import { FiArrowRight } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
+import { cn } from "@/lib/utils";
 import type { JobOpening } from "../data/jobsData";
 import { JobMeta } from "./JobMeta";
 import { JobTitleText } from "./JobTitleText";
@@ -20,7 +22,12 @@ export function JobOpeningCard({ job, onApply }: JobOpeningCardProps) {
   const titleId = `job-${job.id}-title`;
 
   return (
-    <article className="group relative flex flex-col gap-4 rounded-2xl border border-edge bg-surface px-6 py-5 transition-colors duration-300 ease-out-brand hover:border-secondary/40 hover:bg-surface-warm/60 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+    <article
+      className={cn(
+        "group relative flex flex-col gap-4 rounded-2xl border border-edge bg-surface px-6 py-5 hover:border-secondary/40 hover:bg-surface-warm/60 sm:flex-row sm:items-center sm:justify-between sm:gap-8",
+        CARD_HOVER_CLASSES
+      )}
+    >
       {/* Accent bar that grows from the middle of the start edge on hover / keyboard focus. */}
       <span
         className="pointer-events-none absolute inset-y-4 start-0 w-1 scale-y-0 rounded-e-full bg-secondary transition-transform duration-300 ease-out-brand group-hover:scale-y-100 group-has-[:focus-visible]:scale-y-100 motion-reduce:transition-none"

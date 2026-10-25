@@ -9,7 +9,7 @@ import { FiDownload, FiLock } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { Button } from "@/app/components/shared/Button";
-import { InputField } from "@/app/components/shared/InputField";
+import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import { API_ENDPOINTS } from "@/lib/constants";
 import { PATTERNS } from "@/lib/validation";
 import type { GuideKey } from "./guidesData";

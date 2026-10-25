@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
-import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
+import { COMPANY_INFO, EMAIL_URL, telUrl, type AppLocale } from "@/lib/constants";
 import { FooterContactItem } from "./FooterContactItem";
 import { FooterLink } from "./FooterLink";
 
@@ -15,7 +15,7 @@ export function FooterContactList() {
           {COMPANY_INFO.phones.map((phone, index) => (
             <span key={phone} className="inline-flex items-center gap-x-2">
               {index > 0 && <span aria-hidden className="text-content-dark/50">·</span>}
-              <FooterLink href={`tel:${phone.replace(/\s+/g, "")}`} nudge={false}>
+              <FooterLink href={telUrl(phone)} nudge={false}>
                 <span dir="ltr">{phone}</span>
               </FooterLink>
             </span>
@@ -23,7 +23,7 @@ export function FooterContactList() {
         </FooterContactItem>
 
         <FooterContactItem icon={FiMail}>
-          <FooterLink href={`mailto:${COMPANY_INFO.email}`} nudge={false}>
+          <FooterLink href={EMAIL_URL} nudge={false}>
             {COMPANY_INFO.email}
           </FooterLink>
         </FooterContactItem>

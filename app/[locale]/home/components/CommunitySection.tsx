@@ -11,6 +11,7 @@ import {
 } from "react-icons/fi";
 import { Container } from "@/app/components/shared/Container";
 import { Button } from "@/app/components/shared/Button";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
@@ -148,7 +149,7 @@ export function CommunitySection() {
                     : "slideInRight"
               }
             >
-              <article className="group h-full rounded-2xl border border-edge bg-surface-alt p-7 transition-all duration-300 hover:-translate-y-2 hover:bg-surface hover:shadow-2xl hover:border-secondary/30 motion-reduce:transform-none">
+              <article className={cn("group h-full rounded-2xl border border-edge bg-surface-alt p-7 hover:border-secondary/30 hover:bg-surface", CARD_HOVER_CLASSES)}>
                 <span
                   className={cn(
                     "grid size-14 place-items-center rounded-2xl shadow-card transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:shadow-lg",

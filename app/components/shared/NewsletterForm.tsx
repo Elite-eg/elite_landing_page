@@ -10,7 +10,7 @@ import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { API_ENDPOINTS } from "@/lib/constants";
 import { Button } from "./Button";
-import { InputField } from "./InputField";
+import { InputField } from "./form-handlers/InputField";
 
 /** Error messages are message keys inside the "validation" namespace. */
 const newsletterSchema = z.object({

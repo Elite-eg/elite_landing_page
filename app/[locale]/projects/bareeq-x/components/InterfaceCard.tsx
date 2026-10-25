@@ -1,4 +1,6 @@
 import type { IconType } from "react-icons";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
+import { cn } from "@/lib/utils";
 
 interface InterfaceCardProps {
   icon: IconType;
@@ -13,7 +15,7 @@ interface InterfaceCardProps {
  */
 export function InterfaceCard({ icon: Icon, title, text }: InterfaceCardProps) {
   return (
-    <article className="group relative h-full overflow-hidden rounded-2xl border border-edge bg-surface p-5 transition-colors duration-200 hover:border-bareeq/40 hover:bg-bareeq-50/40">
+    <article className={cn("group relative h-full overflow-hidden rounded-2xl border border-edge bg-surface p-5 hover:border-bareeq/40 hover:bg-bareeq-50/40", CARD_HOVER_CLASSES)}>
       <span
         className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-bareeq transition-transform duration-300 ease-out-brand group-hover:scale-x-100 motion-reduce:transition-none rtl:origin-right"
         aria-hidden="true"

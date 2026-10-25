@@ -172,7 +172,6 @@
       "name": "الاسم الكامل",
       "namePlaceholder": "أدخل اسمك الكامل",
       "phone": "رقم الهاتف / واتساب",
-      "phonePlaceholder": "+20 100 000 0000",
       "email": "البريد الإلكتروني",
       "emailPlaceholder": "name@company.com",
       "company": "اسم الشركة / القطاع",
@@ -445,7 +444,27 @@
     "cardExpiryInvalid": "أدخل تاريخ الانتهاء بصيغة MM/YY، مثل 08/27.",
     "cardCvcInvalid": "أدخل رمز الأمان المكوّن من 3 أو 4 أرقام.",
     "linkRequired": "أدخل رابط سيرتك الذاتية.",
-    "linkInvalid": "أدخل رابطاً صحيحاً يبدأ بـ https://"
+    "linkInvalid": "أدخل رابطاً صحيحاً يبدأ بـ https://",
+    "mobileRequired": "أدخل رقم الجوال.",
+    "companySizeRequired": "اختر عدد الموظفين.",
+    "needRequired": "اختر ما تحتاجه.",
+    "mobileInvalidEG": "أدخل رقم جوال مصرياً من 10 أرقام يبدأ بـ 10 أو 11 أو 12 أو 15، مثل ⁦11 2299 9933⁩.",
+    "mobileInvalidSA": "أدخل رقم جوال سعودياً من 9 أرقام يبدأ بـ 5، مثل ⁦50 123 4567⁩.",
+    "cityRequired": "أدخل المدينة.",
+    "commercialRegisterRequired": "أدخل رقم السجل التجاري.",
+    "salesTeamSizeRequired": "اختر عدد فريق المبيعات.",
+    "activitiesRequired": "اختر نشاطاً واحداً على الأقل.",
+    "erpExperienceRequired": "اختر نعم أو لا.",
+    "companyAboutRequired": "اكتب نبذة قصيرة عن شركتك.",
+    "consentRequired": "وافق على سياسة الخصوصية لإرسال الطلب."
+  },
+  "countries": {
+    "EG": "مصر",
+    "SA": "السعودية"
+  },
+  "phoneField": {
+    "countryCode": "رمز الدولة",
+    "countryCodeDetected": "تم تحديد رمز الدولة تلقائياً"
   },
   "whatsapp": {
     "label": "تحدث معنا على واتساب"
@@ -526,7 +545,6 @@
       "email": "البريد الإلكتروني",
       "emailPlaceholder": "example@domain.com",
       "phone": "رقم الهاتف / الواتساب",
-      "phonePlaceholder": "+201000000000",
       "cvLink": "رابط السيرة الذاتية (CV / LinkedIn)",
       "cvLinkPlaceholder": "رابط LinkedIn أو Google Drive",
       "coverNote": "نبذة عن خبراتك وأهم أعمالك",
@@ -631,6 +649,200 @@
           "ربط نماذج الذكاء الاصطناعي بأنظمة الشركات التشغيلية"
         ]
       }
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "تواصل معنا",
+      "description": "تحدّث مع خبير من {brand} واحصل على توصية واضحة خلال يوم عمل، عبر النموذج أو الواتساب أو الهاتف أو البريد الإلكتروني."
+    },
+    "eyebrow": "تواصل معنا",
+    "title": "تحدّث مع خبير،<br></br>واحصل على توصية واضحة خلال يوم عمل.",
+    "subtitle": "اترك بياناتك ويتواصل معك مستشار خلال يوم عمل واحد. أو اختر القناة التي تناسبك.",
+    "channels": {
+      "label": "قنوات التواصل",
+      "whatsapp": {
+        "title": "واتساب"
+      },
+      "maher": {
+        "title": "اسأل ماهر",
+        "value": "المساعد الذكي متاح على مدار الساعة"
+      },
+      "phone": {
+        "title": "الهاتف"
+      },
+      "email": {
+        "title": "البريد الإلكتروني"
+      },
+      "address": {
+        "title": "مقرّنا"
+      }
+    },
+    "form": {
+      "title": "تواصل معنا",
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "مثلاً: أحمد سالم",
+      "companyName": "اسم الشركة",
+      "companyNamePlaceholder": "مثلاً: شركة الحلول للتوزيع",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "name@company.com",
+      "phone": "رقم الجوال",
+      "country": "الدولة",
+      "companySize": "عدد الموظفين",
+      "companySizePlaceholder": "اختر عدد الموظفين",
+      "companySizes": {
+        "micro": "1 – 10",
+        "small": "11 – 50",
+        "medium": "51 – 200",
+        "large": "201 – 500",
+        "enterprise": "أكثر من 500"
+      },
+      "need": "ماذا تحتاج؟",
+      "needPlaceholder": "اختر ما تحتاجه",
+      "needs": {
+        "albiruniDistribution": "منصة البيروني · التوزيع",
+        "albiruniFieldSales": "منصة البيروني · المبيعات الميدانية",
+        "albiruniCarService": "منصة البيروني · مراكز خدمة السيارات",
+        "consulting": "الاستشارات التقنية",
+        "webApps": "منصات وتطبيقات الويب",
+        "mobileApps": "تطبيقات الجوال",
+        "erp": "أنظمة ERP",
+        "ai": "الذكاء الاصطناعي والأتمتة",
+        "other": "أمر آخر"
+      },
+      "message": "رسالتك (اختياري)",
+      "messagePlaceholder": "حدّثنا باختصار عن طريقة عملكم الحالية…",
+      "submit": "أرسل الطلب",
+      "submitting": "جاري الإرسال...",
+      "privacyNote": "بإرسال الطلب، توافق على <link>سياسة الخصوصية</link>. لن نشارك بياناتك مع أي طرف.",
+      "errorToast": "لم نتمكن من إرسال طلبك الآن. تأكد من اتصالك وحاول مرة أخرى، أو راسلنا على الواتساب."
+    },
+    "success": {
+      "title": "تم إرسال طلبك بنجاح!",
+      "subtitle": "سيتواصل معك أحد مستشارينا خلال يوم عمل واحد على الرقم أدناه.",
+      "message": "رسالتك",
+      "newMessage": "إرسال رسالة جديدة",
+      "backHome": "العودة للرئيسية"
+    }
+  },
+  "agents": {
+    "meta": {
+      "title": "وكلاء نظام البيروني",
+      "description": "كن وكيلاً معتمداً لنظام البيروني في مصر أو السعودية: بِع النظام وركّبه وادعم عملاءه في منطقتك، مع تدريب ودعم من فريق {brand}."
+    },
+    "hero": {
+      "eyebrow": "وكلاء نظام البيروني",
+      "title": "وكلاء نظام البيروني",
+      "subtitle": "نعتمد وكلاء في دول الخليج لبيع نظام البيروني وتركيبه ودعم العملاء محلياً.",
+      "apply": "قدّم طلب وكالة",
+      "meetAgent": "تعرّف على وكيلنا في السعودية"
+    },
+    "ourAgent": {
+      "title": "وكيلنا المعتمد في السعودية",
+      "badge": "وكيل معتمد",
+      "servicesLabel": "خدمات الوكيل",
+      "contactsLabel": "بيانات التواصل مع الوكيل",
+      "visitWebsite": "زيارة موقع الوكيل",
+      "services": {
+        "sales": "البيع",
+        "installation": "التركيب والتدريب",
+        "support": "الدعم الفني"
+      },
+      "list": {
+        "mharatAlcode": {
+          "name": "مؤسسة مهارات الكود لتقنية المعلومات",
+          "description": "الوكيل المعتمد لنظام البيروني في المملكة العربية السعودية."
+        }
+      }
+    },
+    "benefits": {
+      "title": "مميزات الوكالة",
+      "items": {
+        "readyProduct": {
+          "title": "نظام جاهز للبيع",
+          "text": "باقات واضحة وتجربة مجانية 14 يوماً."
+        },
+        "earnings": {
+          "title": "عائد على كل اشتراك",
+          "text": "نسبة محددة في عقد الوكالة."
+        },
+        "training": {
+          "title": "تدريب ودعم",
+          "text": "ندرّب فريقك، ونساندك في الدعم الفني."
+        },
+        "territory": {
+          "title": "منطقة خاصة بك",
+          "text": "حق تمثيل البيروني في منطقة متفق عليها."
+        }
+      }
+    },
+    "steps": {
+      "title": "خطوات الحصول على الوكالة",
+      "items": {
+        "apply": {
+          "title": "قدّم الطلب",
+          "text": "املأ النموذج ببيانات شركتك."
+        },
+        "intro": {
+          "title": "مقابلة تعارف",
+          "text": "نتعرّف على فريقك وخبرتك."
+        },
+        "contract": {
+          "title": "توقيع العقد والتدريب",
+          "text": "نوقّع عقد الوكالة، وندرّب فريقك على النظام."
+        },
+        "launch": {
+          "title": "البدء في البيع",
+          "text": "نبدأ معك ونتابع أول العملاء."
+        }
+      }
+    },
+    "form": {
+      "title": "طلب وكالة البيروني",
+      "subtitle": "نرد على الطلبات خلال 3 أيام عمل.",
+      "companyName": "اسم الشركة أو المؤسسة",
+      "companyNamePlaceholder": "الاسم كما في السجل التجاري",
+      "contactName": "اسم المسؤول",
+      "contactNamePlaceholder": "الاسم الكامل",
+      "country": "الدولة",
+      "city": "المدينة",
+      "cityPlaceholder": "مثلاً: الرياض",
+      "phone": "رقم الجوال",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "name@company.com",
+      "commercialRegister": "رقم السجل التجاري",
+      "commercialRegisterPlaceholder": "XXXXXXXX",
+      "salesTeamSize": "عدد فريق المبيعات",
+      "salesTeamSizePlaceholder": "اختر العدد",
+      "salesTeamSizes": {
+        "upTo5": "1 – 5",
+        "upTo20": "6 – 20",
+        "upTo50": "21 – 50",
+        "over50": "أكثر من 50"
+      },
+      "activities": "نشاط الشركة الحالي",
+      "activityOptions": {
+        "it": "تقنية المعلومات",
+        "businessSoftware": "برمجيات الأعمال",
+        "distribution": "التوزيع والتجارة",
+        "consulting": "الاستشارات"
+      },
+      "erpExperience": "هل سبق لكم بيع أنظمة إدارة أعمال؟",
+      "erpExperienceOptions": {
+        "yes": "نعم",
+        "no": "لا"
+      },
+      "about": "نبذة عن شركتك",
+      "aboutPlaceholder": "نشاط الشركة وعملاؤها الحاليون…",
+      "consent": "أوافق على <link>سياسة الخصوصية</link>، وعلى تواصل {brand} معي بخصوص الطلب.",
+      "submit": "أرسل طلب الوكالة",
+      "submitting": "جاري الإرسال...",
+      "errorToast": "لم نتمكن من إرسال طلبك الآن. تأكد من اتصالك وحاول مرة أخرى، أو راسلنا على الواتساب."
+    },
+    "success": {
+      "title": "تم إرسال طلب الوكالة!",
+      "subtitle": "سيراجع فريقنا طلبك ويرد عليك خلال 3 أيام عمل.",
+      "backHome": "العودة للرئيسية"
     }
   },
   "about": {
@@ -784,10 +996,6 @@
       "company": "بيانات الشركة",
       "payment": "الدفع",
       "activation": "التفعيل"
-    },
-    "countries": {
-      "EG": "مصر",
-      "SA": "السعودية"
     },
     "company": {
       "title": "بيانات الشركة",

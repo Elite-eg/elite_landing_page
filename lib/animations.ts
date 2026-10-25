@@ -170,6 +170,21 @@ export const heightTransition: Transition = { duration: 0.4, ease: EASE_SMOOTH }
 export const layoutTransition: Transition = { layout: { duration: 0.4, ease: EASE_SMOOTH } };
 
 /**
+ * Choice controls (ChoiceChips, CheckboxField): a check mark pops in with a slight overshoot and leaves quickly.
+ * Use with <AnimatePresence>: initial="hidden" animate="visible" exit="hidden".
+ */
+export const checkPop: Variants = {
+  hidden: { opacity: 0, scale: 0.5, transition: { duration: 0.15, ease: EASE_SMOOTH } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: EASE_BACK } },
+};
+
+/** A selection indicator appearing where nothing was selected before (afterwards it glides, see layoutTransition). */
+export const fillIn: Variants = {
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.25, ease: EASE_SMOOTH } },
+};
+
+/**
  * Gentle looping float for decorative cards. Loops must use easeInOut: an ease-out curve
  * makes velocity jump at each turnaround, which reads as a stutter.
  */

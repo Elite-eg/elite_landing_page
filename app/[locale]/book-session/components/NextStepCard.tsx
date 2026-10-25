@@ -1,3 +1,6 @@
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
+import { cn } from "@/lib/utils";
+
 export interface NextStepCardProps {
   num: string;
   title: string;
@@ -6,7 +9,7 @@ export interface NextStepCardProps {
 
 export function NextStepCard({ num, title, desc }: NextStepCardProps) {
   return (
-    <article className="flex h-full flex-col gap-2.5 rounded-[1.25rem] bg-surface-alt px-6 py-[1.625rem]">
+    <article className={cn("flex h-full flex-col gap-2.5 rounded-[1.25rem] border border-transparent bg-surface-alt px-6 py-[1.625rem] hover:border-edge", CARD_HOVER_CLASSES)}>
       <span dir="ltr" className="self-start font-heading text-[1.625rem] font-bold leading-none text-secondary" aria-hidden="true">
         {num}
       </span>

@@ -21,13 +21,14 @@ export const COMPANY_INFO = {
   legalName: { ar: "إيليت تك لتقنية المعلومات", en: "Elite Tech IT" } satisfies LocalizedText,
   /** Fixed Latin wordmark shown next to the logo mark in both locales (Poppins). */
   wordmark: { primary: "Elite", accent: "Tech" },
+  /** The Arabic lines wrap the Latin building code in an LTR isolate (U+2066 … U+2069), so it reads 9/H/5, not H/5/9. */
   address: {
-    ar: "9/H/5 قسم اللاسلكي، شارع أحمد عبد العظيم، بجوار شارع النصر الرئيسي، المعادي، القاهرة",
+    ar: "\u20669/H/5\u2069 قسم اللاسلكي، شارع أحمد عبد العظيم، بجوار شارع النصر الرئيسي، المعادي، القاهرة",
     en: "9/H/5 El-Laselky Division, Ahmed Abdel Azim St., Off Main El-Nasr St., Maadi, Cairo",
   } satisfies LocalizedText,
   /** Compact address used in the footer. */
   addressShort: {
-    ar: "تقسيم اللاسلكي، المعادي، القاهرة 9/H/5",
+    ar: "تقسيم اللاسلكي، المعادي، القاهرة \u20669/H/5\u2069",
     en: "9/H/5 El-Laselky Division, Maadi, Cairo",
   } satisfies LocalizedText,
   commercialRegister: "290259",
@@ -48,6 +49,19 @@ export const whatsappUrl = (text?: string) =>
 
 /** Direct WhatsApp chat with the company number. */
 export const WHATSAPP_URL = whatsappUrl();
+
+/** The WhatsApp number as displayed (the matching entry of COMPANY_INFO.phones). */
+export const WHATSAPP_DISPLAY_PHONE =
+  COMPANY_INFO.phones.find((phone) => phone.replace(/\D/g, "") === COMPANY_INFO.whatsappPhone) ??
+  `+${COMPANY_INFO.whatsappPhone}`;
+
+/** Click-to-call link for a displayed phone number ("+20 113 134 0647" → "tel:+201131340647"). */
+export const telUrl = (phone: string) => `tel:${phone.replace(/\s+/g, "")}`;
+
+export const EMAIL_URL = `mailto:${COMPANY_INFO.email}`;
+
+/** TBD: the office's own Google Maps place link. Until then, a Maps search for the official address. */
+export const COMPANY_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY_INFO.address.en)}`;
 
 /** Live community platform. Used until the (community) route group is built. */
 export const COMMUNITY_URLS = {
@@ -77,6 +91,10 @@ export const API_ENDPOINTS = {
   bookSession: "/sessions/book",
   /** TBD: backend endpoint that receives job applications (jobs page modal). */
   jobApplication: "/jobs/apply",
+  /** TBD: backend endpoint that receives contact requests (contact page form). */
+  contactRequest: "/contact/request",
+  /** TBD: backend endpoint that receives Albiruni agency applications (agents page form). */
+  agencyApplication: "/agents/apply",
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -89,6 +107,7 @@ export const ROUTES = {
   about: "/about",
   jobs: "/jobs",
   bookSession: "/book-session",
+  contact: "/contact",
   support: "/contact",
   partners: "/partners",
   agents: "/agents",
@@ -260,7 +279,7 @@ export const HEADER_CTA: NavItem = { labelKey: "bookDiagnosticCta", href: ROUTES
 export const HEADER_UTILITY_LINKS: readonly NavItem[] = [
   COMMUNITY_NAV_ITEM,
   { labelKey: "jobs", href: ROUTES.jobs },
-  { labelKey: "contact", href: ROUTES.bookSession },
+  { labelKey: "contact", href: ROUTES.contact },
 ];
 
 /** Header top bar account links (end side), in reading order after the language toggle. */
@@ -269,14 +288,24 @@ export const HEADER_ACCOUNT_LINKS: readonly NavItem[] = [
   { labelKey: "login", href: COMMUNITY_URLS.login, external: true, icon: FiLogIn },
 ];
 
-/** Country / currency options for the header switcher. Prices read the "region" cookie. */
+/**
+ * Country / currency options for the header switcher. Prices read the "region" cookie.
+ * `dialCode` and `mobile` drive phone fields (lib/phone.ts): the mobile number after the dial code (no leading 0) has
+ * `length` digits, shown in `groups`. Which digits are valid is checked by PATTERNS.mobile (lib/validation.ts).
+ */
 export const REGIONS = [
-  { code: "EG", currency: "EGP" },
-  { code: "SA", currency: "SAR" },
+  { code: "EG", currency: "EGP", dialCode: "+20", mobile: { length: 10, groups: [2, 4, 4], placeholder: "1X XXXX XXXX" } },
+  { code: "SA", currency: "SAR", dialCode: "+966", mobile: { length: 9, groups: [2, 3, 4], placeholder: "5X XXX XXXX" } },
 ] as const;
 
 export type RegionCode = (typeof REGIONS)[number]["code"];
 export const DEFAULT_REGION: RegionCode = "EG";
+
+/** Region codes as a tuple, for z.enum(). */
+export const REGION_CODES = REGIONS.map(({ code }) => code) as [RegionCode, ...RegionCode[]];
+
+/** Region entry for a code (dial code, currency, phone example). */
+export const regionByCode = (code: RegionCode) => REGIONS.find((region) => region.code === code) ?? REGIONS[0];
 export const REGION_COOKIE = "region";
 
 export interface FooterNavGroup {
@@ -324,7 +353,7 @@ export const FOOTER_NAV_GROUPS: readonly FooterNavGroup[] = [
       { labelKey: "companyItems.agents", href: ROUTES.agents },
       COMMUNITY_NAV_ITEM,
       { labelKey: "jobs", href: ROUTES.jobs },
-      { labelKey: "contact", href: ROUTES.bookSession },
+      { labelKey: "contact", href: ROUTES.contact },
     ],
   },
 ];
@@ -363,8 +392,19 @@ export const PROJECT_LINKS = {
   },
 } as const;
 
-/** Kept for page sections that link to support/contact. */
-export const CONTACT_HREF = ROUTES.support;
+/** Public contacts of the authorized Albiruni agents (agents page). Names and copy: `agents.ourAgent.list.<key>`. */
+export const AGENT_CONTACTS = {
+  mharatAlcode: {
+    website: "https://mharatalcode.com/",
+    email: "info@mharatalcode.com",
+    phone: "+966 56 994 9865",
+  },
+} as const;
+
+export type AgentKey = keyof typeof AGENT_CONTACTS;
+
+/** Kept for page sections that link to the contact page. */
+export const CONTACT_HREF = ROUTES.contact;
 
 /** Anchor of the open positions list on the jobs page (id set in OpenPositionsSection). */
 export const JOBS_OPEN_POSITIONS_ID = "open-positions";

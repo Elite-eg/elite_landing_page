@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { FiArrowRight, FiLock } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
-import { InputField } from "@/app/components/shared/InputField";
+import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import type { RegionCode } from "@/lib/constants";
 import { PATTERNS } from "@/lib/validation";
 import type { CompanyDetails } from "../data/checkoutData";
