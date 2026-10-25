@@ -251,6 +251,9 @@ Type scale (fluid tokens; MUST be used for these roles):
 ### 5.1 Layout
 - Page width: `Container` (`max-w-container` = 80rem, padding `px-4 sm:px-6 lg:px-8`). Narrower via `className`
   (e.g. `max-w-5xl`); this works because `cn()` knows `max-w-container`.
+- `body` and `<main>` cut off sideways overflow with `overflow-x: clip` (`hidden` only where `clip` isn't supported).
+  Never switch them back to `hidden`: that makes them scroll containers and breaks every `position: sticky` (policy
+  table of contents, checkout summary).
 - `html` reserves the scrollbar gutter (`scrollbar-gutter: stable` in globals.css), so a dialog's scroll lock doesn't shift
   fixed elements (header, WhatsApp button); while a dialog is open the gutter is tinted like the dimmed page.
 - Sections: `py-20 sm:py-24` by default. `<main>` already offsets the fixed header (`pt-16 sm:pt-20 lg:pt-28`);
@@ -434,6 +437,7 @@ Rules:
 | `cta/CtaBanner` | Orange closing banner; title, subtitle, `primaryAction`, `secondaryAction`, `secondaryVariant` |
 | `cta/JoinTeamCta` | `CtaBanner` preset for careers. Drop `<JoinTeamCta />` at the end of any page |
 | `guide/GuideLanding` | Free-PDF guide landing template (+ `buildGuideMetadata`, `GUIDES` config) |
+| `policy/PolicyPage` | Policy page template (+ `buildPolicyMetadata`, `POLICIES` config): light hero band (eyebrow, h1, "last updated" from `updatedAt`, optional `scope`), sections built from `text` (rich: `<emailLink>`, `<whatsappLink>`), `list` (orange dots) and `table` blocks (navy header row, striped rows, first cell = row header), and a "On this page" list that highlights the section being read (sticky on the end side from lg). Copy in `policies.<key>` |
 | `header/*`, `footer/*` | Site chrome, driven entirely by the navigation data in `lib/constants.ts` |
 | Not used yet | `CustomDropdown` (pass a translated `placeholder`), `NewsletterForm`, `header/HeaderRegionSwitcher`, `footer/GooglePlayLogo`; `LocaleSwitcher` is superseded by `header/HeaderLanguageToggle` (don't use) |
 
@@ -527,6 +531,7 @@ Rules:
 | `/agents` | Figma v4 "Agents": navy hero (apply → `#agency-form`, meet our agent → `#our-agent`), authorized agent card (logo tile from the Figma in `public/images/agents/`, contacts in `AGENT_CONTACTS`), benefits, numbered steps, agency application form → `API_ENDPOINTS.agencyApplication` (TBD). Country is Egypt or Saudi Arabia (`REGIONS`, starting at the visitor's region); the phone code follows the country. On a 2xx the card swaps to `SuccessPanel` |
 | `/book-session` | Booking widget: meeting type + Cairo-time calendar → details (validated) → success. Until the backend exists the POST to `API_ENDPOINTS.bookSession` is commented out and success shows without sending (TODO in `BookingWidget.tsx`) |
 | `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form → `API_ENDPOINTS.guideRequest` (TBD) |
+| `/sla`, `/refund-policy` | Figma v4 "SLA" and "Refund": `PolicyPage` template (`policy="sla"` / `"refund"`). SLA: uptime, support, response-time and credit tables. Refund: contact line links the email and WhatsApp from `COMPANY_INFO` |
 | `/projects/bareeq-x` | Case study: teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
 | `/draft` | DRAFT subscription checkout: company details → payment (EG / SA methods) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing, payment simulated |
 | any unknown path | Localized 404 (`not-found.tsx`) inside the site layout |
@@ -562,6 +567,7 @@ Rules:
 | 404 page | Original custom design (gradient buttons, hover lifts, `rounded-2xl` buttons) instead of `Button` |
 | Book-session | Pixel values from the Figma file (`text-[0.78125rem]`, …); hero h1 not `text-display`; detail/success buttons restyle `Button` with color overrides |
 | Contact | Hero h1 uses the 30 → 36 → 44px section-title scale (the Figma's 44px) instead of `text-display`; the "Ask Maher" card is not a link until the bot exists |
+| Policy pages | Hero h1 is 36 → 44 → 48px (the Figma's 48px) instead of `text-display`. Section titles are document headings (`h2` with `text-h3`, the Figma's 24px), not `SectionHeading`. The Figma's ink/500 (#56677F, not a token) is `text-content` |
 | Messages | `footer.newsletter.title/description` are not rendered yet |
 | Media | `hero-office.png` and the other photos are JPEG files with a `.png` extension |
 | Rendering | All routes render on demand (no `generateStaticParams` / `setRequestLocale`), so nothing is prerendered |

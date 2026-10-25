@@ -137,7 +137,12 @@
     font-family: var(--font-body);
     font-size: var(--text-body);
     line-height: var(--leading-body);
+    /*
+     * `clip` cuts off sideways overflow like `hidden` without making body a scroll container, so `position: sticky`
+     * inside the page still sticks to the viewport. Browsers without `clip` keep `hidden`.
+     */
     overflow-x: hidden !important;
+    overflow-x: clip !important;
     max-width: 100vw;
     width: 100%;
     position: relative;

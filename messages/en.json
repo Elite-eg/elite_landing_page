@@ -986,6 +986,198 @@
       }
     }
   },
+  "policies": {
+    "common": {
+      "eyebrow": "Policies",
+      "tocTitle": "On this page",
+      "lastUpdated": "Last updated: {date}"
+    },
+    "sla": {
+      "meta": {
+        "title": "Service level agreement (SLA)",
+        "description": "Albiruni's monthly uptime commitment, support channels and hours, response times, scheduled maintenance, backups and service credits."
+      },
+      "title": "Service level agreement (SLA)",
+      "scope": "Applies to Albiruni subscriptions",
+      "sections": {
+        "availability": {
+          "title": "Monthly uptime",
+          "text": "We commit to keeping the system available at the rates below, measured monthly and excluding scheduled maintenance.",
+          "table": {
+            "columns": [
+              "Plan",
+              "Uptime"
+            ],
+            "rows": [
+              [
+                "Basic",
+                "99.5%"
+              ],
+              [
+                "Business",
+                "99.9%"
+              ],
+              [
+                "Enterprise",
+                "99.9% or as set in your contract"
+              ]
+            ]
+          }
+        },
+        "support": {
+          "title": "Support channels and hours",
+          "table": {
+            "columns": [
+              "Plan",
+              "Channel",
+              "Hours"
+            ],
+            "rows": [
+              [
+                "Basic",
+                "Email",
+                "Sunday – Thursday · 9 am – 5 pm"
+              ],
+              [
+                "Business",
+                "WhatsApp, phone and email",
+                "24/7 for critical issues"
+              ],
+              [
+                "Enterprise",
+                "Dedicated account manager",
+                "24/7"
+              ]
+            ]
+          }
+        },
+        "responseTimes": {
+          "title": "Response times",
+          "text": "The time from receiving your ticket to the first reply from a specialist.",
+          "table": {
+            "columns": [
+              "Severity",
+              "Basic",
+              "Business and Enterprise"
+            ],
+            "rows": [
+              [
+                "Critical: the system is down",
+                "4 hours",
+                "1 hour"
+              ],
+              [
+                "High: a major feature is not working",
+                "8 business hours",
+                "4 hours"
+              ],
+              [
+                "Normal",
+                "1 business day",
+                "4 business hours"
+              ],
+              [
+                "Question",
+                "2 business days",
+                "1 business day"
+              ]
+            ]
+          }
+        },
+        "maintenance": {
+          "title": "Scheduled maintenance",
+          "text": "We let you know at least 48 hours in advance, and we carry it out outside business hours whenever possible."
+        },
+        "backup": {
+          "title": "Backups",
+          "text": "We back up your data every day and keep each backup for 30 days."
+        },
+        "credits": {
+          "title": "Service credits",
+          "text": "If uptime falls below our commitment, you get a credit deducted from your next invoice:",
+          "table": {
+            "columns": [
+              "Shortfall below the commitment",
+              "Credit"
+            ],
+            "rows": [
+              [
+                "Up to 0.5%",
+                "10% of the monthly subscription"
+              ],
+              [
+                "0.5% to 1%",
+                "25%"
+              ],
+              [
+                "More than 1%",
+                "50%"
+              ]
+            ]
+          }
+        },
+        "exclusions": {
+          "title": "Exclusions",
+          "list": [
+            "Internet or hardware outages on the customer's side.",
+            "Outages of third-party services, such as payment gateways and the government e-invoicing system.",
+            "Use that breaks the terms of service."
+          ]
+        }
+      }
+    },
+    "refund": {
+      "meta": {
+        "title": "Cancellation and refund policy",
+        "description": "How cancelling and refunds work for Albiruni subscriptions: the free trial, monthly and annual plans, plan changes, and how and when refunds are paid."
+      },
+      "title": "Cancellation and refund policy",
+      "sections": {
+        "freeTrial": {
+          "title": "Free trial",
+          "text": "The trial lasts 14 days at no cost, and we don't ask for a bank card. If you don't choose a plan, the account stops automatically, with no commitment."
+        },
+        "monthly": {
+          "title": "Monthly subscription",
+          "list": [
+            "You can cancel at any time from the settings or by contacting us.",
+            "Your account stays active until the end of the paid month.",
+            "There are no partial refunds for the current month."
+          ]
+        },
+        "annual": {
+          "title": "Annual subscription",
+          "list": [
+            "Cancel within 14 days of payment: you get a full refund.",
+            "After 14 days: the subscription runs to the end of its term, with no refund."
+          ]
+        },
+        "planChange": {
+          "title": "Changing your plan",
+          "list": [
+            "Upgrades apply immediately, and you pay only the price difference for the remaining days.",
+            "Downgrades start from the next billing period."
+          ]
+        },
+        "refundMethod": {
+          "title": "How and when we refund",
+          "text": "We refund to the same payment method within 14 business days of approval. Payments made through Fawry, mobile wallets or bank transfer are refunded by bank transfer or to the wallet."
+        },
+        "dataAfterCancel": {
+          "title": "Your data after cancellation",
+          "text": "We keep your data for 30 days after the subscription ends, and you can export all of it. After that, it is permanently deleted."
+        },
+        "customProjects": {
+          "title": "Custom projects and services",
+          "text": "Custom development and implementation projects are governed by the contract you signed with us, which has its own cancellation terms."
+        },
+        "contact": {
+          "title": "Contact us",
+          "text": "To request a cancellation or a refund, email <emailLink>{email}</emailLink> or message us on WhatsApp at <whatsappLink>{phone}</whatsappLink>."
+        }
+      }
+    }
+  },
   "checkout": {
     "meta": {
       "title": "Complete your subscription",

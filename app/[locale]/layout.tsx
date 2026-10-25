@@ -140,7 +140,7 @@ export default async function LocaleLayout({
           <Header />
           <main
             id="main"
-            className="flex-1 pt-16 sm:pt-20 lg:pt-28 overflow-x-hidden max-w-full w-full"
+            className="flex-1 pt-16 sm:pt-20 lg:pt-28 overflow-x-hidden supports-[overflow:clip]:overflow-x-clip max-w-full w-full"
           >
             {children}
           </main>
