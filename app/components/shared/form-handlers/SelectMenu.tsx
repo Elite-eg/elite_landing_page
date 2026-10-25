@@ -32,7 +32,9 @@ export function SelectMenu({ options, anchor = "bottom", className }: SelectMenu
         "z-[130] flex max-h-80 flex-col gap-1 overflow-y-auto rounded-2xl border border-edge bg-surface p-2 shadow-lift",
         // Focus moves into the open panel: no global orange focus ring around it (the active row is tinted instead).
         "outline-none ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
-        "transition duration-150 ease-out-brand data-[closed]:scale-95 data-[closed]:opacity-0",
+        // Opens with a soft drop from the field (ease-out), closes a little faster (ease-in) so it never lingers.
+        "origin-top transition duration-200 ease-out-brand data-[leave]:duration-150 data-[leave]:ease-in",
+        "data-[closed]:-translate-y-1 data-[closed]:scale-[0.97] data-[closed]:opacity-0 motion-reduce:transition-none",
         className
       )}
     >
@@ -40,7 +42,7 @@ export function SelectMenu({ options, anchor = "bottom", className }: SelectMenu
         <ListboxOption
           key={option.value}
           value={option.value}
-          className="group flex cursor-pointer select-none items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-caption font-medium text-body transition-colors data-[focus]:bg-surface-alt data-[selected]:bg-surface-alt"
+          className="group flex cursor-pointer select-none items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-caption font-medium text-body transition-colors duration-150 data-[focus]:bg-surface-alt data-[selected]:bg-surface-alt"
         >
           <span className="min-w-0">{option.label}</span>
           <FiCheck aria-hidden="true" className="invisible size-4 shrink-0 text-primary group-data-[selected]:visible" />

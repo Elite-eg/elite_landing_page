@@ -449,7 +449,14 @@
     "companySizeRequired": "Choose the number of employees.",
     "needRequired": "Choose what you need.",
     "mobileInvalidEG": "Enter a 10-digit Egyptian mobile number starting with 10, 11, 12 or 15, like 11 2299 9933.",
-    "mobileInvalidSA": "Enter a 9-digit Saudi mobile number starting with 5, like 50 123 4567."
+    "mobileInvalidSA": "Enter a 9-digit Saudi mobile number starting with 5, like 50 123 4567.",
+    "cityRequired": "Enter your city.",
+    "commercialRegisterRequired": "Enter your commercial registration number.",
+    "salesTeamSizeRequired": "Choose the size of your sales team.",
+    "activitiesRequired": "Choose at least one business activity.",
+    "erpExperienceRequired": "Choose yes or no.",
+    "companyAboutRequired": "Tell us briefly about your company.",
+    "consentRequired": "Agree to the privacy policy to send your application."
   },
   "countries": {
     "EG": "Egypt",
@@ -715,6 +722,126 @@
       "subtitle": "One of our consultants will contact you within one business day on the number below.",
       "message": "Your message",
       "newMessage": "Send a new message",
+      "backHome": "Back to home"
+    }
+  },
+  "agents": {
+    "meta": {
+      "title": "Albiruni ERP agents",
+      "description": "Become an authorized Albiruni ERP agent in Egypt or Saudi Arabia: sell, install and support the system in your territory, with training and support from the {brand} team."
+    },
+    "hero": {
+      "eyebrow": "Albiruni agents",
+      "title": "Albiruni ERP agents",
+      "subtitle": "We appoint agents across the Gulf to sell, install and support Albiruni ERP locally.",
+      "apply": "Apply for agency",
+      "meetAgent": "Meet our agent in Saudi Arabia"
+    },
+    "ourAgent": {
+      "title": "Our authorized agent in Saudi Arabia",
+      "badge": "Authorized agent",
+      "servicesLabel": "Agent services",
+      "contactsLabel": "Agent contacts",
+      "visitWebsite": "Visit agent website",
+      "services": {
+        "sales": "Sales",
+        "installation": "Installation & training",
+        "support": "Technical support"
+      },
+      "list": {
+        "mharatAlcode": {
+          "name": "Mharat Alcode Information Technology Est.",
+          "description": "The authorized agent for Albiruni ERP in Saudi Arabia."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Agency benefits",
+      "items": {
+        "readyProduct": {
+          "title": "A system ready to sell",
+          "text": "Clear plans and a 14-day free trial."
+        },
+        "earnings": {
+          "title": "Earnings on every subscription",
+          "text": "A fixed percentage set in the agency agreement."
+        },
+        "training": {
+          "title": "Training & support",
+          "text": "We train your team and back you on technical support."
+        },
+        "territory": {
+          "title": "Your own territory",
+          "text": "The right to represent Albiruni in an agreed territory."
+        }
+      }
+    },
+    "steps": {
+      "title": "How to become an agent",
+      "items": {
+        "apply": {
+          "title": "Apply",
+          "text": "Fill in the form with your company details."
+        },
+        "intro": {
+          "title": "Intro meeting",
+          "text": "We get to know your team and experience."
+        },
+        "contract": {
+          "title": "Contract & training",
+          "text": "We sign the agency agreement and train your team on the system."
+        },
+        "launch": {
+          "title": "Start selling",
+          "text": "We launch with you and follow up on your first clients."
+        }
+      }
+    },
+    "form": {
+      "title": "Apply for an Albiruni agency",
+      "subtitle": "We reply to applications within 3 business days.",
+      "companyName": "Company name",
+      "companyNamePlaceholder": "As on the commercial registration",
+      "contactName": "Contact person",
+      "contactNamePlaceholder": "Full name",
+      "country": "Country",
+      "city": "City",
+      "cityPlaceholder": "e.g. Riyadh",
+      "phone": "Mobile number",
+      "email": "Email",
+      "emailPlaceholder": "name@company.com",
+      "commercialRegister": "Commercial registration no.",
+      "commercialRegisterPlaceholder": "XXXXXXXX",
+      "salesTeamSize": "Sales team size",
+      "salesTeamSizePlaceholder": "Choose a range",
+      "salesTeamSizes": {
+        "upTo5": "1 – 5",
+        "upTo20": "6 – 20",
+        "upTo50": "21 – 50",
+        "over50": "More than 50"
+      },
+      "activities": "Current business",
+      "activityOptions": {
+        "it": "Information technology",
+        "businessSoftware": "Business software",
+        "distribution": "Distribution & trade",
+        "consulting": "Consulting"
+      },
+      "erpExperience": "Have you sold business management systems before?",
+      "erpExperienceOptions": {
+        "yes": "Yes",
+        "no": "No"
+      },
+      "about": "About your company",
+      "aboutPlaceholder": "Your business and current clients…",
+      "consent": "I agree to the <link>privacy policy</link> and to {brand} contacting me about this application.",
+      "submit": "Send application",
+      "submitting": "Sending…",
+      "errorToast": "We couldn't send your application right now. Check your connection and try again, or message us on WhatsApp."
+    },
+    "success": {
+      "title": "Your application has been sent!",
+      "subtitle": "Our team will review it and reply within 3 business days.",
       "backHome": "Back to home"
     }
   },

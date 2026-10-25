@@ -27,6 +27,10 @@ export const PATTERNS = {
   cardCvc: /^\d{3,4}$/,
 } as const;
 
+/** A dropdown / chip value: "" (placeholder) until one of `options` is chosen. */
+export const choiceOf = (options: readonly string[], message: string) =>
+  z.string().refine((value) => options.includes(value), message);
+
 /**
  * Schema fields of `<InputField as="phone">` (spread them into a z.object, then add mobileNumberCheck):
  * `phoneCountry` is the code the visitor picked ("" = automatic, see usePhoneField), `phone` the national number.

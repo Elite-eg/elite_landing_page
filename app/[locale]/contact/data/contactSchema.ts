@@ -1,11 +1,7 @@
 import { z } from "zod";
 import { REGION_CODES, type RegionCode } from "@/lib/constants";
-import { mobileNumberCheck, phoneFieldsSchema } from "@/lib/validation";
+import { choiceOf, mobileNumberCheck, phoneFieldsSchema } from "@/lib/validation";
 import { COMPANY_SIZES, CONTACT_NEEDS } from "./contactData";
-
-/** A SelectField value: "" (placeholder) until one of `options` is chosen. */
-const choiceOf = (options: readonly string[], message: string) =>
-  z.string().refine((value) => options.includes(value), message);
 
 /** Error messages are message keys inside the "validation" namespace. The automatic phone code follows the country. */
 export const contactSchema = z

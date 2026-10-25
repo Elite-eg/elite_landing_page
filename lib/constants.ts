@@ -93,6 +93,8 @@ export const API_ENDPOINTS = {
   jobApplication: "/jobs/apply",
   /** TBD: backend endpoint that receives contact requests (contact page form). */
   contactRequest: "/contact/request",
+  /** TBD: backend endpoint that receives Albiruni agency applications (agents page form). */
+  agencyApplication: "/agents/apply",
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -389,6 +391,17 @@ export const PROJECT_LINKS = {
     googlePlay: "https://play.google.com/store/apps",
   },
 } as const;
+
+/** Public contacts of the authorized Albiruni agents (agents page). Names and copy: `agents.ourAgent.list.<key>`. */
+export const AGENT_CONTACTS = {
+  mharatAlcode: {
+    website: "https://mharatalcode.com/",
+    email: "info@mharatalcode.com",
+    phone: "+966 56 994 9865",
+  },
+} as const;
+
+export type AgentKey = keyof typeof AGENT_CONTACTS;
 
 /** Kept for page sections that link to the contact page. */
 export const CONTACT_HREF = ROUTES.contact;
