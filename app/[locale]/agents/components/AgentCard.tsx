@@ -3,7 +3,9 @@ import { useTranslations } from "next-intl";
 import { FiCheck } from "react-icons/fi";
 import { Badge } from "@/app/components/shared/Badge";
 import { Button } from "@/app/components/shared/Button";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { AGENT_CONTACTS, telUrl } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import type { AlbiruniAgent } from "../data/agentsData";
 
 const CONTACT_LINK_CLASSES = "transition-colors duration-200 hover:text-primary";
@@ -25,7 +27,10 @@ export function AgentCard({ agent: { key, logo, services } }: AgentCardProps) {
   return (
     <article
       aria-labelledby={nameId}
-      className="flex flex-col items-start gap-6 rounded-3xl border border-edge bg-surface p-6 shadow-card transition duration-300 ease-out-brand hover:border-primary/20 hover:shadow-card-hover sm:p-8 md:flex-row md:items-center md:gap-7"
+      className={cn(
+        "flex flex-col items-start gap-6 rounded-3xl border border-edge bg-surface p-6 hover:border-primary/20 sm:p-8 md:flex-row md:items-center md:gap-7",
+        CARD_HOVER_CLASSES
+      )}
     >
       <Image src={logo} alt="" width={104} height={104} className="size-20 shrink-0 sm:size-[6.5rem]" />
 

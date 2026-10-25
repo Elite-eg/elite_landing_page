@@ -2,7 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { FiBookmark, FiMessageSquare, FiThumbsUp } from "react-icons/fi";
+import { cn } from "@/lib/utils";
 import { Badge } from "./Badge";
+import { CARD_HOVER_CLASSES } from "./cardStyles";
 
 export interface IdeaCardProps {
   author: string;
@@ -24,7 +26,7 @@ export function IdeaCard({ author, category, title, summary, techStack, onRequir
   ] as const;
 
   return (
-    <article className="group flex h-full flex-col rounded-2xl border border-edge bg-surface p-6 shadow-card transition-all duration-500 ease-out hover:-translate-y-2 hover:border-secondary/40 hover:shadow-xl hover:shadow-secondary/5 motion-reduce:transform-none">
+    <article className={cn("group flex h-full flex-col rounded-2xl border border-edge bg-surface p-6 hover:border-secondary/40", CARD_HOVER_CLASSES)}>
       <div className="mb-4 flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">
           <span

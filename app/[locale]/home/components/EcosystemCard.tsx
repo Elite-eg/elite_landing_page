@@ -3,6 +3,7 @@ import type { IconType } from "react-icons";
 import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import { Badge } from "@/app/components/shared/Badge";
 import { Button } from "@/app/components/shared/Button";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +37,7 @@ export function EcosystemCard({
   const isPrimary = tone === "primary";
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-edge bg-surface shadow-card transition-all duration-500 ease-out hover:-translate-y-2 hover:border-secondary/40 hover:shadow-2xl hover:shadow-primary/10 motion-reduce:transform-none">
+    <article className={cn("group flex h-full flex-col overflow-hidden rounded-3xl border border-edge bg-surface hover:border-secondary/40", CARD_HOVER_CLASSES)}>
       <div className="relative aspect-[16/10] overflow-hidden">
         <Reveal preset="imageReveal" className="absolute inset-0">
           <Image

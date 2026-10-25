@@ -2,6 +2,7 @@ import type { IconType } from "react-icons";
 import { FiArrowUpRight } from "react-icons/fi";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { CARD_HOVER_CLASSES } from "./cardStyles";
 
 export interface ServiceCardProps {
   title: string;
@@ -17,8 +18,8 @@ export function ServiceCard({ title, description, icon: Icon, href, ctaLabel, cl
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col rounded-2xl border border-edge bg-surface p-6 shadow-card",
-        "transition-all duration-500 ease-out hover:-translate-y-2 hover:border-secondary/40 hover:shadow-xl hover:shadow-secondary/5 motion-reduce:transform-none",
+        "group relative flex h-full flex-col rounded-2xl border border-edge bg-surface p-6 hover:border-secondary/40",
+        CARD_HOVER_CLASSES,
         "has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-secondary has-[a:focus-visible]:ring-offset-2",
         className
       )}

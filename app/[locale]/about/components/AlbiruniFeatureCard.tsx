@@ -1,4 +1,6 @@
 import type { IconType } from "react-icons";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
+import { cn } from "@/lib/utils";
 
 export interface AlbiruniFeatureCardProps {
   icon: IconType;
@@ -8,7 +10,7 @@ export interface AlbiruniFeatureCardProps {
 
 export function AlbiruniFeatureCard({ icon: Icon, title, text }: AlbiruniFeatureCardProps) {
   return (
-    <article className="group h-full rounded-2xl border border-edge bg-surface p-6 transition-colors duration-200 hover:border-primary/25">
+    <article className={cn("group h-full rounded-2xl border border-edge bg-surface p-6 hover:border-primary/25", CARD_HOVER_CLASSES)}>
       <span className="grid size-11 place-items-center rounded-xl bg-surface-alt text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
         <Icon className="size-5" aria-hidden="true" />
       </span>

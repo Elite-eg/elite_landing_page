@@ -1,3 +1,4 @@
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { cn } from "@/lib/utils";
 
 export interface StatementCardProps {
@@ -16,7 +17,7 @@ const TONE_CLASSES = {
     text: "text-content-dark",
   },
   light: {
-    card: "border border-edge bg-surface shadow-card",
+    card: cn("border border-edge bg-surface hover:border-primary/20", CARD_HOVER_CLASSES),
     label: "text-secondary-dark",
     title: "text-primary",
     text: "text-content",

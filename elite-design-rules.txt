@@ -274,7 +274,7 @@ Type scale (fluid tokens; MUST be used for these roles):
 | Class | Use |
 |---|---|
 | `shadow-card` | Default light card |
-| `shadow-card-hover` | Hovered light card (same layers as `shadow-card`, larger), e.g. agents page cards: `shadow-card hover:shadow-card-hover` |
+| `shadow-card-hover` | Hovered light card (same layers as `shadow-card`, larger). Use through `CARD_HOVER_CLASSES` (§9.1), not by hand |
 | `shadow-lift` | Dark / hero tiles, modals, menus |
 | `shadow-widget` | Floating widgets on navy (booking widget, phone mockups) |
 | `shadow-glow` | Orange CTA |
@@ -340,8 +340,10 @@ CSS equivalents in `globals.css`: `animate-hero-rise`, `.reveal` + `.is-visible`
 Rules:
 - One orchestrated hero moment per page. Below the hero, reveal with `<Reveal>` (single blocks) and
   `<RevealGroup>` + `<Reveal inGroup>` (staggered grids). They trigger once.
-- Hover states change color, border or shadow only (e.g. icon tile turns navy; agents page cards: border darkens + `shadow-card` grows to `hover:shadow-card-hover`,
-  `transition duration-300 ease-out-brand`). Form choice controls animate their state change: dropdown lists drop in (200ms ease-out) and close faster (150ms ease-in), chips and checkboxes fade their fill and pop their check. No lift on every card; only buttons lift (built in).
+- Hover states change color, border or shadow only (e.g. icon tile turns navy). Every light content card takes
+  `CARD_HOVER_CLASSES` (rests on `shadow-card`, grows to `shadow-card-hover`, 300ms) plus its own hover border. No lift on cards;
+  only buttons lift (built in). Form choice controls animate their state change: dropdown lists drop in (200ms ease-out) and
+  close faster (150ms ease-in), chips and checkboxes fade their fill and pop their check.
 - Animate `transform` and `opacity` only. Two exceptions, both height on a single container: `jobs/components/AnimatedHeight`
   (the note and footer follow a filtered list; transforms can't move content outside the component) and accordion-style
   expand / collapse with `expandCollapse` + `expandTransition` (the requirements in the jobs apply modal). Height isn't
@@ -411,6 +413,7 @@ Rules:
 | Component | Use |
 |---|---|
 | `Container` | Page width + horizontal padding. Narrower via `className` (`max-w-5xl`) |
+| `cardStyles` | `CARD_HOVER_CLASSES`: the one hover of light content cards (small shadow at rest, bigger on hover, 300ms ease). Add it with `cn()` next to the card's own classes and hover border. Used by every light card (home, about, book-session, contact, jobs, Bareeq, agents). Not for dark cards, form / summary panels, modals or menus |
 | `SectionHeading` | Every section title. Props: `title`, `eyebrow`, `subtitle`, `align` (`center`/`start`), `tone` (`light`/`dark`/`brand`), `as` (`h1`/`h2`), `size` (`default`/`compact`), `revealPreset` (entrance, default `fadeInUp`), `headingClassName` (e.g. `text-body` for ink headings), `className` |
 | `Eyebrow` | Orange pill label (hero + section eyebrows). `tone="dark"` on navy |
 | `Button` | All buttons and button-links. Variants `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`; sizes `sm`/`md`/`lg`; `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth`, `disabled`, `lift` (default true; `false` for buttons that should stay still on hover, e.g. a pinned action bar). `buttonClasses()` styles other elements as buttons |
@@ -554,7 +557,7 @@ Rules:
 
 | Where | Deviation |
 |---|---|
-| Home | Cards lift on hover (`IdeaCard`, `ServiceCard`, `EcosystemCard`, community tiles); hero h1 uses `text-4xl/5xl` instead of `text-display`; `IdeaCard`, `ServiceCard`, `CommunityGateModal` live in shared but only home uses them |
+| Home | Hero h1 uses `text-4xl/5xl` instead of `text-display`; `IdeaCard`, `ServiceCard`, `CommunityGateModal` live in shared but only home uses them |
 | Jobs | Apply modal keeps its hex backdrop (§3.5). Perk icons come from `react-icons/lu` (Lucide, the Figma's icon set) instead of `fi`: Feather has no graduation cap |
 | 404 page | Original custom design (gradient buttons, hover lifts, `rounded-2xl` buttons) instead of `Button` |
 | Book-session | Pixel values from the Figma file (`text-[0.78125rem]`, …); hero h1 not `text-display`; detail/success buttons restyle `Button` with color overrides |

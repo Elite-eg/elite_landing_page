@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { IconType } from "react-icons";
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { cn } from "@/lib/utils";
 import type { ContactChannelTone } from "../data/contactData";
 
@@ -9,7 +10,10 @@ const TONE_CLASSES: Record<ContactChannelTone, string> = {
   muted: "bg-surface-muted text-primary",
 };
 
-const CARD_CLASSES = "flex items-center gap-3.5 rounded-2xl border border-edge bg-surface px-5 py-[1.125rem]";
+const CARD_CLASSES = cn(
+  "flex items-center gap-3.5 rounded-2xl border border-edge bg-surface px-5 py-[1.125rem] hover:border-primary/30",
+  CARD_HOVER_CLASSES
+);
 
 export interface ContactChannelCardProps {
   icon: IconType;
@@ -43,7 +47,7 @@ export function ContactChannelCard({ icon: Icon, tone, title, children, href, ex
     <a
       href={href}
       {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-      className={cn(CARD_CLASSES, "transition-colors duration-200 hover:border-primary/30")}
+      className={CARD_CLASSES}
     >
       {content}
     </a>

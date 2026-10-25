@@ -1,3 +1,6 @@
+import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
+import { cn } from "@/lib/utils";
+
 export interface StepCardProps {
   /** Position in the sequence, from 1. */
   step: number;
@@ -11,7 +14,7 @@ export interface StepCardProps {
  */
 export function StepCard({ step, title, text }: StepCardProps) {
   return (
-    <article className="group flex h-full flex-col items-start gap-2.5 rounded-2xl border border-edge bg-surface p-6 shadow-card transition duration-300 ease-out-brand hover:border-primary/20 hover:shadow-card-hover sm:p-7">
+    <article className={cn("group flex h-full flex-col items-start gap-2.5 rounded-2xl border border-edge bg-surface p-6 hover:border-primary/20 sm:p-7", CARD_HOVER_CLASSES)}>
       <span
         dir="ltr"
         className="grid size-9 place-items-center rounded-full bg-primary-dark text-[0.9375rem] font-semibold text-surface transition-colors duration-300 ease-out-brand group-hover:bg-secondary"
