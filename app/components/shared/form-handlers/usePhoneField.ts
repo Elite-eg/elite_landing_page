@@ -2,47 +2,51 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { useController, type FieldValues, type Path, type PathValue, type UseFormReturn } from "react-hook-form";
-import { useTranslations } from "next-intl";
-import { useRegion } from "@/app/store/useRegion";
-import type { RegionCode } from "@/lib/constants";
-import { formatNationalNumber, isMobileNumberComplete } from "@/lib/phone";
-import { canBecomeMobileNumber } from "@/lib/validation";
+import { useLocale, useTranslations } from "next-intl";
+import { useCountry } from "@/app/store/useCountry";
+import type { AppLocale } from "@/lib/constants";
+import { countryByCode, type CountryCode } from "@/lib/countries";
+import { canBecomeMobileNumber, formatNationalNumber, isMobileNumberComplete, mobileHint } from "@/lib/phone";
 import type { PhoneCountryCode } from "./PhoneCountryPicker";
 
 export interface UsePhoneFieldOptions<T extends FieldValues> {
   form: Pick<
     UseFormReturn<T>,
-    "control" | "register" | "trigger" | "clearErrors" | "getValues" | "setValue" | "formState"
+    "control" | "register" | "trigger" | "clearErrors" | "getValues" | "setValue" | "getFieldState" | "formState"
   >;
   /** Field holding the picked code ("" = automatic). */
   codeName: Path<T>;
   /** Field holding the national number. */
   numberName: Path<T>;
-  /** Automatic code; default: the visitor's region (e.g. a Country field on the contact form). */
-  fallback?: RegionCode;
+  /** Automatic code; default: the visitor's country (e.g. a Country field on the contact form). */
+  fallback?: CountryCode;
 }
 
 /**
  * Everything `<InputField as="phone">` needs from react-hook-form (schema: phoneFieldsSchema + mobileNumberCheck).
  *
  * - Code: the form field stays "" while automatic and the code then follows `fallback` (default: the visitor's
- *   region); once the visitor picks a code, it stays.
+ *   country); once the visitor picks a code, it stays.
  * - Live check while typing: the error shows as soon as the digits can't become a valid number, or once the number
  *   is complete; an unfinished number is flagged on leaving the field or on submit, not at the first keystroke.
  *   A code change regroups the number for the new country and re-checks it.
+ * - Error text: translated here, so the shared `validation.mobileInvalid` names the country in use, its digit count
+ *   and an example (all from its line in lib/countries.ts).
  *
  * @example
  * const phone = usePhoneField({ form, codeName: "phoneCountry", numberName: "phone" });
- * <InputField as="phone" label={t("phone")} error={…} {...phone.fieldProps} />
+ * <InputField as="phone" label={t("phone")} {...phone.fieldProps} />
  * // on submit: internationalPhone(values.phoneCountry || phone.code, values.phone)
  */
 export function usePhoneField<T extends FieldValues>({ form, codeName, numberName, fallback }: UsePhoneFieldOptions<T>) {
   const t = useTranslations("phoneField");
-  const { region } = useRegion();
-  const { control, register, trigger, clearErrors, getValues, setValue, formState } = form;
+  const tValidation = useTranslations("validation");
+  const locale = useLocale() as AppLocale;
+  const { country } = useCountry();
+  const { control, register, trigger, clearErrors, getValues, setValue, getFieldState, formState } = form;
   const { field } = useController({ control, name: codeName });
-  const picked = field.value as RegionCode | "";
-  const code = picked || fallback || region;
+  const picked = field.value as CountryCode | "";
+  const code = picked || fallback || country.code;
   const { isSubmitted } = formState;
 
   const checkNumber = useCallback(
@@ -76,13 +80,20 @@ export function usePhoneField<T extends FieldValues>({ form, codeName, numberNam
     },
   });
 
+  const message = getFieldState(numberName, formState).error?.message;
+  const error =
+    message === "mobileInvalid"
+      ? tValidation("mobileInvalid", { country: countryByCode(code).name[locale], ...mobileHint(code) })
+      : message && tValidation(message);
+
   return {
     /** The code in use (picked or automatic). */
     code,
-    /** Spread on `<InputField as="phone">`: number field, code picker, and the "set automatically" hint until picked. */
+    /** Spread on `<InputField as="phone">`: number field, code picker, error, and the "set automatically" hint until picked. */
     fieldProps: {
       ...number,
       countryCode,
+      error,
       hint: picked ? undefined : t("countryCodeDetected"),
       hintTone: "success" as const,
     },

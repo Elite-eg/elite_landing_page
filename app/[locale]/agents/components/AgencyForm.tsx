@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { useLocale, useTranslations } from "next-intl";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
-import { useRegion } from "@/app/store/useRegion";
+import { useCountry } from "@/app/store/useCountry";
 import { Button } from "@/app/components/shared/Button";
 import { CheckboxField } from "@/app/components/shared/form-handlers/CheckboxField";
 import { ChoiceChips } from "@/app/components/shared/form-handlers/ChoiceChips";
@@ -17,7 +17,8 @@ import { SelectField } from "@/app/components/shared/form-handlers/SelectField";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp } from "@/lib/animations";
-import { API_ENDPOINTS, COMPANY_INFO, REGIONS, ROUTES, type AppLocale } from "@/lib/constants";
+import { API_ENDPOINTS, COMPANY_INFO, ROUTES, type AppLocale } from "@/lib/constants";
+import { COUNTRIES } from "@/lib/countries";
 import { internationalPhone } from "@/lib/phone";
 import { BUSINESS_ACTIVITIES, ERP_EXPERIENCE, SALES_TEAM_SIZES } from "../data/agentsData";
 import { agencySchema, emptyAgencyValues, type AgencyValues, type SentAgencyApplication } from "../data/agencySchema";
@@ -29,18 +30,17 @@ export interface AgencyFormProps {
 
 /**
  * Agency application: two columns from sm, the chip questions, company summary and consent full width.
- * The country starts at the visitor's region, and the phone code follows the country until the visitor picks a code
+ * The country starts at the visitor's country, and the phone code follows the country until the visitor picks a code
  * themselves.
  */
 export function AgencyForm({ onSent }: AgencyFormProps) {
   const t = useTranslations("agents.form");
   const tValidation = useTranslations("validation");
-  const tCountries = useTranslations("countries");
   const locale = useLocale() as AppLocale;
-  const { region } = useRegion();
+  const { country: visitorCountry } = useCountry();
   const form = useForm<AgencyValues>({
     resolver: zodResolver(agencySchema),
-    defaultValues: emptyAgencyValues(region),
+    defaultValues: emptyAgencyValues(visitorCountry.code),
   });
   const {
     register,
@@ -53,10 +53,10 @@ export function AgencyForm({ onSent }: AgencyFormProps) {
   } = form;
   const phone = usePhoneField({ form, codeName: "phoneCountry", numberName: "phone", fallback: watch("country") });
 
-  // The saved region is restored after hydration: follow it until the visitor picks a country.
+  // Follow the header country switcher until the visitor picks a country here.
   useEffect(() => {
-    if (!getFieldState("country").isDirty) resetField("country", { defaultValue: region });
-  }, [region, getFieldState, resetField]);
+    if (!getFieldState("country").isDirty) resetField("country", { defaultValue: visitorCountry.code });
+  }, [visitorCountry, getFieldState, resetField]);
 
   const onSubmit = async ({ phoneCountry: pickedCode, phone: number, ...values }: AgencyValues) => {
     const application: SentAgencyApplication = { ...values, phone: internationalPhone(pickedCode || phone.code, number) };
@@ -96,14 +96,14 @@ export function AgencyForm({ onSent }: AgencyFormProps) {
         render={({ field: country }) => (
           <SelectField
             label={t("country")}
-            options={REGIONS.map(({ code }) => ({ value: code, label: tCountries(code) }))}
+            options={COUNTRIES.map(({ code, name }) => ({ value: code, label: name[locale] }))}
             {...country}
             {...field}
           />
         )}
       />
       <InputField label={t("city")} placeholder={t("cityPlaceholder")} autoComplete="address-level2" error={errorText(errors.city?.message)} {...field} {...register("city")} />
-      <InputField as="phone" label={t("phone")} {...phone.fieldProps} error={errorText(errors.phone?.message)} {...field} />
+      <InputField as="phone" label={t("phone")} {...phone.fieldProps} {...field} />
       <InputField type="email" dir="ltr" inputClassName="rtl:text-end" label={t("email")} placeholder={t("emailPlaceholder")} autoComplete="email" error={errorText(errors.email?.message)} {...field} {...register("email")} />
       <InputField dir="ltr" inputClassName="rtl:text-end" label={t("commercialRegister")} placeholder={t("commercialRegisterPlaceholder")} error={errorText(errors.commercialRegister?.message)} {...field} {...register("commercialRegister")} />
       <Controller

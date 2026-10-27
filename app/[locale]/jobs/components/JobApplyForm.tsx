@@ -9,20 +9,21 @@ import { useLocale, useTranslations } from "next-intl";
 import { FiSend } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
-import { useRegion } from "@/app/store/useRegion";
+import { useCountry } from "@/app/store/useCountry";
 import { Button } from "@/app/components/shared/Button";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
-import { API_ENDPOINTS, COMPANY_INFO, whatsappUrl, type AppLocale, type RegionCode } from "@/lib/constants";
+import { API_ENDPOINTS, COMPANY_INFO, whatsappUrl, type AppLocale } from "@/lib/constants";
+import type { CountryCode } from "@/lib/countries";
 import { internationalPhone } from "@/lib/phone";
 import { mobileNumberCheck, phoneFieldsSchema } from "@/lib/validation";
 import { WhatsAppApplyButton } from "./WhatsAppApplyButton";
 
 /**
- * Error messages are message keys inside the "validation" namespace. Built per region: the phone number is checked
- * against the automatic code (the visitor's region) until the visitor picks one.
+ * Error messages are message keys inside the "validation" namespace. Built per country: the phone number is checked
+ * against the automatic code (the visitor's country) until the visitor picks one.
  */
-const applySchema = (region: RegionCode) =>
+const applySchema = (country: CountryCode) =>
   z
     .object({
       fullName: z.string().trim().min(1, "nameRequired"),
@@ -31,7 +32,7 @@ const applySchema = (region: RegionCode) =>
       cvLink: z.string().trim().min(1, "linkRequired").url("linkInvalid"),
       coverNote: z.string().trim(),
     })
-    .superRefine(mobileNumberCheck(region));
+    .superRefine(mobileNumberCheck(country));
 
 type ApplyValues = z.infer<ReturnType<typeof applySchema>>;
 
@@ -56,8 +57,8 @@ export function JobApplyForm({ jobId, jobTitle, onSent, children }: JobApplyForm
   const t = useTranslations("jobs.applyModal");
   const tValidation = useTranslations("validation");
   const brand = COMPANY_INFO.brandName[useLocale() as AppLocale];
-  const { region } = useRegion();
-  const schema = useMemo(() => applySchema(region), [region]);
+  const { country } = useCountry();
+  const schema = useMemo(() => applySchema(country.code), [country]);
   const form = useForm<ApplyValues>({ resolver: zodResolver(schema), defaultValues: EMPTY_APPLICATION });
   const {
     register,
@@ -102,7 +103,7 @@ export function JobApplyForm({ jobId, jobTitle, onSent, children }: JobApplyForm
           <div className="grid gap-4 sm:grid-cols-2">
             <InputField label={t("fullName")} placeholder={t("fullNamePlaceholder")} autoComplete="name" error={errorText(errors.fullName?.message)} {...field} {...register("fullName")} />
             <InputField type="email" label={t("email")} placeholder={t("emailPlaceholder")} autoComplete="email" error={errorText(errors.email?.message)} {...ltrField} {...register("email")} />
-            <InputField as="phone" label={t("phone")} error={errorText(errors.phone?.message)} {...phone.fieldProps} {...field} />
+            <InputField as="phone" label={t("phone")} {...phone.fieldProps} {...field} />
             <InputField type="url" inputMode="url" label={t("cvLink")} placeholder={t("cvLinkPlaceholder")} error={errorText(errors.cvLink?.message)} {...ltrField} {...register("cvLink")} />
             <InputField as="textarea" rows={3} label={t("coverNote")} placeholder={t("coverNotePlaceholder")} className="sm:col-span-2" {...field} {...register("coverNote")} />
           </div>

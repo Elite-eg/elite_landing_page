@@ -14,7 +14,7 @@ import { ScheduleStep } from "./ScheduleStep";
 import { StepPills, type BookingStep } from "./StepPills";
 import { SuccessStep } from "./SuccessStep";
 
-/** The phone code starts automatic (""), following the visitor's region. */
+/** The phone code starts automatic (""), following the visitor's country. */
 const EMPTY_FORM: BookingFormData = { name: "", phoneCountry: "", phone: "", email: "", company: "", notes: "" };
 
 /** White booking widget: schedule → details → success (only once the backend accepted the booking). */

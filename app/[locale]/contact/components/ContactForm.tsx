@@ -5,18 +5,19 @@ import { Controller, useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { FiArrowRight } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
-import { useRegion } from "@/app/store/useRegion";
+import { useCountry } from "@/app/store/useCountry";
 import { Button } from "@/app/components/shared/Button";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import { SelectField } from "@/app/components/shared/form-handlers/SelectField";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp } from "@/lib/animations";
-import { API_ENDPOINTS, REGIONS, ROUTES } from "@/lib/constants";
+import { API_ENDPOINTS, ROUTES, type AppLocale } from "@/lib/constants";
+import { COUNTRIES } from "@/lib/countries";
 import { internationalPhone } from "@/lib/phone";
 import { COMPANY_SIZES, CONTACT_NEEDS } from "../data/contactData";
 import {
@@ -35,16 +36,19 @@ export interface ContactFormProps {
 
 /**
  * Contact request: two columns from sm, the needs and message rows full width. The country starts at the visitor's
- * region, and the phone code follows the country until the visitor picks a code themselves.
+ * country, and the phone code follows the country until the visitor picks a code themselves.
  */
 export function ContactForm({ onSent, focusFirstField = false }: ContactFormProps) {
   const t = useTranslations("contact.form");
   const tValidation = useTranslations("validation");
-  const tCountries = useTranslations("countries");
-  const countryOptions = REGIONS.map(({ code }) => ({ value: code, label: tCountries(code) }));
+  const locale = useLocale() as AppLocale;
+  const countryOptions = COUNTRIES.map(({ code, name }) => ({ value: code, label: name[locale] }));
   const titleId = useId();
-  const { region } = useRegion();
-  const form = useForm<ContactValues>({ resolver: zodResolver(contactSchema), defaultValues: emptyContactValues(region) });
+  const { country: visitorCountry } = useCountry();
+  const form = useForm<ContactValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: emptyContactValues(visitorCountry.code),
+  });
   const {
     register,
     control,
@@ -58,10 +62,10 @@ export function ContactForm({ onSent, focusFirstField = false }: ContactFormProp
   // The automatic phone code follows the Country field.
   const phone = usePhoneField({ form, codeName: "phoneCountry", numberName: "phone", fallback: watch("country") });
 
-  // The saved region is restored after hydration: follow it until the visitor picks a country.
+  // Follow the header country switcher until the visitor picks a country here.
   useEffect(() => {
-    if (!getFieldState("country").isDirty) resetField("country", { defaultValue: region });
-  }, [region, getFieldState, resetField]);
+    if (!getFieldState("country").isDirty) resetField("country", { defaultValue: visitorCountry.code });
+  }, [visitorCountry, getFieldState, resetField]);
 
   useEffect(() => {
     if (focusFirstField) setFocus("fullName");
@@ -108,7 +112,6 @@ export function ContactForm({ onSent, focusFirstField = false }: ContactFormProp
           as="phone"
           label={t("phone")}
           {...phone.fieldProps}
-          error={errorText(errors.phone?.message)}
           {...field}
         />
         <Controller

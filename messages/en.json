@@ -112,10 +112,10 @@
         "cta": "Start the trial"
       }
     },
-    "regionLabel": "Country and currency",
-    "regions": {
-      "EG": "Egypt · EGP",
-      "SA": "Saudi Arabia · SAR"
+    "countrySwitcher": {
+      "label": "Country and currency: {country}",
+      "title": "Choose your country",
+      "current": "{country} · {symbol}"
     },
     "utilityNav": "Quick links"
   },
@@ -448,8 +448,7 @@
     "mobileRequired": "Enter your mobile number.",
     "companySizeRequired": "Choose the number of employees.",
     "needRequired": "Choose what you need.",
-    "mobileInvalidEG": "Enter a 10-digit Egyptian mobile number starting with 10, 11, 12 or 15, like 11 2299 9933.",
-    "mobileInvalidSA": "Enter a 9-digit Saudi mobile number starting with 5, like 50 123 4567.",
+    "mobileInvalid": "Enter a {length}-digit mobile number for {country}, like {example}.",
     "cityRequired": "Enter your city.",
     "commercialRegisterRequired": "Enter your commercial registration number.",
     "salesTeamSizeRequired": "Choose the size of your sales team.",
@@ -457,10 +456,6 @@
     "erpExperienceRequired": "Choose yes or no.",
     "companyAboutRequired": "Tell us briefly about your company.",
     "consentRequired": "Agree to the privacy policy to send your application."
-  },
-  "countries": {
-    "EG": "Egypt",
-    "SA": "Saudi Arabia"
   },
   "phoneField": {
     "countryCode": "Country code",
@@ -1008,10 +1003,6 @@
       "contactName": "Contact person",
       "contactNamePlaceholder": "Full name",
       "phone": "Mobile number",
-      "phonePlaceholder": {
-        "EG": "+20 100 000 0000",
-        "SA": "+966 50 000 0000"
-      },
       "email": "Email",
       "emailPlaceholder": "name@company.com",
       "submit": "Continue to payment",
@@ -1023,7 +1014,7 @@
       "methods": {
         "card": {
           "label": "Bank card",
-          "description": "{country, select, SA {mada, Visa or Mastercard} other {Visa, Mastercard or Meeza}}"
+          "description": "{country, select, EG {Visa, Mastercard or Meeza} SA {mada, Visa or Mastercard} other {Visa or Mastercard}}"
         },
         "fawry": {
           "label": "Fawry",

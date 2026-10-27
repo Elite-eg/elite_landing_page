@@ -1,10 +1,11 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { FiEdit3, FiHome } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
 import { SuccessPanel } from "@/app/components/shared/SuccessPanel";
-import { ROUTES } from "@/lib/constants";
+import { ROUTES, type AppLocale } from "@/lib/constants";
+import { countryByCode } from "@/lib/countries";
 import type { SentContactRequest } from "../data/contactSchema";
 
 export interface ContactSuccessProps {
@@ -19,7 +20,7 @@ export interface ContactSuccessProps {
  */
 export function ContactSuccess({ request, onNewMessage }: ContactSuccessProps) {
   const t = useTranslations("contact");
-  const tCountries = useTranslations("countries");
+  const locale = useLocale() as AppLocale;
 
   return (
     <SuccessPanel
@@ -32,7 +33,7 @@ export function ContactSuccess({ request, onNewMessage }: ContactSuccessProps) {
         { label: t("form.companyName"), value: request.companyName },
         { label: t("form.email"), value: request.email, ltr: true },
         { label: t("form.phone"), value: request.phone, ltr: true },
-        { label: t("form.country"), value: tCountries(request.country) },
+        { label: t("form.country"), value: countryByCode(request.country).name[locale] },
         { label: t("form.companySize"), value: t(`form.companySizes.${request.companySize}`) },
         { label: t("form.need"), value: t(`form.needs.${request.need}`), emphasis: true },
         ...(request.message ? [{ label: t("success.message"), value: request.message, wide: true }] : []),

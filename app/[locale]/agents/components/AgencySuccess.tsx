@@ -1,10 +1,11 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { FiHome } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
 import { SuccessPanel } from "@/app/components/shared/SuccessPanel";
-import { ROUTES } from "@/lib/constants";
+import { ROUTES, type AppLocale } from "@/lib/constants";
+import { countryByCode } from "@/lib/countries";
 import type { SentAgencyApplication } from "../data/agencySchema";
 
 export interface AgencySuccessProps {
@@ -14,7 +15,7 @@ export interface AgencySuccessProps {
 /** Shown in the form's card once the application was accepted: what we received, then back home. */
 export function AgencySuccess({ application }: AgencySuccessProps) {
   const t = useTranslations("agents");
-  const tCountries = useTranslations("countries");
+  const locale = useLocale() as AppLocale;
 
   return (
     <SuccessPanel
@@ -25,7 +26,7 @@ export function AgencySuccess({ application }: AgencySuccessProps) {
       details={[
         { label: t("form.companyName"), value: application.companyName },
         { label: t("form.contactName"), value: application.contactName },
-        { label: t("form.country"), value: `${tCountries(application.country)} · ${application.city}` },
+        { label: t("form.country"), value: `${countryByCode(application.country).name[locale]} · ${application.city}` },
         { label: t("form.phone"), value: application.phone, ltr: true },
         { label: t("form.email"), value: application.email, ltr: true },
         { label: t("form.salesTeamSize"), value: t(`form.salesTeamSizes.${application.salesTeamSize}`), emphasis: true },

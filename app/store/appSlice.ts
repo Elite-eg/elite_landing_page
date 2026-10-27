@@ -1,17 +1,16 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { DEFAULT_REGION, type RegionCode } from "@/lib/constants";
+import { DEFAULT_COUNTRY, type CountryCode } from "@/lib/countries";
 
 export interface AppState {
   isInitialized: boolean;
   theme: "light" | "dark";
-  /** Visitor country, drives the currency prices are shown in. */
-  region: RegionCode;
+  country: CountryCode;
 }
 
 const initialState: AppState = {
   isInitialized: true,
   theme: "light",
-  region: DEFAULT_REGION,
+  country: DEFAULT_COUNTRY,
 };
 
 export const appSlice = createSlice({
@@ -21,11 +20,11 @@ export const appSlice = createSlice({
     setTheme: (state, action: PayloadAction<"light" | "dark">) => {
       state.theme = action.payload;
     },
-    setRegion: (state, action: PayloadAction<RegionCode>) => {
-      state.region = action.payload;
+    setCountry: (state, action: PayloadAction<CountryCode>) => {
+      state.country = action.payload;
     },
   },
 });
 
-export const { setTheme, setRegion } = appSlice.actions;
+export const { setTheme, setCountry } = appSlice.actions;
 export default appSlice.reducer;

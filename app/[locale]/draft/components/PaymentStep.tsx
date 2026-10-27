@@ -6,8 +6,9 @@ import { RadioGroup } from "@headlessui/react";
 import { useLocale, useTranslations } from "next-intl";
 import { FiArrowLeft, FiLock } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
-import type { AppLocale, RegionCode } from "@/lib/constants";
-import { PAYMENT_METHODS, PAYMENT_METHOD_ICONS, getOrderTotals, type PaymentMethodKey } from "../data/checkoutData";
+import type { AppLocale } from "@/lib/constants";
+import { countryByCode, type CountryCode, type PaymentMethodKey } from "@/lib/countries";
+import { PAYMENT_METHOD_ICONS, getOrderTotals } from "../data/checkoutData";
 import { paymentSchema, type PaymentValues } from "../data/paymentSchema";
 import { formatMoney } from "../utils/formatMoney";
 import { CardFields } from "./CardFields";
@@ -18,15 +19,14 @@ import { PaymentMethodOption } from "./PaymentMethodOption";
 const SIMULATED_PAYMENT_MS = 900;
 
 interface PaymentStepProps {
-  country: RegionCode;
+  country: CountryCode;
   onBack: () => void;
   onComplete: (method: PaymentMethodKey) => void;
 }
 
-/** P-02a (Egypt) / P-02b (Saudi Arabia) · Payment method. */
+/** P-02a (Egypt) / P-02b (Saudi Arabia) · Payment method: the country's `paymentMethods` (lib/countries.ts). */
 export function PaymentStep({ country, onBack, onComplete }: PaymentStepProps) {
   const t = useTranslations("checkout.payment");
-  const tCountries = useTranslations("countries");
   const locale = useLocale() as AppLocale;
   const { total, currency } = getOrderTotals(country);
   const {
@@ -53,14 +53,14 @@ export function PaymentStep({ country, onBack, onComplete }: PaymentStepProps) {
       : t("pay", { amount: formatMoney(total, currency, locale) });
 
   return (
-    <CheckoutPanel title={t("title")} subtitle={t("subtitle", { country: tCountries(country) })}>
+    <CheckoutPanel title={t("title")} subtitle={t("subtitle", { country: countryByCode(country).name[locale] })}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
         <Controller
           control={control}
           name="method"
           render={({ field }) => (
             <RadioGroup value={field.value} onChange={field.onChange} aria-label={t("title")} className="space-y-3">
-              {PAYMENT_METHODS[country].map((key) => (
+              {countryByCode(country).paymentMethods.map((key) => (
                 <PaymentMethodOption
                   key={key}
                   value={key}

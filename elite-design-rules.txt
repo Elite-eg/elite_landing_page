@@ -45,19 +45,20 @@ app/
     <route>/data/              Typed static data: keys, icons, config, SAMPLE_ values (never copy)
     <route>/hooks/  utils/     Page-only hooks and helpers (see book-session)
   components/shared/           Used by 2+ pages (catalog in §9)
-    cta/ guide/ header/ footer/   Component families that belong together
+    cta/ country/ guide/ header/ footer/   Component families that belong together
     form-handlers/             Form controls: InputField, SelectField, SelectMenu, ChoiceChips, CheckboxField, FieldFeedback, fieldStyles, usePhoneField
   services/
     ApiService.ts              The only HTTP client (axios)
     logger.ts                  log.debug / info / warn / error
     axiosBaseQuery.ts          RTK Query adapter (not used yet)
-  store/                       Redux store, appSlice (region), useRegion hook
+  store/                       Redux store (makeStore: one per request), appSlice (country), useCountry hook
 i18n/
   routing.ts                   Locales, default locale, LOCALE_COOKIE
   navigation.ts                Locale-aware Link, useRouter, usePathname, redirect
   request.ts                   next-intl request config (messages + APP_TIME_ZONE)
 lib/
   constants.ts                 Company data, ROUTES, navigation, API_ENDPOINTS, links, cookies, whatsappUrl
+  countries.ts                 COUNTRIES: everything per country (currency, dial code, mobile format, VAT, payment methods)
   metadata.ts                  buildPageMetadata, SITE_URL, DEFAULT_OG_IMAGE, OG_LOCALES, SITE_KEYWORDS
   locale.ts                    toAppLocale, intlLocale
   animations.ts                Framer Motion presets + MOTION timings
@@ -82,6 +83,7 @@ public/images, public/videos   Media files (paths referenced from MEDIA or a pag
 | Text of any kind | `messages/ar.json` + `messages/en.json`, same key in both |
 | A color, font size, shadow, radius, easing | `app/globals.css` + `tailwind.config.js` (see §3.6) |
 | A route, external link, endpoint, company fact, cookie name | `lib/constants.ts` (cookie for language: `i18n/routing.ts`) |
+| A country, or anything that differs per country (name, flag, currency, dial code, mobile format, VAT, time zone, payment methods) | One line in `COUNTRIES` (`lib/countries.ts`), its Arabic / English texts included (`name`, `currencySymbol`). `flag` is optional (a path in `public/`, e.g. 4x3 SVGs from github.com/lipis/flag-icons, MIT, or a URL); without it the switcher shows the code. Draft checkout only: a sample price and bank account in `draft/data/checkoutData.ts` (TypeScript points to both) |
 | A motion preset | `lib/animations.ts` |
 | A validation regex | `lib/validation.ts` |
 | An HTTP call | `ApiService` + an entry in `API_ENDPOINTS` |
@@ -98,7 +100,7 @@ public/images, public/videos   Media files (paths referenced from MEDIA or a pag
 | Header / footer navigation | `lib/constants.ts` | `NAV_LINKS`, `HEADER_*`, `FOOTER_NAV_GROUPS`, `LEGAL_NAV_ITEMS` |
 | WhatsApp links | `lib/constants.ts` | `WHATSAPP_URL`, or `whatsappUrl(t("…message"))` for a prefilled message; `WHATSAPP_DISPLAY_PHONE` to show the number |
 | Phone / email / map links | `lib/constants.ts` | `telUrl(phone)`, `EMAIL_URL`, `COMPANY_MAP_URL` (TBD: real Maps place link) |
-| Dial codes, mobile numbers | `lib/constants.ts`, `lib/validation.ts`, `lib/phone.ts` | `REGIONS[].dialCode` and `.mobile` (length, display groups, placeholder), `regionByCode(code)`; `PATTERNS.mobile` / `mobilePrefix` (which digits are valid); lib/phone.ts formats, cleans pastes and builds the number to send. Country names: `countries` messages |
+| Countries (currency, dial code, mobile number, VAT, payment methods) | `lib/countries.ts` | `COUNTRIES`, `countryByCode(code)`, `COUNTRY_CODES` (z.enum). In components: `useCountry()` → `{ country, changeCountry }` (Redux + `country` cookie). Detection (`lib/visitorCountry.ts`, works on any host, no code change when moving): saved cookie → host geo header (`GEO_COUNTRY_HEADERS`: Vercel, Cloudflare, CloudFront, `x-country-code`; another host's header name goes in the `GEO_COUNTRY_HEADER` env var) → browser time zone (`timeZones`, client side via `CountryAutoDetect`, then saved) → `DEFAULT_COUNTRY`. The first two run on the server, so the first render is already right. `mobile` is a digit format ("1[0125] XXXX XXXX"): lib/phone.ts derives length, grouping, placeholder and the check from it, formats, cleans pastes and builds the number to send. Texts: `country.name[locale]`, `country.currencySymbol[locale]`; flag: `country.flag`. The phone error is the shared `validation.mobileInvalid` ({country}, {length}, {example}), filled in by `usePhoneField` |
 | Endpoints | `lib/constants.ts` | `API_ENDPOINTS.*` (unknown ones marked TBD) |
 | Page metadata | `lib/metadata.ts` | `buildPageMetadata({...})` (§13) |
 | Media paths | `lib/constants.ts` | `MEDIA.*` |
@@ -364,11 +366,12 @@ Rules:
 
 - ALL user-facing text lives in `messages/ar.json` and `messages/en.json`, with the same keys and the same
   `{arguments}` in both. Never hardcode text (Arabic or English) in a component, including toasts, Zod messages,
-  WhatsApp messages and placeholders.
+  WhatsApp messages and placeholders. Exception (owner decision): data that carries its own `{ ar, en }` texts in
+  `lib/` (`COMPANY_INFO`, and each country's `name` / `currencySymbol` in `lib/countries.ts`, so a country is one line).
 - Namespace per page/feature: `home`, `about`, `jobs`, `booking`, `guides.<key>`, `checkout`, `caseStudies`,
   `joinTeamCta`, `validation`, `site`, `nav`, `footer`, `notFound`, …
 - ICU params for dynamic values (`{brand}`, `{email}`, `{amount}`, `{count}`), ICU `plural` for counts
-  (e.g. `jobs.badge`), ICU `select` for per-country variants (`{country, select, SA {…} other {…}}`).
+  (e.g. `jobs.badge`), ICU `select` for per-country variants (`{country, select, EG {…} SA {…} other {…}}`; `other` is the text a newly added country gets, so keep it neutral).
 - Rich text: `t.rich("key", { br: () => <br /> })` with `<br></br>` in the message. Languages may differ in tags.
 - Use logical utilities only: `ms/me`, `ps/pe`, `start/end`, `text-start/end`, `border-s/e`, `rounded-s/e`.
   NEVER `ml/mr/pl/pr/left/right/text-left/text-right` for layout.
@@ -418,9 +421,10 @@ Rules:
 | `Eyebrow` | Orange pill label (hero + section eyebrows). `tone="dark"` on navy |
 | `Button` | All buttons and button-links. Variants `primary` (navy), `secondary` (orange CTA), `outline`, `text`, `ghost`, `glass`; sizes `sm`/`md`/`lg`; `href`, `external`, `icon`, `iconPosition`, `flipIconInRtl`, `isLoading`, `fullWidth`, `disabled`, `lift` (default true; `false` for buttons that should stay still on hover, e.g. a pinned action bar). `buttonClasses()` styles other elements as buttons |
 | `Badge` | Small labels. Variants `primary`, `secondary`, `accent`, `neutral`, `success` (dark text on a green tint; pass a green icon, green text fails AA), `glass`; sizes `sm`/`md`; optional `icon` |
-| `form-handlers/InputField` | Every text entry, picked with `as`: `"input"` (default), `"textarea"`, `"phone"` (grey "+20 ▾" dial code segment whose list shows the dial codes only, divider, number, in one LTR box. The number (no leading 0) is formatted while typing or pasting: digits only, Arabic digits converted, grouped per country ("11 2299 9933"), no typing past the country's length; a paste drops a leading 0, and a pasted "+966 …" / "0020 …" switches the code. Schema: `phoneFieldsSchema()` + `.superRefine(mobileNumberCheck(autoCode))`; everything else from `usePhoneField({ form, codeName, numberName, fallback? })` spread as `{...phone.fieldProps}`: live check while typing (error once the number can't be valid or is complete; unfinished numbers on blur / submit), "set automatically" hint until a code is picked. Send `internationalPhone(picked || phone.code, number)` from lib/phone.ts). Used by contact, the jobs apply modal and book-session. Shared props: visible label (or `hideLabel`), `error`, `hint` + `hintTone`, `icon`, `disabled`, `dir`, `inputClassName` |
-| `form-handlers/SelectField` | Every dropdown field: the field box + a Headless UI Listbox opening `SelectMenu`. Controlled (`value`, `onChange`, `onBlur`, `name`, ref), so use a react-hook-form `Controller`. `options` (`value` + `label`), `placeholder` (value `""`, shown muted), `error`, `hint`. A country field lists the names only: `REGIONS` + `countries` messages |
-| `form-handlers/SelectMenu` | The open list shared by SelectField and the phone code picker: white panel, one row per option, selected = tinted + check. Modal (Headless UI default) like a native select: the page doesn't scroll while it's open, so the list stays attached to its field. (The Figma "Country menu" with title, currency and code badge is for the header country switcher, not form fields) |
+| `form-handlers/InputField` | Every text entry, picked with `as`: `"input"` (default), `"textarea"`, `"phone"` (grey "+20 ▾" dial code segment whose list shows the dial codes only, divider, number, in one LTR box. The number (no leading 0) is formatted while typing or pasting: digits only, Arabic digits converted, grouped per country ("11 2299 9933"), no typing past the country's length; a paste drops a leading 0, and a pasted "+966 …" / "0020 …" switches the code. Schema: `phoneFieldsSchema()` + `.superRefine(mobileNumberCheck(autoCode))`; everything else from `usePhoneField({ form, codeName, numberName, fallback? })` spread as `{...phone.fieldProps}`: live check while typing (error once the number can't be valid or is complete; unfinished numbers on blur / submit), "set automatically" hint until a code is picked, and the error text (don't pass `error` for the phone field). Send `internationalPhone(picked || phone.code, number)` from lib/phone.ts). Used by contact, the jobs apply modal and book-session. Shared props: visible label (or `hideLabel`), `error`, `hint` + `hintTone`, `icon`, `disabled`, `dir`, `inputClassName` |
+| `form-handlers/SelectField` | Every dropdown field: the field box + a Headless UI Listbox opening `SelectMenu`. Controlled (`value`, `onChange`, `onBlur`, `name`, ref), so use a react-hook-form `Controller`. `options` (`value` + `label`), `placeholder` (value `""`, shown muted), `error`, `hint`. A country field lists the names only: `COUNTRIES` → `{ value: code, label: name[locale] }` |
+| `form-handlers/SelectMenu` | The open list shared by SelectField and the phone code picker: white panel, one row per option, selected = tinted + check. Modal (Headless UI default) like a native select: the page doesn't scroll while it's open, so the list stays attached to its field. (The Figma "Country menu" with title, currency and code badge is `country/CountrySwitcher`, not form fields) |
+| `country/CountrySwitcher` | The visitor's country for the whole site (Figma "Geo" button + "Country menu", node 149:1860 in the v4 copy): pin + "مصر · ج.م" pill opening a Listbox of `COUNTRIES` (title, then one row per country: its `flag` (4:3), or the code in a navy tile when the line has no flag or it fails to load, + `name`; chosen = tinted row + check). One look on any background: the pill's fill is its text color at 7% (stronger on hover, with a pin hop), orange border while open; pass the text color as `className` (`text-surface` on the ink top bar), like `HeaderLanguageToggle`. The list opens below, or above when there's no room (Headless UI flip). Changes go through `useCountry()`, so prices, phone fields and checkout update at once |
 | `form-handlers/ChoiceChips` | A question answered with pill chips (Figma "chip": white + `border-edge`, chosen = `primary-dark` with white text). One answer = Headless UI `RadioGroup`; `multiple` = Headless UI `Checkbox` per chip (chosen ones show a check). Label, `error`, `disabled`; controlled, so use a `Controller`. Agents form (business activities, yes / no) |
 | `form-handlers/CheckboxField` | Checkbox + label beside it (Figma "Checkbox": 20px box, navy with a white check). The label may hold links (`t.rich`); clicking the link doesn't tick the box. Controlled (`checked`, `onChange`, ref for error focus). Agents form consent line |
 | `form-handlers/fieldStyles` + `FieldFeedback` | The shared field look from the Figma (14px medium label; white box, `border-edge`, `rounded-xl`, 52px `FIELD_HEIGHT`; focus = orange border + 0.5px ring; `FIELD_LABEL_CLASSES`, `fieldBoxClasses()`, `FIELD_OPEN_CLASSES`, `FIELD_INNER_CONTROL_CLASSES`) and the error / hint line under a control. A new kind of field becomes another `as` of InputField (or a sibling in `form-handlers/`) built from these, never a per-page restyle |
@@ -435,7 +439,7 @@ Rules:
 | `cta/JoinTeamCta` | `CtaBanner` preset for careers. Drop `<JoinTeamCta />` at the end of any page |
 | `guide/GuideLanding` | Free-PDF guide landing template (+ `buildGuideMetadata`, `GUIDES` config) |
 | `header/*`, `footer/*` | Site chrome, driven entirely by the navigation data in `lib/constants.ts` |
-| Not used yet | `CustomDropdown` (pass a translated `placeholder`), `NewsletterForm`, `header/HeaderRegionSwitcher`, `footer/GooglePlayLogo`; `LocaleSwitcher` is superseded by `header/HeaderLanguageToggle` (don't use) |
+| Not used yet | `CustomDropdown` (pass a translated `placeholder`), `NewsletterForm`, `footer/GooglePlayLogo`; `LocaleSwitcher` is superseded by `header/HeaderLanguageToggle` (don't use) |
 
 ### 9.2 Helpers
 
@@ -448,7 +452,7 @@ Rules:
 | `PATTERNS` | `lib/validation.ts` | Zod regexes |
 | `ApiService` | `app/services/ApiService.ts` | All HTTP |
 | `log` | `app/services/logger.ts` | Logging |
-| `useRegion()` | `app/store/useRegion.ts` | Visitor country / currency (Redux + `region` cookie) |
+| `useCountry()` | `app/store/useCountry.ts` | Visitor country: its whole `COUNTRIES` entry + `changeCountry` (Redux + `country` cookie) |
 | `useLocaleToggle()`, `useActiveRoute()` | `components/shared/header/` | Language switch, active nav item |
 | `Link`, `useRouter`, `usePathname`, `redirect` | `i18n/navigation.ts` | Locale-aware navigation |
 
@@ -458,9 +462,10 @@ Rules:
 
 - React Hook Form + Zod + `zodResolver`. The schema is the single source of validation; forms use `noValidate`.
 - Zod messages are KEYS in the `validation` namespace (`"phoneInvalid"`), shown with `useTranslations("validation")`.
-- Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `mobile.EG` / `mobile.SA`, `mobilePrefix.EG` / `.SA`, `cardNumber`,
-  `cardExpiry`, `cardCvc`). Mobile numbers have no leading 0 after the dial code: EG `^1[0125]\d{8}$` (10 / 11 / 12 / 15),
-  SA `^5[013-9]\d{7}$`. Typing a 0 first is an error; pasting drops it ("01122999933" → "11 2299 9933").
+- Shared regexes live in `lib/validation.ts` (`PATTERNS.phone`, `cardNumber`, `cardExpiry`, `cardCvc`). Mobile numbers are
+  checked per country from its `mobile` format in `lib/countries.ts` (one token per digit: a digit, `[…]` = one of these,
+  `X` = any): EG `1[0125] XXXX XXXX` (10 / 11 / 12 / 15), SA `5[013-9] XXX XXXX`. No leading 0 after the dial code:
+  typing a 0 first is an error; pasting drops it ("01122999933" → "11 2299 9933").
 - Conditional rules use `superRefine` (e.g. card fields only when `method === "card"`).
 - Every input has a visible label, an error state, the right `autoComplete`/`inputMode`, and is disabled while
   submitting (`disabled={isSubmitting}`). Submit buttons use `isLoading`.
@@ -523,12 +528,12 @@ Rules:
 | `/home` | Video hero, tech marquee, ecosystem, services bento, community, ideas (+ gate modal), navy CTA |
 | `/about` | Hero + brand tile, mission/vision cards, Albiruni features, values 01–04, `JoinTeamCta` |
 | `/jobs` | Figma v4 "Careers": navy gradient hero (count from data), how we work (Lucide icons as in the Figma), open positions with the department filter on the title row (pills only for departments with openings, sliding indicator) and an animated filterable list, open-application note on WhatsApp (doubles as the empty state), apply modal with role summary + requirements → `API_ENDPOINTS.jobApplication` (TBD) or WhatsApp. Anchor `#open-positions` via `JOBS_OPEN_POSITIONS_ID` |
-| `/contact` | Figma v4 "Contact" (top section only; the file repeats it): intro + channel cards (WhatsApp, Maher, phones, email, office, all from `COMPANY_INFO`) on the start side, request form on the end side (below lg: intro → form → channels). Form → `API_ENDPOINTS.contactRequest` (TBD); phone code and country follow the visitor's region until changed. On a 2xx the card swaps to `SuccessPanel` with everything sent (message as a `wide` row; "Send a new message" / "Back to home") |
-| `/agents` | Figma v4 "Agents": navy hero (apply → `#agency-form`, meet our agent → `#our-agent`), authorized agent card (logo tile from the Figma in `public/images/agents/`, contacts in `AGENT_CONTACTS`), benefits, numbered steps, agency application form → `API_ENDPOINTS.agencyApplication` (TBD). Country is Egypt or Saudi Arabia (`REGIONS`, starting at the visitor's region); the phone code follows the country. On a 2xx the card swaps to `SuccessPanel` |
+| `/contact` | Figma v4 "Contact" (top section only; the file repeats it): intro + channel cards (WhatsApp, Maher, phones, email, office, all from `COMPANY_INFO`) on the start side, request form on the end side (below lg: intro → form → channels). Form → `API_ENDPOINTS.contactRequest` (TBD); phone code and country follow the visitor's country until changed. On a 2xx the card swaps to `SuccessPanel` with everything sent (message as a `wide` row; "Send a new message" / "Back to home") |
+| `/agents` | Figma v4 "Agents": navy hero (apply → `#agency-form`, meet our agent → `#our-agent`), authorized agent card (logo tile from the Figma in `public/images/agents/`, contacts in `AGENT_CONTACTS`), benefits, numbered steps, agency application form → `API_ENDPOINTS.agencyApplication` (TBD). Country is one of `COUNTRIES` (starting at the visitor's country); the phone code follows the country. On a 2xx the card swaps to `SuccessPanel` |
 | `/book-session` | Booking widget: meeting type + Cairo-time calendar → details (validated) → success. Until the backend exists the POST to `API_ENDPOINTS.bookSession` is commented out and success shows without sending (TODO in `BookingWidget.tsx`) |
 | `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form → `API_ENDPOINTS.guideRequest` (TBD) |
 | `/projects/bareeq-x` | Case study: teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
-| `/draft` | DRAFT subscription checkout: company details → payment (EG / SA methods) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing, payment simulated |
+| `/draft` | DRAFT subscription checkout: company details (company country = the visitor's country, same value as the header switcher; shared phone field) → payment (the country's `paymentMethods`, its currency and VAT) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing, payment simulated |
 | any unknown path | Localized 404 (`not-found.tsx`) inside the site layout |
 
 ---

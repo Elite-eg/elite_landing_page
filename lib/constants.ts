@@ -288,26 +288,6 @@ export const HEADER_ACCOUNT_LINKS: readonly NavItem[] = [
   { labelKey: "login", href: COMMUNITY_URLS.login, external: true, icon: FiLogIn },
 ];
 
-/**
- * Country / currency options for the header switcher. Prices read the "region" cookie.
- * `dialCode` and `mobile` drive phone fields (lib/phone.ts): the mobile number after the dial code (no leading 0) has
- * `length` digits, shown in `groups`. Which digits are valid is checked by PATTERNS.mobile (lib/validation.ts).
- */
-export const REGIONS = [
-  { code: "EG", currency: "EGP", dialCode: "+20", mobile: { length: 10, groups: [2, 4, 4], placeholder: "1X XXXX XXXX" } },
-  { code: "SA", currency: "SAR", dialCode: "+966", mobile: { length: 9, groups: [2, 3, 4], placeholder: "5X XXX XXXX" } },
-] as const;
-
-export type RegionCode = (typeof REGIONS)[number]["code"];
-export const DEFAULT_REGION: RegionCode = "EG";
-
-/** Region codes as a tuple, for z.enum(). */
-export const REGION_CODES = REGIONS.map(({ code }) => code) as [RegionCode, ...RegionCode[]];
-
-/** Region entry for a code (dial code, currency, phone example). */
-export const regionByCode = (code: RegionCode) => REGIONS.find((region) => region.code === code) ?? REGIONS[0];
-export const REGION_COOKIE = "region";
-
 export interface FooterNavGroup {
   /** Key inside "nav.groups". */
   key: "albiruni" | "solutions" | "learn" | "developers" | "company";

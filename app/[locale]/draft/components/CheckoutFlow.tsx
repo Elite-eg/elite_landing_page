@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Container } from "@/app/components/shared/Container";
-import { useRegion } from "@/app/store/useRegion";
-import type { RegionCode } from "@/lib/constants";
+import { useCountry } from "@/app/store/useCountry";
 import { fadeInUp } from "@/lib/animations";
-import type { CheckoutStep, CompanyDetails, PaymentMethodKey } from "../data/checkoutData";
+import type { PaymentMethodKey } from "@/lib/countries";
+import type { CheckoutStep } from "../data/checkoutData";
+import type { CompanyDetails } from "../data/companySchema";
 import { ActivationSuccess } from "./ActivationSuccess";
 import { BankTransferPending } from "./BankTransferPending";
 import { CheckoutStepper } from "./CheckoutStepper";
@@ -18,19 +19,17 @@ import { PaymentStep } from "./PaymentStep";
 const STEP_INDEX: Record<CheckoutStep, number> = { company: 0, payment: 1, result: 2 };
 
 /**
- * Subscription checkout: company details → payment (Egypt / Saudi Arabia) → activated or awaiting bank transfer.
+ * Subscription checkout: company details → payment (the country's methods) → activated or awaiting bank transfer.
+ * The company country is the visitor's country: the toggle here and the header switcher change the same value.
  * DRAFT: state is local only; nothing is sent to a backend yet.
  */
 export function CheckoutFlow() {
   const t = useTranslations("checkout.meta");
-  const { region } = useRegion();
+  const { country, changeCountry } = useCountry();
   const [step, setStep] = useState<CheckoutStep>("company");
-  const [country, setCountry] = useState<RegionCode | null>(null);
   const [company, setCompany] = useState<CompanyDetails | undefined>();
   const [method, setMethod] = useState<PaymentMethodKey | null>(null);
 
-  /** Defaults to the visitor's header region until they pick a country. */
-  const activeCountry = country ?? region;
   const isPending = method === "bankTransfer";
 
   const goTo = (next: CheckoutStep) => {
@@ -48,17 +47,17 @@ export function CheckoutFlow() {
         <motion.div key={step} variants={fadeInUp} initial="hidden" animate="visible" className="mt-10">
           {step === "result" ? (
             isPending ? (
-              <BankTransferPending country={activeCountry} />
+              <BankTransferPending country={country.code} />
             ) : (
-              <ActivationSuccess country={activeCountry} email={company?.email ?? ""} />
+              <ActivationSuccess country={country.code} email={company?.email ?? ""} />
             )
           ) : (
             <div className="grid items-start gap-6 lg:grid-cols-12">
               <div className="lg:col-span-7">
                 {step === "company" ? (
                   <CompanyDetailsStep
-                    country={activeCountry}
-                    onCountryChange={setCountry}
+                    country={country.code}
+                    onCountryChange={changeCountry}
                     defaultValues={company}
                     onSubmit={(values) => {
                       setCompany(values);
@@ -67,7 +66,7 @@ export function CheckoutFlow() {
                   />
                 ) : (
                   <PaymentStep
-                    country={activeCountry}
+                    country={country.code}
                     onBack={() => goTo("company")}
                     onComplete={(chosen) => {
                       setMethod(chosen);
@@ -77,7 +76,7 @@ export function CheckoutFlow() {
                 )}
               </div>
               <div className="lg:col-span-5">
-                <OrderSummary country={activeCountry} />
+                <OrderSummary country={country.code} />
               </div>
             </div>
           )}

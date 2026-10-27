@@ -1,48 +1,41 @@
 "use client";
 
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { FiArrowRight, FiLock } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
-import type { RegionCode } from "@/lib/constants";
-import { PATTERNS } from "@/lib/validation";
-import type { CompanyDetails } from "../data/checkoutData";
+import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
+import type { CountryCode } from "@/lib/countries";
+import { EMPTY_COMPANY, companySchema, type CompanyDetails } from "../data/companySchema";
 import { CheckoutPanel } from "./CheckoutPanel";
 import { CountryToggle } from "./CountryToggle";
 
-/** Error messages are message keys inside the "validation" namespace. */
-const companySchema = z.object({
-  companyName: z.string().trim().min(1, "companyNameRequired"),
-  taxNumber: z.string().trim(),
-  contactName: z.string().trim().min(1, "nameRequired"),
-  phone: z.string().trim().min(1, "phoneRequired").regex(PATTERNS.phone, "phoneInvalid"),
-  email: z.string().trim().min(1, "emailRequired").email("emailInvalid"),
-}) satisfies z.ZodType<CompanyDetails>;
-
 interface CompanyDetailsStepProps {
-  country: RegionCode;
-  onCountryChange: (country: RegionCode) => void;
+  country: CountryCode;
+  onCountryChange: (country: CountryCode) => void;
   defaultValues?: CompanyDetails;
   onSubmit: (values: CompanyDetails) => void;
 }
-
-const EMPTY_COMPANY: CompanyDetails = { companyName: "", taxNumber: "", contactName: "", phone: "", email: "" };
 
 /** P-01 · Company details. Country lives in the parent so the order summary updates live. */
 export function CompanyDetailsStep({ country, onCountryChange, defaultValues, onSubmit }: CompanyDetailsStepProps) {
   const t = useTranslations("checkout.company");
   const tValidation = useTranslations("validation");
+  const schema = useMemo(() => companySchema(country), [country]);
+  const form = useForm<CompanyDetails>({
+    resolver: zodResolver(schema),
+    defaultValues: defaultValues ?? EMPTY_COMPANY,
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CompanyDetails>({
-    resolver: zodResolver(companySchema),
-    defaultValues: defaultValues ?? EMPTY_COMPANY,
-  });
+  } = form;
+  // The automatic phone code follows the company country.
+  const phone = usePhoneField({ form, codeName: "phoneCountry", numberName: "phone", fallback: country });
 
   const errorText = (key?: string) => (key ? tValidation(key) : undefined);
 
@@ -73,17 +66,7 @@ export function CompanyDetailsStep({ country, onCountryChange, defaultValues, on
             error={errorText(errors.contactName?.message)}
             {...register("contactName")}
           />
-          <InputField
-            type="tel"
-            inputMode="tel"
-            dir="ltr"
-            label={t("phone")}
-            placeholder={t(`phonePlaceholder.${country}`)}
-            autoComplete="tel"
-            inputClassName="rtl:text-end"
-            error={errorText(errors.phone?.message)}
-            {...register("phone")}
-          />
+          <InputField as="phone" label={t("phone")} {...phone.fieldProps} />
         </div>
 
         <InputField

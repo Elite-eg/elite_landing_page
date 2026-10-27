@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { FiArrowRight, FiX } from "react-icons/fi";
 import { COMMUNITY_NAV_ITEM, HEADER_ACCOUNT_LINKS, HEADER_CTA, HEADER_UTILITY_LINKS, NAV_LINKS } from "@/lib/constants";
 import { Button } from "../Button";
+import { CountrySwitcher } from "../country/CountrySwitcher";
 import { Logo } from "../Logo";
 import { HeaderLanguageToggle } from "./HeaderLanguageToggle";
 import { HeaderMobileNavAccordion } from "./HeaderMobileNavAccordion";
@@ -82,13 +83,16 @@ export function HeaderMobileDrawer({ isOpen, onClose }: HeaderMobileDrawerProps)
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {secondaryLinks.map((item) => (
                 <HeaderTopBarLink
-                  key={item.href}
+                  key={item.labelKey}
                   item={item}
                   className={SMALL_LINK_CLASS}
                 />
               ))}
             </div>
-            <HeaderLanguageToggle className="text-sm text-content hover:text-primary" />
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
+              <CountrySwitcher />
+              <HeaderLanguageToggle className="text-content hover:text-primary" />
+            </div>
           </div>
         </DialogPanel>
       </div>

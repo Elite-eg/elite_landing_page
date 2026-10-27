@@ -2,7 +2,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { FiClock, FiInfo } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa6";
 import { Button } from "@/app/components/shared/Button";
-import { COMPANY_INFO, whatsappUrl, type AppLocale, type RegionCode } from "@/lib/constants";
+import { COMPANY_INFO, whatsappUrl, type AppLocale } from "@/lib/constants";
+import type { CountryCode } from "@/lib/countries";
 import { SAMPLE_BANK_ACCOUNTS, SAMPLE_ORDER, getOrderTotals } from "../data/checkoutData";
 import { formatMoney } from "../utils/formatMoney";
 import { DetailList } from "./DetailList";
@@ -10,7 +11,7 @@ import { ResultCard } from "./ResultCard";
 import { ResultHomeLink } from "./ResultHomeLink";
 
 interface BankTransferPendingProps {
-  country: RegionCode;
+  country: CountryCode;
 }
 
 /** P-03b · Waiting for the bank transfer. */
