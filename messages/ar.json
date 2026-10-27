@@ -112,10 +112,10 @@
         "cta": "ابدأ التجربة"
       }
     },
-    "regionLabel": "الدولة والعملة",
-    "regions": {
-      "EG": "مصر · ج.م",
-      "SA": "السعودية · ر.س"
+    "countrySwitcher": {
+      "label": "الدولة والعملة: {country}",
+      "title": "اختر دولتك",
+      "current": "{country} · {symbol}"
     },
     "utilityNav": "روابط سريعة"
   },
@@ -448,8 +448,7 @@
     "mobileRequired": "أدخل رقم الجوال.",
     "companySizeRequired": "اختر عدد الموظفين.",
     "needRequired": "اختر ما تحتاجه.",
-    "mobileInvalidEG": "أدخل رقم جوال مصرياً من 10 أرقام يبدأ بـ 10 أو 11 أو 12 أو 15، مثل ⁦11 2299 9933⁩.",
-    "mobileInvalidSA": "أدخل رقم جوال سعودياً من 9 أرقام يبدأ بـ 5، مثل ⁦50 123 4567⁩.",
+    "mobileInvalid": "أدخل رقم جوال صحيحاً في {country} من {length} أرقام، مثل ⁦{example}⁩.",
     "cityRequired": "أدخل المدينة.",
     "commercialRegisterRequired": "أدخل رقم السجل التجاري.",
     "salesTeamSizeRequired": "اختر عدد فريق المبيعات.",
@@ -457,10 +456,6 @@
     "erpExperienceRequired": "اختر نعم أو لا.",
     "companyAboutRequired": "اكتب نبذة قصيرة عن شركتك.",
     "consentRequired": "وافق على سياسة الخصوصية لإرسال الطلب."
-  },
-  "countries": {
-    "EG": "مصر",
-    "SA": "السعودية"
   },
   "phoneField": {
     "countryCode": "رمز الدولة",
@@ -1008,10 +1003,6 @@
       "contactName": "اسم المسؤول",
       "contactNamePlaceholder": "الاسم الكامل",
       "phone": "رقم الجوال",
-      "phonePlaceholder": {
-        "EG": "+20 100 000 0000",
-        "SA": "+966 50 000 0000"
-      },
       "email": "البريد الإلكتروني",
       "emailPlaceholder": "name@company.com",
       "submit": "متابعة إلى الدفع",
@@ -1023,7 +1014,7 @@
       "methods": {
         "card": {
           "label": "بطاقة بنكية",
-          "description": "{country, select, SA {مدى أو فيزا أو ماستركارد} other {فيزا أو ماستركارد أو ميزة}}"
+          "description": "{country, select, EG {فيزا أو ماستركارد أو ميزة} SA {مدى أو فيزا أو ماستركارد} other {فيزا أو ماستركارد}}"
         },
         "fawry": {
           "label": "فوري",

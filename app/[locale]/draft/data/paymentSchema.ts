@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { PATTERNS } from "@/lib/validation";
-import type { PaymentMethodKey } from "./checkoutData";
+import type { PaymentMethodKey } from "@/lib/countries";
 
 /** Card fields are only validated when paying by card. Messages are keys in the "validation" namespace. */
 export const paymentSchema = z

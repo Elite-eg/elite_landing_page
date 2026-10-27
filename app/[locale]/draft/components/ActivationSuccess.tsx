@@ -1,7 +1,8 @@
 import { useLocale, useTranslations } from "next-intl";
 import { FiCalendar, FiCheck } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
-import { ROUTES, type AppLocale, type RegionCode } from "@/lib/constants";
+import { ROUTES, type AppLocale } from "@/lib/constants";
+import type { CountryCode } from "@/lib/countries";
 import { SAMPLE_ORDER, getOrderTotals } from "../data/checkoutData";
 import { formatMoney } from "../utils/formatMoney";
 import { DetailList } from "./DetailList";
@@ -11,7 +12,7 @@ import { ResultHomeLink } from "./ResultHomeLink";
 const NEXT_STEPS = ["setup", "team", "onboarding"] as const;
 
 interface ActivationSuccessProps {
-  country: RegionCode;
+  country: CountryCode;
   email: string;
 }
 

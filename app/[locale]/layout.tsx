@@ -13,9 +13,11 @@ import { Toaster } from "react-hot-toast";
 import { Header } from "@/app/components/shared/header/Header";
 import { Footer } from "@/app/components/shared/footer/Footer";
 import { WhatsAppButton } from "@/app/components/shared/WhatsAppButton";
+import { CountryAutoDetect } from "@/app/components/shared/country/CountryAutoDetect";
 import { COMPANY_INFO } from "@/lib/constants";
 import { toAppLocale } from "@/lib/locale";
 import { DEFAULT_OG_IMAGE, OG_LOCALES, SITE_KEYWORDS, SITE_URL } from "@/lib/metadata";
+import { visitorCountry } from "@/lib/visitorCountry";
 
 /** Headings (Display / H2 / H3). */
 const alexandria = Alexandria({
@@ -128,6 +130,7 @@ export default async function LocaleLayout({
     notFound();
   }
   const messages: AbstractIntlMessages = await getMessages({ locale });
+  const country = await visitorCountry();
 
   return (
     <html
@@ -136,7 +139,8 @@ export default async function LocaleLayout({
       className={`${alexandria.variable} ${readexPro.variable} ${poppins.variable} overflow-x-hidden max-w-full w-full`}
     >
       <body className="font-sans flex min-h-screen flex-col overflow-x-hidden max-w-full w-full relative">
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={messages} country={country.code}>
+          {!country.known && <CountryAutoDetect />}
           <Header />
           <main
             id="main"

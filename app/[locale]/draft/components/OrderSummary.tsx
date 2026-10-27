@@ -1,12 +1,13 @@
 import { useLocale, useTranslations } from "next-intl";
 import { FiPackage } from "react-icons/fi";
-import type { AppLocale, RegionCode } from "@/lib/constants";
+import type { AppLocale } from "@/lib/constants";
+import type { CountryCode } from "@/lib/countries";
 import { SAMPLE_ORDER, getOrderTotals } from "../data/checkoutData";
 import { formatMoney } from "../utils/formatMoney";
 import { DetailList } from "./DetailList";
 
 interface OrderSummaryProps {
-  country: RegionCode;
+  country: CountryCode;
 }
 
 export function OrderSummary({ country }: OrderSummaryProps) {

@@ -15,19 +15,19 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
-import { useRegion } from "@/app/store/useRegion";
+import { useCountry } from "@/app/store/useCountry";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { fadeInUp } from "@/lib/animations";
-import type { RegionCode } from "@/lib/constants";
+import type { CountryCode } from "@/lib/countries";
 import { internationalPhone } from "@/lib/phone";
 import { mobileNumberCheck, phoneFieldsSchema } from "@/lib/validation";
 
 /**
- * Error messages are message keys inside the "validation" namespace. Built per region: the phone number is checked
- * against the automatic code (the visitor's region) until the visitor picks one.
+ * Error messages are message keys inside the "validation" namespace. Built per country: the phone number is checked
+ * against the automatic code (the visitor's country) until the visitor picks one.
  */
-const detailsSchema = (region: RegionCode) =>
+const detailsSchema = (country: CountryCode) =>
   z
     .object({
       name: z.string().trim().min(1, "nameRequired"),
@@ -36,7 +36,7 @@ const detailsSchema = (region: RegionCode) =>
       company: z.string().trim(),
       notes: z.string().trim(),
     })
-    .superRefine(mobileNumberCheck(region));
+    .superRefine(mobileNumberCheck(country));
 
 export type BookingFormData = z.infer<ReturnType<typeof detailsSchema>>;
 
@@ -61,8 +61,8 @@ export function DetailsStep({
 }: DetailsStepProps) {
   const t = useTranslations("booking");
   const tValidation = useTranslations("validation");
-  const { region } = useRegion();
-  const schema = useMemo(() => detailsSchema(region), [region]);
+  const { country } = useCountry();
+  const schema = useMemo(() => detailsSchema(country.code), [country]);
   const form = useForm<BookingFormData>({ resolver: zodResolver(schema), defaultValues });
   const {
     register,
@@ -108,7 +108,6 @@ export function DetailsStep({
         as="phone"
         label={t("form.phone")}
         {...phone.fieldProps}
-        error={errorText(errors.phone?.message)}
         {...field}
       />
       <InputField
