@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { DiagnosticSessionCta } from "@/app/components/shared/cta/DiagnosticSessionCta";
 import { COMPANY_INFO, ROUTES } from "@/lib/constants";
 import { toAppLocale } from "@/lib/locale";
 import { buildPageMetadata } from "@/lib/metadata";
-import { ProjectsCta } from "./components/ProjectsCta";
 import { ProjectsShowcase } from "./components/ProjectsShowcase";
 
 interface ProjectsPageProps {
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
   return (
     <>
       <ProjectsShowcase />
-      <ProjectsCta />
+      <DiagnosticSessionCta />
     </>
   );
 }

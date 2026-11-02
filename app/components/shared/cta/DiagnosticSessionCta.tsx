@@ -1,11 +1,11 @@
 import { useTranslations } from "next-intl";
 import { FiArrowRight } from "react-icons/fi";
-import { CtaBanner } from "@/app/components/shared/cta/CtaBanner";
 import { ROUTES, WHATSAPP_URL } from "@/lib/constants";
+import { CtaBanner } from "./CtaBanner";
 
-/** Closing banner: book a free diagnostic session (main action) or chat on WhatsApp. */
-export function ProjectsCta() {
-  const t = useTranslations("projects.cta");
+/** "Start with a free diagnostic session" closing banner: book the session (main action) or chat on WhatsApp. */
+export function DiagnosticSessionCta() {
+  const t = useTranslations("diagnosticSessionCta");
 
   return (
     <CtaBanner

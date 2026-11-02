@@ -58,7 +58,7 @@ export type CountryCode = (typeof COUNTRIES)[number]["code"];
 export type Country = CountryConfig & { code: CountryCode };
 
 /** Used until the visitor picks a country. */
-export const DEFAULT_COUNTRY: CountryCode = "EG";
+export const DEFAULT_COUNTRY: CountryCode = "SA";
 
 /** Saves the visitor's choice; the root layout reads it so the first render already shows their country. */
 export const COUNTRY_COOKIE = "country";

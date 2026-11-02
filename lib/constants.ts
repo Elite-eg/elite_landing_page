@@ -82,6 +82,7 @@ export const MEDIA = {
   mentoring: "/images/mentoring-session.png",
   bareeqTeam: "/images/hero-bareeq.jpeg",
   bareeqLogo: "/images/Bareeq.svg",
+  albiruniMark: "/images/albiruni-mark.svg",
 } as const;
 
 export const API_ENDPOINTS = {

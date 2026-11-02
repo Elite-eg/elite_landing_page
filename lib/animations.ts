@@ -106,6 +106,12 @@ export const growY: Variants = {
   visible: { scaleY: 1, originY: 1, transition: { duration: MOTION.enter, ease: EASE_SMOOTH } },
 };
 
+/** Progress bars fill from the left of their track (give the track dir="ltr" so both locales fill the same way). */
+export const growX: Variants = {
+  hidden: { scaleX: 0, originX: 0 },
+  visible: { scaleX: 1, originX: 0, transition: { duration: MOTION.enter, ease: EASE_SMOOTH } },
+};
+
 /** Timeline connectors: the line draws downward from the marker above it. */
 export const growYFromTop: Variants = {
   hidden: { scaleY: 0, originY: 0 },

@@ -306,7 +306,8 @@ Don't stack shadows under everything. Light cards SHOULD use `border border-edge
 - Every image uses `next/image` with `width`/`height` or `fill` + `sizes`. Decorative images get `alt=""` and their
   wrapper gets `aria-hidden`. Meaningful images get a localized alt (from messages).
 - `priority` only for images above the fold (the header logo, hero images). `Logo` takes a `priority` prop for this.
-- Background utilities: `bg-dot-grid` (navy dots, light sections), `bg-dot-grid-light` (white dots, navy surfaces).
+- Background utilities: `bg-dot-grid` (navy dots, light sections), `bg-dot-grid-light` (white dots, navy surfaces),
+  `bg-line-grid-light` (white hairlines every 80px, navy heroes: Albiruni platform).
   Fade them with `[mask-image:linear-gradient(to_bottom,black,transparent)]`.
 
 ### 5.6 Design principles
@@ -336,6 +337,7 @@ Presets live in `lib/animations.ts`. Components import them and MUST NOT define 
 | `checkPop` | Check marks in choice controls (`ChoiceChips`, `CheckboxField`): pop in with a slight overshoot, leave quickly; inside `<AnimatePresence>` |
 | `fillIn` | A selection indicator appearing where nothing was selected (first `ChoiceChips` answer); afterwards it glides with `layoutTransition` |
 | `growY`, `growYFromTop`, `drawPath` | Chart bars, timeline connectors, line drawing |
+| `growX` | Progress bars filling from the left (give the track `dir="ltr"`), e.g. the Albiruni shift bar |
 | `botEnter` | Maher bot entrance |
 | `withDelay(preset, s)`, `viewportOnce`, `MOTION` | Helpers and timings (mirror the `--motion-*` CSS tokens) |
 
@@ -372,7 +374,7 @@ Rules:
   WhatsApp messages and placeholders. Exception (owner decision): data that carries its own `{ ar, en }` texts in
   `lib/` (`COMPANY_INFO`, and each country's `name` / `currencySymbol` in `lib/countries.ts`, so a country is one line).
 - Namespace per page/feature: `home`, `about`, `jobs`, `booking`, `guides.<key>`, `checkout`, `caseStudies`,
-  `joinTeamCta`, `validation`, `site`, `nav`, `footer`, `notFound`, …
+  `joinTeamCta`, `diagnosticSessionCta`, `albiruni`, `validation`, `site`, `nav`, `footer`, `notFound`, …
 - ICU params for dynamic values (`{brand}`, `{email}`, `{amount}`, `{count}`), ICU `plural` for counts
   (e.g. `jobs.badge`), ICU `select` for per-country variants (`{country, select, EG {…} SA {…} other {…}}`; `other` is the text a newly added country gets, so keep it neutral).
 - Rich text: `t.rich("key", { br: () => <br /> })` with `<br></br>` in the message. Languages may differ in tags.
@@ -444,6 +446,7 @@ Rules:
 | `IdeaCard`, `ServiceCard` | Community idea card, service card (home today; ready for community/services pages) |
 | `cta/CtaBanner` | Orange closing banner; title, subtitle, `primaryAction`, `secondaryAction`, `secondaryVariant` |
 | `cta/JoinTeamCta` | `CtaBanner` preset for careers. Drop `<JoinTeamCta />` at the end of any page |
+| `cta/DiagnosticSessionCta` | `CtaBanner` preset "Start with a free diagnostic session": navy book-a-session button + `glass` WhatsApp (copy in `diagnosticSessionCta`). Projects, Albiruni platform |
 | `guide/GuideLanding` | Free-PDF guide landing template (+ `buildGuideMetadata`, `GUIDES` config) |
 | `policy/PolicyPage` | Policy page template (+ `buildPolicyMetadata`, `POLICIES` config): light hero band (eyebrow, h1, "last updated" from `updatedAt`, optional `scope`), sections built from `text` (rich: `<emailLink>`, `<whatsappLink>`), `list` (orange dots) and `table` blocks (navy header row, striped rows, first cell = row header), and a "On this page" list that highlights the section being read (sticky on the end side from lg). Copy in `policies.<key>` |
 | `header/*`, `footer/*` | Site chrome, driven entirely by the navigation data in `lib/constants.ts` |
@@ -541,7 +544,8 @@ Rules:
 | `/book-session` | Booking widget: meeting type + Cairo-time calendar → details (validated) → success. Until the backend exists the POST to `API_ENDPOINTS.bookSession` is commented out and success shows without sending (TODO in `BookingWidget.tsx`) |
 | `/learn/collections-guide`, `/learn/e-invoicing-guide` | `GuideLanding` template, WhatsApp request form → `API_ENDPOINTS.guideRequest` (TBD) |
 | `/sla`, `/refund-policy` | Figma v4 "SLA" and "Refund": `PolicyPage` template (`policy="sla"` / `"refund"`). SLA: uptime, support, response-time and credit tables. Refund: contact line links the email and WhatsApp from `COMPANY_INFO` |
-| `/projects` | Figma v4 "Work" (أعمالنا): white hero (eyebrow, h1, paragraph) with project type pills (`FilterPills md`; a type shows only when a project has it), project cards from `PROJECTS` in `projects/data/projectsData.ts` (copy in `projects.list.<key>`; details on the start side from lg, cover on top below; tags, features, tech chips, meta line, then `AppLinkBadge`s for only the links the project has (Bareeq X reuses `BAREEQ_LINKS`), then a navy "Project details" button to the project page `ROUTES.projects[key]` on every card). Cover = tone gradient + Latin wordmark + code-drawn screens (`cover.mockup`: two `PhoneMockup` for Bareeq X, `DashboardMockup` for Aman Car and ARFA); with `cover.image` (a `MEDIA` path; Bareeq X uses `MEDIA.bareeqTeam`) the photo sits faint under the gradient, read as a tone overlay like the case study hero, sides faded. Filter swap like jobs (`listSwap` + `AnimatedHeight`), orange `CtaBanner` (book a session + `glass` WhatsApp). The Figma's footnote about temporary covers is a designer note and isn't rendered |
+| `/projects` | Figma v4 "Work" (أعمالنا): white hero (eyebrow, h1, paragraph) with project type pills (`FilterPills md`; a type shows only when a project has it), project cards from `PROJECTS` in `projects/data/projectsData.ts` (copy in `projects.list.<key>`; details on the start side from lg, cover on top below; tags, features, tech chips, meta line, then `AppLinkBadge`s for only the links the project has (Bareeq X reuses `BAREEQ_LINKS`), then a navy "Project details" button to the project page `ROUTES.projects[key]` on every card). Cover = tone gradient + Latin wordmark + code-drawn screens (`cover.mockup`: two `PhoneMockup` for Bareeq X, `DashboardMockup` for Aman Car and ARFA); with `cover.image` (a `MEDIA` path; Bareeq X uses `MEDIA.bareeqTeam`) the photo sits faint under the gradient, read as a tone overlay like the case study hero, sides faded. Filter swap like jobs (`listSwap` + `AnimatedHeight`), orange `DiagnosticSessionCta` (book a session + `glass` WhatsApp). The Figma's footnote about temporary covers is a designer note and isn't rendered |
+| `/albiruni` | Figma v4 "Albiruni · المنصة": navy gradient hero over `bg-line-grid-light` (centred copy; book a session + "Take a tour" → `#experiences`), then the product stage: web dashboard + super app phone + three live cards joined by orange connector lines, all code-drawn from `albiruni/data/albiruniData.ts` (copy in `albiruni.mockup`), composed at the Figma's 936×850px and scaled per breakpoint (0.36 / 0.62 / 0.76 / 1), mirrored in English, fading into white. Motion: copy stagger, then stage rise → screens → sparklines / bars / shift bar → lines → cards popping in and floating. Two experiences (navy mobile card + grey web card), six capability tiles on the grey band, `DiagnosticSessionCta` |
 | `/projects/bareeq-x` | Case study:teal client hero + phone mockups, challenge / solution / result chapters (`CaseStudySection`), timeline, orange `CtaBanner` with a `glass` secondary |
 | `/draft` | DRAFT subscription checkout: company details (company country = the visitor's country, same value as the header switcher; shared phone field) → payment (the country's `paymentMethods`, its currency and VAT) → activated or awaiting bank transfer. Not in `ROUTES`, `noindex`, sample pricing, payment simulated |
 | any unknown path | Localized 404 (`not-found.tsx`) inside the site layout |
@@ -577,6 +581,7 @@ Rules:
 | 404 page | Original custom design (gradient buttons, hover lifts, `rounded-2xl` buttons) instead of `Button` |
 | Book-session | Pixel values from the Figma file (`text-[0.78125rem]`, …); hero h1 not `text-display`; detail/success buttons restyle `Button` with color overrides |
 | Contact | Hero h1 uses the 30 → 36 → 44px section-title scale (the Figma's 44px) instead of `text-display`; the "Ask Maher" card is not a link until the bot exists |
+| Albiruni platform | The hero mockups keep the Figma's px sizes (the stage scales as one picture). Figma colors with no token are mapped to the closest one: bar / trend teal #14808F → `albiruni`, the attendance card's cyan #5EE0EC → white, app tiles #3B5BDB / #B45309 / #C2410C → `accent` / `warning` / `secondary-dark`, dashboard greys → `surface-alt` / `edge` / `ink-700` / `content`. Order status pills use `Badge` (success keeps its dark AA text instead of the Figma's green). Experience card titles are 24 → 28px (the Figma's 28px). Icons without a Feather match: sparkles → `FiZap`, languages → `FiGlobe`, wallet → `FiCreditCard`. The dashboard's Albiruni mark is the Figma asset (`MEDIA.albiruniMark`). The CTA keeps `CtaBanner`'s top padding (the Figma has none) and 44px title |
 | Projects | Project titles are `h2` at 24 → 30px (the Figma's 30px, between `text-h3` and `text-h2`). The ARFA cover uses `primary-dark` → `primary-deep` for the Figma's #192754 → #0D142E (not tokens). The CTA title uses `CtaBanner`'s section-title size (44px) instead of the Figma's 34px, so it wraps to two lines on desktop |
 | Policy pages | Hero h1 is 36 → 44 → 48px (the Figma's 48px) instead of `text-display`. Section titles are document headings (`h2` with `text-h3`, the Figma's 24px), not `SectionHeading`. The Figma's ink/500 (#56677F, not a token) is `text-content` |
 | Messages | `footer.newsletter.title/description` are not rendered yet |
@@ -604,3 +609,4 @@ Rules:
 | 12 | Keep or delete the unused components and dependencies listed in §9.1 and §16 | Repo hygiene |
 | 13 | Agents page: the sales team ranges, and the agent's official English name (the Figma says "Mharat Alcode Information Technology Est.", the Bareeq case study "Maharat Al-Code IT") | `SALES_TEAM_SIZES`, `agents` / `caseStudies` messages |
 | 14 | Projects page: images for the Aman Car and ARFA covers (the Figma says to take them from elitemsr.com; add the file to `public/images` and `MEDIA`, then `image` on the project's cover), a clean Bareeq X cover photo (the current one is a 1200×400 banner with its slogan and logo baked in, faded at the cover's sides), the Aman Car and ARFA case study pages (every card links "Project details" to `ROUTES.projects[key]`; only Bareeq X exists), ARFA's Arabic spelling (the Figma says عرفه, the header menu عرفة) and official English name, whether ARFA gets its own identity color, and the English copy (translated from the Arabic Figma) | `projectsData.ts`, `MEDIA`, `ROUTES.projects`, `projects` / `nav` messages |
+| 15 | Albiruni platform: where "Take a tour of the platform" should go (it scrolls to the two experiences until a tour video or demo exists), whether the mockup's Figma-only colors (light teal #14808F, cyan #5EE0EC) become Albiruni tokens, and the English copy (translated from the Arabic Figma; the h1 reads "…and cash to the IBAN") | `PLATFORM_TOUR_HREF`, `globals.css` colors, `albiruni` messages |
