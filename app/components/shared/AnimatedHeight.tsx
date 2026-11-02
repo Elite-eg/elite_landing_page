@@ -11,9 +11,9 @@ export interface AnimatedHeightProps {
 }
 
 /**
- * Follows its content's height with an animation, so what sits below (the note, the footer) glides instead of
- * jumping when the content is swapped. The one deliberate height animation (see "Motion" in elite-design-rules.txt):
- * transforms can't move the footer, which lives outside this page.
+ * Follows its content's height with an animation, so what sits below (a note, the CTA, the footer) glides instead
+ * of jumping when the content is swapped (filterable lists: jobs openings, projects). The one deliberate height
+ * animation (see "Motion" in elite-design-rules.txt): transforms can't move the footer, which lives outside the page.
  * Clips vertically only, so horizontal slides inside stay visible. `overflow-y: clip` (not clip-path) also keeps the
  * not-yet-revealed content from counting as scrollable overflow, which flashed a scrollbar on <main> while growing.
  * The -my-1 / py-1 pair leaves room for focus rings at the top and bottom edges.

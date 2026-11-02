@@ -8,7 +8,8 @@ interface PhoneMockupProps {
 const ROW_OFFSETS = [160, 204, 248, 292, 336];
 
 /**
- * Simplified app screen (header card + list rows). Drawn in a viewBox so it scales with its width.
+ * Simplified Bareeq X app screen (teal header card + list rows). Drawn in a viewBox so it scales with its width.
+ * Used by the Bareeq X case study hero and its cover on the projects page.
  * TBD: replace with real Bareeq X screenshots from elitemsr.com when the owner provides them.
  */
 export function PhoneMockup({ className }: PhoneMockupProps) {

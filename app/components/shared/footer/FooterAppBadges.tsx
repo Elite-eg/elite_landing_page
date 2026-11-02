@@ -1,7 +1,11 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { StoreBadge } from "@/app/components/shared/StoreBadge";
+import { AppLinkBadge, type AppLink } from "@/app/components/shared/AppLinkBadge";
 import { ALBIRUNI_APP_LINKS } from "@/lib/constants";
+
+const ALBIRUNI_LINKS: AppLink[] = [
+  { kind: "appStore", href: ALBIRUNI_APP_LINKS.appStore },
+  { kind: "googlePlay", href: ALBIRUNI_APP_LINKS.googlePlay },
+];
 
 export function FooterAppBadges() {
   const t = useTranslations("footer.app");
@@ -10,18 +14,9 @@ export function FooterAppBadges() {
     <div className="space-y-3">
       <h2 className="text-caption font-bold text-surface">{t("title")}</h2>
       <div className="flex flex-wrap gap-2">
-        <StoreBadge
-          href={ALBIRUNI_APP_LINKS.appStore}
-          caption={t("appStoreCaption")}
-          label={t("appStoreName")}
-          logo={<Image src="/images/app-store.svg" alt="" width={24} height={24} unoptimized className="size-full" />}
-        />
-        <StoreBadge
-          href={ALBIRUNI_APP_LINKS.googlePlay}
-          caption={t("googlePlayCaption")}
-          label={t("googlePlayName")}
-          logo={<Image src="/images/google-play.svg" alt="" width={24} height={24} unoptimized className="size-full" />}
-        />
+        {ALBIRUNI_LINKS.map((link) => (
+          <AppLinkBadge key={link.kind} link={link} />
+        ))}
       </div>
     </div>
   );

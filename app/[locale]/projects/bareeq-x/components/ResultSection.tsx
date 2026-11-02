@@ -1,8 +1,7 @@
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import { AppLinkBadge } from "@/app/components/shared/AppLinkBadge";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
-import { StoreBadge } from "@/app/components/shared/StoreBadge";
 import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
 import { BAREEQ_LINKS, BAREEQ_TIMELINE } from "../data/bareeqData";
 import { CaseStudySection } from "./CaseStudySection";
@@ -43,15 +42,9 @@ export function ResultSection() {
 
       <Reveal className="mt-6">
         <ul aria-label={t("bareeqX.result.linksLabel")} className="flex flex-wrap gap-3">
-          {BAREEQ_LINKS.map(({ key, href, logo }) => (
-            <li key={key}>
-              <StoreBadge
-                tone="light"
-                href={href}
-                caption={t(`bareeqX.result.links.${key}.caption`)}
-                label={t(`bareeqX.result.links.${key}.label`)}
-                logo={<Image src={logo} alt="" width={24} height={24} unoptimized className="size-full rounded-md" />}
-              />
+          {BAREEQ_LINKS.map((link) => (
+            <li key={link.kind}>
+              <AppLinkBadge tone="light" link={link} siteName={t("bareeqX.hero.name")} />
             </li>
           ))}
         </ul>

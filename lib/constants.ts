@@ -80,6 +80,8 @@ export const MEDIA = {
   community: "/images/community-meetup.png",
   product: "/images/mobile-web-product.png",
   mentoring: "/images/mentoring-session.png",
+  bareeqTeam: "/images/hero-bareeq.jpeg",
+  bareeqLogo: "/images/Bareeq.svg",
 } as const;
 
 export const API_ENDPOINTS = {
@@ -369,6 +371,9 @@ export const PROJECT_LINKS = {
     appStore: "https://apps.apple.com/",
     /** TBD: Bareeq X Google Play listing (not linked from bareeqx.com yet). */
     googlePlay: "https://play.google.com/store/apps",
+  },
+  arfa: {
+    website: "https://arfa-sa.com",
   },
 } as const;
 

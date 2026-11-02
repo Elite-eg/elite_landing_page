@@ -14,6 +14,7 @@ export interface StoreBadgeProps {
   tone?: StoreBadgeTone;
 }
 
+/** `label` colors the whole badge, so an icon logo (currentColor) matches the label. */
 const TONE_CLASSES: Record<StoreBadgeTone, { badge: string; caption: string; label: string }> = {
   dark: {
     badge: "border-surface/20 bg-surface/5 hover:border-surface/40 hover:bg-surface/10 focus-visible:ring-offset-ink-900",
@@ -38,7 +39,8 @@ export function StoreBadge({ href, caption, label, logo, tone = "dark" }: StoreB
       rel="noopener noreferrer"
       className={cn(
         "group/store inline-flex items-center gap-2.5 rounded-lg border py-1.5 pe-3.5 ps-2.5 transition duration-200 ease-out-brand",
-        styles.badge
+        styles.badge,
+        styles.label
       )}
     >
       <span
@@ -49,7 +51,7 @@ export function StoreBadge({ href, caption, label, logo, tone = "dark" }: StoreB
       </span>
       <span className="flex flex-col items-start">
         <span className={cn("text-[0.625rem] leading-tight", styles.caption)}>{caption}</span>
-        <span className={cn("text-caption font-semibold leading-tight", styles.label)}>{label}</span>
+        <span className="text-caption font-semibold leading-tight">{label}</span>
       </span>
     </a>
   );

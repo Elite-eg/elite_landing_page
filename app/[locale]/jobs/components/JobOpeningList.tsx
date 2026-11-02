@@ -3,9 +3,9 @@
 import { useRef } from "react";
 import { useLocale } from "next-intl";
 import { AnimatePresence, motion, useInView } from "framer-motion";
+import { AnimatedHeight } from "@/app/components/shared/AnimatedHeight";
 import { listItemFromEnd, listSwap, viewportOnce } from "@/lib/animations";
 import type { JobOpening } from "../data/jobsData";
-import { AnimatedHeight } from "./AnimatedHeight";
 import { JobOpeningCard } from "./JobOpeningCard";
 
 export interface JobOpeningListProps {

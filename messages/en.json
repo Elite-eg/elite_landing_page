@@ -415,11 +415,7 @@
     "socialLabel": "Social media",
     "contactLabel": "Contact details",
     "app": {
-      "title": "Get the Albiruni app",
-      "appStoreCaption": "Download on the",
-      "appStoreName": "App Store",
-      "googlePlayCaption": "Get it on",
-      "googlePlayName": "Google Play"
+      "title": "Get the Albiruni app"
     },
     "commercialRegisterShort": "CR {number}",
     "newsletter": {
@@ -460,6 +456,19 @@
   "phoneField": {
     "countryCode": "Country code",
     "countryCodeDetected": "Country code set automatically"
+  },
+  "appLinks": {
+    "website": {
+      "label": "View {name}"
+    },
+    "googlePlay": {
+      "caption": "Get it on",
+      "label": "Google Play"
+    },
+    "appStore": {
+      "caption": "Download on the",
+      "label": "App Store"
+    }
   },
   "whatsapp": {
     "label": "Chat with us on WhatsApp"
@@ -1389,21 +1398,7 @@
           "frameTitle": "Live preview of the Bareeq X website",
           "open": "Open {site} in a new tab"
         },
-        "linksLabel": "Project links",
-        "links": {
-          "website": {
-            "caption": "bareeqx.com",
-            "label": "View BAREEQ X"
-          },
-          "googlePlay": {
-            "caption": "Get it on",
-            "label": "Google Play"
-          },
-          "appStore": {
-            "caption": "Download on the",
-            "label": "App Store"
-          }
-        }
+        "linksLabel": "Project links"
       },
       "cta": {
         "title": "Have an idea like Bareeq X?",
@@ -1411,6 +1406,118 @@
         "book": "Book your free session",
         "whatsapp": "Chat on WhatsApp"
       }
+    }
+  },
+  "projects": {
+    "meta": {
+      "title": "Our work",
+      "description": "Projects {brand} has built for its clients: mobile apps, web systems and websites, from idea to launch."
+    },
+    "hero": {
+      "eyebrow": "Our work",
+      "title": "From idea to launch.",
+      "subtitle": "We stay with you at every stage: research and analysis, then design and development, then testing through to launch."
+    },
+    "filter": {
+      "label": "Filter projects by type",
+      "listLabel": "Projects",
+      "categories": {
+        "all": "All",
+        "mobile": "Mobile apps",
+        "systems": "Web systems",
+        "websites": "Websites"
+      },
+      "resultsCount": "{count, plural, =0 {No projects shown} one {# project shown} other {# projects shown}}"
+    },
+    "card": {
+      "tagsLabel": "About the project",
+      "featuresLabel": "What we built",
+      "techLabel": "Technologies",
+      "links": {
+        "label": "Project links",
+        "details": "Project details"
+      }
+    },
+    "list": {
+      "bareeq": {
+        "wordmark": "Bareeq X",
+        "name": "Bareeq X",
+        "tagline": "A smart system for mobile steam car washing",
+        "description": "{brand} built the complete tech system for a mobile steam car wash app in Saudi Arabia, and stays on as its tech partner in operation.",
+        "tags": [
+          "Mobile app",
+          "Web platform",
+          "Saudi Arabia"
+        ],
+        "features": [
+          "A smart multilingual website",
+          "Customer app: set the location, pick a package and book a time",
+          "Agent app: receive orders in real time and share location",
+          "Admin dashboard: assign orders to agents, manage schedules and see analytics"
+        ],
+        "tech": [
+          "Flutter",
+          "Next.js",
+          "Laravel",
+          "Tailwind",
+          "Moyasar",
+          "OTP SMS",
+          "Nginx"
+        ],
+        "meta": "Partner: Maharat Al-Code IT · Development started October 2025 · First version launched January 2026"
+      },
+      "amanCar": {
+        "wordmark": "Aman Car",
+        "name": "Aman Car",
+        "tagline": "A cloud system that automates car service centers",
+        "description": "A workflow system for car service workshops, running in Makkah and Jeddah and built to grow into a SaaS platform for many centers.",
+        "tags": [
+          "Cloud system",
+          "Dashboards",
+          "Makkah & Jeddah"
+        ],
+        "features": [
+          "A cloud dashboard to follow workshops and branches and assign tasks to technicians",
+          "Work order control: from inspection, diagnosis and parts pricing to delivery",
+          "An instant billing engine that adds up parts, labor and fees"
+        ],
+        "tech": [
+          "Responsive web development",
+          "Secure backend",
+          "Cloud databases",
+          "API"
+        ],
+        "meta": "Operating rights belong to Aman Car Maintenance · {brand} keeps ownership of the source code"
+      },
+      "arfa": {
+        "wordmark": "ARFA",
+        "name": "ARFA",
+        "tagline": "The website of ARFA, a specialized systems engineering company",
+        "description": "A company website for an engineering and construction firm in Jeddah that presents its services and projects and turns visitors into quote requests.",
+        "tags": [
+          "Smart assistant",
+          "Company website",
+          "Jeddah"
+        ],
+        "features": [
+          "Quote requests by department: electromechanical, smart buildings, solar energy and fire protection",
+          "A smart engineering assistant and direct contact on WhatsApp",
+          "Project gallery, news, client testimonials and the team"
+        ],
+        "tech": [
+          "Web design & development",
+          "Quote request forms",
+          "Smart assistant",
+          "WhatsApp"
+        ],
+        "meta": "Client: ARFA, a specialized systems engineering company · Jeddah, Saudi Arabia"
+      }
+    },
+    "cta": {
+      "title": "Start with a free diagnostic session",
+      "subtitle": "30 minutes with an operations expert and a developer. You leave with a clear list of requirements, whether we work together or not.",
+      "book": "Book a free diagnostic session",
+      "whatsapp": "Chat on WhatsApp"
     }
   },
   "site": {
