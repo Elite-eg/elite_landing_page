@@ -1,9 +1,7 @@
 import type { IconType } from "react-icons";
 import { FiBarChart2, FiMapPin, FiMonitor, FiSmartphone } from "react-icons/fi";
-import { PROJECT_LINKS } from "@/lib/constants";
-
-/** Hero background photo (decorative, under a teal overlay). */
-export const BAREEQ_HERO_IMAGE = "/images/hero-bareeq.jpeg";
+import type { AppLink } from "@/app/components/shared/AppLinkBadge";
+import { MEDIA, PROJECT_LINKS } from "@/lib/constants";
 
 /** Keys map to `caseStudies.bareeqX.hero.tags.<key>`. Order = reading order (start → end). */
 export type BareeqTagKey = "mobile" | "web" | "country" | "live";
@@ -59,16 +57,9 @@ export const BAREEQ_TIMELINE: BareeqMilestone[] = [
   { key: "now", status: "current" },
 ];
 
-/** Keys map to `caseStudies.bareeqX.result.links.<key>.{caption,label}`. */
-export interface BareeqLink {
-  key: "website" | "googlePlay" | "appStore";
-  href: string;
-  /** Logo in /public, shown at the start of the badge. */
-  logo: string;
-}
-
-export const BAREEQ_LINKS: BareeqLink[] = [
-  { key: "website", href: PROJECT_LINKS.bareeq.website, logo: "/images/Bareeq.svg" },
-  { key: "googlePlay", href: PROJECT_LINKS.bareeq.googlePlay, logo: "/images/google-play.svg" },
-  { key: "appStore", href: PROJECT_LINKS.bareeq.appStore, logo: "/images/app-store.svg" },
+/** The project's public links, as badges: on the case study and its card on the projects page. */
+export const BAREEQ_LINKS: AppLink[] = [
+  { kind: "website", href: PROJECT_LINKS.bareeq.website, logo: MEDIA.bareeqLogo },
+  { kind: "googlePlay", href: PROJECT_LINKS.bareeq.googlePlay },
+  { kind: "appStore", href: PROJECT_LINKS.bareeq.appStore },
 ];

@@ -258,6 +258,12 @@
     background-size: 22px 22px;
   }
 
+  /* Vertical hairlines every 80px on navy heroes (Figma "bg/grid") */
+  .bg-line-grid-light {
+    background-image: linear-gradient(to right, rgb(var(--surface) / 0.03) 1px, transparent 1px);
+    background-size: 80px 100%;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

@@ -415,11 +415,7 @@
     "socialLabel": "Social media",
     "contactLabel": "Contact details",
     "app": {
-      "title": "Get the Albiruni app",
-      "appStoreCaption": "Download on the",
-      "appStoreName": "App Store",
-      "googlePlayCaption": "Get it on",
-      "googlePlayName": "Google Play"
+      "title": "Get the Albiruni app"
     },
     "commercialRegisterShort": "CR {number}",
     "newsletter": {
@@ -460,6 +456,19 @@
   "phoneField": {
     "countryCode": "Country code",
     "countryCodeDetected": "Country code set automatically"
+  },
+  "appLinks": {
+    "website": {
+      "label": "View {name}"
+    },
+    "googlePlay": {
+      "caption": "Get it on",
+      "label": "Google Play"
+    },
+    "appStore": {
+      "caption": "Download on the",
+      "label": "App Store"
+    }
   },
   "whatsapp": {
     "label": "Chat with us on WhatsApp"
@@ -925,6 +934,12 @@
     "primary": "View open positions",
     "secondary": "Send your CV"
   },
+  "diagnosticSessionCta": {
+    "title": "Start with a free diagnostic session",
+    "subtitle": "30 minutes with an operations expert and a developer. You leave with a clear list of requirements, whether we work together or not.",
+    "book": "Book a free diagnostic session",
+    "whatsapp": "Chat on WhatsApp"
+  },
   "guides": {
     "common": {
       "eyebrow": "Free guide · PDF",
@@ -1389,27 +1404,299 @@
           "frameTitle": "Live preview of the Bareeq X website",
           "open": "Open {site} in a new tab"
         },
-        "linksLabel": "Project links",
-        "links": {
-          "website": {
-            "caption": "bareeqx.com",
-            "label": "View BAREEQ X"
-          },
-          "googlePlay": {
-            "caption": "Get it on",
-            "label": "Google Play"
-          },
-          "appStore": {
-            "caption": "Download on the",
-            "label": "App Store"
-          }
-        }
+        "linksLabel": "Project links"
       },
       "cta": {
         "title": "Have an idea like Bareeq X?",
         "subtitle": "Describe it to us in a short form, or book a free diagnostic session.",
         "book": "Book your free session",
         "whatsapp": "Chat on WhatsApp"
+      }
+    }
+  },
+  "projects": {
+    "meta": {
+      "title": "Our work",
+      "description": "Projects {brand} has built for its clients: mobile apps, web systems and websites, from idea to launch."
+    },
+    "hero": {
+      "eyebrow": "Our work",
+      "title": "From idea to launch.",
+      "subtitle": "We stay with you at every stage: research and analysis, then design and development, then testing through to launch."
+    },
+    "filter": {
+      "label": "Filter projects by type",
+      "listLabel": "Projects",
+      "categories": {
+        "all": "All",
+        "mobile": "Mobile apps",
+        "systems": "Web systems",
+        "websites": "Websites"
+      },
+      "resultsCount": "{count, plural, =0 {No projects shown} one {# project shown} other {# projects shown}}"
+    },
+    "card": {
+      "tagsLabel": "About the project",
+      "featuresLabel": "What we built",
+      "techLabel": "Technologies",
+      "links": {
+        "label": "Project links",
+        "details": "Project details"
+      }
+    },
+    "list": {
+      "bareeq": {
+        "wordmark": "Bareeq X",
+        "name": "Bareeq X",
+        "tagline": "A smart system for mobile steam car washing",
+        "description": "{brand} built the complete tech system for a mobile steam car wash app in Saudi Arabia, and stays on as its tech partner in operation.",
+        "tags": [
+          "Mobile app",
+          "Web platform",
+          "Saudi Arabia"
+        ],
+        "features": [
+          "A smart multilingual website",
+          "Customer app: set the location, pick a package and book a time",
+          "Agent app: receive orders in real time and share location",
+          "Admin dashboard: assign orders to agents, manage schedules and see analytics"
+        ],
+        "tech": [
+          "Flutter",
+          "Next.js",
+          "Laravel",
+          "Tailwind",
+          "Moyasar",
+          "OTP SMS",
+          "Nginx"
+        ],
+        "meta": "Partner: Maharat Al-Code IT · Development started October 2025 · First version launched January 2026"
+      },
+      "amanCar": {
+        "wordmark": "Aman Car",
+        "name": "Aman Car",
+        "tagline": "A cloud system that automates car service centers",
+        "description": "A workflow system for car service workshops, running in Makkah and Jeddah and built to grow into a SaaS platform for many centers.",
+        "tags": [
+          "Cloud system",
+          "Dashboards",
+          "Makkah & Jeddah"
+        ],
+        "features": [
+          "A cloud dashboard to follow workshops and branches and assign tasks to technicians",
+          "Work order control: from inspection, diagnosis and parts pricing to delivery",
+          "An instant billing engine that adds up parts, labor and fees"
+        ],
+        "tech": [
+          "Responsive web development",
+          "Secure backend",
+          "Cloud databases",
+          "API"
+        ],
+        "meta": "Operating rights belong to Aman Car Maintenance · {brand} keeps ownership of the source code"
+      },
+      "arfa": {
+        "wordmark": "ARFA",
+        "name": "ARFA",
+        "tagline": "The website of ARFA, a specialized systems engineering company",
+        "description": "A company website for an engineering and construction firm in Jeddah that presents its services and projects and turns visitors into quote requests.",
+        "tags": [
+          "Smart assistant",
+          "Company website",
+          "Jeddah"
+        ],
+        "features": [
+          "Quote requests by department: electromechanical, smart buildings, solar energy and fire protection",
+          "A smart engineering assistant and direct contact on WhatsApp",
+          "Project gallery, news, client testimonials and the team"
+        ],
+        "tech": [
+          "Web design & development",
+          "Quote request forms",
+          "Smart assistant",
+          "WhatsApp"
+        ],
+        "meta": "Client: ARFA, a specialized systems engineering company · Jeddah, Saudi Arabia"
+      }
+    }
+  },
+  "albiruni": {
+    "meta": {
+      "title": "Albiruni platform",
+      "description": "A mobile app for employees, sales reps and managers and a web dashboard for management, with the same data, the same permissions and real-time sync. The Albiruni platform by {brand}."
+    },
+    "hero": {
+      "eyebrow": "Albiruni platform · by {brand}",
+      "title": "An app for the field,<br></br>and cash to the IBAN.",
+      "subtitle": "A mobile app for employees, sales reps and managers, and a web dashboard for management. Same data, same permissions, and real-time sync between them.",
+      "book": "Book a free diagnostic session",
+      "tour": "Take a tour of the platform"
+    },
+    "mockup": {
+      "dashboard": {
+        "brand": "Albiruni",
+        "avatar": "SA",
+        "nav": {
+          "dashboard": "Dashboard",
+          "fieldSales": "Field sales",
+          "warehouse": "Warehouse",
+          "collection": "Collections",
+          "attendance": "Attendance",
+          "reports": "Reports"
+        },
+        "title": "Dashboard",
+        "period": "This month",
+        "stats": {
+          "sales": {
+            "label": "Today's sales",
+            "value": "EGP 84,300",
+            "trend": "12% up"
+          },
+          "visits": {
+            "label": "Visits completed",
+            "value": "46 / 60",
+            "trend": "77% of plan"
+          },
+          "attendance": {
+            "label": "Attendance rate",
+            "value": "84%",
+            "trend": "3% vs yesterday"
+          }
+        },
+        "weeklySales": "Weekly sales",
+        "recentOrders": "Latest orders",
+        "orders": {
+          "nour": {
+            "title": "#1048 · Al Nour Store",
+            "amount": "EGP 4,250"
+          },
+          "fajr": {
+            "title": "#1047 · Al Fajr Supermarket",
+            "amount": "EGP 2,980"
+          },
+          "shifa": {
+            "title": "#1046 · Al Shifa Pharmacy",
+            "amount": "EGP 1,640"
+          }
+        },
+        "status": {
+          "approved": "Approved",
+          "pending": "In review",
+          "delivered": "Delivered"
+        }
+      },
+      "app": {
+        "clock": "9:41",
+        "avatar": "AS",
+        "greeting": "Good morning, Ahmed",
+        "company": "Al Hulool Co. · 6 apps",
+        "attendance": {
+          "status": "In since 8:02 AM",
+          "elapsed": "3:40",
+          "detail": "At the work site · Shift ends 5:00 PM",
+          "checkOut": "Check out"
+        },
+        "counters": {
+          "tasks": {
+            "value": "4",
+            "label": "Today's tasks"
+          },
+          "requests": {
+            "value": "2",
+            "label": "Requests"
+          },
+          "tickets": {
+            "value": "1",
+            "label": "Open ticket"
+          }
+        },
+        "appsTitle": "My apps",
+        "apps": {
+          "sales": {
+            "name": "Sales & customers",
+            "detail": "2 of 12 visits"
+          },
+          "hr": {
+            "name": "HR",
+            "detail": "14 days of leave left"
+          },
+          "warehouse": {
+            "name": "Warehouse",
+            "detail": "3 slips today"
+          },
+          "maintenance": {
+            "name": "Maintenance",
+            "detail": "1 ticket in progress"
+          }
+        }
+      },
+      "floats": {
+        "sync": "Synced · updated a minute ago",
+        "approval": {
+          "title": "Leave request · Ahmed Salem",
+          "detail": "The manager approved it from their phone a minute ago"
+        },
+        "collection": {
+          "label": "Collected today",
+          "value": "EGP 31,200",
+          "trend": "↑ 12%"
+        }
+      }
+    },
+    "experiences": {
+      "eyebrow": "Two experiences, one set of data",
+      "title": "Everyone sees only what they need.",
+      "subtitle": "Permissions decide the screens: a sales rep sees their visits, a manager sees their team, and management sees the whole company.",
+      "mobile": {
+        "tag": "Mobile app",
+        "title": "One complete app for every employee",
+        "description": "The home screen follows each person's permissions: attendance, tasks, visits, requests and approvals. Mini apps open inside the same app.",
+        "points": [
+          "Location-based attendance check-in",
+          "Real-time sync between the phone and the web dashboard",
+          "Print and share invoices",
+          "One task inbox for every app"
+        ]
+      },
+      "web": {
+        "tag": "Web dashboard",
+        "title": "The management dashboard",
+        "description": "Clear, fast dashboards, tables and reports: see how teams, warehouses and collections are doing, and manage settings and permissions.",
+        "points": [
+          "Customizable KPI widgets",
+          "Tables with filters and Excel / PDF export",
+          "Permission and role setup",
+          "An audit log for every action"
+        ]
+      }
+    },
+    "capabilities": {
+      "title": "Built for businesses in our region",
+      "items": {
+        "liveReports": {
+          "title": "Live reports",
+          "text": "Today's numbers for management as they happen"
+        },
+        "eInvoicing": {
+          "title": "E-invoicing",
+          "text": "Compliant with tax authority systems"
+        },
+        "permissions": {
+          "title": "Fine-grained permissions",
+          "text": "Per role, branch and site"
+        },
+        "api": {
+          "title": "API integration",
+          "text": "With the systems you already use"
+        },
+        "hosting": {
+          "title": "Secure hosting",
+          "text": "Daily backups"
+        },
+        "bilingual": {
+          "title": "Arabic and English",
+          "text": "A full interface in both languages"
+        }
       }
     }
   },

@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { PhoneMockup } from "@/app/components/shared/PhoneMockup";
 import { fadeInUp, floatLoop, floatLoopOffset, withDelay } from "@/lib/animations";
-import { PhoneMockup } from "./PhoneMockup";
 
 /**
  * Two app screens that rise in after the hero copy, then drift apart gently, on a stage of soft rings
