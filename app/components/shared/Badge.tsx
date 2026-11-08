@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export type BadgeVariant = "primary" | "secondary" | "accent" | "neutral" | "success" | "glass";
+export type BadgeVariant = "primary" | "secondary" | "brand" | "accent" | "neutral" | "success" | "glass";
 
 export interface BadgeProps {
   children: ReactNode;
@@ -14,6 +14,7 @@ export interface BadgeProps {
 const VARIANT_CLASSES: Record<BadgeVariant, string> = {
   primary: "bg-primary/10 text-primary",
   secondary: "bg-secondary/15 text-secondary-dark",
+  brand: "bg-secondary text-surface",
   accent: "bg-accent/10 text-accent",
   neutral: "bg-surface-muted text-content",
   success: "bg-success/10 text-ink-700",

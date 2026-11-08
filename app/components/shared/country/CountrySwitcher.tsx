@@ -6,10 +6,13 @@ import { FiChevronDown, FiMapPin } from "react-icons/fi";
 import { useCountry } from "@/app/store/useCountry";
 import type { AppLocale } from "@/lib/constants";
 import { COUNTRIES } from "@/lib/countries";
+import { currencyName } from "@/lib/locale";
 import { cn } from "@/lib/utils";
 import { CountryOption } from "./CountryOption";
 
 export interface CountrySwitcherProps {
+  /** Spell out the currency: "مصر · جنيه مصري (ج.م)" instead of "مصر · ج.م" (pricing page). */
+  showCurrencyName?: boolean;
   className?: string;
 }
 
@@ -18,12 +21,13 @@ export interface CountrySwitcherProps {
  * the visitor's country for the whole site (useCountry): currency, phone codes and payment methods follow it at once.
  * The list opens below the button, or above it when there is no room (mobile drawer).
  */
-export function CountrySwitcher({ className }: CountrySwitcherProps) {
+export function CountrySwitcher({ showCurrencyName = false, className }: CountrySwitcherProps) {
   const t = useTranslations("nav.countrySwitcher");
   const locale = useLocale() as AppLocale;
   const { country, changeCountry } = useCountry();
-  const current = t("current", {
+  const current = t(showCurrencyName ? "currentWithCurrency" : "current", {
     country: country.name[locale],
+    currency: currencyName(country.currency, locale),
     symbol: country.currencySymbol[locale],
   });
 

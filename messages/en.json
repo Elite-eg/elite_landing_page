@@ -115,7 +115,8 @@
     "countrySwitcher": {
       "label": "Country and currency: {country}",
       "title": "Choose your country",
-      "current": "{country} · {symbol}"
+      "current": "{country} · {symbol}",
+      "currentWithCurrency": "{country} · {currency} ({symbol})"
     },
     "utilityNav": "Quick links"
   },
@@ -1696,6 +1697,218 @@
         "bilingual": {
           "title": "Arabic and English",
           "text": "A full interface in both languages"
+        }
+      }
+    }
+  },
+  "albiruniPricing": {
+    "meta": {
+      "title": "Albiruni pricing",
+      "description": "Albiruni plans by sector and team size: Basic, Business and Enterprise, in your country's currency, with a 14-day free trial and no card needed. Albiruni is a platform by {brand}."
+    },
+    "money": "{symbol} {amount}",
+    "step": "{step} · {label}",
+    "hero": {
+      "eyebrow": "Pricing",
+      "title": "Plans built for your sector,<br></br>and apps you add when you need them.",
+      "subtitle": "Choose your sector to see the plans set up for it. Every plan includes the mobile app, the web dashboard and updates, with a 14-day free trial and no card needed."
+    },
+    "billing": {
+      "label": "Billing",
+      "yearly": "Yearly",
+      "monthly": "Monthly",
+      "save": "Save {percent}%"
+    },
+    "sectors": {
+      "title": "Choose your sector",
+      "appCount": "{count, plural, one {# app} other {# apps}}"
+    },
+    "plans": {
+      "title": "Choose your plan · {sector}",
+      "preliminary": "Preliminary prices",
+      "popular": "Most popular",
+      "perMonth": "per month · up to {users, plural, one {# user} other {# users}}",
+      "onRequest": "On request",
+      "chosen": "Plan chosen",
+      "basic": {
+        "name": "Basic",
+        "description": "For small teams: up to {users, plural, one {# user} other {# users}} and {apps, plural, one {# app} other {# apps}}.",
+        "features": [
+          "Sales, customers and collections",
+          "Rep app and manager dashboard",
+          "Support on WhatsApp"
+        ],
+        "action": "Choose plan"
+      },
+      "business": {
+        "name": "Business",
+        "action": "Start free trial",
+        "sectors": {
+          "distribution": {
+            "description": "For growing distribution companies: up to {users, plural, one {# user} other {# users}} and every app.",
+            "features": [
+              "+ Warehouse, delivery and routes",
+              "Van stock counts and custody settlement",
+              "An operations expert guides your rollout"
+            ]
+          },
+          "fieldSales": {
+            "description": "For growing field sales teams: up to {users, plural, one {# user} other {# users}} and every app.",
+            "features": [
+              "+ Rep visits and routes",
+              "Collections and custody settlement",
+              "An operations expert guides your rollout"
+            ]
+          },
+          "carService": {
+            "description": "For growing car service centers: up to {users, plural, one {# user} other {# users}} and every app.",
+            "features": [
+              "+ Bookings and work orders",
+              "Technicians and spare parts",
+              "An operations expert guides your rollout"
+            ]
+          }
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "More than {users, plural, one {# user} other {# users}}, or integration with your current ERP.",
+        "features": [
+          "Odoo or ERPNext integration",
+          "Private hosting",
+          "Dedicated account manager"
+        ],
+        "action": "Request a quote"
+      }
+    },
+    "apps": {
+      "step": "Choose your apps: {limit} in Basic, all of them in Business",
+      "title": "Albiruni apps",
+      "add": "Add",
+      "added": "Added",
+      "includedInBusiness": "Included in Business",
+      "items": {
+        "attendance": {
+          "name": "Attendance",
+          "description": "Mobile check-in, devices and shifts"
+        },
+        "maintenance": {
+          "name": "Maintenance",
+          "description": "Tickets, technicians and spare parts"
+        },
+        "fleet": {
+          "name": "Fleet",
+          "description": "Vehicles, odometers and fuel"
+        },
+        "purchasing": {
+          "name": "Purchasing",
+          "description": "Requests, suppliers and quotations"
+        },
+        "expenses": {
+          "name": "Expenses and custody",
+          "description": "Advances and settlements for reps"
+        },
+        "reports": {
+          "name": "Advanced reports",
+          "description": "Custom reports and exports"
+        },
+        "outlets": {
+          "name": "Retail execution",
+          "description": "Shelf execution and audits"
+        },
+        "training": {
+          "name": "Training and knowledge",
+          "description": "Courses and content for your teams"
+        }
+      },
+      "cart": {
+        "label": "Your selection",
+        "plan": "{plan} plan · up to {users, plural, one {# user} other {# users}}",
+        "allIncluded": "{price} per month · all apps included",
+        "limited": "{price} per month · {count} of {limit, plural, one {# app} other {# apps}}",
+        "start": "Start the trial"
+      },
+      "store": {
+        "title": "Need a feature that isn't in your plan?",
+        "text": "Browse the add-ons store: add-ons from {brand} and certified developers, free and paid.",
+        "action": "Browse the add-ons store"
+      },
+      "footnote": "* Preliminary prices, subject to change before the official launch. Prices exclude VAT."
+    },
+    "compare": {
+      "title": "Compare plans",
+      "feature": "Feature",
+      "included": "Included",
+      "notIncluded": "Not included",
+      "groups": {
+        "apps": "Apps",
+        "reports": "Reports",
+        "support": "Support and security"
+      },
+      "rows": {
+        "users": {
+          "label": "Users",
+          "basic": "Up to {users}",
+          "business": "Up to {users}",
+          "enterprise": "More than {users}"
+        },
+        "price": {
+          "label": "Monthly price",
+          "basic": "{price}",
+          "business": "{price}",
+          "enterprise": "On request"
+        },
+        "appCount": {
+          "label": "Number of apps",
+          "basic": "Up to {apps}",
+          "business": "All (17)",
+          "enterprise": "All + custom"
+        },
+        "mobileWeb": {
+          "label": "Mobile app and web dashboard"
+        },
+        "customReports": {
+          "label": "Custom reports",
+          "business": "10 reports",
+          "enterprise": "Unlimited"
+        },
+        "support": {
+          "label": "Technical support",
+          "basic": "Email",
+          "business": "24/7 priority",
+          "enterprise": "Account manager"
+        },
+        "privateHosting": {
+          "label": "Private hosting"
+        },
+        "api": {
+          "label": "API integrations"
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Didn't find your answer? Ask Maher from the button at the bottom of the screen, or contact our team.",
+      "items": {
+        "currency": {
+          "question": "How is the currency set?",
+          "answer": "We detect your country and show prices in its currency, with its own contact numbers: Egyptian pounds for Egypt and riyals for Saudi Arabia. You can change the country yourself at the top of the page."
+        },
+        "trial": {
+          "question": "Is there a free trial? Do I need a card?",
+          "answer": "Yes. Every plan starts with a 14-day free trial, and you don't need a payment card to sign up."
+        },
+        "onboarding": {
+          "question": "How long do setup and rollout take?",
+          "answer": "It depends on your sector, your number of users and the apps you choose. In the free diagnostic session we agree on the rollout plan and its timeline with you, and on the Business plan an operations expert stays with you until your team works on the platform."
+        },
+        "security": {
+          "question": "Is my data safe? Where is it hosted?",
+          "answer": "Each user has permissions that set what they can see and change, on the mobile app and the web dashboard. The Enterprise plan offers private hosting, and our uptime and support commitments are in the service level agreement."
+        },
+        "addApps": {
+          "question": "Can I add apps later?",
+          "answer": "Yes. Add any app when you need it: Basic includes up to {limit, plural, one {# app} other {# apps}}, and Business includes every app. For features no plan has, browse the add-ons store."
         }
       }
     }
