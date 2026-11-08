@@ -5,7 +5,7 @@ import { Container } from "@/app/components/shared/Container";
 import { Button } from "@/app/components/shared/Button";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
-import { COMMUNITY_URLS, CONTACT_HREF, MEDIA } from "@/lib/constants";
+import { CONTACT_HREF, MEDIA, ROUTES } from "@/lib/constants";
 
 export function CtaSection() {
   const t = useTranslations("home.cta");
@@ -50,8 +50,7 @@ export function CtaSection() {
                 className="flex shrink-0 flex-col gap-3 sm:flex-row"
               >
                 <Button
-                  href={COMMUNITY_URLS.register}
-                  external
+                  href={ROUTES.community}
                   variant="secondary"
                   size="lg"
                   icon={<FiUserPlus />}

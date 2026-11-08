@@ -15,7 +15,7 @@ import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
-import { COMMUNITY_URLS, MEDIA } from "@/lib/constants";
+import { MEDIA, ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 const POINT_KEYS = ["one", "two", "three"] as const;
@@ -122,8 +122,7 @@ export function CommunitySection() {
 
             <Reveal delay={0.2} preset="slideInRight" className="mt-9">
               <Button
-                href={COMMUNITY_URLS.register}
-                external
+                href={ROUTES.community}
                 variant="secondary"
                 size="lg"
                 icon={<FiUserPlus />}

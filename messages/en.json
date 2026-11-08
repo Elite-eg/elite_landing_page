@@ -251,7 +251,7 @@
       "ideaCard": {
         "label": "From the ideas bank",
         "title": "Voice AI agent that confirms cash-on-delivery orders",
-        "cta": "Browse the ideas bank"
+        "cta": "Visit the community"
       },
       "scrollHint": "Scroll to explore"
     },
@@ -360,7 +360,7 @@
       "eyebrow": "Ideas bank",
       "title": "Latest ideas published by the community",
       "subtitle": "Technical ideas ready to build. Browse freely, then sign in to comment, save or join a team.",
-      "viewAll": "View all ideas",
+      "viewAll": "Visit the community",
       "items": {
         "qrExchange": {
           "category": "Web development",
@@ -1911,6 +1911,65 @@
           "answer": "Yes. Add any app when you need it: Basic includes up to {limit, plural, one {# app} other {# apps}}, and Business includes every app. For features no plan has, browse the add-ons store."
         }
       }
+    }
+  },
+  "community": {
+    "meta": {
+      "title": "Community",
+      "description": "The {brand} community for Albiruni customers: monthly meetups, events and practical content on field sales and collections."
+    },
+    "hero": {
+      "eyebrow": "Community",
+      "title": "A community of managers and accountants, built on real experience from the field.",
+      "subtitle": "For Albiruni customers and anyone organizing field sales: monthly meetups, discussions and practical content from the field."
+    },
+    "channels": {
+      "title": "Join through the channel that suits you",
+      "items": {
+        "whatsappGroup": {
+          "title": "Customers' WhatsApp group",
+          "text": "Quick questions and tips from customers and from our team."
+        },
+        "monthlyMeetup": {
+          "title": "Monthly online meetup",
+          "text": "One hour a month: a new feature, a customer story and open questions."
+        },
+        "knowledgeBase": {
+          "title": "Knowledge base",
+          "text": "Step-by-step guides for every Albiruni app."
+        }
+      }
+    },
+    "events": {
+      "title": "Upcoming events",
+      "when": "{date} · {place}",
+      "places": {
+        "online": "Online",
+        "cairo": "Cairo"
+      },
+      "register": "Register",
+      "registerMessage": "Hello, I'd like to register for the “{event}” event on {date}.",
+      "items": {
+        "custodyWorkshop": "Workshop: fast, instant custody settlement for reps",
+        "fieldSalesMeetup": "Field sales managers meetup",
+        "eInvoicingQa": "E-invoicing: questions and answers"
+      }
+    },
+    "articles": {
+      "title": "From the field",
+      "meta": {
+        "article": "{minutes} min read",
+        "customerStory": "Customer story · {minutes} min"
+      },
+      "items": {
+        "custodySettlement": "Three ways to make custody settlement easier for your reps",
+        "distributorStory": "How a distribution company cut its end-of-day discrepancies",
+        "smartRoute": "Smart route: how to make the most of a rep's time"
+      }
+    },
+    "newsletter": {
+      "title": "One monthly newsletter. No spam.",
+      "subtitle": "The best content and events in one email a month."
     }
   },
   "site": {

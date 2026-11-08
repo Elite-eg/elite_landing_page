@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
 import { FiLogIn, FiStar, FiUserPlus, FiX } from "react-icons/fi";
-import { COMMUNITY_URLS } from "@/lib/constants";
+import { ROUTES } from "@/lib/constants";
 import { Button } from "./Button";
 
 export interface CommunityGateModalProps {
@@ -48,8 +48,7 @@ export function CommunityGateModal({ isOpen, onClose, message }: CommunityGateMo
 
           <div className="mt-6 flex flex-col gap-2 sm:flex-row">
             <Button
-              href={COMMUNITY_URLS.register}
-              external
+              href={ROUTES.community}
               variant="secondary"
               fullWidth
               icon={<FiUserPlus />}
@@ -58,8 +57,7 @@ export function CommunityGateModal({ isOpen, onClose, message }: CommunityGateMo
               {t("join")}
             </Button>
             <Button
-              href={COMMUNITY_URLS.login}
-              external
+              href={ROUTES.login}
               variant="outline"
               fullWidth
               icon={<FiLogIn />}

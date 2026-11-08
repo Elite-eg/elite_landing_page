@@ -21,7 +21,8 @@ import {
 } from "react-icons/fi";
 import { Container } from "@/app/components/shared/Container";
 import { Button } from "@/app/components/shared/Button";
-import { COMMUNITY_URLS, MEDIA, ROUTES } from "@/lib/constants";
+import { Link } from "@/i18n/navigation";
+import { MEDIA, ROUTES } from "@/lib/constants";
 import {
   fadeInUp,
   floatLoop,
@@ -31,6 +32,9 @@ import {
   slideInFromEnd,
   withDelay,
 } from "@/lib/animations";
+
+/** Locale-aware link that can float with the hero's motion loops. */
+const MotionLink = motion.create(Link);
 
 const CAPABILITIES = [
   { key: "web", icon: FiGlobe },
@@ -157,8 +161,7 @@ export function HeroSection() {
                 {t("primaryCta")}
               </Button>
               <Button
-                href={COMMUNITY_URLS.register}
-                external
+                href={ROUTES.community}
                 variant="glass"
                 size="lg"
                 icon={<FiUsers />}
@@ -218,10 +221,8 @@ export function HeroSection() {
               </ul>
             </motion.div>
 
-            <motion.a
-              href={COMMUNITY_URLS.ideas}
-              target="_blank"
-              rel="noopener noreferrer"
+            <MotionLink
+              href={ROUTES.community}
               variants={floatLoopOffset}
               animate="animate"
               className="group relative z-10 -mt-4 w-80 self-start rounded-3xl bg-surface p-5 shadow-lift transition-all duration-300 will-change-transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/20"
@@ -242,7 +243,7 @@ export function HeroSection() {
                   aria-hidden="true"
                 />
               </span>
-            </motion.a>
+            </MotionLink>
           </motion.div>
         </motion.div>
       </Container>

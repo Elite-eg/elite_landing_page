@@ -63,15 +63,8 @@ export const EMAIL_URL = `mailto:${COMPANY_INFO.email}`;
 /** TBD: the office's own Google Maps place link. Until then, a Maps search for the official address. */
 export const COMPANY_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY_INFO.address.en)}`;
 
-/** Live community platform. Used until the (community) route group is built. */
-export const COMMUNITY_URLS = {
-  home: "https://community.elitemsr.com",
-  register: "https://community.elitemsr.com/register",
-  login: "https://community.elitemsr.com/login",
-  ideas: "https://community.elitemsr.com/ideas",
-  jobs: "https://community.elitemsr.com/jobs",
-  about: "https://community.elitemsr.com/about",
-} as const;
+/** TBD: invite link of the Albiruni customers' WhatsApp group. Until the owner provides it, a chat with the company. */
+export const COMMUNITY_WHATSAPP_GROUP_URL = WHATSAPP_URL;
 
 export const MEDIA = {
   heroVideo: "/videos/hero.mp4",
@@ -114,6 +107,8 @@ export const ROUTES = {
   support: "/contact",
   partners: "/partners",
   agents: "/agents",
+  community: "/community",
+  login: "/login",
   solutions: {
     all: "/solutions",
     consulting: "/solutions/consulting",
@@ -194,8 +189,6 @@ export interface MegaMenu {
 export type HeaderNavEntry =
   | ({ type: "link" } & NavItem)
   | { type: "mega"; labelKey: string; menu: MegaMenu };
-
-export const COMMUNITY_NAV_ITEM: NavItem = { labelKey: "community", href: COMMUNITY_URLS.home, external: true };
 
 export const SOLUTIONS_NAV_ITEMS: readonly NavItem[] = [
   { labelKey: "solutionsItems.consulting", href: ROUTES.solutions.consulting },
@@ -280,7 +273,7 @@ export const HEADER_CTA: NavItem = { labelKey: "bookDiagnosticCta", href: ROUTES
 
 /** Header top bar utility links (start side). */
 export const HEADER_UTILITY_LINKS: readonly NavItem[] = [
-  COMMUNITY_NAV_ITEM,
+  { labelKey: "community", href: ROUTES.community },
   { labelKey: "jobs", href: ROUTES.jobs },
   { labelKey: "contact", href: ROUTES.contact },
 ];
@@ -288,7 +281,7 @@ export const HEADER_UTILITY_LINKS: readonly NavItem[] = [
 /** Header top bar account links (end side), in reading order after the language toggle. */
 export const HEADER_ACCOUNT_LINKS: readonly NavItem[] = [
   { labelKey: "support", href: ROUTES.support, icon: FiHeadphones },
-  { labelKey: "login", href: COMMUNITY_URLS.login, external: true, icon: FiLogIn },
+  { labelKey: "login", href: ROUTES.login, icon: FiLogIn },
 ];
 
 export interface FooterNavGroup {
@@ -334,7 +327,7 @@ export const FOOTER_NAV_GROUPS: readonly FooterNavGroup[] = [
       { labelKey: "companyItems.ourWork", href: ROUTES.projects.all },
       { labelKey: "companyItems.partners", href: ROUTES.partners },
       { labelKey: "companyItems.agents", href: ROUTES.agents },
-      COMMUNITY_NAV_ITEM,
+      { labelKey: "community", href: ROUTES.community },
       { labelKey: "jobs", href: ROUTES.jobs },
       { labelKey: "contact", href: ROUTES.contact },
     ],

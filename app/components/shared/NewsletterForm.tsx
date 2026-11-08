@@ -5,12 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
-import { FiMail, FiSend } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { API_ENDPOINTS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { Button } from "./Button";
 import { InputField } from "./form-handlers/InputField";
+import { FIELD_HEIGHT } from "./form-handlers/fieldStyles";
 
 /** Error messages are message keys inside the "validation" namespace. */
 const newsletterSchema = z.object({
@@ -58,7 +59,6 @@ export function NewsletterForm() {
         label={t("label")}
         hideLabel
         placeholder={t("placeholder")}
-        icon={<FiMail className="size-4" />}
         error={errorKey ? tValidation(errorKey) : undefined}
         disabled={isSubmitting}
         dir="ltr"
@@ -66,10 +66,10 @@ export function NewsletterForm() {
       />
       <Button
         type="submit"
-        variant="primary"
+        variant="secondary"
+        size="lg"
         isLoading={isSubmitting}
-        icon={<FiSend className="size-4 rtl:-scale-x-100" />}
-        className="shrink-0"
+        className={cn("shrink-0", FIELD_HEIGHT)}
       >
         {isSubmitting ? t("submitting") : t("submit")}
       </Button>

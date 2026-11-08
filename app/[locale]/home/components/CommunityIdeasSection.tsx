@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import { CommunityGateModal } from "@/app/components/shared/CommunityGateModal";
 import { Container } from "@/app/components/shared/Container";
 import { IdeaCard } from "@/app/components/shared/IdeaCard";
@@ -10,7 +10,7 @@ import { Button } from "@/app/components/shared/Button";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
-import { COMMUNITY_URLS, COMPANY_INFO, type AppLocale } from "@/lib/constants";
+import { COMPANY_INFO, ROUTES, type AppLocale } from "@/lib/constants";
 import { HOME_IDEAS } from "../data/homeData";
 
 export function CommunityIdeasSection() {
@@ -33,10 +33,9 @@ export function CommunityIdeasSection() {
           </Reveal>
           <Reveal preset="slideInRight" className="shrink-0">
             <Button
-              href={COMMUNITY_URLS.ideas}
-              external
+              href={ROUTES.community}
               variant="outline"
-              icon={<FiArrowUpRight />}
+              icon={<FiArrowRight />}
               flipIconInRtl
             >
               {t("viewAll")}

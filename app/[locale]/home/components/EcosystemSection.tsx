@@ -5,7 +5,6 @@ import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
 import {
-  COMMUNITY_URLS,
   COMPANY_INFO,
   MEDIA,
   ROUTES,
@@ -69,8 +68,7 @@ export function EcosystemSection({ locale }: EcosystemSectionProps) {
               description={t("community.description")}
               points={POINT_KEYS.map((key) => t(`community.points.${key}`))}
               ctaLabel={t("community.cta")}
-              href={COMMUNITY_URLS.home}
-              external
+              href={ROUTES.community}
             />
           </Reveal>
         </RevealGroup>

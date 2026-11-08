@@ -3,7 +3,7 @@
 import { CloseButton, Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { useTranslations } from "next-intl";
 import { FiArrowRight, FiX } from "react-icons/fi";
-import { COMMUNITY_NAV_ITEM, HEADER_ACCOUNT_LINKS, HEADER_CTA, HEADER_UTILITY_LINKS, NAV_LINKS } from "@/lib/constants";
+import { HEADER_ACCOUNT_LINKS, HEADER_CTA, HEADER_UTILITY_LINKS, NAV_LINKS, ROUTES } from "@/lib/constants";
 import { Button } from "../Button";
 import { CountrySwitcher } from "../country/CountrySwitcher";
 import { Logo } from "../Logo";
@@ -22,7 +22,8 @@ const SMALL_LINK_CLASS = "text-sm text-content hover:text-primary";
 /** Slide-in navigation for screens below xl. Links close it via Headless UI's close context. */
 export function HeaderMobileDrawer({ isOpen, onClose }: HeaderMobileDrawerProps) {
   const t = useTranslations("nav");
-  const secondaryLinks = [...HEADER_UTILITY_LINKS.filter((item) => item !== COMMUNITY_NAV_ITEM), ...HEADER_ACCOUNT_LINKS];
+  const communityLink = HEADER_UTILITY_LINKS.find((item) => item.href === ROUTES.community);
+  const secondaryLinks = [...HEADER_UTILITY_LINKS.filter((item) => item !== communityLink), ...HEADER_ACCOUNT_LINKS];
 
   return (
     <Dialog
@@ -65,7 +66,7 @@ export function HeaderMobileDrawer({ isOpen, onClose }: HeaderMobileDrawerProps)
                 <HeaderMobileNavLink key={entry.labelKey} item={entry} />
               ),
             )}
-            <HeaderMobileNavLink item={COMMUNITY_NAV_ITEM} />
+            {communityLink && <HeaderMobileNavLink item={communityLink} />}
           </nav>
 
           <div className="space-y-4 border-t border-edge bg-surface-alt px-5 py-5">
