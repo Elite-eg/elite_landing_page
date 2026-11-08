@@ -14,3 +14,8 @@ export function toAppLocale(value: string | undefined): AppLocale {
 export function intlLocale(locale: string): string {
   return locale === "ar" ? "ar-EG-u-nu-latn" : "en-US";
 }
+
+/** Localized name of an ISO 4217 currency ("EGP" → "جنيه مصري" / "Egyptian Pound"), so countries need no extra text. */
+export function currencyName(currency: string, locale: string): string {
+  return new Intl.DisplayNames([intlLocale(locale)], { type: "currency" }).of(currency) ?? currency;
+}
