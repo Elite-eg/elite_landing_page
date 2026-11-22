@@ -32,18 +32,3 @@ export const SAMPLE_COMMUNITY_EVENTS: readonly CommunityEvent[] = [
   { key: "fieldSalesMeetup", date: "2026-11-12", place: "cairo" },
   { key: "eInvoicingQa", date: "2026-11-26", place: "online" },
 ];
-
-export interface FieldArticle {
-  /** Title in `community.articles.items.<key>`. */
-  key: string;
-  /** Meta line in `community.articles.meta.<type>`. */
-  type: "article" | "customerStory";
-  minutes: number;
-}
-
-/** DRAFT SAMPLE / TBD: "From the field" teasers from the Figma. The articles have no pages yet. */
-export const SAMPLE_FIELD_ARTICLES: readonly FieldArticle[] = [
-  { key: "custodySettlement", type: "article", minutes: 5 },
-  { key: "distributorStory", type: "customerStory", minutes: 6 },
-  { key: "smartRoute", type: "article", minutes: 4 },
-];

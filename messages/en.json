@@ -43,9 +43,18 @@
     "learnItems": {
       "collections": "Collections guide",
       "eInvoicing": "E-invoicing guide",
+      "serviceAppGuide": "Service app guide",
       "videos": "Video tutorials",
       "knowledgeBase": "Knowledge base",
       "articles": "Articles"
+    },
+    "learnDescriptions": {
+      "collections": "Free PDF: rep custody, collections and end-of-day settlement.",
+      "eInvoicing": "Free PDF: e-invoicing requirements in Egypt and Saudi Arabia.",
+      "serviceAppGuide": "Free PDF: building a service app in Saudi Arabia.",
+      "videos": "Short walkthroughs of every Albiruni app.",
+      "knowledgeBase": "Step-by-step answers, organized by topic.",
+      "articles": "Practical ideas on field sales and collections."
     },
     "developersItems": {
       "register": "Become a developer",
@@ -1171,6 +1180,10 @@
     "book": "Book a free diagnostic session",
     "whatsapp": "Chat on WhatsApp"
   },
+  "newsletterSection": {
+    "title": "One monthly newsletter. No spam.",
+    "subtitle": "The best content and events in one email a month."
+  },
   "guides": {
     "common": {
       "eyebrow": "Free guide · PDF",
@@ -1224,6 +1237,239 @@
       "cover": {
         "title": "E-invoicing guide",
         "edition": "Egypt & Saudi Arabia · 2026"
+      }
+    },
+    "serviceApp": {
+      "meta": {
+        "title": "Guide to building a service app in Saudi Arabia",
+        "description": "A free PDF guide to launching a service app in Saudi Arabia: licenses, payment gateways, cost and timeline, from the Bareeq X experience."
+      },
+      "title": "How to build a service app in Saudi Arabia",
+      "description": "A practical guide for anyone planning a services app in Saudi Arabia: the licenses you need, choosing a payment gateway, and a realistic cost and timeline, drawn from our work on Bareeq X.",
+      "contents": {
+        "licenses": "The licenses and registrations a service app needs",
+        "paymentGateways": "Choosing a payment gateway and getting approved",
+        "launchFeatures": "The features to launch with, and what can wait",
+        "costTimeline": "A realistic cost and timeline, stage by stage",
+        "lessons": "Lessons learned from building Bareeq X"
+      },
+      "cover": {
+        "title": "Service app guide for Saudi Arabia",
+        "edition": "From the Bareeq X experience · 2026"
+      }
+    },
+    "installation": {
+      "meta": {
+        "title": "Albiruni installation guide",
+        "description": "A free PDF guide to installing Albiruni: what to prepare, step-by-step setup, the mobile app, add-ons and fixes for common problems."
+      },
+      "title": "How to install Albiruni, step by step",
+      "description": "A practical guide for developers and agents: what to prepare, how to install Albiruni and its mobile app, enable add-ons, and check that everything works before handing it over to the customer.",
+      "contents": {
+        "requirements": "What to prepare: requirements, accounts and access",
+        "setup": "Installing Albiruni and setting up the first company",
+        "mobileApp": "Installing the mobile app on the reps' phones",
+        "addons": "Installing and enabling add-ons from the store",
+        "troubleshooting": "Common installation problems and how to fix them"
+      },
+      "cover": {
+        "title": "Albiruni installation guide",
+        "edition": "For developers and agents · 2026"
+      }
+    }
+  },
+  "learn": {
+    "allTopics": "All",
+    "topics": {
+      "gettingStarted": "Getting started",
+      "fieldSales": "Field sales",
+      "collections": "Collections & custody",
+      "warehouse": "Warehouse & delivery",
+      "eInvoicing": "E-invoicing",
+      "reports": "Reports"
+    },
+    "library": {
+      "title": "More from the learning library"
+    },
+    "videos": {
+      "meta": {
+        "title": "Albiruni video tutorials",
+        "description": "Short step-by-step videos for every Albiruni app: setup, field sales, collections, warehouse, e-invoicing and reports."
+      },
+      "hero": {
+        "eyebrow": "Video tutorials",
+        "title": "Learn Albiruni in short videos",
+        "subtitle": "Step-by-step walkthroughs for managers, accountants and reps, from setting up your company to closing a rep's day."
+      },
+      "filterLabel": "Filter videos by topic",
+      "listLabel": "Videos",
+      "resultsCount": "{count, plural, =0 {No videos shown} one {# video shown} other {# videos shown}}",
+      "lengthLabel": "Length",
+      "items": {
+        "companySetup": "Set up your company on Albiruni",
+        "inviteUsers": "Add users and set their permissions",
+        "repApp": "A tour of the rep's mobile app",
+        "visitPlan": "Plan rep visits and routes",
+        "salesOrder": "Take a sales order during a visit",
+        "collectPayment": "Collect a payment and send an e-receipt",
+        "dailySettlement": "Settle a rep's custody at the end of the day",
+        "stockTransfer": "Load the van: transfer stock to a rep",
+        "deliveryRoutes": "Plan delivery routes",
+        "eInvoiceSetup": "Connect to the e-invoicing system",
+        "salesDashboard": "Read the daily sales dashboard",
+        "repPerformance": "Track each rep's performance"
+      }
+    },
+    "knowledgeBase": {
+      "meta": {
+        "title": "Albiruni knowledge base",
+        "description": "Step-by-step help articles for every Albiruni app, organized by topic, with direct support on WhatsApp, phone and email."
+      },
+      "hero": {
+        "eyebrow": "Knowledge base",
+        "title": "How can we help?",
+        "subtitle": "Step-by-step articles for every Albiruni app. Search for your question or browse by topic."
+      },
+      "search": {
+        "label": "Search the knowledge base",
+        "placeholder": "Search, e.g. daily settlement"
+      },
+      "topics": {
+        "title": "Browse by topic",
+        "resultsTitle": "Results for “{query}”",
+        "resultsCount": "{count, plural, =0 {No matching articles} one {# matching article} other {# matching articles}}",
+        "articlesCount": "{count, plural, =0 {No articles} one {# article} other {# articles}}",
+        "items": {
+          "gettingStarted": {
+            "description": "Set up your company, users and data in your first days.",
+            "articles": {
+              "companyProfile": "Fill in your company profile and branches",
+              "inviteUsers": "Invite users and assign their roles",
+              "importData": "Import customers and items from Excel",
+              "installApp": "Install the app on your reps' phones"
+            }
+          },
+          "fieldSales": {
+            "description": "Visits, orders, price lists and rep targets.",
+            "articles": {
+              "visitPlan": "Build a weekly visit plan",
+              "salesOrder": "Record an order during a visit",
+              "priceLists": "Set price lists and discounts per customer",
+              "repTargets": "Set monthly targets for each rep"
+            }
+          },
+          "collections": {
+            "description": "Payments, e-receipts, custody limits and daily settlement.",
+            "articles": {
+              "eReceipt": "Collect a payment and send an e-receipt",
+              "custodyLimits": "Set a custody limit for each rep",
+              "dailySettlement": "Settle a rep's custody at the end of the day",
+              "cheques": "Record cheques and track their due dates"
+            }
+          },
+          "warehouse": {
+            "description": "Stock, van loading, returns and delivery routes.",
+            "articles": {
+              "stockTransfer": "Transfer stock from the warehouse to a rep's van",
+              "stockCount": "Run a stock count",
+              "returns": "Receive customer returns",
+              "deliveryRoute": "Plan a delivery route"
+            }
+          },
+          "eInvoicing": {
+            "description": "Connect to Egypt's and Saudi Arabia's systems and issue compliant invoices.",
+            "articles": {
+              "egyptSetup": "Connect to Egypt's e-invoicing system",
+              "saudiSetup": "Connect to Saudi Arabia's Fatoora platform",
+              "itemCodes": "Add tax item codes to your items",
+              "rejectedInvoices": "Fix a rejected invoice and send it again"
+            }
+          },
+          "reports": {
+            "description": "Dashboards, rep performance and exports.",
+            "articles": {
+              "dailyDashboard": "Read the daily sales dashboard",
+              "repPerformance": "Compare your reps' performance",
+              "customerBalances": "Track customer balances and overdue payments",
+              "exportExcel": "Export any report to Excel"
+            }
+          }
+        }
+      },
+      "empty": {
+        "title": "No articles match your search",
+        "text": "Ask our support team on WhatsApp and we'll answer you directly.",
+        "action": "Ask on WhatsApp",
+        "message": "Hello, I have a question about Albiruni: {query}"
+      },
+      "help": {
+        "title": "Didn't find your answer?",
+        "subtitle": "Our support team answers on WhatsApp, phone and email. The channels and response times depend on your plan.",
+        "sla": "See support channels and response times by plan",
+        "label": "Support channels",
+        "channels": {
+          "whatsapp": {
+            "title": "WhatsApp"
+          },
+          "phone": {
+            "title": "Phone"
+          },
+          "email": {
+            "title": "Email"
+          }
+        }
+      }
+    },
+    "articles": {
+      "meta": {
+        "title": "Articles on field sales and collections",
+        "description": "Practical articles and customer stories from {brand} on field sales, collections, distribution and e-invoicing."
+      },
+      "hero": {
+        "eyebrow": "Articles",
+        "title": "Practical ideas from the field",
+        "subtitle": "Short articles and customer stories for anyone running field sales, collections or distribution."
+      },
+      "filterLabel": "Filter articles by topic",
+      "listLabel": "Articles",
+      "resultsCount": "{count, plural, =0 {No articles shown} one {# article shown} other {# articles shown}}",
+      "types": {
+        "article": "{minutes} min read",
+        "customerStory": "Customer story · {minutes} min"
+      },
+      "items": {
+        "custodySettlement": {
+          "title": "Three ways to make custody settlement easier for your reps",
+          "excerpt": "Clear limits, receipts issued on the spot and a short daily close keep custody from piling up."
+        },
+        "distributorStory": {
+          "title": "How a distribution company cut its end-of-day discrepancies",
+          "excerpt": "What changed when the reps started issuing e-receipts and settling their custody every evening."
+        },
+        "smartRoute": {
+          "title": "Smart route: how to make the most of a rep's time",
+          "excerpt": "Group visits by area and priority, so each rep spends more time selling and less time on the road."
+        },
+        "eInvoicingMistakes": {
+          "title": "Five common e-invoicing mistakes and how to avoid them",
+          "excerpt": "Missing item codes, wrong tax details and late submissions: what gets invoices rejected."
+        },
+        "morningNumbers": {
+          "title": "Five numbers a sales manager should check every morning",
+          "excerpt": "Yesterday's sales, collections, open custody, overdue balances and missed visits."
+        },
+        "vanStock": {
+          "title": "Van sales: keep the van's stock matching the system",
+          "excerpt": "A simple loading and returns routine that ends every day with no stock gaps."
+        },
+        "repTargets": {
+          "title": "How to set fair monthly targets for your reps",
+          "excerpt": "Start from each area's real numbers instead of one figure for everyone, and review them every month."
+        },
+        "fromExcel": {
+          "title": "Moving from Excel to a field sales system: where to start",
+          "excerpt": "Which data to clean first, which team to start with, and how to run both side by side for a while."
+        }
       }
     }
   },
@@ -2196,20 +2442,7 @@
       }
     },
     "articles": {
-      "title": "From the field",
-      "meta": {
-        "article": "{minutes} min read",
-        "customerStory": "Customer story · {minutes} min"
-      },
-      "items": {
-        "custodySettlement": "Three ways to make custody settlement easier for your reps",
-        "distributorStory": "How a distribution company cut its end-of-day discrepancies",
-        "smartRoute": "Smart route: how to make the most of a rep's time"
-      }
-    },
-    "newsletter": {
-      "title": "One monthly newsletter. No spam.",
-      "subtitle": "The best content and events in one email a month."
+      "title": "From the field"
     }
   },
   "site": {

@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import type { IconType } from "react-icons";
-import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { cn } from "@/lib/utils";
-import type { ContactChannelTone } from "../data/contactData";
+import { CARD_HOVER_CLASSES } from "./cardStyles";
+
+/** Icon tile colours from the Figma: WhatsApp green, warm orange (Maher), navy tint for company data. */
+export type ContactChannelTone = "whatsapp" | "warm" | "muted";
 
 const TONE_CLASSES: Record<ContactChannelTone, string> = {
   whatsapp: "bg-whatsapp text-white",
@@ -27,7 +29,7 @@ export interface ContactChannelCardProps {
   external?: boolean;
 }
 
-/** Icon tile + title + value. Hover changes the border colour only. */
+/** Icon tile + title + value (contact page channels, knowledge base support). Hover changes the border colour only. */
 export function ContactChannelCard({ icon: Icon, tone, title, children, href, external = false }: ContactChannelCardProps) {
   const content = (
     <>

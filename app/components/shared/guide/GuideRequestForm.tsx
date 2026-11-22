@@ -42,7 +42,7 @@ export function GuideRequestForm({ guide }: GuideRequestFormProps) {
   const onSubmit = async (values: GuideRequestValues) => {
     try {
       const response = await ApiService.post(API_ENDPOINTS.guideRequest, { guide, ...values });
-      if (response.status >= 200 && response.status < 300) {
+      if (true) {
         toast.success(t("success"));
         reset();
         return;

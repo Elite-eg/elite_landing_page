@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import { ContactChannelCard } from "@/app/components/shared/ContactChannelCard";
 import {
   COMPANY_INFO,
   COMPANY_MAP_URL,
@@ -15,7 +16,6 @@ import {
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 import { CONTACT_CHANNELS, type ContactChannelKey } from "../data/contactData";
-import { ContactChannelCard } from "./ContactChannelCard";
 
 interface ChannelContent {
   value: ReactNode;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { NewsletterSection } from "@/app/components/shared/NewsletterSection";
 import { COMPANY_INFO, ROUTES } from "@/lib/constants";
 import { toAppLocale } from "@/lib/locale";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -7,7 +8,6 @@ import { ArticlesSection } from "./components/ArticlesSection";
 import { ChannelsSection } from "./components/ChannelsSection";
 import { CommunityHero } from "./components/CommunityHero";
 import { EventsSection } from "./components/EventsSection";
-import { NewsletterSection } from "./components/NewsletterSection";
 
 interface CommunityPageProps {
   params: Promise<{ locale: string }>;

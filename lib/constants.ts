@@ -4,7 +4,8 @@
  */
 
 import type { IconType } from "react-icons";
-import { FiHeadphones, FiLogIn, FiMapPin, FiTool, FiTruck } from "react-icons/fi";
+import { FiBookOpen, FiFileText, FiHeadphones, FiLogIn, FiMapPin, FiPlayCircle, FiTool, FiTruck } from "react-icons/fi";
+import { LuFileDown } from "react-icons/lu";
 import type { routing } from "@/i18n/routing";
 
 /** "ar" | "en", derived from the next-intl routing config so the locale list lives in one place. */
@@ -136,7 +137,7 @@ export const ROUTES = {
   learn: {
     collections: "/learn/collections-guide",
     eInvoicing: "/learn/e-invoicing-guide",
-    /** TBD: guide "How to build a service app in Saudi Arabia" (home next steps); page not built yet. */
+    /** Guide "How to build a service app in Saudi Arabia" (home next steps, footer). */
     serviceAppGuide: "/learn/service-app-guide",
     videos: "/learn/videos",
     knowledgeBase: "/learn/knowledge-base",
@@ -226,6 +227,39 @@ export const ALBIRUNI_NAV_ITEMS: readonly NavItem[] = [
   { labelKey: "addonsStore", descriptionKey: "productsDescriptions.addons", href: ROUTES.albiruni.addons },
 ];
 
+/**
+ * The learning library: the footer group, and the "More from the learning library" tiles on the learn pages
+ * (icon + description). Descriptions in `nav.learnDescriptions`.
+ */
+export const LEARN_NAV_ITEMS: readonly NavItem[] = [
+  {
+    labelKey: "learnItems.collections",
+    descriptionKey: "learnDescriptions.collections",
+    href: ROUTES.learn.collections,
+    icon: LuFileDown,
+  },
+  {
+    labelKey: "learnItems.eInvoicing",
+    descriptionKey: "learnDescriptions.eInvoicing",
+    href: ROUTES.learn.eInvoicing,
+    icon: LuFileDown,
+  },
+  {
+    labelKey: "learnItems.serviceAppGuide",
+    descriptionKey: "learnDescriptions.serviceAppGuide",
+    href: ROUTES.learn.serviceAppGuide,
+    icon: LuFileDown,
+  },
+  { labelKey: "learnItems.videos", descriptionKey: "learnDescriptions.videos", href: ROUTES.learn.videos, icon: FiPlayCircle },
+  {
+    labelKey: "learnItems.knowledgeBase",
+    descriptionKey: "learnDescriptions.knowledgeBase",
+    href: ROUTES.learn.knowledgeBase,
+    icon: FiBookOpen,
+  },
+  { labelKey: "learnItems.articles", descriptionKey: "learnDescriptions.articles", href: ROUTES.learn.articles, icon: FiFileText },
+];
+
 export const PROJECTS_NAV_ITEMS: readonly NavItem[] = [
   { labelKey: "projectsItems.bareeq", descriptionKey: "projectsDescriptions.bareeq", href: ROUTES.projects.bareeq },
   { labelKey: "projectsItems.amanCar", descriptionKey: "projectsDescriptions.amanCar", href: ROUTES.projects.amanCar },
@@ -302,16 +336,7 @@ export const FOOTER_NAV_GROUPS: readonly FooterNavGroup[] = [
     ],
   },
   { key: "solutions", items: SOLUTIONS_NAV_ITEMS },
-  {
-    key: "learn",
-    items: [
-      { labelKey: "learnItems.collections", href: ROUTES.learn.collections },
-      { labelKey: "learnItems.eInvoicing", href: ROUTES.learn.eInvoicing },
-      { labelKey: "learnItems.videos", href: ROUTES.learn.videos },
-      { labelKey: "learnItems.knowledgeBase", href: ROUTES.learn.knowledgeBase },
-      { labelKey: "learnItems.articles", href: ROUTES.learn.articles },
-    ],
-  },
+  { key: "learn", items: LEARN_NAV_ITEMS },
   {
     key: "developers",
     items: [

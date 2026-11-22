@@ -1,12 +1,12 @@
 import { useTranslations } from "next-intl";
-import { Container } from "@/app/components/shared/Container";
-import { NewsletterForm } from "@/app/components/shared/NewsletterForm";
-import { Reveal } from "@/app/components/shared/Reveal";
-import { SectionHeading } from "@/app/components/shared/SectionHeading";
+import { Container } from "./Container";
+import { NewsletterForm } from "./NewsletterForm";
+import { Reveal } from "./Reveal";
+import { SectionHeading } from "./SectionHeading";
 
-/** Navy closing band (the page's one bold moment): monthly newsletter sign-up. */
+/** Navy closing band (the page's one bold moment): monthly newsletter sign-up. Community and articles pages. */
 export function NewsletterSection() {
-  const t = useTranslations("community.newsletter");
+  const t = useTranslations("newsletterSection");
 
   return (
     <section className="bg-primary-dark py-20">
