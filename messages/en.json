@@ -1240,20 +1240,20 @@
     "serviceApp": {
       "meta": {
         "title": "Guide to building a service app in Saudi Arabia",
-        "description": "A free PDF guide to launching a service app in Saudi Arabia: licenses, payment gateways, cost and timeline, from the Bareeq X experience."
+        "description": "A free PDF guide from the Bareeq X launch: regulatory requirements, payment gateways, cost and timeline for launching a service app in Saudi Arabia."
       },
       "title": "How to build a service app in Saudi Arabia",
-      "description": "A practical guide for anyone planning a services app in Saudi Arabia: the licenses you need, choosing a payment gateway, and a realistic cost and timeline, drawn from our work on Bareeq X.",
+      "description": "A practical guide we wrote from launching Bareeq X: from licenses and payment gateways to cost and timeline.",
       "contents": {
-        "licenses": "The licenses and registrations a service app needs",
-        "paymentGateways": "Choosing a payment gateway and getting approved",
-        "launchFeatures": "The features to launch with, and what can wait",
-        "costTimeline": "A realistic cost and timeline, stage by stage",
-        "lessons": "Lessons learned from building Bareeq X"
+        "regulations": "Regulatory requirements and the commercial registration before launch",
+        "paymentGateway": "Choosing a payment gateway and testing OTP verification",
+        "costTimeline": "Estimating the cost and duration of each stage",
+        "commonMistakes": "Common mistakes that delay the launch, and how to avoid them",
+        "storeChecklist": "A checklist before publishing to the app stores"
       },
       "cover": {
-        "title": "Service app guide for Saudi Arabia",
-        "edition": "From the Bareeq X experience · 2026"
+        "title": "Building a service app in Saudi Arabia",
+        "edition": "From the Bareeq X launch · 2026"
       }
     },
     "installation": {
