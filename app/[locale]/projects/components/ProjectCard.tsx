@@ -1,8 +1,8 @@
 import { useLocale, useTranslations } from "next-intl";
 import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
-import { COMPANY_INFO, ROUTES, type AppLocale } from "@/lib/constants";
+import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
+import type { Project } from "@/lib/projects";
 import { cn } from "@/lib/utils";
-import type { Project } from "../data/projectsData";
 import { ProjectCover } from "./ProjectCover";
 import { ProjectFeatureList } from "./ProjectFeatureList";
 import { ProjectLinks } from "./ProjectLinks";
@@ -19,7 +19,7 @@ export interface ProjectCardProps {
  * One project (Figma "Case"): details on the start side, cover on the end side from lg; cover on top below.
  * Rests on a small shadow; hover: the border darkens and the shadow grows.
  */
-export function ProjectCard({ project: { key, cover, links }, priority }: ProjectCardProps) {
+export function ProjectCard({ project: { key, href, cover, images, links }, priority }: ProjectCardProps) {
   const t = useTranslations(`projects.list.${key}`);
   const brand = COMPANY_INFO.brandName[useLocale() as AppLocale];
   const titleId = `project-${key}-title`;
@@ -34,7 +34,8 @@ export function ProjectCard({ project: { key, cover, links }, priority }: Projec
     >
       <ProjectCover
         cover={cover}
-        wordmark={t("wordmark")}
+        photo={images.photo}
+        projectKey={key}
         priority={priority}
         className="lg:order-last lg:col-span-5"
       />
@@ -49,7 +50,7 @@ export function ProjectCard({ project: { key, cover, links }, priority }: Projec
         <ProjectFeatureList features={t.raw("features") as string[]} />
         <ProjectTechList tech={t.raw("tech") as string[]} />
         <p className="text-caption text-content">{t("meta", { brand })}</p>
-        <ProjectLinks detailsHref={ROUTES.projects[key]} links={links} siteName={t("wordmark")} describedBy={titleId} />
+        <ProjectLinks detailsHref={href} links={links} siteName={t("wordmark")} describedBy={titleId} />
       </div>
     </article>
   );

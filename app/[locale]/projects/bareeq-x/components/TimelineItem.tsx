@@ -1,7 +1,7 @@
 import { FiCheck } from "react-icons/fi";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { cn } from "@/lib/utils";
-import type { MilestoneStatus } from "../data/bareeqData";
+import type { MilestoneStatus } from "@/lib/projects";
 import { TimelineConnector } from "./TimelineConnector";
 
 interface TimelineItemProps {

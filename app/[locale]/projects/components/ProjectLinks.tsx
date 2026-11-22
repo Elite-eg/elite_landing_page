@@ -1,13 +1,14 @@
 import { useTranslations } from "next-intl";
 import { FiArrowRight } from "react-icons/fi";
-import { AppLinkBadge, type AppLink } from "@/app/components/shared/AppLinkBadge";
+import { AppLinkBadge } from "@/app/components/shared/AppLinkBadge";
 import { Button } from "@/app/components/shared/Button";
+import type { AppLink } from "@/lib/projects";
 
 export interface ProjectLinksProps {
   /** The project's own page, linked as "Project details". */
   detailsHref: string;
   /** The live site and store listings the project has, opened in a new tab. */
-  links: AppLink[];
+  links: readonly AppLink[];
   /** Shown on the website badge ("View {name}"). */
   siteName: string;
   /** Id of the project title: "Project details" ×N stay distinguishable for screen readers. */

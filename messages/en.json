@@ -43,9 +43,18 @@
     "learnItems": {
       "collections": "Collections guide",
       "eInvoicing": "E-invoicing guide",
+      "serviceAppGuide": "Service app guide",
       "videos": "Video tutorials",
       "knowledgeBase": "Knowledge base",
       "articles": "Articles"
+    },
+    "learnDescriptions": {
+      "collections": "Free PDF: rep custody, collections and end-of-day settlement.",
+      "eInvoicing": "Free PDF: e-invoicing requirements in Egypt and Saudi Arabia.",
+      "serviceAppGuide": "Free PDF: building a service app in Saudi Arabia.",
+      "videos": "Short walkthroughs of every Albiruni app.",
+      "knowledgeBase": "Step-by-step answers, organized by topic.",
+      "articles": "Practical ideas on field sales and collections."
     },
     "developersItems": {
       "register": "Become a developer",
@@ -233,179 +242,409 @@
   },
   "home": {
     "meta": {
-      "title": "Software solutions and developer community",
-      "description": "Custom software, web platforms, mobile apps and ERP systems for growing companies, plus an open community where developers and founders build ideas together."
+      "title": "We analyze how you work, then write the code",
+      "description": "{brand} is an Egyptian software company that brings operations experts and developers together: we understand your procedures before we build your systems and apps, and the Albiruni platform runs field sales, collections and inventory across Egypt and the Gulf."
     },
     "hero": {
-      "eyebrow": "Software house and developer community in Cairo",
-      "title": "Engineering expertise for your business, and a community that builds with you",
-      "subtitle": "We build custom software, web platforms, mobile apps and ERP systems for growing companies, and run an open community where developers and founders turn ideas into products.",
-      "primaryCta": "Explore our solutions",
-      "secondaryCta": "Join the community",
-      "chips": {
-        "web": "Web and cloud platforms",
-        "mobile": "Flutter mobile apps",
-        "erp": "Odoo and ERPNext",
-        "ai": "AI and automation"
-      },
-      "ideaCard": {
-        "label": "From the ideas bank",
-        "title": "Voice AI agent that confirms cash-on-delivery orders",
-        "cta": "Browse the ideas bank"
-      },
-      "scrollHint": "Scroll to explore"
-    },
-    "tech": {
-      "label": "Technologies we build with"
-    },
-    "ecosystem": {
-      "eyebrow": "Two ways to work with us",
-      "title": "One team serving companies and the developer community",
-      "subtitle": "Bring us a business problem and we engineer the system. Bring us an idea and the community helps you build it.",
-      "enterprise": {
-        "tag": "For companies",
-        "title": "Enterprise software solutions",
-        "description": "Systems with independent IP, built to stay stable under real operational load and to grow with your business.",
-        "points": {
-          "one": "Custom web platforms built with Laravel and React",
-          "two": "ERP rollouts and integrations on Odoo and ERPNext",
-          "three": "Dashboards and automation that cut manual work"
+      "eyebrow": "Egyptian software company · Egypt and the Gulf",
+      "title": "We analyze how you work <accent>first,</accent> then we write the code.",
+      "subtitle": "One team of operations experts and developers: we understand your procedures before we write a single line, so the system fits the way your company works.",
+      "pathsTitle": "Where do you start?",
+      "paths": {
+        "company": {
+          "title": "I have a company",
+          "description": "I want a system that runs my team, sales, inventory and collections.",
+          "action": "Try Albiruni free for 14 days",
+          "note": "The trial is available now in Egypt"
         },
-        "cta": "View our solutions",
-        "imageAlt": "Our consultants reviewing a business dashboard with a client"
+        "appIdea": {
+          "title": "I have an app idea",
+          "description": "I want an app or a platform like Bareeq X, from the idea to the launch.",
+          "action": "Tell us your idea",
+          "note": "We reply within one business day"
+        }
       },
-      "community": {
-        "tag": "For developers and founders",
-        "title": "{brand} community",
-        "description": "A platform where developers, designers and founders share ideas, find collaborators and grow their careers.",
-        "points": {
-          "one": "An ideas bank with projects ready to build",
-          "two": "A jobs forum for full-time and freelance roles",
-          "three": "Direct access to our engineers"
+      "proof": "From our projects:"
+    },
+    "stats": {
+      "intro": "A young Egyptian software company serving businesses in Egypt and the Gulf.",
+      "items": {
+        "founded": "Year founded",
+        "services": "Integrated tech services",
+        "projects": "Projects we launched and are proud of",
+        "codeOwnership": "Source code ownership of our products"
+      },
+      "codeOwnershipValue": "100%"
+    },
+    "team": {
+      "eyebrow": "How we work",
+      "title": "Our team is made of operations experts <br></br>and specialized developers.",
+      "subtitle": "Experts in finance, procurement and field sales define the requirements with you, and developers in mobile, web and ERP systems build them.",
+      "join": "A system that fits <br></br>your procedures",
+      "panels": {
+        "operations": {
+          "title": "Operations experts",
+          "description": "Hands-on experience inside finance, procurement and operations departments.",
+          "points": {
+            "finance": {
+              "title": "Finance and accounting",
+              "description": "Collections, custody, reconciliations and financial reports"
+            },
+            "procurement": {
+              "title": "Procurement and supply chains",
+              "description": "Suppliers, warehouses, stock counts and waste"
+            },
+            "fieldOps": {
+              "title": "Operations and field sales",
+              "description": "Sales reps, routes, attendance and maintenance"
+            }
+          }
         },
-        "cta": "Visit the community",
-        "imageAlt": "Developers planning an app together at a community meetup"
+        "developers": {
+          "title": "Developers",
+          "description": "Developers who have launched projects for clients in Egypt and the Gulf.",
+          "points": {
+            "mobile": {
+              "title": "Mobile apps",
+              "description": "Flutter for iOS and Android, working offline"
+            },
+            "web": {
+              "title": "Web and systems",
+              "description": "Laravel, React and Next.js, plus Odoo and ERPNext"
+            },
+            "ai": {
+              "title": "AI and data",
+              "description": "Automation, dashboards and a smart assistant"
+            }
+          }
+        }
       }
+    },
+    "projects": {
+      "eyebrow": "Products and projects",
+      "title": "Our projects",
+      "all": "All projects",
+      "items": {
+        "albiruni": {
+          "badge": "SaaS platform · launching soon",
+          "description": "Our business management platform: one mobile app for employees, sales reps and managers, and a web dashboard for management.",
+          "credit": "Built entirely by {brand}",
+          "tags": [
+            "Mobile app",
+            "Web dashboard"
+          ],
+          "link": "Explore the platform"
+        },
+        "amanCar": {
+          "badge": "Cloud system · Makkah and Jeddah",
+          "description": "A cloud system that automates car service centers: a dashboard for workshops and branches, work orders from inspection to delivery, and instant invoicing.",
+          "credit": "For Aman Car Maintenance · {brand} keeps ownership of the source code",
+          "tags": [
+            "Feasibility study",
+            "UX/UI",
+            "Web development",
+            "Cloud dashboards",
+            "API"
+          ],
+          "link": "Project details"
+        },
+        "bareeq": {
+          "badge": "Mobile app · Saudi Arabia",
+          "description": "A smart system for mobile steam car washing: a customer app, a driver app, a management dashboard and a website.",
+          "credit": "Partner: Maharat Al-Code IT · First version launched January 2026",
+          "tags": [
+            "Feasibility study",
+            "UX/UI",
+            "Flutter",
+            "Next.js",
+            "Laravel",
+            "Payment gateway"
+          ]
+        }
+      }
+    },
+    "pains": {
+      "eyebrow": "Problems we solve",
+      "title": "Problems every field company faces, <br></br>and how Albiruni solves them.",
+      "legend": {
+        "mobile": "Mobile app · for sales reps and employees",
+        "web": "Web dashboard · for management"
+      },
+      "surfaces": {
+        "mobile": "Mobile app",
+        "web": "Web dashboard"
+      },
+      "surfacesLabel": "Works in",
+      "problemLabel": "The problem",
+      "solutionLabel": "The solution in Albiruni",
+      "items": {
+        "sales": {
+          "problem": "“I don't know where my sales rep is right now, or who they visited today.”",
+          "solution": "A smart visit plan leads each rep to their customers on the shortest route, and every visit is logged automatically, without paper.",
+          "area": "Sales and visits"
+        },
+        "collection": {
+          "problem": "“Collections live in a notebook, and the gaps show up at the end of the month.”",
+          "solution": "Every collection is recorded with a receipt from the phone, and custody is settled daily before the rep closes the day.",
+          "area": "Collections and custody"
+        },
+        "warehouse": {
+          "problem": "“The stock in the vans doesn't match the warehouse.”",
+          "solution": "A blind count of each van at the end of the day, reconciled with the warehouse automatically.",
+          "area": "Warehouse and van stock"
+        },
+        "attendance": {
+          "problem": "“Attendance is on paper, and the fingerprint reader is one device at head office.”",
+          "solution": "Check in from the phone inside the site's boundary, with an attendance sheet ready for payroll.",
+          "area": "Attendance"
+        },
+        "approvals": {
+          "problem": "“Requests wait days for the manager's signature.”",
+          "solution": "One approvals inbox where the manager approves leave, expenses and requests from their phone.",
+          "area": "Approvals"
+        },
+        "reports": {
+          "problem": "“Reports are put together by hand from Excel files.”",
+          "solution": "A dashboard that updates itself, and reports ready to export in one click.",
+          "area": "Reports"
+        }
+      },
+      "trial": "Try Albiruni free for 14 days",
+      "session": "Different problem? Book a diagnostic session"
     },
     "services": {
-      "eyebrow": "Solutions",
-      "title": "Software built around how your business runs",
-      "subtitle": "Seven service lines covering the full path from interface design to data, delivered by one team.",
-      "feature": {
-        "title": "From first sketch to launch day",
-        "description": "We design, build and ship web and mobile products, then stay on to support and improve them.",
-        "cta": "Request a quote",
-        "imageAlt": "A mobile delivery tracking app next to a web admin dashboard"
-      },
-      "cardCta": "Discuss this service",
+      "eyebrow": "What we offer",
+      "title": "Our services",
+      "subtitle": "Besides Albiruni, we build custom products and systems for our clients, such as Bareeq X, Aman Car and the ARFA Engineering website.",
       "items": {
-        "customSoftware": {
-          "title": "Custom enterprise software",
-          "description": "Systems with independent IP and secure infrastructure, built for operational stability and disciplined digital growth."
+        "consulting": {
+          "title": "Tech consulting and architecture",
+          "description": "We analyze the requirements and design the right architecture before development: a clear roadmap, fewer technical risks and a calculated cost."
         },
-        "webPlatforms": {
-          "title": "Web systems and platforms",
-          "description": "Integrated web and cloud platforms on Laravel and React, with flexible admin dashboards that hold up under high traffic."
+        "web": {
+          "title": "Web platforms and applications",
+          "description": "Integrated web platforms and cloud systems built with Laravel and React, with flexible dashboards, responsive design and stability under load."
         },
-        "mobileApps": {
+        "mobile": {
           "title": "Mobile app engineering",
-          "description": "iOS and Android apps in Flutter with full offline mode, precise geofencing and real-time data sync."
+          "description": "iOS and Android apps built with Flutter that work fully offline, with precise location and real-time data sync."
         },
-        "erpSystems": {
-          "title": "Custom ERP systems",
-          "description": "Odoo and ERPNext tailored to connect accounting, inventory, supply chain and HR in one environment."
+        "erp": {
+          "title": "ERP and resource planning",
+          "description": "Customizing and integrating Odoo and ERPNext: accounting, inventory, supply chains and HR in one environment."
         },
-        "aiAutomation": {
+        "ai": {
           "title": "AI and process automation",
-          "description": "AI models and automation added to your existing workflows to speed up routine tasks and reduce data-entry errors."
+          "description": "We build AI models and automation tools into your systems to speed up repetitive tasks and cut data entry errors."
         },
         "uiux": {
-          "title": "UI/UX product design",
-          "description": "Interfaces and user journeys designed in Figma with interactive prototypes, so your team actually adopts the system."
+          "title": "UI and user experience design",
+          "description": "User journeys built on understanding your audience, and interactive Figma prototypes focused on simplicity and easy adoption."
         },
-        "dataBi": {
-          "title": "Data analytics and BI",
-          "description": "Live BI dashboards that turn field and operational data into KPIs your management can act on."
+        "data": {
+          "title": "Data analytics and business intelligence",
+          "description": "We turn your operational data into live reports and dashboards that expose waste and support decisions."
         }
       }
     },
-    "community": {
-      "eyebrow": "Community",
-      "title": "A collaborative environment that moves you forward",
-      "description": "Join engineers and builders who share what they know, take on ambitious projects together and grow through direct work with professionals.",
-      "points": {
-        "one": "Inspiring collaborative projects",
-        "two": "Advanced technical discussions",
-        "three": "A strong professional network"
+    "apps": {
+      "eyebrow": "The Albiruni platform",
+      "title": "Start with what you need today, <br></br>and grow as your company grows.",
+      "subtitle": "An app for every team, all connected: the same data and the same permissions everywhere.",
+      "filterLabel": "Show Albiruni apps by team",
+      "filters": {
+        "all": "All",
+        "sales": "Sales",
+        "operations": "Operations",
+        "team": "Team",
+        "finance": "Finance"
       },
-      "imageAlt": "A senior engineer mentoring a junior developer at a laptop",
-      "imageBadge": "Mentoring from our engineers",
-      "cta": "Join the community",
-      "features": {
-        "projects": {
-          "title": "Collaborative projects",
-          "description": "Contribute to real technical projects and trade ideas with strong developers in your field."
-        },
-        "experts": {
-          "title": "Connect with experts",
-          "description": "Build professional relationships with our engineers and sharpen your ideas with their feedback."
-        },
-        "mentoring": {
-          "title": "Technical mentoring",
-          "description": "Get direct guidance to grow your engineering and leadership skills."
-        }
-      }
-    },
-    "ideas": {
-      "eyebrow": "Ideas bank",
-      "title": "Latest ideas published by the community",
-      "subtitle": "Technical ideas ready to build. Browse freely, then sign in to comment, save or join a team.",
-      "viewAll": "View all ideas",
       "items": {
-        "qrExchange": {
-          "category": "Web development",
-          "title": "QR Exchange: B2B order and invoice router",
-          "summary": "Routes sales orders and purchase invoices between different POS and ERP systems, removing manual catalog matching."
+        "sales": {
+          "name": "Sales and customers",
+          "description": "Visits, orders and invoices"
         },
-        "ventureStudio": {
-          "category": "Incubators and accelerators",
-          "title": "Venture Studio: digital co-building engine",
-          "summary": "A studio-style incubator that brings stakeholders together and provides ready-made software infrastructure for new ventures."
+        "attendance": {
+          "name": "Attendance",
+          "description": "Phone and device check-in"
         },
-        "voiceAgent": {
-          "category": "Artificial intelligence",
-          "title": "Sawtak: voice AI agent for COD confirmation",
-          "summary": "Automated voice assistants that call customers to confirm cash-on-delivery orders, trained on Arabic dialects to cut return rates."
+        "projects": {
+          "name": "Project management",
+          "description": "Tasks, milestones and deliveries"
+        },
+        "maintenance": {
+          "name": "Maintenance",
+          "description": "Tickets, technicians and parts"
+        },
+        "warehouse": {
+          "name": "Warehouse",
+          "description": "Receiving, issuing and stock counts"
+        },
+        "delivery": {
+          "name": "Delivery",
+          "description": "Routes and proof of delivery"
+        },
+        "expenses": {
+          "name": "Expenses and custody",
+          "description": "Advances and settlements"
+        },
+        "outlets": {
+          "name": "Points of sale",
+          "description": "Shelf execution and audits"
+        },
+        "fleet": {
+          "name": "Fleet",
+          "description": "Vehicles, odometers and fuel"
+        },
+        "purchasing": {
+          "name": "Purchasing",
+          "description": "Requests and suppliers"
+        },
+        "approvals": {
+          "name": "Approvals",
+          "description": "One inbox for the manager"
+        },
+        "reports": {
+          "name": "Reports",
+          "description": "By role and permission"
+        }
+      },
+      "more": "+{count, plural, one {# more app} other {# more apps}}: {list}",
+      "moreItems": {
+        "assets": "assets",
+        "training": "training",
+        "internalComms": "internal communication",
+        "forms": "forms",
+        "incentives": "incentives",
+        "selfService": "self-service"
+      },
+      "listSeparator": ", ",
+      "all": "View all apps"
+    },
+    "nextSteps": {
+      "eyebrow": "Start for free",
+      "title": "Start with the step that suits you.",
+      "subtitle": "All free, with no commitment.",
+      "items": {
+        "projectRequest": {
+          "badge": "5 minutes",
+          "title": "Request your project",
+          "description": "Describe your idea in a short form, and we define the requirements with you before any number.",
+          "action": "Start the request"
+        },
+        "diagnosticSession": {
+          "badge": "30 minutes",
+          "title": "Free diagnostic session",
+          "description": "30 minutes with an operations expert and a developer to pin down the problem and the priorities of the solution.",
+          "action": "Book your slot"
+        },
+        "trial": {
+          "badge": "14 days",
+          "title": "Try Albiruni for free",
+          "description": "14 days with ready sample data that looks like your company, no card needed.",
+          "action": "Start the trial"
+        },
+        "serviceAppGuide": {
+          "badge": "PDF",
+          "title": "Guide: how to build a service app in Saudi Arabia",
+          "description": "Licenses, payment gateways, cost and timeline, from the Bareeq X experience.",
+          "action": "Download the guide"
+        },
+        "collectionsGuide": {
+          "badge": "PDF",
+          "title": "Guide: settling sales rep custody with ease",
+          "description": "Custody, collections and end-of-day settlement without gaps.",
+          "action": "Download the guide"
+        },
+        "eInvoicingGuide": {
+          "badge": "PDF",
+          "title": "E-invoicing guide",
+          "description": "The requirements in Egypt and Saudi Arabia, and how to get your system ready before the deadline.",
+          "action": "Download the guide"
         }
       }
     },
-    "cta": {
-      "title": "Ready to build your next system or product?",
-      "subtitle": "Talk to our team about a project, or join the community for free and start sharing ideas.",
-      "primary": "Join the community for free",
-      "secondary": "Contact us"
+    "sectors": {
+      "eyebrow": "Solutions by sector",
+      "title": "Designed around how you work, <br></br>to lift your team's productivity.",
+      "subtitle": "Ready templates for each sector: fields, permissions and reports set up in advance, so you go live within weeks.",
+      "items": {
+        "distribution": {
+          "description": "Delivery routes, orders, the warehouse and van stock counts.",
+          "apps": "Sales · Delivery · Warehouse"
+        },
+        "fieldSales": {
+          "description": "Sales rep visits, orders, collections and rep custody.",
+          "apps": "Sales · Collections · Attendance"
+        },
+        "carService": {
+          "description": "Appointments, work orders, technicians and spare parts.",
+          "apps": "Maintenance · Warehouse · Collections"
+        }
+      }
+    },
+    "process": {
+      "eyebrow": "How we work with you",
+      "title": "From a free session <br></br>to full operation.",
+      "subtitle": "One team with you at every stage, on a clear timeline, with deliveries you can measure yourself.",
+      "steps": {
+        "diagnosis": {
+          "title": "Free diagnostic session",
+          "description": "An operations expert and a developer sit with you for 30 minutes to pin down the problem.",
+          "duration": "Free"
+        },
+        "design": {
+          "title": "Analysis and design",
+          "description": "We map the processes and screens and sign them off with you before any code.",
+          "duration": "Weeks 2–3"
+        },
+        "build": {
+          "title": "Build and rollout",
+          "description": "We develop, migrate your data and train your team to run it.",
+          "duration": "Weeks 4–6"
+        },
+        "operate": {
+          "title": "Operation and growth",
+          "description": "Ongoing support and monthly improvements based on your numbers.",
+          "duration": "Ongoing"
+        }
+      }
+    },
+    "pricing": {
+      "eyebrow": "Store and pricing",
+      "title": "Choose your sector, <br></br>and pay for the size of your team.",
+      "sectorLabel": "Choose your sector to see the plans",
+      "plans": {
+        "basic": {
+          "description": "For small teams starting their digital journey.",
+          "features": {
+            "apps": "Up to {apps, plural, one {# app} other {# apps}}",
+            "platforms": "Mobile app and web dashboard",
+            "support": "Email support"
+          },
+          "action": "Choose plan"
+        },
+        "business": {
+          "description": "For growing companies with field teams and several branches.",
+          "features": {
+            "sectorApps": "Every app for your sector",
+            "expert": "An operations expert guides the rollout",
+            "prioritySupport": "24/7 priority support"
+          },
+          "action": "Try free for 14 days"
+        },
+        "enterprise": {
+          "description": "More than {users, plural, one {# user} other {# users}}, and custom integration requests.",
+          "features": {
+            "integrations": "Custom integrations",
+            "hosting": "Private hosting",
+            "accountManager": "Dedicated account manager"
+          },
+          "action": "Request a quote"
+        }
+      },
+      "note": "Preliminary prices · VAT not included · shown in your country's currency: {countries}"
     }
-  },
-  "ideaCard": {
-    "viewDetails": "View details",
-    "like": "Like",
-    "comment": "Comment",
-    "save": "Save",
-    "techStack": "Tech stack",
-    "gate": {
-      "details": "Full idea details are available to community members.",
-      "like": "Sign in to like ideas.",
-      "comment": "Sign in to join the discussion.",
-      "save": "Sign in to save ideas to your favorites."
-    }
-  },
-  "gate": {
-    "title": "Sign in to continue",
-    "defaultMessage": "Browsing is open to everyone. Commenting, contacting members, saving or publishing an idea needs a free account.",
-    "join": "Join the community",
-    "login": "Sign in",
-    "continueAsVisitor": "Continue as a visitor",
-    "close": "Close"
   },
   "footer": {
     "tagline": "Elite Tech is an Egyptian software company building the platforms, apps and systems that run businesses. Our flagship product is Albiruni ERP.",
@@ -435,7 +674,6 @@
     "emailInvalid": "Enter a valid email, like name@company.com.",
     "nameRequired": "Enter your name.",
     "phoneRequired": "Enter your WhatsApp number.",
-    "phoneInvalid": "Enter a valid number with the country code, like +20 100 000 0000.",
     "companyNameRequired": "Enter your company name.",
     "cardNumberInvalid": "Enter a valid card number of 13 to 19 digits.",
     "cardExpiryInvalid": "Enter the expiry date as MM/YY, like 08/27.",
@@ -941,6 +1179,10 @@
     "book": "Book a free diagnostic session",
     "whatsapp": "Chat on WhatsApp"
   },
+  "newsletterSection": {
+    "title": "One monthly newsletter. No spam.",
+    "subtitle": "The best content and events in one email a month."
+  },
   "guides": {
     "common": {
       "eyebrow": "Free guide · PDF",
@@ -950,7 +1192,6 @@
         "name": "Name",
         "namePlaceholder": "Your full name",
         "phone": "WhatsApp number",
-        "phonePlaceholder": "+20 100 000 0000",
         "submit": "Send me the free guide",
         "submitting": "Sending...",
         "note": "We send the guide on WhatsApp and never share your number.",
@@ -994,6 +1235,239 @@
       "cover": {
         "title": "E-invoicing guide",
         "edition": "Egypt & Saudi Arabia · 2026"
+      }
+    },
+    "serviceApp": {
+      "meta": {
+        "title": "Guide to building a service app in Saudi Arabia",
+        "description": "A free PDF guide to launching a service app in Saudi Arabia: licenses, payment gateways, cost and timeline, from the Bareeq X experience."
+      },
+      "title": "How to build a service app in Saudi Arabia",
+      "description": "A practical guide for anyone planning a services app in Saudi Arabia: the licenses you need, choosing a payment gateway, and a realistic cost and timeline, drawn from our work on Bareeq X.",
+      "contents": {
+        "licenses": "The licenses and registrations a service app needs",
+        "paymentGateways": "Choosing a payment gateway and getting approved",
+        "launchFeatures": "The features to launch with, and what can wait",
+        "costTimeline": "A realistic cost and timeline, stage by stage",
+        "lessons": "Lessons learned from building Bareeq X"
+      },
+      "cover": {
+        "title": "Service app guide for Saudi Arabia",
+        "edition": "From the Bareeq X experience · 2026"
+      }
+    },
+    "installation": {
+      "meta": {
+        "title": "Albiruni installation guide",
+        "description": "A free PDF guide to installing Albiruni: what to prepare, step-by-step setup, the mobile app, add-ons and fixes for common problems."
+      },
+      "title": "How to install Albiruni, step by step",
+      "description": "A practical guide for developers and agents: what to prepare, how to install Albiruni and its mobile app, enable add-ons, and check that everything works before handing it over to the customer.",
+      "contents": {
+        "requirements": "What to prepare: requirements, accounts and access",
+        "setup": "Installing Albiruni and setting up the first company",
+        "mobileApp": "Installing the mobile app on the reps' phones",
+        "addons": "Installing and enabling add-ons from the store",
+        "troubleshooting": "Common installation problems and how to fix them"
+      },
+      "cover": {
+        "title": "Albiruni installation guide",
+        "edition": "For developers and agents · 2026"
+      }
+    }
+  },
+  "learn": {
+    "allTopics": "All",
+    "topics": {
+      "gettingStarted": "Getting started",
+      "fieldSales": "Field sales",
+      "collections": "Collections & custody",
+      "warehouse": "Warehouse & delivery",
+      "eInvoicing": "E-invoicing",
+      "reports": "Reports"
+    },
+    "library": {
+      "title": "More from the learning library"
+    },
+    "videos": {
+      "meta": {
+        "title": "Albiruni video tutorials",
+        "description": "Short step-by-step videos for every Albiruni app: setup, field sales, collections, warehouse, e-invoicing and reports."
+      },
+      "hero": {
+        "eyebrow": "Video tutorials",
+        "title": "Learn Albiruni in short videos",
+        "subtitle": "Step-by-step walkthroughs for managers, accountants and reps, from setting up your company to closing a rep's day."
+      },
+      "filterLabel": "Filter videos by topic",
+      "listLabel": "Videos",
+      "resultsCount": "{count, plural, =0 {No videos shown} one {# video shown} other {# videos shown}}",
+      "lengthLabel": "Length",
+      "items": {
+        "companySetup": "Set up your company on Albiruni",
+        "inviteUsers": "Add users and set their permissions",
+        "repApp": "A tour of the rep's mobile app",
+        "visitPlan": "Plan rep visits and routes",
+        "salesOrder": "Take a sales order during a visit",
+        "collectPayment": "Collect a payment and send an e-receipt",
+        "dailySettlement": "Settle a rep's custody at the end of the day",
+        "stockTransfer": "Load the van: transfer stock to a rep",
+        "deliveryRoutes": "Plan delivery routes",
+        "eInvoiceSetup": "Connect to the e-invoicing system",
+        "salesDashboard": "Read the daily sales dashboard",
+        "repPerformance": "Track each rep's performance"
+      }
+    },
+    "knowledgeBase": {
+      "meta": {
+        "title": "Albiruni knowledge base",
+        "description": "Step-by-step help articles for every Albiruni app, organized by topic, with direct support on WhatsApp, phone and email."
+      },
+      "hero": {
+        "eyebrow": "Knowledge base",
+        "title": "How can we help?",
+        "subtitle": "Step-by-step articles for every Albiruni app. Search for your question or browse by topic."
+      },
+      "search": {
+        "label": "Search the knowledge base",
+        "placeholder": "Search, e.g. daily settlement"
+      },
+      "topics": {
+        "title": "Browse by topic",
+        "resultsTitle": "Results for “{query}”",
+        "resultsCount": "{count, plural, =0 {No matching articles} one {# matching article} other {# matching articles}}",
+        "articlesCount": "{count, plural, =0 {No articles} one {# article} other {# articles}}",
+        "items": {
+          "gettingStarted": {
+            "description": "Set up your company, users and data in your first days.",
+            "articles": {
+              "companyProfile": "Fill in your company profile and branches",
+              "inviteUsers": "Invite users and assign their roles",
+              "importData": "Import customers and items from Excel",
+              "installApp": "Install the app on your reps' phones"
+            }
+          },
+          "fieldSales": {
+            "description": "Visits, orders, price lists and rep targets.",
+            "articles": {
+              "visitPlan": "Build a weekly visit plan",
+              "salesOrder": "Record an order during a visit",
+              "priceLists": "Set price lists and discounts per customer",
+              "repTargets": "Set monthly targets for each rep"
+            }
+          },
+          "collections": {
+            "description": "Payments, e-receipts, custody limits and daily settlement.",
+            "articles": {
+              "eReceipt": "Collect a payment and send an e-receipt",
+              "custodyLimits": "Set a custody limit for each rep",
+              "dailySettlement": "Settle a rep's custody at the end of the day",
+              "cheques": "Record cheques and track their due dates"
+            }
+          },
+          "warehouse": {
+            "description": "Stock, van loading, returns and delivery routes.",
+            "articles": {
+              "stockTransfer": "Transfer stock from the warehouse to a rep's van",
+              "stockCount": "Run a stock count",
+              "returns": "Receive customer returns",
+              "deliveryRoute": "Plan a delivery route"
+            }
+          },
+          "eInvoicing": {
+            "description": "Connect to Egypt's and Saudi Arabia's systems and issue compliant invoices.",
+            "articles": {
+              "egyptSetup": "Connect to Egypt's e-invoicing system",
+              "saudiSetup": "Connect to Saudi Arabia's Fatoora platform",
+              "itemCodes": "Add tax item codes to your items",
+              "rejectedInvoices": "Fix a rejected invoice and send it again"
+            }
+          },
+          "reports": {
+            "description": "Dashboards, rep performance and exports.",
+            "articles": {
+              "dailyDashboard": "Read the daily sales dashboard",
+              "repPerformance": "Compare your reps' performance",
+              "customerBalances": "Track customer balances and overdue payments",
+              "exportExcel": "Export any report to Excel"
+            }
+          }
+        }
+      },
+      "empty": {
+        "title": "No articles match your search",
+        "text": "Ask our support team on WhatsApp and we'll answer you directly.",
+        "action": "Ask on WhatsApp",
+        "message": "Hello, I have a question about Albiruni: {query}"
+      },
+      "help": {
+        "title": "Didn't find your answer?",
+        "subtitle": "Our support team answers on WhatsApp, phone and email. The channels and response times depend on your plan.",
+        "sla": "See support channels and response times by plan",
+        "label": "Support channels",
+        "channels": {
+          "whatsapp": {
+            "title": "WhatsApp"
+          },
+          "phone": {
+            "title": "Phone"
+          },
+          "email": {
+            "title": "Email"
+          }
+        }
+      }
+    },
+    "articles": {
+      "meta": {
+        "title": "Articles on field sales and collections",
+        "description": "Practical articles and customer stories from {brand} on field sales, collections, distribution and e-invoicing."
+      },
+      "hero": {
+        "eyebrow": "Articles",
+        "title": "Practical ideas from the field",
+        "subtitle": "Short articles and customer stories for anyone running field sales, collections or distribution."
+      },
+      "filterLabel": "Filter articles by topic",
+      "listLabel": "Articles",
+      "resultsCount": "{count, plural, =0 {No articles shown} one {# article shown} other {# articles shown}}",
+      "types": {
+        "article": "{minutes} min read",
+        "customerStory": "Customer story · {minutes} min"
+      },
+      "items": {
+        "custodySettlement": {
+          "title": "Three ways to make custody settlement easier for your reps",
+          "excerpt": "Clear limits, receipts issued on the spot and a short daily close keep custody from piling up."
+        },
+        "distributorStory": {
+          "title": "How a distribution company cut its end-of-day discrepancies",
+          "excerpt": "What changed when the reps started issuing e-receipts and settling their custody every evening."
+        },
+        "smartRoute": {
+          "title": "Smart route: how to make the most of a rep's time",
+          "excerpt": "Group visits by area and priority, so each rep spends more time selling and less time on the road."
+        },
+        "eInvoicingMistakes": {
+          "title": "Five common e-invoicing mistakes and how to avoid them",
+          "excerpt": "Missing item codes, wrong tax details and late submissions: what gets invoices rejected."
+        },
+        "morningNumbers": {
+          "title": "Five numbers a sales manager should check every morning",
+          "excerpt": "Yesterday's sales, collections, open custody, overdue balances and missed visits."
+        },
+        "vanStock": {
+          "title": "Van sales: keep the van's stock matching the system",
+          "excerpt": "A simple loading and returns routine that ends every day with no stock gaps."
+        },
+        "repTargets": {
+          "title": "How to set fair monthly targets for your reps",
+          "excerpt": "Start from each area's real numbers instead of one figure for everyone, and review them every month."
+        },
+        "fromExcel": {
+          "title": "Moving from Excel to a field sales system: where to start",
+          "excerpt": "Which data to clean first, which team to start with, and how to run both side by side for a while."
+        }
       }
     }
   },
@@ -1518,6 +1992,10 @@
           "WhatsApp"
         ],
         "meta": "Client: ARFA, a specialized systems engineering company · Jeddah, Saudi Arabia"
+      },
+      "albiruni": {
+        "wordmark": "Albiruni",
+        "name": "Albiruni system"
       }
     }
   },
@@ -1600,7 +2078,7 @@
         "counters": {
           "tasks": {
             "value": "4",
-            "label": "Today's tasks"
+            "label": "Due today"
           },
           "requests": {
             "value": "2",
@@ -1614,7 +2092,7 @@
         "appsTitle": "My apps",
         "apps": {
           "sales": {
-            "name": "Sales & customers",
+            "name": "Sales",
             "detail": "2 of 12 visits"
           },
           "hr": {
@@ -1629,6 +2107,12 @@
             "name": "Maintenance",
             "detail": "1 ticket in progress"
           }
+        },
+        "tabs": {
+          "home": "Home",
+          "apps": "Apps",
+          "tasks": "My tasks",
+          "account": "Account"
         }
       },
       "floats": {
@@ -1911,6 +2395,52 @@
           "answer": "Yes. Add any app when you need it: Basic includes up to {limit, plural, one {# app} other {# apps}}, and Business includes every app. For features no plan has, browse the add-ons store."
         }
       }
+    }
+  },
+  "community": {
+    "meta": {
+      "title": "Community",
+      "description": "The {brand} community for Albiruni customers: monthly meetups, events and practical content on field sales and collections."
+    },
+    "hero": {
+      "eyebrow": "Community",
+      "title": "A community of managers and accountants, built on real experience from the field.",
+      "subtitle": "For Albiruni customers and anyone organizing field sales: monthly meetups, discussions and practical content from the field."
+    },
+    "channels": {
+      "title": "Join through the channel that suits you",
+      "items": {
+        "whatsappGroup": {
+          "title": "Customers' WhatsApp group",
+          "text": "Quick questions and tips from customers and from our team."
+        },
+        "monthlyMeetup": {
+          "title": "Monthly online meetup",
+          "text": "One hour a month: a new feature, a customer story and open questions."
+        },
+        "knowledgeBase": {
+          "title": "Knowledge base",
+          "text": "Step-by-step guides for every Albiruni app."
+        }
+      }
+    },
+    "events": {
+      "title": "Upcoming events",
+      "when": "{date} · {place}",
+      "places": {
+        "online": "Online",
+        "cairo": "Cairo"
+      },
+      "register": "Register",
+      "registerMessage": "Hello, I'd like to register for the “{event}” event on {date}.",
+      "items": {
+        "custodyWorkshop": "Workshop: fast, instant custody settlement for reps",
+        "fieldSalesMeetup": "Field sales managers meetup",
+        "eInvoicingQa": "E-invoicing: questions and answers"
+      }
+    },
+    "articles": {
+      "title": "From the field"
     }
   },
   "site": {

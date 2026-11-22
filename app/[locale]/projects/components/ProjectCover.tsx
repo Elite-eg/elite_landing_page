@@ -1,23 +1,27 @@
 import type { ReactNode } from "react";
 import { PhoneMockup } from "@/app/components/shared/PhoneMockup";
+import { ProjectCoverPhoto } from "@/app/components/shared/ProjectCoverPhoto";
+import { ProjectWordmark } from "@/app/components/shared/ProjectWordmark";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { cn } from "@/lib/utils";
-import type { Project, ProjectCoverTone, ProjectMockup } from "../data/projectsData";
+import type { Project, ProjectKey, ProjectMockup, ProjectTone } from "@/lib/projects";
 import { DashboardMockup } from "./DashboardMockup";
-import { ProjectCoverPhoto } from "./ProjectCoverPhoto";
 
 export interface ProjectCoverProps {
   cover: Project["cover"];
-  /** The client's Latin wordmark: LTR text, so it sits top left in both languages. */
-  wordmark: string;
+  /** The project's photo (`images.photo`), faint under the tone. */
+  photo?: string;
+  /** Its name on the cover (`ProjectWordmark`), in the visitor's language, on the start side. */
+  projectKey: ProjectKey;
   priority?: boolean;
   className?: string;
 }
 
-const TONE_CLASSES: Record<ProjectCoverTone, string> = {
+const TONE_CLASSES: Record<ProjectTone, string> = {
   bareeq: "from-bareeq from-15% to-bareeq-950 to-85%",
   navy: "from-primary from-15% to-primary-dark to-85%",
   midnight: "from-primary-dark to-primary-deep to-70%",
+  brand: "from-secondary from-15% to-secondary-dark to-85%",
 };
 
 /** Sizes follow the Figma screens (153 / 170 px phones, a 420 px dashboard) and shrink with the cover. */
@@ -39,10 +43,10 @@ const MOCKUPS: Record<ProjectMockup, { layout: string; screens: ReactNode }> = {
 };
 
 /**
- * Decorative project cover: tone gradient over the project's photo (when it has one), wordmark,
+ * Decorative project cover: tone gradient over the project's photo (when it has one), the project's name,
  * and code-drawn screens that rise in after the card.
  */
-export function ProjectCover({ cover: { tone, mockup, image }, wordmark, priority, className }: ProjectCoverProps) {
+export function ProjectCover({ cover: { tone, mockup }, photo, projectKey, priority, className }: ProjectCoverProps) {
   const { layout, screens } = MOCKUPS[mockup];
 
   return (
@@ -54,11 +58,9 @@ export function ProjectCover({ cover: { tone, mockup, image }, wordmark, priorit
         className
       )}
     >
-      {image && <ProjectCoverPhoto src={image} priority={priority} />}
+      {photo && <ProjectCoverPhoto src={photo} priority={priority} />}
 
-      <p dir="ltr" className="px-6 pt-6 font-logo text-2xl font-semibold text-white sm:px-8 sm:pt-10 sm:text-3xl">
-        {wordmark}
-      </p>
+      <ProjectWordmark projectKey={projectKey} className="px-6 pt-6 text-2xl sm:px-8 sm:pt-10 sm:text-3xl" />
 
       <Reveal delay={0.3} className={cn("flex flex-1 justify-center", layout)}>
         {screens}

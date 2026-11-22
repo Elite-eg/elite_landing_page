@@ -38,10 +38,7 @@ export function PricingHero() {
 
           <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center gap-4">
             <BillingToggle />
-            <CountrySwitcher
-              showCurrencyName
-              className="border-edge bg-surface px-4 py-2.5 text-caption text-body before:opacity-0"
-            />
+            <CountrySwitcher variant="field" />
           </motion.div>
         </motion.div>
       </Container>

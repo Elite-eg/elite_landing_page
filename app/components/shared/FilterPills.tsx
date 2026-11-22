@@ -29,7 +29,7 @@ const SIZE_CLASSES: Record<FilterPillsSize, { group: string; pill: string; indic
   md: { group: "flex flex-wrap gap-2", pill: "border border-edge px-[1.125rem] py-2", indicator: "-inset-px" },
   segmented: {
     group: "inline-flex gap-1 rounded-full border border-edge bg-surface p-1",
-    pill: "bg-transparent px-[1.125rem] py-2 hover:bg-surface-alt",
+    pill: "whitespace-nowrap bg-transparent px-[1.125rem] py-2 hover:bg-surface-alt",
     indicator: "inset-0",
   },
 };

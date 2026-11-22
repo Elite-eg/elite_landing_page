@@ -1,7 +1,7 @@
 import { ROUTES } from "@/lib/constants";
 
 /** Keys map to `guides.<key>` in messages. Add a guide here + its copy to get a new landing page. */
-export type GuideKey = "collections" | "eInvoicing";
+export type GuideKey = "collections" | "eInvoicing" | "serviceApp" | "installation";
 
 export interface GuideConfig {
   route: string;
@@ -17,5 +17,13 @@ export const GUIDES: Record<GuideKey, GuideConfig> = {
   eInvoicing: {
     route: ROUTES.learn.eInvoicing,
     contents: ["whoMustComply", "egyptVsSaudi", "requiredFields", "fieldInvoicing", "checklist"],
+  },
+  serviceApp: {
+    route: ROUTES.learn.serviceAppGuide,
+    contents: ["licenses", "paymentGateways", "launchFeatures", "costTimeline", "lessons"],
+  },
+  installation: {
+    route: ROUTES.developers.installation,
+    contents: ["requirements", "setup", "mobileApp", "addons", "troubleshooting"],
   },
 };

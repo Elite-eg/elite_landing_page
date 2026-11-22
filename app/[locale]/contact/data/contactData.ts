@@ -1,12 +1,10 @@
 import type { IconType } from "react-icons";
 import { FaWhatsapp } from "react-icons/fa6";
 import { FiMail, FiMapPin, FiMessageSquare, FiPhone } from "react-icons/fi";
+import type { ContactChannelTone } from "@/app/components/shared/ContactChannelCard";
 
 /** Copy: `contact.channels.<key>.title` (+ `.value` for maher). Values and links come from COMPANY_INFO. */
 export type ContactChannelKey = "whatsapp" | "maher" | "phone" | "email" | "address";
-
-/** Icon tile colours from the Figma: WhatsApp green, warm orange for Maher, navy tint for company data. */
-export type ContactChannelTone = "whatsapp" | "warm" | "muted";
 
 export interface ContactChannel {
   key: ContactChannelKey;

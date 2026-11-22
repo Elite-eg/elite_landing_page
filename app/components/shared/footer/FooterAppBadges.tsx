@@ -1,12 +1,8 @@
 import { useTranslations } from "next-intl";
-import { AppLinkBadge, type AppLink } from "@/app/components/shared/AppLinkBadge";
-import { ALBIRUNI_APP_LINKS } from "@/lib/constants";
+import { AppLinkBadge } from "@/app/components/shared/AppLinkBadge";
+import { PROJECTS } from "@/lib/projects";
 
-const ALBIRUNI_LINKS: AppLink[] = [
-  { kind: "appStore", href: ALBIRUNI_APP_LINKS.appStore },
-  { kind: "googlePlay", href: ALBIRUNI_APP_LINKS.googlePlay },
-];
-
+/** "Get the Albiruni app": the Albiruni store listings from `lib/projects.ts`. */
 export function FooterAppBadges() {
   const t = useTranslations("footer.app");
 
@@ -14,7 +10,7 @@ export function FooterAppBadges() {
     <div className="space-y-3">
       <h2 className="text-caption font-bold text-surface">{t("title")}</h2>
       <div className="flex flex-wrap gap-2">
-        {ALBIRUNI_LINKS.map((link) => (
+        {PROJECTS.albiruni.links.map((link) => (
           <AppLinkBadge key={link.kind} link={link} />
         ))}
       </div>

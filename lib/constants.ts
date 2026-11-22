@@ -4,7 +4,8 @@
  */
 
 import type { IconType } from "react-icons";
-import { FiHeadphones, FiLogIn, FiMapPin, FiTool, FiTruck } from "react-icons/fi";
+import { FiBookOpen, FiFileText, FiHeadphones, FiLogIn, FiMapPin, FiPlayCircle, FiTool, FiTruck } from "react-icons/fi";
+import { LuFileDown } from "react-icons/lu";
 import type { routing } from "@/i18n/routing";
 
 /** "ar" | "en", derived from the next-intl routing config so the locale list lives in one place. */
@@ -32,6 +33,11 @@ export const COMPANY_INFO = {
     en: "9/H/5 El-Laselky Division, Maadi, Cairo",
   } satisfies LocalizedText,
   commercialRegister: "290259",
+  /**
+   * Founding year (owner decision 2026-11-22: 2025, matching the About page's "April 2025"; the v4 home Figma's
+   * 2026 is not used). The home stats strip shows it.
+   */
+  foundedYear: 2025,
   phones: ["+20 113 134 0647", "+20 103 436 0644"],
   whatsappPhone: "201131340647",
   email: "info@elitemsr.com",
@@ -63,26 +69,13 @@ export const EMAIL_URL = `mailto:${COMPANY_INFO.email}`;
 /** TBD: the office's own Google Maps place link. Until then, a Maps search for the official address. */
 export const COMPANY_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY_INFO.address.en)}`;
 
-/** Live community platform. Used until the (community) route group is built. */
-export const COMMUNITY_URLS = {
-  home: "https://community.elitemsr.com",
-  register: "https://community.elitemsr.com/register",
-  login: "https://community.elitemsr.com/login",
-  ideas: "https://community.elitemsr.com/ideas",
-  jobs: "https://community.elitemsr.com/jobs",
-  about: "https://community.elitemsr.com/about",
-} as const;
+/** TBD: invite link of the Albiruni customers' WhatsApp group. Until the owner provides it, a chat with the company. */
+export const COMMUNITY_WHATSAPP_GROUP_URL = WHATSAPP_URL;
 
+/** Site-wide media. Project images (photos, logos) live with their project in `lib/projects.ts`. */
 export const MEDIA = {
-  heroVideo: "/videos/hero.mp4",
+  /** Default Open Graph image (lib/metadata.ts). */
   heroPoster: "/images/hero-office.png",
-  enterprise: "/images/enterprise-meeting.png",
-  community: "/images/community-meetup.png",
-  product: "/images/mobile-web-product.png",
-  mentoring: "/images/mentoring-session.png",
-  bareeqTeam: "/images/hero-bareeq.jpeg",
-  bareeqLogo: "/images/Bareeq.svg",
-  albiruniMark: "/images/albiruni-mark.svg",
 } as const;
 
 export const API_ENDPOINTS = {
@@ -114,6 +107,8 @@ export const ROUTES = {
   support: "/contact",
   partners: "/partners",
   agents: "/agents",
+  community: "/community",
+  login: "/login",
   solutions: {
     all: "/solutions",
     consulting: "/solutions/consulting",
@@ -142,6 +137,8 @@ export const ROUTES = {
   learn: {
     collections: "/learn/collections-guide",
     eInvoicing: "/learn/e-invoicing-guide",
+    /** Guide "How to build a service app in Saudi Arabia" (home next steps, footer). */
+    serviceAppGuide: "/learn/service-app-guide",
     videos: "/learn/videos",
     knowledgeBase: "/learn/knowledge-base",
     articles: "/learn/articles",
@@ -195,8 +192,6 @@ export type HeaderNavEntry =
   | ({ type: "link" } & NavItem)
   | { type: "mega"; labelKey: string; menu: MegaMenu };
 
-export const COMMUNITY_NAV_ITEM: NavItem = { labelKey: "community", href: COMMUNITY_URLS.home, external: true };
-
 export const SOLUTIONS_NAV_ITEMS: readonly NavItem[] = [
   { labelKey: "solutionsItems.consulting", href: ROUTES.solutions.consulting },
   { labelKey: "solutionsItems.web", href: ROUTES.solutions.web },
@@ -230,6 +225,39 @@ export const ALBIRUNI_NAV_ITEMS: readonly NavItem[] = [
   { labelKey: "albiruniSystem", descriptionKey: "productsDescriptions.albiruni", href: ROUTES.albiruni.platform },
   { labelKey: "pricing", descriptionKey: "productsDescriptions.pricing", href: ROUTES.albiruni.pricing },
   { labelKey: "addonsStore", descriptionKey: "productsDescriptions.addons", href: ROUTES.albiruni.addons },
+];
+
+/**
+ * The learning library: the footer group, and the "More from the learning library" tiles on the learn pages
+ * (icon + description). Descriptions in `nav.learnDescriptions`.
+ */
+export const LEARN_NAV_ITEMS: readonly NavItem[] = [
+  {
+    labelKey: "learnItems.collections",
+    descriptionKey: "learnDescriptions.collections",
+    href: ROUTES.learn.collections,
+    icon: LuFileDown,
+  },
+  {
+    labelKey: "learnItems.eInvoicing",
+    descriptionKey: "learnDescriptions.eInvoicing",
+    href: ROUTES.learn.eInvoicing,
+    icon: LuFileDown,
+  },
+  {
+    labelKey: "learnItems.serviceAppGuide",
+    descriptionKey: "learnDescriptions.serviceAppGuide",
+    href: ROUTES.learn.serviceAppGuide,
+    icon: LuFileDown,
+  },
+  { labelKey: "learnItems.videos", descriptionKey: "learnDescriptions.videos", href: ROUTES.learn.videos, icon: FiPlayCircle },
+  {
+    labelKey: "learnItems.knowledgeBase",
+    descriptionKey: "learnDescriptions.knowledgeBase",
+    href: ROUTES.learn.knowledgeBase,
+    icon: FiBookOpen,
+  },
+  { labelKey: "learnItems.articles", descriptionKey: "learnDescriptions.articles", href: ROUTES.learn.articles, icon: FiFileText },
 ];
 
 export const PROJECTS_NAV_ITEMS: readonly NavItem[] = [
@@ -280,7 +308,7 @@ export const HEADER_CTA: NavItem = { labelKey: "bookDiagnosticCta", href: ROUTES
 
 /** Header top bar utility links (start side). */
 export const HEADER_UTILITY_LINKS: readonly NavItem[] = [
-  COMMUNITY_NAV_ITEM,
+  { labelKey: "community", href: ROUTES.community },
   { labelKey: "jobs", href: ROUTES.jobs },
   { labelKey: "contact", href: ROUTES.contact },
 ];
@@ -288,7 +316,7 @@ export const HEADER_UTILITY_LINKS: readonly NavItem[] = [
 /** Header top bar account links (end side), in reading order after the language toggle. */
 export const HEADER_ACCOUNT_LINKS: readonly NavItem[] = [
   { labelKey: "support", href: ROUTES.support, icon: FiHeadphones },
-  { labelKey: "login", href: COMMUNITY_URLS.login, external: true, icon: FiLogIn },
+  { labelKey: "login", href: ROUTES.login, icon: FiLogIn },
 ];
 
 export interface FooterNavGroup {
@@ -308,16 +336,7 @@ export const FOOTER_NAV_GROUPS: readonly FooterNavGroup[] = [
     ],
   },
   { key: "solutions", items: SOLUTIONS_NAV_ITEMS },
-  {
-    key: "learn",
-    items: [
-      { labelKey: "learnItems.collections", href: ROUTES.learn.collections },
-      { labelKey: "learnItems.eInvoicing", href: ROUTES.learn.eInvoicing },
-      { labelKey: "learnItems.videos", href: ROUTES.learn.videos },
-      { labelKey: "learnItems.knowledgeBase", href: ROUTES.learn.knowledgeBase },
-      { labelKey: "learnItems.articles", href: ROUTES.learn.articles },
-    ],
-  },
+  { key: "learn", items: LEARN_NAV_ITEMS },
   {
     key: "developers",
     items: [
@@ -334,7 +353,7 @@ export const FOOTER_NAV_GROUPS: readonly FooterNavGroup[] = [
       { labelKey: "companyItems.ourWork", href: ROUTES.projects.all },
       { labelKey: "companyItems.partners", href: ROUTES.partners },
       { labelKey: "companyItems.agents", href: ROUTES.agents },
-      COMMUNITY_NAV_ITEM,
+      { labelKey: "community", href: ROUTES.community },
       { labelKey: "jobs", href: ROUTES.jobs },
       { labelKey: "contact", href: ROUTES.contact },
     ],
@@ -356,28 +375,6 @@ export const SOCIAL_LINKS = [
   { label: "TikTok", href: "https://tiktok.com/@elitemsr" },
 ] as const;
 
-/** TBD: final Albiruni store listings. */
-export const ALBIRUNI_APP_LINKS = {
-  appStore: "https://apps.apple.com/",
-  googlePlay: "https://play.google.com/store/apps",
-} as const;
-
-/** Public links of client projects shown on case study pages. */
-export const PROJECT_LINKS = {
-  bareeq: {
-    website: "https://bareeqx.com",
-    /** Embedded on the case study, in the visitor's language. Needs bareeqx.com to allow framing (frame-ancestors). */
-    preview: { ar: "https://bareeqx.com/ar", en: "https://bareeqx.com/en" },
-    /** TBD: Bareeq X App Store listing (not linked from bareeqx.com yet). */
-    appStore: "https://apps.apple.com/",
-    /** TBD: Bareeq X Google Play listing (not linked from bareeqx.com yet). */
-    googlePlay: "https://play.google.com/store/apps",
-  },
-  arfa: {
-    website: "https://arfa-sa.com",
-  },
-} as const;
-
 /** Public contacts of the authorized Albiruni agents (agents page). Names and copy: `agents.ourAgent.list.<key>`. */
 export const AGENT_CONTACTS = {
   mharatAlcode: {
@@ -389,29 +386,7 @@ export const AGENT_CONTACTS = {
 
 export type AgentKey = keyof typeof AGENT_CONTACTS;
 
-/** Kept for page sections that link to the contact page. */
-export const CONTACT_HREF = ROUTES.contact;
-
 /** Anchor of the open positions list on the jobs page (id set in OpenPositionsSection). */
 export const JOBS_OPEN_POSITIONS_ID = "open-positions";
 export const JOBS_OPEN_POSITIONS_HREF = `${ROUTES.jobs}#${JOBS_OPEN_POSITIONS_ID}`;
 
-/** Technologies named on elitemsr.com/our-services and in community idea stacks. */
-export const TECH_STACK: string[] = [
-  "Laravel",
-  "React",
-  "Next.js",
-  "Flutter",
-  "Odoo",
-  "ERPNext",
-  "Python",
-  "Django",
-  "FastAPI",
-  "Node.js",
-  "PostgreSQL",
-  "Redis",
-  "Docker",
-  "AWS",
-  "OpenAI API",
-  "Figma",
-];

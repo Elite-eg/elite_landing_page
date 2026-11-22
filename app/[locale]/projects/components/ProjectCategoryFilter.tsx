@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { FilterPills } from "@/app/components/shared/FilterPills";
-import { PROJECT_FILTERS, type ProjectFilterValue } from "../data/projectsData";
+import { WORK_PROJECT_FILTERS, type ProjectFilterValue } from "@/lib/projects";
 
 export interface ProjectCategoryFilterProps {
   value: ProjectFilterValue;
@@ -15,7 +15,7 @@ export function ProjectCategoryFilter({ value, onChange }: ProjectCategoryFilter
 
   return (
     <FilterPills
-      options={PROJECT_FILTERS}
+      options={WORK_PROJECT_FILTERS}
       value={value}
       onChange={onChange}
       getLabel={(option) => t(`categories.${option}`)}

@@ -6,8 +6,7 @@ import { motion } from "framer-motion";
 import { Badge } from "@/app/components/shared/Badge";
 import { Container } from "@/app/components/shared/Container";
 import { fadeInUp, heroStagger, heroTextReveal } from "@/lib/animations";
-import { MEDIA } from "@/lib/constants";
-import { BAREEQ_TAGS } from "../data/bareeqData";
+import { PROJECTS } from "@/lib/projects";
 import { BareeqHeroVisual } from "./BareeqHeroVisual";
 import { HeroBreadcrumb } from "./HeroBreadcrumb";
 import { HeroFacts } from "./HeroFacts";
@@ -23,7 +22,7 @@ export function BareeqHero() {
   return (
     <section className="relative isolate overflow-hidden bg-bareeq-950 py-16 sm:py-20">
       <div className="absolute inset-0 -z-10" aria-hidden="true">
-        <Image src={MEDIA.bareeqTeam} alt="" fill priority sizes="100vw" className="object-cover" />
+        <Image src={PROJECTS.bareeq.images.photo} alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-br from-bareeq/85 to-bareeq-950/95" />
         {/* Fades the photo's own slogan and logo, which sit at its edges and get cropped. */}
         <div className="absolute inset-0 bg-gradient-to-r from-bareeq-950 via-transparent to-bareeq-950" />
@@ -37,7 +36,7 @@ export function BareeqHero() {
           </motion.div>
 
           <motion.ul variants={fadeInUp} aria-label={t("tagsLabel")} className="mt-5 flex flex-wrap gap-2">
-            {BAREEQ_TAGS.map((key) => (
+            {PROJECTS.bareeq.caseStudy.tags.map((key) => (
               <li key={key}>
                 <Badge
                   variant="glass"

@@ -1,17 +1,8 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { FiGlobe } from "react-icons/fi";
+import type { AppLink, AppLinkKind } from "@/lib/projects";
 import { StoreBadge, type StoreBadgeTone } from "./StoreBadge";
-
-export type AppLinkKind = "website" | "googlePlay" | "appStore";
-
-/** A product's public link (its website or a store listing), opened in a new tab. */
-export interface AppLink {
-  kind: AppLinkKind;
-  href: string;
-  /** Website logo (a path in `MEDIA`); a website without one shows a globe. Stores always show their own mark. */
-  logo?: string;
-}
 
 /** Official store marks in /public. */
 const STORE_LOGOS: Record<Exclude<AppLinkKind, "website">, string> = {
@@ -28,7 +19,8 @@ export interface AppLinkBadgeProps {
 
 /**
  * `StoreBadge` filled in from the link kind (copy in `appLinks`): a website shows its domain over "View {name}",
- * a store "Get it on Google Play" / "Download on the App Store". Footer, Bareeq X case study, projects page.
+ * a store "Get it on Google Play" / "Download on the App Store". Links come from `lib/projects.ts`. Footer, Bareeq X
+ * case study, projects page.
  */
 export function AppLinkBadge({ link: { kind, href, logo }, siteName, tone }: AppLinkBadgeProps) {
   const t = useTranslations("appLinks");

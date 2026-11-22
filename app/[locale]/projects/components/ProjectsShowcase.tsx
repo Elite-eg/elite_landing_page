@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/app/components/shared/Container";
-import { PROJECTS, type ProjectFilterValue } from "../data/projectsData";
+import { WORK_PROJECTS, projectsFor, type ProjectFilterValue } from "@/lib/projects";
 import { ProjectCategoryFilter } from "./ProjectCategoryFilter";
 import { ProjectList } from "./ProjectList";
 import { ProjectsHero } from "./ProjectsHero";
@@ -13,8 +13,8 @@ export function ProjectsShowcase() {
   const t = useTranslations("projects.filter");
   const [category, setCategory] = useState<ProjectFilterValue>("all");
 
-  const projects =
-    category === "all" ? PROJECTS : PROJECTS.filter((project) => project.categories.includes(category));
+  const listed = projectsFor(WORK_PROJECTS);
+  const projects = category === "all" ? listed : listed.filter((project) => project.categories.includes(category));
 
   return (
     <>

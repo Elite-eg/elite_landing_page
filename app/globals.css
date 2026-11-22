@@ -264,6 +264,14 @@
     background-size: 80px 100%;
   }
 
+  /* 80px square grid on navy heroes (Figma home "bg/grid") */
+  .bg-square-grid-light {
+    background-image:
+      linear-gradient(to right, rgb(var(--surface) / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--surface) / 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
