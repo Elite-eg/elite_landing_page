@@ -3,9 +3,8 @@ import { Container } from "@/app/components/shared/Container";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { NEXT_STEPS } from "../data/homeData";
-import { lineBreak } from "../utils/richText";
+import { HomeSectionHeader } from "./HomeSectionHeader";
 import { NextStepCard } from "./NextStepCard";
-import { SplitSectionHeader } from "./SplitSectionHeader";
 
 /** "Start with the step that suits you" (Figma "Lead magnets"): the page's navy band with six free offers. */
 export function NextStepsSection() {
@@ -14,10 +13,11 @@ export function NextStepsSection() {
   return (
     <section className="bg-gradient-to-tr from-primary-deep to-primary py-20 sm:py-24">
       <Container>
-        <SplitSectionHeader
+        <HomeSectionHeader
+          layout="stacked"
           tone="dark"
           eyebrow={t("eyebrow")}
-          title={t.rich("title", { br: lineBreak })}
+          title={t("title")}
           aside={<p className="text-body-lg text-content-dark">{t("subtitle")}</p>}
         />
 

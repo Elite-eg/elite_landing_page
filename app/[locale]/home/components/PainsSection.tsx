@@ -7,8 +7,8 @@ import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { ROUTES } from "@/lib/constants";
 import { APP_SURFACES, PAIN_POINTS } from "../data/homeData";
 import { lineBreak } from "../utils/richText";
+import { HomeSectionHeader } from "./HomeSectionHeader";
 import { PainCard } from "./PainCard";
-import { SplitSectionHeader } from "./SplitSectionHeader";
 import { SurfaceChip } from "./SurfaceChip";
 
 /** "Problems every field company faces, and how Albiruni solves them" (Figma "Pain → Solution"). */
@@ -18,7 +18,8 @@ export function PainsSection() {
   return (
     <section className="bg-surface py-20 sm:py-24 lg:py-28">
       <Container>
-        <SplitSectionHeader
+        <HomeSectionHeader
+          layout="stacked"
           eyebrow={t("eyebrow")}
           title={t.rich("title", { br: lineBreak })}
           aside={

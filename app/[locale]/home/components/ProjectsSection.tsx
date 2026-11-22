@@ -7,7 +7,7 @@ import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { ROUTES } from "@/lib/constants";
 import { HOME_PROJECTS, PROJECTS } from "@/lib/projects";
 import { HomeProjectCard } from "./HomeProjectCard";
-import { SplitSectionHeader } from "./SplitSectionHeader";
+import { HomeSectionHeader } from "./HomeSectionHeader";
 
 /** "Our projects" (Figma "Projects"): three project cards and a link to the projects page. */
 export function ProjectsSection() {
@@ -16,7 +16,7 @@ export function ProjectsSection() {
   return (
     <section className="bg-surface py-20 sm:py-24 lg:py-28">
       <Container>
-        <SplitSectionHeader
+        <HomeSectionHeader
           eyebrow={t("eyebrow")}
           title={t("title")}
           aside={

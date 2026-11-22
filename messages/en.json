@@ -523,7 +523,7 @@
     },
     "nextSteps": {
       "eyebrow": "Start for free",
-      "title": "Start with the step <br></br>that suits you.",
+      "title": "Start with the step that suits you.",
       "subtitle": "All free, with no commitment.",
       "items": {
         "projectRequest": {
@@ -674,7 +674,6 @@
     "emailInvalid": "Enter a valid email, like name@company.com.",
     "nameRequired": "Enter your name.",
     "phoneRequired": "Enter your WhatsApp number.",
-    "phoneInvalid": "Enter a valid number with the country code, like +20 100 000 0000.",
     "companyNameRequired": "Enter your company name.",
     "cardNumberInvalid": "Enter a valid card number of 13 to 19 digits.",
     "cardExpiryInvalid": "Enter the expiry date as MM/YY, like 08/27.",
@@ -1193,7 +1192,6 @@
         "name": "Name",
         "namePlaceholder": "Your full name",
         "phone": "WhatsApp number",
-        "phonePlaceholder": "+20 100 000 0000",
         "submit": "Send me the free guide",
         "submitting": "Sending...",
         "note": "We send the guide on WhatsApp and never share your number.",

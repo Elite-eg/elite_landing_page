@@ -7,8 +7,6 @@ import { isMobileNumber } from "./phone";
  * Mobile numbers are checked per country from its `mobile` format (lib/countries.ts, lib/phone.ts).
  */
 export const PATTERNS = {
-  /** International number: optional +, then 8–15 digits with optional spaces or dashes. */
-  phone: /^\+?\d[\d\s-]{6,17}\d$/,
   /** 13–19 digits, optionally grouped with spaces or dashes. */
   cardNumber: /^(?:\d[ -]?){12,18}\d$/,
   /** MM/YY */
