@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import type { PricingPlan } from "../data/pricingData";
 import { usePricingConfig } from "../hooks/usePricingConfig";
 import { PlanAction } from "./PlanAction";
-import { PlanFeatureList } from "./PlanFeatureList";
+import { PlanFeatureList } from "@/app/components/shared/PlanFeatureList";
 import { PlanPrice } from "./PlanPrice";
 
 export interface PlanCardProps {

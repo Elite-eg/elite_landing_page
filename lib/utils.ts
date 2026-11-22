@@ -18,7 +18,7 @@ const twMerge = extendTailwindMerge({
       font: ["heading", "logo"],
     },
     classGroups: {
-      "bg-image": ["bg-dot-grid", "bg-dot-grid-light"],
+      "bg-image": ["bg-dot-grid", "bg-dot-grid-light", "bg-line-grid-light", "bg-square-grid-light"],
     },
   },
 });

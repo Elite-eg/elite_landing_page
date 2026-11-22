@@ -3,7 +3,7 @@ import { AppLinkBadge } from "@/app/components/shared/AppLinkBadge";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { COMPANY_INFO, type AppLocale } from "@/lib/constants";
-import { BAREEQ_LINKS, BAREEQ_TIMELINE } from "../data/bareeqData";
+import { PROJECTS } from "@/lib/projects";
 import { CaseStudySection } from "./CaseStudySection";
 import { SitePreview } from "./SitePreview";
 import { TimelineItem } from "./TimelineItem";
@@ -20,11 +20,11 @@ export function ResultSection() {
     <CaseStudySection eyebrow={t("sections.result")} title={t("bareeqX.result.title")} className="pb-0 sm:pb-0">
       <RevealGroup>
         <ol>
-          {BAREEQ_TIMELINE.map(({ key, status }, index) => (
+          {PROJECTS.bareeq.caseStudy.timeline.map(({ key, status }, index) => (
             <TimelineItem
               key={key}
               status={status}
-              isLast={index === BAREEQ_TIMELINE.length - 1}
+              isLast={index === PROJECTS.bareeq.caseStudy.timeline.length - 1}
               date={t(`bareeqX.result.timeline.${key}.date`)}
               title={t(`bareeqX.result.timeline.${key}.title`)}
               text={t(`bareeqX.result.timeline.${key}.text`, { brand })}
@@ -42,7 +42,7 @@ export function ResultSection() {
 
       <Reveal className="mt-6">
         <ul aria-label={t("bareeqX.result.linksLabel")} className="flex flex-wrap gap-3">
-          {BAREEQ_LINKS.map((link) => (
+          {PROJECTS.bareeq.links.map((link) => (
             <li key={link.kind}>
               <AppLinkBadge tone="light" link={link} siteName={t("bareeqX.hero.name")} />
             </li>

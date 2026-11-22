@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { growX, withDelay } from "@/lib/animations";
-import { SHIFT_PROGRESS } from "../data/albiruniData";
+import { SHIFT_PROGRESS } from "./stageData";
 
 /**
  * Teal attendance card of the super app: checked-in time, time on shift, a shift progress bar that fills once the
@@ -13,12 +13,12 @@ export function AttendanceCard() {
   const t = useTranslations("albiruni.mockup.app.attendance");
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-[21px] bg-albiruni p-4 text-white">
+    <div className="flex w-full flex-col gap-1.5 rounded-[21px] bg-albiruni p-4 text-white">
       <div className="flex items-center justify-between font-heading font-bold">
         <p className="text-[17px]">{t("status")}</p>
         <p className="text-lg">{t("elapsed")}</p>
       </div>
-      <p className="text-[10.5px] text-white/75">{t("detail")}</p>
+      <p className="truncate text-[10.5px] text-white/75">{t("detail")}</p>
       {/* Fills from the left in both languages, as in the Figma. */}
       <div dir="ltr" className="h-[6.5px] overflow-hidden rounded-[5px] bg-white/20">
         <motion.div

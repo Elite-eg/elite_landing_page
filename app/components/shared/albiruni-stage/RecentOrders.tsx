@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Badge, type BadgeVariant } from "@/app/components/shared/Badge";
-import { RECENT_ORDERS, type OrderStatus } from "../data/albiruniData";
+import { RECENT_ORDERS, type OrderStatus } from "./stageData";
 
 const STATUS_BADGES: Record<OrderStatus, BadgeVariant> = {
   approved: "success",

@@ -8,7 +8,7 @@ export interface PlanFeatureListProps {
   featured?: boolean;
 }
 
-/** Checked list of what a plan includes. */
+/** Checked list of what a plan includes (Albiruni pricing plan cards and the home pricing teaser). */
 export function PlanFeatureList({ features, featured = false }: PlanFeatureListProps) {
   return (
     <ul className="flex flex-col gap-2.5">

@@ -1,6 +1,6 @@
 import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
+import { StretchedLink } from "@/app/components/shared/StretchedLink";
 import { cn } from "@/lib/utils";
-import { CommunityTileLink } from "./CommunityTileLink";
 
 export interface CommunityTileProps {
   title: string;
@@ -21,9 +21,9 @@ export function CommunityTile({ title, text, href, external }: CommunityTileProp
     >
       <h3 className="text-lg font-semibold leading-snug text-body">
         {href ? (
-          <CommunityTileLink href={href} external={external}>
+          <StretchedLink href={href} external={external}>
             {title}
-          </CommunityTileLink>
+          </StretchedLink>
         ) : (
           title
         )}

@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { FiChevronDown } from "react-icons/fi";
-import { DASHBOARD_STATS } from "../data/albiruniData";
+import { DASHBOARD_STATS } from "./stageData";
 import { DashboardStatCard } from "./DashboardStatCard";
 import { DashboardTopBar } from "./DashboardTopBar";
 import { RecentOrders } from "./RecentOrders";

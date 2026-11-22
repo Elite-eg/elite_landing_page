@@ -32,6 +32,11 @@ export const COMPANY_INFO = {
     en: "9/H/5 El-Laselky Division, Maadi, Cairo",
   } satisfies LocalizedText,
   commercialRegister: "290259",
+  /**
+   * Founding year (owner decision 2026-11-22: 2025, matching the About page's "April 2025"; the v4 home Figma's
+   * 2026 is not used). The home stats strip shows it.
+   */
+  foundedYear: 2025,
   phones: ["+20 113 134 0647", "+20 103 436 0644"],
   whatsappPhone: "201131340647",
   email: "info@elitemsr.com",
@@ -66,16 +71,10 @@ export const COMPANY_MAP_URL = `https://www.google.com/maps/search/?api=1&query=
 /** TBD: invite link of the Albiruni customers' WhatsApp group. Until the owner provides it, a chat with the company. */
 export const COMMUNITY_WHATSAPP_GROUP_URL = WHATSAPP_URL;
 
+/** Site-wide media. Project images (photos, logos) live with their project in `lib/projects.ts`. */
 export const MEDIA = {
-  heroVideo: "/videos/hero.mp4",
+  /** Default Open Graph image (lib/metadata.ts). */
   heroPoster: "/images/hero-office.png",
-  enterprise: "/images/enterprise-meeting.png",
-  community: "/images/community-meetup.png",
-  product: "/images/mobile-web-product.png",
-  mentoring: "/images/mentoring-session.png",
-  bareeqTeam: "/images/hero-bareeq.jpeg",
-  bareeqLogo: "/images/Bareeq.svg",
-  albiruniMark: "/images/albiruni-mark.svg",
 } as const;
 
 export const API_ENDPOINTS = {
@@ -137,6 +136,8 @@ export const ROUTES = {
   learn: {
     collections: "/learn/collections-guide",
     eInvoicing: "/learn/e-invoicing-guide",
+    /** TBD: guide "How to build a service app in Saudi Arabia" (home next steps); page not built yet. */
+    serviceAppGuide: "/learn/service-app-guide",
     videos: "/learn/videos",
     knowledgeBase: "/learn/knowledge-base",
     articles: "/learn/articles",
@@ -349,28 +350,6 @@ export const SOCIAL_LINKS = [
   { label: "TikTok", href: "https://tiktok.com/@elitemsr" },
 ] as const;
 
-/** TBD: final Albiruni store listings. */
-export const ALBIRUNI_APP_LINKS = {
-  appStore: "https://apps.apple.com/",
-  googlePlay: "https://play.google.com/store/apps",
-} as const;
-
-/** Public links of client projects shown on case study pages. */
-export const PROJECT_LINKS = {
-  bareeq: {
-    website: "https://bareeqx.com",
-    /** Embedded on the case study, in the visitor's language. Needs bareeqx.com to allow framing (frame-ancestors). */
-    preview: { ar: "https://bareeqx.com/ar", en: "https://bareeqx.com/en" },
-    /** TBD: Bareeq X App Store listing (not linked from bareeqx.com yet). */
-    appStore: "https://apps.apple.com/",
-    /** TBD: Bareeq X Google Play listing (not linked from bareeqx.com yet). */
-    googlePlay: "https://play.google.com/store/apps",
-  },
-  arfa: {
-    website: "https://arfa-sa.com",
-  },
-} as const;
-
 /** Public contacts of the authorized Albiruni agents (agents page). Names and copy: `agents.ourAgent.list.<key>`. */
 export const AGENT_CONTACTS = {
   mharatAlcode: {
@@ -382,29 +361,7 @@ export const AGENT_CONTACTS = {
 
 export type AgentKey = keyof typeof AGENT_CONTACTS;
 
-/** Kept for page sections that link to the contact page. */
-export const CONTACT_HREF = ROUTES.contact;
-
 /** Anchor of the open positions list on the jobs page (id set in OpenPositionsSection). */
 export const JOBS_OPEN_POSITIONS_ID = "open-positions";
 export const JOBS_OPEN_POSITIONS_HREF = `${ROUTES.jobs}#${JOBS_OPEN_POSITIONS_ID}`;
 
-/** Technologies named on elitemsr.com/our-services and in community idea stacks. */
-export const TECH_STACK: string[] = [
-  "Laravel",
-  "React",
-  "Next.js",
-  "Flutter",
-  "Odoo",
-  "ERPNext",
-  "Python",
-  "Django",
-  "FastAPI",
-  "Node.js",
-  "PostgreSQL",
-  "Redis",
-  "Docker",
-  "AWS",
-  "OpenAI API",
-  "Figma",
-];

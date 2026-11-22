@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { FiTrendingUp } from "react-icons/fi";
 import { cn } from "@/lib/utils";
-import type { DashboardStat, SparklineTone } from "../data/albiruniData";
+import type { DashboardStat, SparklineTone } from "./stageData";
 import { Sparkline } from "./Sparkline";
 
 export interface DashboardStatCardProps {

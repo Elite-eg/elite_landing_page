@@ -21,7 +21,7 @@ const NODES = CONNECTORS.flatMap((points) => [points[0], points[points.length - 
  * Orange lines tying the screens to their live cards. Drawn in the Figma's Arabic coordinates and mirrored in
  * English, like the end-side positions of the cards. Lines draw one after another, then their dots fade in.
  */
-export function HeroConnectors() {
+export function StageConnectors() {
   return (
     <svg viewBox="0 0 936 850" fill="none" className="pointer-events-none absolute inset-0 size-full ltr:-scale-x-100">
       {CONNECTORS.map((points, index) => (

@@ -1,9 +1,10 @@
 import { useLocale, useTranslations } from "next-intl";
 import { FiExternalLink, FiLock } from "react-icons/fi";
-import { PROJECT_LINKS, type AppLocale } from "@/lib/constants";
+import type { AppLocale } from "@/lib/constants";
+import { PROJECTS } from "@/lib/projects";
 
 /** Shown in the address bar ("bareeqx.com"). */
-const SITE_HOST = new URL(PROJECT_LINKS.bareeq.website).host;
+const SITE_HOST = new URL(PROJECTS.bareeq.preview.en).host;
 
 /**
  * The live bareeqx.com in a browser frame, in the visitor's language. Lazy (below the fold) and sandboxed:
@@ -11,7 +12,7 @@ const SITE_HOST = new URL(PROJECT_LINKS.bareeq.website).host;
  */
 export function SitePreview() {
   const t = useTranslations("caseStudies.bareeqX.result.preview");
-  const src = PROJECT_LINKS.bareeq.preview[useLocale() as AppLocale];
+  const src = PROJECTS.bareeq.preview[useLocale() as AppLocale];
 
   return (
     <div className="overflow-hidden rounded-2xl border border-edge bg-surface shadow-card">

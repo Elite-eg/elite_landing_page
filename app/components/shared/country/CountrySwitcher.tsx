@@ -10,22 +10,43 @@ import { currencyName } from "@/lib/locale";
 import { cn } from "@/lib/utils";
 import { CountryOption } from "./CountryOption";
 
+/**
+ * The switcher's looks, all defined here so every page shows the same one (pages pick a variant, never restyle):
+ * - compact: "📍 مصر · ج.م ▾", a pill tinted with its own text colour (7%, 15% on hover / open), so it fits any
+ *   background; the caller sets that colour (`className="text-surface"` on the ink header top bar). Header top bar,
+ *   mobile menu.
+ * - field: "📍 مصر · جنيه مصري (ج.م) ▾", a white pill with a light border and the currency spelled out, beside page
+ *   content. Albiruni pricing hero, home pricing teaser.
+ */
+export type CountrySwitcherVariant = "compact" | "field";
+
+const VARIANTS: Record<CountrySwitcherVariant, { label: "current" | "currentWithCurrency"; button: string }> = {
+  compact: {
+    label: "current",
+    button: "border-transparent px-2.5 py-1 before:opacity-[0.07]",
+  },
+  field: {
+    label: "currentWithCurrency",
+    button: "border-edge bg-surface px-4 py-2.5 text-caption text-body before:opacity-0",
+  },
+};
+
 export interface CountrySwitcherProps {
-  /** Spell out the currency: "مصر · جنيه مصري (ج.م)" instead of "مصر · ج.م" (pricing page). */
-  showCurrencyName?: boolean;
+  variant?: CountrySwitcherVariant;
+  /** Placement or the text colour around a compact switcher; the look itself comes from `variant`. */
   className?: string;
 }
 
 /**
- * Country picker (Figma "Geo" button + "Country menu"): "📍 مصر · ج.م ▾" opens the list of COUNTRIES. The choice is
- * the visitor's country for the whole site (useCountry): currency, phone codes and payment methods follow it at once.
- * The list opens below the button, or above it when there is no room (mobile drawer).
+ * Country picker (Figma "Geo" button + "Country menu"): the button opens the list of COUNTRIES. The choice is the
+ * visitor's country for the whole site (useCountry): currency, prices, phone codes and payment methods follow it at
+ * once. The list opens below the button, or above it when there is no room (mobile drawer).
  */
-export function CountrySwitcher({ showCurrencyName = false, className }: CountrySwitcherProps) {
+export function CountrySwitcher({ variant = "compact", className }: CountrySwitcherProps) {
   const t = useTranslations("nav.countrySwitcher");
   const locale = useLocale() as AppLocale;
   const { country, changeCountry } = useCountry();
-  const current = t(showCurrencyName ? "currentWithCurrency" : "current", {
+  const current = t(VARIANTS[variant].label, {
     country: country.name[locale],
     currency: currencyName(country.currency, locale),
     symbol: country.currencySymbol[locale],
@@ -36,9 +57,10 @@ export function CountrySwitcher({ showCurrencyName = false, className }: Country
       <ListboxButton
         aria-label={t("label", { country: current })}
         className={cn(
-          "group relative isolate inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-transparent px-2.5 py-1 font-medium transition-colors duration-300 ease-out-brand data-[open]:border-secondary",
-          "before:absolute before:-inset-px before:-z-10 before:rounded-full before:bg-current before:opacity-[0.07] before:transition-opacity before:duration-300 before:ease-out-brand",
+          "group relative isolate inline-flex cursor-pointer items-center gap-1.5 rounded-full border font-medium transition-colors duration-300 ease-out-brand data-[open]:border-secondary",
+          "before:absolute before:-inset-px before:-z-10 before:rounded-full before:bg-current before:transition-opacity before:duration-300 before:ease-out-brand",
           "hover:before:opacity-15 data-[open]:before:opacity-15",
+          VARIANTS[variant].button,
           className
         )}
       >

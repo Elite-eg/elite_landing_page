@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { growY, withDelay } from "@/lib/animations";
 import { cn } from "@/lib/utils";
-import { WEEKLY_SALES, WEEKLY_SALES_PEAK } from "../data/albiruniData";
+import { WEEKLY_SALES, WEEKLY_SALES_PEAK } from "./stageData";
 
 /** Weekly sales bars (Figma "Chart widget"): teal days, the best one in orange. Bars grow one after another. */
 export function WeeklySalesChart() {

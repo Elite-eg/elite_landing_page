@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Eyebrow } from "./Eyebrow";
 import { Reveal, type RevealPreset } from "./Reveal";
 
 export interface SectionHeadingProps {
-  title: string;
+  /** Plain text, or rich text with line breaks (`t.rich("title", { br: lineBreak })`). */
+  title: ReactNode;
   eyebrow?: string;
   subtitle?: string;
   align?: "center" | "start";
@@ -75,7 +77,8 @@ export function SectionHeading({
       {subtitle && (
         <p
           className={cn(
-            "mt-4 text-base leading-loose sm:text-lg",
+            "mt-4 max-w-2xl text-base leading-loose sm:text-lg",
+            align === "center" && "mx-auto",
             tone === "brand" ? "text-white/90" : isDark ? "text-white/75" : "text-content"
           )}
         >

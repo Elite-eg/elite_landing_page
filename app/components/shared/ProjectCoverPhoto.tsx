@@ -8,7 +8,9 @@ export interface ProjectCoverPhotoProps {
 }
 
 /**
- * The project's photo behind the wordmark and screens; it settles from a slight zoom as the card appears.
+ * The project's photo behind a cover's wordmark (and screens, on the projects page); it settles from a slight zoom
+ * as the card appears. Projects page cards and the home project cards. The cover needs `relative isolate
+ * overflow-hidden`.
  * Drawn faint over the cover's tone gradient, which reads as a tone overlay (as on the Bareeq X case study hero).
  * Its sides fade out, so a wide crop (text and logos at a banner's edges) never ends abruptly;
  * further on tablets, where the cover spans the whole card and shows most of a wide photo.

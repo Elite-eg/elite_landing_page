@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedHeight } from "@/app/components/shared/AnimatedHeight";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { listSwap } from "@/lib/animations";
-import type { Project } from "../data/projectsData";
+import type { Project } from "@/lib/projects";
 import { ProjectCard } from "./ProjectCard";
 
 export interface ProjectListProps {

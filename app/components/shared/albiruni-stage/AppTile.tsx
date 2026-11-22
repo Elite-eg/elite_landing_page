@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import type { AppTileTone, SuperAppTile } from "../data/albiruniData";
+import type { AppTileTone, SuperAppTile } from "./stageData";
 
 export interface AppTileProps {
   tile: SuperAppTile;
@@ -19,12 +19,12 @@ export function AppTile({ tile: { key, icon: Icon, tone } }: AppTileProps) {
   const t = useTranslations(`albiruni.mockup.app.apps.${key}`);
 
   return (
-    <li className="flex flex-col items-start gap-[5px] rounded-2xl border border-edge bg-surface p-3">
+    <li className="flex min-w-0 flex-col items-start gap-[5px] rounded-2xl border border-edge bg-surface px-3 py-2.5">
       <span className={cn("rounded-[10px] p-[6.5px] text-white", TONE_CLASSES[tone])}>
         <Icon className="size-[17px]" strokeWidth={2.6} />
       </span>
-      <p className="text-[11.5px] font-medium">{t("name")}</p>
-      <p className="text-[10px] text-content">{t("detail")}</p>
+      <p className="max-w-full truncate text-[11.5px] font-medium">{t("name")}</p>
+      <p className="max-w-full truncate text-[10px] text-content">{t("detail")}</p>
     </li>
   );
 }
