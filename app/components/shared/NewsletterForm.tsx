@@ -9,8 +9,8 @@ import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { API_ENDPOINTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Button } from "./Button";
 import { InputField } from "./form-handlers/InputField";
+import { SubmitButton } from "./form-handlers/SubmitButton";
 import { FIELD_HEIGHT } from "./form-handlers/fieldStyles";
 
 /** Error messages are message keys inside the "validation" namespace. */
@@ -64,15 +64,9 @@ export function NewsletterForm() {
         dir="ltr"
         {...register("email")}
       />
-      <Button
-        type="submit"
-        variant="secondary"
-        size="lg"
-        isLoading={isSubmitting}
-        className={cn("shrink-0", FIELD_HEIGHT)}
-      >
-        {isSubmitting ? t("submitting") : t("submit")}
-      </Button>
+      <SubmitButton fullWidth={false} isLoading={isSubmitting} pendingLabel={t("submitting")} className={cn("shrink-0", FIELD_HEIGHT)}>
+        {t("submit")}
+      </SubmitButton>
     </form>
   );
 }

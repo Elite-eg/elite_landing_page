@@ -4,7 +4,7 @@
  */
 
 import type { IconType } from "react-icons";
-import { FiBookOpen, FiFileText, FiHeadphones, FiLogIn, FiMapPin, FiPlayCircle, FiTool, FiTruck } from "react-icons/fi";
+import { FiBookOpen, FiFileText, FiLogIn, FiPlayCircle } from "react-icons/fi";
 import { LuFileDown } from "react-icons/lu";
 import type { routing } from "@/i18n/routing";
 
@@ -91,6 +91,15 @@ export const API_ENDPOINTS = {
   contactRequest: "/contact/request",
   /** TBD: backend endpoint that receives Albiruni agency applications (agents page form). */
   agencyApplication: "/agents/apply",
+  /** TBD: backend endpoint that receives partner program applications from accounting offices (partners page form). */
+  partnerApplication: "/partners/apply",
+  /** TBD: backend endpoint for the add-ons store: the list (search, filters, page) and `${addons}/{slug}` for one add-on. */
+  addons: "/addons",
+  /**
+   * TBD: backend endpoint for the signed-in customer's bought add-ons (My purchases) and `${addonPurchases}/{orderNumber}`
+   * for one order (purchase complete page). Needs the customer's session (no sign-in yet).
+   */
+  addonPurchases: "/addons/purchases",
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -104,34 +113,26 @@ export const ROUTES = {
   jobs: "/jobs",
   bookSession: "/book-session",
   contact: "/contact",
-  support: "/contact",
   partners: "/partners",
   agents: "/agents",
   community: "/community",
   login: "/login",
-  solutions: {
-    all: "/solutions",
-    consulting: "/solutions/consulting",
-    web: "/solutions/web-apps",
-    mobile: "/solutions/mobile-apps",
-    erp: "/solutions/erp-systems",
-    ai: "/solutions/ai-automation",
-  },
-  sectors: {
-    distribution: "/sectors/distribution",
-    fieldSales: "/sectors/field-sales",
-    carService: "/sectors/car-service-centers",
-  },
+  /** Solutions by sector; `?sector=<key>` opens a sector's workday (`solutionsSectorHref` in lib/sectors.ts). */
+  solutions: "/solutions",
   projects: {
     all: "/projects",
     bareeq: "/projects/bareeq-x",
     amanCar: "/projects/aman-car",
     arfa: "/projects/arfa",
+    tursa: "/projects/tursa",
   },
   albiruni: {
     platform: "/albiruni",
     pricing: "/albiruni/pricing",
     addons: "/albiruni/add-ons",
+    /** Where the checkout returns the customer after buying an add-on, with `?order=<order number>`. */
+    addonPurchaseComplete: "/albiruni/add-ons/purchase-complete",
+    myPurchases: "/albiruni/add-ons/my-purchases",
     trial: "/albiruni/free-trial",
   },
   learn: {
@@ -159,13 +160,13 @@ export const ROUTES = {
 } as const;
 
 export interface NavItem {
-  /** Key inside the "nav" messages namespace (dot paths allowed, e.g. "solutionsItems.web"). */
+  /** Key inside the "nav" messages namespace (dot paths allowed, e.g. "learnItems.videos"). */
   labelKey: string;
   href: string;
   external?: boolean;
-  /** Optional secondary line (mega menu), key inside "nav". */
+  /** Optional secondary line (mega menu, learning library tiles), key inside "nav". */
   descriptionKey?: string;
-  /** Optional icon tile (mega menu). */
+  /** Optional icon (header top bar links, learning library tiles). */
   icon?: IconType;
 }
 
@@ -191,35 +192,6 @@ export interface MegaMenu {
 export type HeaderNavEntry =
   | ({ type: "link" } & NavItem)
   | { type: "mega"; labelKey: string; menu: MegaMenu };
-
-export const SOLUTIONS_NAV_ITEMS: readonly NavItem[] = [
-  { labelKey: "solutionsItems.consulting", href: ROUTES.solutions.consulting },
-  { labelKey: "solutionsItems.web", href: ROUTES.solutions.web },
-  { labelKey: "solutionsItems.mobile", href: ROUTES.solutions.mobile },
-  { labelKey: "solutionsItems.erp", href: ROUTES.solutions.erp },
-  { labelKey: "solutionsItems.ai", href: ROUTES.solutions.ai },
-];
-
-export const SECTORS_NAV_ITEMS: readonly NavItem[] = [
-  {
-    labelKey: "sectorsItems.distribution",
-    descriptionKey: "sectorsDescriptions.distribution",
-    href: ROUTES.sectors.distribution,
-    icon: FiTruck,
-  },
-  {
-    labelKey: "sectorsItems.fieldSales",
-    descriptionKey: "sectorsDescriptions.fieldSales",
-    href: ROUTES.sectors.fieldSales,
-    icon: FiMapPin,
-  },
-  {
-    labelKey: "sectorsItems.carService",
-    descriptionKey: "sectorsDescriptions.carService",
-    href: ROUTES.sectors.carService,
-    icon: FiTool,
-  },
-];
 
 export const ALBIRUNI_NAV_ITEMS: readonly NavItem[] = [
   { labelKey: "albiruniSystem", descriptionKey: "productsDescriptions.albiruni", href: ROUTES.albiruni.platform },
@@ -266,18 +238,6 @@ export const PROJECTS_NAV_ITEMS: readonly NavItem[] = [
   { labelKey: "projectsItems.arfa", descriptionKey: "projectsDescriptions.arfa", href: ROUTES.projects.arfa },
 ];
 
-export const SOLUTIONS_MEGA_MENU: MegaMenu = {
-  sections: [
-    { titleKey: "megaMenu.bySector", items: SECTORS_NAV_ITEMS },
-    { titleKey: "megaMenu.byService", items: SOLUTIONS_NAV_ITEMS },
-  ],
-  promo: {
-    titleKey: "megaMenu.solutionsPromo.title",
-    textKey: "megaMenu.solutionsPromo.text",
-    cta: { labelKey: "megaMenu.solutionsPromo.cta", href: ROUTES.bookSession },
-  },
-};
-
 export const PRODUCTS_MEGA_MENU: MegaMenu = {
   sections: [
     { titleKey: "megaMenu.ourProducts", items: ALBIRUNI_NAV_ITEMS },
@@ -297,7 +257,7 @@ export const PRODUCTS_MEGA_MENU: MegaMenu = {
 /** Main header navigation (desktop bar + mobile drawer), in display order. */
 export const NAV_LINKS: readonly HeaderNavEntry[] = [
   { type: "link", labelKey: "home", href: ROUTES.home },
-  { type: "mega", labelKey: "solutionsDropdown", menu: SOLUTIONS_MEGA_MENU },
+  { type: "link", labelKey: "solutions", href: ROUTES.solutions },
   { type: "mega", labelKey: "productsDropdown", menu: PRODUCTS_MEGA_MENU },
   { type: "link", labelKey: "agents", href: ROUTES.agents },
   { type: "link", labelKey: "about", href: ROUTES.about },
@@ -315,13 +275,12 @@ export const HEADER_UTILITY_LINKS: readonly NavItem[] = [
 
 /** Header top bar account links (end side), in reading order after the language toggle. */
 export const HEADER_ACCOUNT_LINKS: readonly NavItem[] = [
-  { labelKey: "support", href: ROUTES.support, icon: FiHeadphones },
   { labelKey: "login", href: ROUTES.login, icon: FiLogIn },
 ];
 
 export interface FooterNavGroup {
   /** Key inside "nav.groups". */
-  key: "albiruni" | "solutions" | "learn" | "developers" | "company";
+  key: "albiruni" | "learn" | "developers" | "company";
   items: readonly NavItem[];
 }
 
@@ -335,7 +294,6 @@ export const FOOTER_NAV_GROUPS: readonly FooterNavGroup[] = [
       { labelKey: "albiruniItems.trial", href: ROUTES.albiruni.trial },
     ],
   },
-  { key: "solutions", items: SOLUTIONS_NAV_ITEMS },
   { key: "learn", items: LEARN_NAV_ITEMS },
   {
     key: "developers",

@@ -9,6 +9,7 @@ import {
   type TextareaHTMLAttributes,
 } from "react";
 import { cn } from "@/lib/utils";
+import { FieldClearButton } from "./FieldClearButton";
 import { FieldFeedback, fieldDescribedBy, type FieldHintTone } from "./FieldFeedback";
 import {
   FIELD_HEIGHT,
@@ -32,6 +33,13 @@ export interface BaseInputFieldProps {
   hideLabel?: boolean;
   className?: string;
   inputClassName?: string;
+  /**
+   * Input only, controlled: a clear (×) button at the end while the field has a value (in place of the browser's own
+   * search mark). Called on click, then the field gets the focus back. Search fields (add-ons store).
+   */
+  onClear?: () => void;
+  /** Already-translated name of the clear button ("Clear search"). Needed with `onClear`. */
+  clearLabel?: string;
 }
 
 type NativeInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "className">;
@@ -71,6 +79,8 @@ export const InputField = forwardRef<HTMLInputElement | HTMLTextAreaElement, Inp
       hideLabel = false,
       className,
       inputClassName,
+      onClear,
+      clearLabel,
       id,
       disabled,
       dir,
@@ -143,9 +153,21 @@ export const InputField = forwardRef<HTMLInputElement | HTMLTextAreaElement, Inp
             <input
               ref={ref as Ref<HTMLInputElement>}
               dir={dir}
-              className={cn(boxClasses, FIELD_HEIGHT, "py-2.5")}
+              className={cn(boxClasses, FIELD_HEIGHT, "py-2.5", onClear && "pe-12 [&::-webkit-search-cancel-button]:hidden")}
               {...controlProps}
               {...(restProps as NativeInputProps)}
+            />
+          )}
+
+          {onClear && as === "input" && (
+            <FieldClearButton
+              label={clearLabel}
+              visible={restProps.value !== undefined && String(restProps.value) !== ""}
+              disabled={disabled}
+              onClick={() => {
+                onClear();
+                document.getElementById(inputId)?.focus();
+              }}
             />
           )}
         </div>

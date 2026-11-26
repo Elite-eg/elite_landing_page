@@ -12,6 +12,7 @@ const TONE_CLASSES: Record<ProjectTone, string> = {
   brand: "from-secondary to-secondary-dark",
   navy: "from-primary to-primary-dark",
   bareeq: "from-bareeq to-bareeq-950",
+  tursa: "from-tursa to-tursa-950",
   midnight: "from-primary-dark to-primary-deep",
 };
 
@@ -29,7 +30,7 @@ export function HomeProjectCover({ project: { key, cover, images }, badge }: Hom
     >
       {images.photo && <ProjectCoverPhoto src={images.photo} />}
       <p className="self-start rounded-full bg-white/[0.16] px-2.5 py-1 text-xs font-medium text-white">{badge}</p>
-      <ProjectWordmark projectKey={key} className="self-start text-3xl leading-none sm:text-4xl" />
+      <ProjectWordmark projectKey={key} tone={cover.tone} className="self-start text-3xl leading-none sm:text-4xl" />
     </div>
   );
 }

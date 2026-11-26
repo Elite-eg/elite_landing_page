@@ -40,6 +40,12 @@ module.exports = {
           DEFAULT: token("bareeq-600"),
           950: token("bareeq-950"),
         },
+        /** TURSA project covers only (client identity: emerald and gold). */
+        tursa: {
+          DEFAULT: token("tursa-700"),
+          950: token("tursa-950"),
+          gold: token("tursa-gold"),
+        },
         primary: {
           DEFAULT: token("primary"),
           dark: token("primary-dark"),

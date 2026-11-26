@@ -149,6 +149,49 @@ export const listItemFromEnd = (isRtl: boolean): Variants => ({
   }),
 });
 
+/** Time between two steps of a sequence drawn along a line (solutions "day in the life": Figma 0.36s). */
+const SEQUENCE_STEP = 0.36;
+/** Ease of a sequence marker's pop (Figma: overshoots, then settles). */
+const EASE_MARKER_POP: Transition["ease"] = [0.45, 1.45, 0.8, 1];
+const sequenceDelay = (index: number) => 0.15 + index * SEQUENCE_STEP;
+
+/**
+ * A step of a sequence along a line (solutions "day in the life"): rises 18px into place as the line reaches it.
+ * Each step animates itself: pass its index as `custom` (like `listItemFromEnd`), so a swapped-in sequence replays.
+ */
+export const sequenceStep: Variants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: (index: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut", delay: sequenceDelay(index) },
+  }),
+};
+
+/** The step's marker (icon circle) pops from 0.6 with an overshoot as its step rises (`custom` = the step's index). */
+export const sequenceMarker: Variants = {
+  hidden: { scale: 0.6 },
+  visible: (index: number = 0) => ({
+    scale: 1,
+    transition: { duration: 0.5, ease: EASE_MARKER_POP, delay: sequenceDelay(index) },
+  }),
+};
+
+/**
+ * The line from a step to the next one: draws from the step's marker (start side across a row, mirrored in RTL;
+ * downward when the steps stack) and reaches the next marker as that step rises. Scales both axes from the
+ * start / top corner, so one element serves both orientations (its thickness is only 2px).
+ */
+export const sequenceConnector = (isRtl: boolean): Variants => ({
+  hidden: { scale: 0, originX: isRtl ? 1 : 0, originY: 0 },
+  visible: (index: number = 0) => ({
+    scale: 1,
+    originX: isRtl ? 1 : 0,
+    originY: 0,
+    transition: { duration: SEQUENCE_STEP, ease: "linear", delay: sequenceDelay(index) },
+  }),
+});
+
 /** A whole list swapped for another (filter change, AnimatePresence mode="wait"): quick fade out first. */
 export const listSwap: Variants = {
   exit: { opacity: 0, transition: { duration: 0.15, ease: "easeOut" } },

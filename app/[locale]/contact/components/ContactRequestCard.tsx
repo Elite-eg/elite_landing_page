@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { FormCard } from "@/app/components/shared/form-handlers/FormCard";
 import type { SentContactRequest } from "../data/contactSchema";
 import { ContactForm } from "./ContactForm";
 import { ContactSuccess } from "./ContactSuccess";
@@ -20,7 +21,7 @@ export function ContactRequestCard() {
   };
 
   return (
-    <div className="rounded-3xl border border-edge bg-surface p-6 shadow-card sm:p-9">
+    <FormCard>
       <AnimatePresence mode="wait" initial={false}>
         {sent ? (
           <ContactSuccess key="success" request={sent} onNewMessage={startNewMessage} />
@@ -28,6 +29,6 @@ export function ContactRequestCard() {
           <ContactForm key="form" onSent={setSent} focusFirstField={isAnotherMessage} />
         )}
       </AnimatePresence>
-    </div>
+    </FormCard>
   );
 }

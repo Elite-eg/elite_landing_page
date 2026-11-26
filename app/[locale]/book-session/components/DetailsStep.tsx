@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
   FiArrowLeft,
-  FiArrowRight,
   FiBriefcase,
   FiMail,
   FiMessageSquare,
@@ -17,6 +16,7 @@ import {
 import { Button } from "@/app/components/shared/Button";
 import { useCountry } from "@/app/store/useCountry";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
+import { SubmitButton } from "@/app/components/shared/form-handlers/SubmitButton";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { fadeInUp } from "@/lib/animations";
 import type { CountryCode } from "@/lib/countries";
@@ -151,17 +151,14 @@ export function DetailsStep({
         >
           {t("backCta")}
         </Button>
-        <Button
-          type="submit"
-          variant="secondary"
-          size="lg"
+        <SubmitButton
+          fullWidth={false}
           isLoading={isSubmitting}
-          icon={<FiArrowRight />}
-          flipIconInRtl
+          pendingLabel={t("submitting")}
           className="flex-1 bg-gradient-to-r from-secondary to-secondary-dark shadow-lg shadow-secondary/20 hover:from-secondary-dark hover:to-secondary disabled:bg-none"
         >
-          {isSubmitting ? t("submitting") : t("confirmBookingCta")}
-        </Button>
+          {t("confirmBookingCta")}
+        </SubmitButton>
       </div>
     </motion.form>
   );

@@ -20,7 +20,7 @@ export const GUIDES: Record<GuideKey, GuideConfig> = {
   },
   serviceApp: {
     route: ROUTES.learn.serviceAppGuide,
-    contents: ["licenses", "paymentGateways", "launchFeatures", "costTimeline", "lessons"],
+    contents: ["regulations", "paymentGateway", "costTimeline", "commonMistakes", "storeChecklist"],
   },
   installation: {
     route: ROUTES.developers.installation,

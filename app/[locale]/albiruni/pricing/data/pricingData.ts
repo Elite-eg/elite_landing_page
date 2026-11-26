@@ -1,13 +1,14 @@
 import type { IconType } from "react-icons";
 import { FiShoppingBag, FiTool, FiTruck } from "react-icons/fi";
 import type { CountryCode } from "@/lib/countries";
+import type { SectorKey } from "@/lib/sectors";
 
 /* ── Step 1: sector ─────────────────────────────────────────────────────────── */
 
-export type SectorKey = "distribution" | "fieldSales" | "carService";
+export type { SectorKey };
 
 export interface PricingSector {
-  /** Name: `nav.sectorsItems.<key>` (same sectors as the header menu). */
+  /** Name: `nav.sectorsItems.<key>` (the sectors in lib/sectors.ts). */
   key: SectorKey;
   icon: IconType;
   /** Apps tuned for the sector (Figma). */

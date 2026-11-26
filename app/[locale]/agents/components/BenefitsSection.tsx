@@ -3,8 +3,8 @@ import { Container } from "@/app/components/shared/Container";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
+import { InfoTile } from "@/app/components/shared/tiles/InfoTile";
 import { AGENCY_BENEFITS } from "../data/agentsData";
-import { BenefitCard } from "./BenefitCard";
 
 /** What an agent gets: four white tiles on the grey band. */
 export function BenefitsSection() {
@@ -18,7 +18,7 @@ export function BenefitsSection() {
         <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {AGENCY_BENEFITS.map((key) => (
             <Reveal key={key} inGroup>
-              <BenefitCard title={t(`items.${key}.title`)} text={t(`items.${key}.text`)} />
+              <InfoTile title={t(`items.${key}.title`)} text={t(`items.${key}.text`)} />
             </Reveal>
           ))}
         </RevealGroup>

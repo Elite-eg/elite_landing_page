@@ -7,7 +7,7 @@ import type { MegaMenu } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MegaMenuPromo } from "./MegaMenuPromo";
 import { MegaMenuSection } from "./MegaMenuSection";
-import { useActiveRoute } from "./useActiveRoute";
+import { megaMenuHrefs, useActiveRoute } from "./useActiveRoute";
 
 export interface HeaderMobileNavAccordionProps {
   /** Key inside the "nav" messages namespace. */
@@ -20,7 +20,7 @@ export function HeaderMobileNavAccordion({ labelKey, menu }: HeaderMobileNavAcco
   const t = useTranslations("nav");
   const panelId = useId();
   const isActive = useActiveRoute();
-  const hasActiveChild = menu.sections.some((section) => section.items.some((item) => isActive(item.href)));
+  const hasActiveChild = megaMenuHrefs(menu).some(isActive);
   const [isOpen, setIsOpen] = useState(hasActiveChild);
 
   useEffect(() => {

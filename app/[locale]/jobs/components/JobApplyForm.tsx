@@ -6,12 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { useLocale, useTranslations } from "next-intl";
-import { FiSend } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { useCountry } from "@/app/store/useCountry";
-import { Button } from "@/app/components/shared/Button";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
+import { SubmitButton } from "@/app/components/shared/form-handlers/SubmitButton";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { API_ENDPOINTS, COMPANY_INFO, whatsappUrl, type AppLocale } from "@/lib/constants";
 import type { CountryCode } from "@/lib/countries";
@@ -111,9 +110,9 @@ export function JobApplyForm({ jobId, jobTitle, onSent, children }: JobApplyForm
       </div>
 
       <div className="flex flex-col gap-3 border-t border-edge bg-surface px-5 py-4 sm:flex-row sm:px-8">
-        <Button type="submit" variant="primary" size="lg" isLoading={isSubmitting} icon={<FiSend />} iconPosition="start" flipIconInRtl lift={false} className="sm:flex-1">
-          {isSubmitting ? t("submitting") : t("submit")}
-        </Button>
+        <SubmitButton variant="primary" fullWidth={false} lift={false} isLoading={isSubmitting} pendingLabel={t("submitting")} className="sm:flex-1">
+          {t("submit")}
+        </SubmitButton>
         <WhatsAppApplyButton href={whatsappUrl(t("whatsappMessage", { brand, jobTitle }))} size="lg" className="sm:flex-1">
           {t("orApplyWhatsapp")}
         </WhatsAppApplyButton>

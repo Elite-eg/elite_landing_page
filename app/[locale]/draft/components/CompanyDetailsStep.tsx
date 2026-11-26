@@ -4,9 +4,9 @@ import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { FiArrowRight, FiLock } from "react-icons/fi";
-import { Button } from "@/app/components/shared/Button";
+import { FiLock } from "react-icons/fi";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
+import { SubmitButton } from "@/app/components/shared/form-handlers/SubmitButton";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import type { CountryCode } from "@/lib/countries";
 import { EMPTY_COMPANY, companySchema, type CompanyDetails } from "../data/companySchema";
@@ -80,9 +80,7 @@ export function CompanyDetailsStep({ country, onCountryChange, defaultValues, on
           {...register("email")}
         />
 
-        <Button type="submit" variant="secondary" size="lg" fullWidth icon={<FiArrowRight />} flipIconInRtl>
-          {t("submit")}
-        </Button>
+        <SubmitButton>{t("submit")}</SubmitButton>
         <p className="flex items-center justify-center gap-1.5 text-xs text-content">
           <FiLock className="size-3.5 shrink-0" aria-hidden="true" />
           {t("note")}

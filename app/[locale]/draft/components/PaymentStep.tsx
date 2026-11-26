@@ -4,8 +4,9 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RadioGroup } from "@headlessui/react";
 import { useLocale, useTranslations } from "next-intl";
-import { FiArrowLeft, FiLock } from "react-icons/fi";
+import { FiArrowLeft } from "react-icons/fi";
 import { Button } from "@/app/components/shared/Button";
+import { SubmitButton } from "@/app/components/shared/form-handlers/SubmitButton";
 import type { AppLocale } from "@/lib/constants";
 import { countryByCode, type CountryCode, type PaymentMethodKey } from "@/lib/countries";
 import { PAYMENT_METHOD_ICONS, getOrderTotals } from "../data/checkoutData";
@@ -76,9 +77,7 @@ export function PaymentStep({ country, onBack, onComplete }: PaymentStepProps) {
           )}
         />
 
-        <Button type="submit" variant="secondary" size="lg" fullWidth isLoading={isSubmitting} icon={<FiLock />} iconPosition="start">
-          {submitLabel}
-        </Button>
+        <SubmitButton isLoading={isSubmitting}>{submitLabel}</SubmitButton>
         <p className="text-center text-xs text-content">{t("secureNote")}</p>
 
         <div className="text-center">

@@ -6,11 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
-import { FiDownload, FiLock } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { useCountry } from "@/app/store/useCountry";
-import { Button } from "@/app/components/shared/Button";
+import { FormCard } from "@/app/components/shared/form-handlers/FormCard";
+import { FormLayout } from "@/app/components/shared/form-handlers/FormLayout";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { API_ENDPOINTS } from "@/lib/constants";
@@ -39,7 +39,10 @@ interface GuideRequestFormProps {
   guide: GuideKey;
 }
 
-/** Name + WhatsApp number (the shared phone field: dial code from the visitor's country, checked per country). */
+/**
+ * Name + WhatsApp number (the shared phone field: dial code from the visitor's country, checked per country), in the
+ * shared form card and layout.
+ */
 export function GuideRequestForm({ guide }: GuideRequestFormProps) {
   const t = useTranslations("guides.common.form");
   const tValidation = useTranslations("validation");
@@ -77,13 +80,15 @@ export function GuideRequestForm({ guide }: GuideRequestFormProps) {
   const errorText = (key?: string) => (key ? tValidation(key) : undefined);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      aria-label={t("label")}
-      className="rounded-2xl border border-edge bg-surface p-4 shadow-card sm:p-5"
-    >
-      <div className="grid gap-3 sm:grid-cols-2">
+    <FormCard>
+      <FormLayout
+        title={t("label")}
+        onSubmit={handleSubmit(onSubmit)}
+        submitLabel={t("submit")}
+        submittingLabel={t("submitting")}
+        isSubmitting={isSubmitting}
+        note={t("note")}
+      >
         <InputField
           label={t("name")}
           placeholder={t("namePlaceholder")}
@@ -93,25 +98,7 @@ export function GuideRequestForm({ guide }: GuideRequestFormProps) {
           {...register("name")}
         />
         <InputField as="phone" label={t("phone")} {...phone.fieldProps} disabled={isSubmitting} />
-      </div>
-
-      <Button
-        type="submit"
-        variant="secondary"
-        size="lg"
-        fullWidth
-        isLoading={isSubmitting}
-        icon={<FiDownload />}
-        iconPosition="start"
-        className="mt-4"
-      >
-        {isSubmitting ? t("submitting") : t("submit")}
-      </Button>
-
-      <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-content">
-        <FiLock className="size-3.5 shrink-0" aria-hidden="true" />
-        {t("note")}
-      </p>
-    </form>
+      </FormLayout>
+    </FormCard>
   );
 }

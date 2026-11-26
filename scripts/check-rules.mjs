@@ -224,9 +224,10 @@ const PALETTE_SHADES = {
   orange: [50, 500, 600],
   ink: [400, 700, 900],
   bareeq: [50, 200, 950],
+  tursa: [950],
 };
 const shadeRe =
-  /(?<![\w-])(?:[\w-]+:)*(?:bg|text|border|from|via|to|ring|ring-offset|fill|stroke|outline|divide|shadow|decoration|caret|placeholder)-(navy|orange|ink|bareeq)-(\d{2,3})\b/g;
+  /(?<![\w-])(?:[\w-]+:)*(?:bg|text|border|from|via|to|ring|ring-offset|fill|stroke|outline|divide|shadow|decoration|caret|placeholder)-(navy|orange|ink|bareeq|tursa)-(\d{2,3})\b/g;
 for (const { path, text } of sources) {
   for (const m of text.matchAll(shadeRe)) {
     if (!PALETTE_SHADES[m[1]].includes(Number(m[2]))) {

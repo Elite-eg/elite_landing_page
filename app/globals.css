@@ -44,6 +44,11 @@
     --bareeq-600: 14 116 144;  /* #0E7490 · hero, icon tiles, timeline */
     --bareeq-950: 6 51 58;     /* #06333A · hero gradient end */
 
+    /* TURSA (client identity from tursabest.sa: emerald and gold, its project covers only) */
+    --tursa-700: 15 74 56;     /* #0F4A38 · cover gradient start */
+    --tursa-950: 4 28 21;      /* #041C15 · cover gradient end, dashboard sidebar */
+    --tursa-gold: 228 203 140; /* #E4CB8C · wordmark on emerald */
+
     /* ── Semantic aliases (names used across the codebase) ───────── */
     --primary: var(--navy-700);
     --primary-dark: var(--navy-900);

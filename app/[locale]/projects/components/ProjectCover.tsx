@@ -19,17 +19,18 @@ export interface ProjectCoverProps {
 
 const TONE_CLASSES: Record<ProjectTone, string> = {
   bareeq: "from-bareeq from-15% to-bareeq-950 to-85%",
+  tursa: "from-tursa from-15% to-tursa-950 to-85%",
   navy: "from-primary from-15% to-primary-dark to-85%",
   midnight: "from-primary-dark to-primary-deep to-70%",
   brand: "from-secondary from-15% to-secondary-dark to-85%",
 };
 
 /** Sizes follow the Figma screens (153 / 170 px phones, a 420 px dashboard) and shrink with the cover. */
-const MOCKUPS: Record<ProjectMockup, { layout: string; screens: ReactNode }> = {
+const MOCKUPS: Record<ProjectMockup, { layout: string; screens: (tone: ProjectTone) => ReactNode }> = {
   /** Two app screens; the smaller one on the start side (as on the Bareeq X case study). */
   phones: {
     layout: "items-end gap-2.5 pb-4 pt-8",
-    screens: (
+    screens: () => (
       <>
         <PhoneMockup className="w-[30%] max-w-[9.5625rem]" />
         <PhoneMockup className="w-[33.5%] max-w-[10.625rem]" />
@@ -38,7 +39,7 @@ const MOCKUPS: Record<ProjectMockup, { layout: string; screens: ReactNode }> = {
   },
   dashboard: {
     layout: "items-center px-6 pb-10 pt-6",
-    screens: <DashboardMockup className="w-[83%] max-w-[26.25rem]" />,
+    screens: (tone) => <DashboardMockup tone={tone} className="w-[83%] max-w-[26.25rem]" />,
   },
 };
 
@@ -60,10 +61,14 @@ export function ProjectCover({ cover: { tone, mockup }, photo, projectKey, prior
     >
       {photo && <ProjectCoverPhoto src={photo} priority={priority} />}
 
-      <ProjectWordmark projectKey={projectKey} className="px-6 pt-6 text-2xl sm:px-8 sm:pt-10 sm:text-3xl" />
+      <ProjectWordmark
+        projectKey={projectKey}
+        tone={tone}
+        className="px-6 pt-6 text-2xl sm:px-8 sm:pt-10 sm:text-3xl"
+      />
 
       <Reveal delay={0.3} className={cn("flex flex-1 justify-center", layout)}>
-        {screens}
+        {screens(tone)}
       </Reveal>
     </div>
   );

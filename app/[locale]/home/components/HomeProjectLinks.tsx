@@ -29,7 +29,8 @@ export function HomeProjectLinks({ project, linkTo }: HomeProjectLinksProps) {
     );
   }
 
-  const label = ({ kind, href }: AppLink) => (kind === "website" ? new URL(href).hostname : tStores(`${kind}.label`));
+  const label = ({ kind, href }: AppLink) =>
+    kind === "website" ? new URL(href).hostname.replace(/^www\./, "") : tStores(`${kind}.label`);
 
   return (
     <ul className="flex flex-wrap gap-x-3.5 gap-y-2">

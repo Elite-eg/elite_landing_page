@@ -2,26 +2,13 @@
   "nav": {
     "home": "Home",
     "solutions": "Solutions",
-    "solutionsDropdown": "Solutions",
     "productsDropdown": "Products & projects",
-    "solutionsItems": {
-      "consulting": "Technical consulting",
-      "web": "Web platforms",
-      "mobile": "Mobile apps",
-      "erp": "ERP systems",
-      "ai": "AI & automation"
-    },
-    "techPlatforms": "Tech platforms",
-    "projects": "Projects & products",
-    "careers": "Careers",
     "jobs": "Careers",
     "about": "About Elite Tech",
     "community": "Community",
     "contact": "Contact us",
     "login": "Sign in",
-    "support": "Tech support",
     "bookDiagnosticCta": "Book a free diagnostic session",
-    "joinCommunity": "Join the community",
     "mainNav": "Main navigation",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -29,7 +16,6 @@
     "languageName": "العربية",
     "groups": {
       "albiruni": "Albiruni ERP",
-      "solutions": "Solutions",
       "learn": "Learning library",
       "developers": "Developers",
       "company": "Company"
@@ -84,11 +70,6 @@
       "fieldSales": "Field sales",
       "carService": "Car service centers"
     },
-    "sectorsDescriptions": {
-      "distribution": "Delivery routes, orders and warehouse",
-      "fieldSales": "Rep visits, collections and custody",
-      "carService": "Bookings, work orders and technicians"
-    },
     "productsDescriptions": {
       "albiruni": "Our platform for managing field sales and operations",
       "pricing": "Plans by sector and number of users",
@@ -105,16 +86,9 @@
       "arfa": "Specialized systems engineering company · Jeddah"
     },
     "megaMenu": {
-      "bySector": "By sector",
-      "byService": "By service",
       "ourProducts": "Our products",
       "projects": "Projects we're proud of",
       "allProjects": "All our projects",
-      "solutionsPromo": {
-        "title": "Not sure what you need?",
-        "text": "30 minutes with an operations expert and a developer to pin down the problem, priorities and solution.",
-        "cta": "Book a free session"
-      },
       "productsPromo": {
         "title": "Try Albiruni free",
         "text": "14 days with demo data that looks like your company. No card needed.",
@@ -360,6 +334,18 @@
             "Laravel",
             "Payment gateway"
           ]
+        },
+        "tursa": {
+          "badge": "Company website · Makkah",
+          "description": "The website of an import, export and global sourcing company: its services, industries and markets, and a two-step quote request, in Arabic, English and Turkish.",
+          "credit": "Built by {brand} for TURSA Trading",
+          "tags": [
+            "UX/UI",
+            "Web development",
+            "Next.js",
+            "Multilingual",
+            "Quote requests"
+          ]
         }
       }
     },
@@ -567,21 +553,7 @@
     "sectors": {
       "eyebrow": "Solutions by sector",
       "title": "Designed around how you work, <br></br>to lift your team's productivity.",
-      "subtitle": "Ready templates for each sector: fields, permissions and reports set up in advance, so you go live within weeks.",
-      "items": {
-        "distribution": {
-          "description": "Delivery routes, orders, the warehouse and van stock counts.",
-          "apps": "Sales · Delivery · Warehouse"
-        },
-        "fieldSales": {
-          "description": "Sales rep visits, orders, collections and rep custody.",
-          "apps": "Sales · Collections · Attendance"
-        },
-        "carService": {
-          "description": "Appointments, work orders, technicians and spare parts.",
-          "apps": "Maintenance · Warehouse · Collections"
-        }
-      }
+      "subtitle": "Ready templates for each sector: fields, permissions and reports set up in advance, so you go live within weeks."
     },
     "process": {
       "eyebrow": "How we work with you",
@@ -690,11 +662,22 @@
     "activitiesRequired": "Choose at least one business activity.",
     "erpExperienceRequired": "Choose yes or no.",
     "companyAboutRequired": "Tell us briefly about your company.",
-    "consentRequired": "Agree to the privacy policy to send your application."
+    "officeNameRequired": "Enter your office name.",
+    "cityChoiceRequired": "Choose your city.",
+    "clientCountRequired": "Choose your approximate number of clients.",
+    "officeTypeRequired": "Choose your office type."
   },
   "phoneField": {
     "countryCode": "Country code",
     "countryCodeDetected": "Country code set automatically"
+  },
+  "pagination": {
+    "label": "Results pages",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {page}",
+    "pageOf": "Page {page} of {count}",
+    "range": "Showing {from}–{to} of {total}"
   },
   "appLinks": {
     "website": {
@@ -1077,7 +1060,7 @@
       },
       "about": "About your company",
       "aboutPlaceholder": "Your business and current clients…",
-      "consent": "I agree to the <link>privacy policy</link> and to {brand} contacting me about this application.",
+      "privacyNote": "By sending the application, you agree to the <link>privacy policy</link> and to {brand} contacting you about it.",
       "submit": "Send application",
       "submitting": "Sending…",
       "errorToast": "We couldn't send your application right now. Check your connection and try again, or message us on WhatsApp."
@@ -1085,6 +1068,127 @@
     "success": {
       "title": "Your application has been sent!",
       "subtitle": "Our team will review it and reply within 3 business days.",
+      "backHome": "Back to home"
+    }
+  },
+  "partners": {
+    "meta": {
+      "title": "Partner program",
+      "description": "The {brand} partner program for accounting and audit offices: recommend Albiruni to your clients and earn a commission on every subscription, while we handle implementation and support."
+    },
+    "hero": {
+      "eyebrow": "For accounting and audit offices",
+      "title": "A partnership that adds value for your office and your clients.",
+      "subtitle": "Your clients ask you for a system to organize their sales and collections. Recommend Albiruni: we handle the implementation and support, and you earn a commission on every subscription.",
+      "join": "Join the program",
+      "whatsapp": "Talk to us on WhatsApp",
+      "whatsappMessage": "Hello, I'd like to know more about the partner program for accounting offices."
+    },
+    "benefits": {
+      "title": "What does your office gain?",
+      "items": {
+        "commission": {
+          "title": "A commission on every subscription",
+          "text": "{rate}% of your client's subscription for the first {months, plural, one {month} other {# months}}."
+        },
+        "dashboard": {
+          "title": "Partner dashboard",
+          "text": "Track your referred clients, their subscription status and your commissions."
+        },
+        "clientAccess": {
+          "title": "Accounting access to your clients",
+          "text": "With the client's permission, see sales and collection reports ready for closing."
+        },
+        "training": {
+          "title": "Training and partner certificate",
+          "text": "Training sessions for your team and a “Certified partner” badge for your website."
+        }
+      }
+    },
+    "steps": {
+      "title": "How referral and commission work",
+      "items": {
+        "register": {
+          "title": "Register your office",
+          "text": "Fill in the form, and we activate your partner dashboard and referral link within two business days."
+        },
+        "refer": {
+          "title": "Refer your client",
+          "text": "Share your link, or add the client from your partner dashboard and we contact them."
+        },
+        "onboard": {
+          "title": "We implement and follow up",
+          "text": "Our team sets up the account and trains the client's team, and keeps you informed."
+        },
+        "payout": {
+          "title": "Receive your commission",
+          "text": "Calculated monthly once the client pays, and transferred to your bank account."
+        }
+      }
+    },
+    "commission": {
+      "title": "Your commission per client",
+      "rate": "{rate}%",
+      "byAgreement": "By agreement",
+      "byAgreementText": "A rate we agree on based on the size of the project.",
+      "perClient": "{amount} a month per client",
+      "orAmount": "or {amount}",
+      "plans": {
+        "basic": "Basic plan",
+        "business": "Business plan",
+        "enterprise": "Enterprise plan"
+      },
+      "note": "Preliminary rates · calculated on the subscription value before VAT."
+    },
+    "form": {
+      "title": "Join the partner program",
+      "subtitle": "We review your application and reply within two business days.",
+      "officeName": "Office name",
+      "officeNamePlaceholder": "e.g. Al Nour Accounting Office",
+      "fullName": "Your name",
+      "fullNamePlaceholder": "Full name",
+      "phone": "Mobile number",
+      "email": "Email",
+      "emailPlaceholder": "name@office.com",
+      "city": "City",
+      "cityPlaceholder": "Choose your city",
+      "cities": {
+        "cairo": "Cairo",
+        "giza": "Giza",
+        "alexandria": "Alexandria",
+        "mansoura": "Mansoura",
+        "tanta": "Tanta",
+        "assiut": "Assiut",
+        "riyadh": "Riyadh",
+        "jeddah": "Jeddah",
+        "makkah": "Makkah",
+        "madinah": "Madinah",
+        "dammam": "Dammam",
+        "khobar": "Khobar",
+        "other": "Another city"
+      },
+      "clientCount": "Approximate number of clients",
+      "clientCountPlaceholder": "Choose a range",
+      "clientCounts": {
+        "under10": "Fewer than 10",
+        "from10to50": "10 – 50",
+        "from51to100": "51 – 100",
+        "over100": "More than 100"
+      },
+      "officeType": "Office type",
+      "officeTypes": {
+        "accounting": "Accounting",
+        "audit": "Audit",
+        "taxConsulting": "Tax consulting"
+      },
+      "privacyNote": "By sending the application, you agree to the <terms>partner program terms</terms> and the <privacy>privacy policy</privacy>. We never share your data with anyone.",
+      "submit": "Send application",
+      "submitting": "Sending…",
+      "errorToast": "We couldn't send your application right now. Check your connection and try again, or message us on WhatsApp."
+    },
+    "success": {
+      "title": "Application sent!",
+      "subtitle": "We'll review your application and reply within two business days.",
       "backHome": "Back to home"
     }
   },
@@ -1240,20 +1344,20 @@
     "serviceApp": {
       "meta": {
         "title": "Guide to building a service app in Saudi Arabia",
-        "description": "A free PDF guide to launching a service app in Saudi Arabia: licenses, payment gateways, cost and timeline, from the Bareeq X experience."
+        "description": "A free PDF guide from the Bareeq X launch: regulatory requirements, payment gateways, cost and timeline for launching a service app in Saudi Arabia."
       },
       "title": "How to build a service app in Saudi Arabia",
-      "description": "A practical guide for anyone planning a services app in Saudi Arabia: the licenses you need, choosing a payment gateway, and a realistic cost and timeline, drawn from our work on Bareeq X.",
+      "description": "A practical guide we wrote from launching Bareeq X: from licenses and payment gateways to cost and timeline.",
       "contents": {
-        "licenses": "The licenses and registrations a service app needs",
-        "paymentGateways": "Choosing a payment gateway and getting approved",
-        "launchFeatures": "The features to launch with, and what can wait",
-        "costTimeline": "A realistic cost and timeline, stage by stage",
-        "lessons": "Lessons learned from building Bareeq X"
+        "regulations": "Regulatory requirements and the commercial registration before launch",
+        "paymentGateway": "Choosing a payment gateway and testing OTP verification",
+        "costTimeline": "Estimating the cost and duration of each stage",
+        "commonMistakes": "Common mistakes that delay the launch, and how to avoid them",
+        "storeChecklist": "A checklist before publishing to the app stores"
       },
       "cover": {
-        "title": "Service app guide for Saudi Arabia",
-        "edition": "From the Bareeq X experience · 2026"
+        "title": "Building a service app in Saudi Arabia",
+        "edition": "From the Bareeq X launch · 2026"
       }
     },
     "installation": {
@@ -1993,6 +2097,31 @@
         ],
         "meta": "Client: ARFA, a specialized systems engineering company · Jeddah, Saudi Arabia"
       },
+      "tursa": {
+        "wordmark": "TURSA",
+        "name": "TURSA",
+        "tagline": "The website of TURSA, an import, export and global sourcing company",
+        "description": "A company website for a Saudi import and export firm in Makkah that presents its services, the industries and markets it serves, and turns visitors into quote requests.",
+        "tags": [
+          "Company website",
+          "3 languages",
+          "Makkah"
+        ],
+        "features": [
+          "A two-step quote request: request and service type, product, origin, destination and quantity, then contact details",
+          "Services, engagement models, industries and the sourcing process, each in its own section",
+          "A map of global trade hubs with transit times to the GCC",
+          "Arabic, English and Turkish, with direct contact on WhatsApp"
+        ],
+        "tech": [
+          "Next.js",
+          "Web design & development",
+          "Multilingual & RTL",
+          "Quote request forms",
+          "WhatsApp"
+        ],
+        "meta": "Client: TURSA Trading · Makkah, Saudi Arabia"
+      },
       "albiruni": {
         "wordmark": "Albiruni",
         "name": "Albiruni system"
@@ -2397,6 +2526,239 @@
       }
     }
   },
+  "addons": {
+    "storeName": "Add-ons store",
+    "meta": {
+      "title": "Add-ons store",
+      "description": "Add-ons for Albiruni from {brand} and certified developers: WhatsApp, payment gateways, shipping, reports and more. Every add-on is reviewed and tested before it's published."
+    },
+    "hero": {
+      "subtitle": "Find the add-on your company needs and install it on your system. Every add-on is reviewed and tested before it goes on the store."
+    },
+    "search": {
+      "label": "Search add-ons",
+      "placeholder": "Search add-ons: WhatsApp, shipping, reports…",
+      "submit": "Search",
+      "clear": "Clear search"
+    },
+    "popular": {
+      "label": "Most searched:",
+      "items": {
+        "whatsapp": "WhatsApp",
+        "payments": "Payment gateways",
+        "shipping": "Shipping",
+        "barcode": "Barcode"
+      }
+    },
+    "categories": {
+      "label": "Filter add-ons by category",
+      "all": "All",
+      "sales": "Sales and customers",
+      "inventory": "Inventory and warehouses",
+      "accounting": "Accounting and finance",
+      "hr": "Human resources",
+      "reports": "Reports",
+      "integrations": "Integrations",
+      "sectorTools": "Sector tools"
+    },
+    "results": {
+      "count": "{count, plural, =0 {No add-ons} one {{formatted} add-on} other {{formatted} add-ons}}"
+    },
+    "filters": {
+      "label": "Filter and sort results",
+      "labelWithValue": "{label}: {value}",
+      "all": "All",
+      "price": {
+        "label": "Price",
+        "options": {
+          "all": "All",
+          "free": "Free",
+          "paid": "Paid"
+        }
+      },
+      "sector": "Sector",
+      "version": "Compatibility",
+      "developer": "Developer",
+      "rating": {
+        "label": "Rating",
+        "options": {
+          "all": "All",
+          "above45": "4.5 and up",
+          "above4": "4 and up"
+        }
+      },
+      "sort": {
+        "label": "Sort",
+        "options": {
+          "popular": "Most installed",
+          "rating": "Top rated",
+          "newest": "Newest"
+        }
+      }
+    },
+    "developer": {
+      "official": "Official",
+      "certified": "Certified developer"
+    },
+    "price": {
+      "free": "Free",
+      "amount": "{symbol} {amount}"
+    },
+    "contactDeveloper": {
+      "label": "Contact the developer",
+      "message": "Hello, I have a question about the “{name}” add-on by {developer}."
+    },
+    "file": {
+      "description": "Full source code · {size} MB"
+    },
+    "license": {
+      "label": "License key",
+      "copy": "Copy the license key",
+      "copied": "License key copied.",
+      "copyError": "Couldn't copy. Select the key and copy it yourself."
+    },
+    "order": {
+      "addon": "Add-on",
+      "developer": "Developer",
+      "orderNumber": "Order number",
+      "date": "Date",
+      "purchasedAt": "Purchase date",
+      "version": "Version",
+      "payment": "Payment method",
+      "cardEnding": "Card ending {last4}",
+      "price": "Price",
+      "vat": "VAT {rate}%",
+      "total": "Total",
+      "amountPaid": "Amount paid"
+    },
+    "purchaseComplete": {
+      "meta": {
+        "title": "Purchase complete",
+        "description": "Download the source code of the add-on you bought, copy its license key and follow the installation steps."
+      },
+      "title": "Your add-on purchase is complete",
+      "text": "The source code is ready to download, and we’ve emailed you the invoice and download link.",
+      "download": {
+        "title": "Download your add-on",
+        "download": "Download source code",
+        "installGuide": "Install guide"
+      },
+      "nextSteps": {
+        "title": "Next steps",
+        "items": {
+          "download": "Download the file and keep a copy.",
+          "install": "Follow the installation guide on the add-on page.",
+          "help": "If you need help, message the developer directly."
+        }
+      },
+      "orderTitle": "Order summary",
+      "updatesNote": "Free updates until {date}. You’ll always find the add-on in “My purchases”.",
+      "links": {
+        "myPurchases": "My purchases",
+        "store": "Back to the add-ons store"
+      }
+    },
+    "myPurchases": {
+      "meta": {
+        "title": "My purchases",
+        "description": "The add-ons you bought from the Albiruni add-ons store: their files, license keys and free updates."
+      },
+      "title": "My purchases",
+      "text": "Every add-on you bought in one place: download its file, copy its license key and see how long its free updates last.",
+      "browse": "Browse the add-ons store",
+      "updates": {
+        "active": "Free updates until {date}",
+        "ended": "Updates ended on {date}"
+      },
+      "actions": {
+        "download": "Download source code",
+        "installGuide": "Install guide"
+      },
+      "empty": {
+        "title": "No purchases yet",
+        "text": "Buy an add-on from the store, and you’ll find it here with its file and license key.",
+        "browse": "Browse the add-ons store"
+      }
+    },
+    "rating": {
+      "label": "Rated {rating} out of 5 from {count, plural, =0 {no ratings} one {{formatted} rating} other {{formatted} ratings}}",
+      "count": "({formatted})",
+      "countLabel": "({count, plural, =0 {no ratings} one {{formatted} rating} other {{formatted} ratings}})"
+    },
+    "empty": {
+      "title": "No add-ons match your search",
+      "text": "Try another word, or remove some filters.",
+      "reset": "Show all add-ons"
+    },
+    "details": {
+      "breadcrumb": "Breadcrumb",
+      "meta": {
+        "installs": "{count, plural, =0 {No installs} one {{formatted} install} other {{formatted} installs}}",
+        "version": "Version {version}",
+        "compatibility": "Works with Albiruni {versions}"
+      },
+      "tabs": {
+        "label": "Add-on page sections",
+        "description": "Description",
+        "media": "Screenshots and video",
+        "installation": "Installation",
+        "reviews": "Ratings ({count})",
+        "changelog": "Version history"
+      },
+      "media": {
+        "choose": "Choose the video or a screenshot",
+        "videoCaption": "Intro video · {duration} min",
+        "screenshotCaption": "Screenshot {index} of {count}"
+      },
+      "about": {
+        "title": "About the add-on"
+      },
+      "installation": {
+        "title": "How to install",
+        "help": "Need help installing it? Message the developer directly with the “Contact the developer” button."
+      },
+      "reviews": {
+        "title": "Ratings",
+        "count": "{count, plural, =0 {No ratings} one {{formatted} rating} other {{formatted} ratings}}",
+        "bar": "{stars, plural, one {{stars} star} other {{stars} stars}}: {count, plural, =0 {no ratings} one {{formatted} rating} other {{formatted} ratings}}",
+        "author": "{author} · {company}",
+        "stars": "{rating} out of 5 stars",
+        "empty": "No ratings yet."
+      },
+      "changelog": {
+        "title": "Version history",
+        "version": "Version {version}"
+      },
+      "purchase": {
+        "label": "Buy the add-on",
+        "oneTime": "One-time purchase · Price excludes tax",
+        "freeNote": "Free for Albiruni subscribers",
+        "buy": "Buy the add-on",
+        "install": "Install the add-on",
+        "includes": "Your purchase includes",
+        "includesFree": "The add-on includes",
+        "reviewed": "Reviewed and tested by the {brand} team before publishing.",
+        "buyMessage": "Hello, I'd like to buy the “{name}” add-on by {developer} from the add-ons store.",
+        "installMessage": "Hello, I'd like to install the free “{name}” add-on by {developer} from the add-ons store."
+      },
+      "facts": {
+        "developer": "Developer",
+        "updatedAt": "Last updated",
+        "version": "Version",
+        "compatibility": "Compatibility",
+        "compatibilityValue": "Albiruni {versions}",
+        "license": "License",
+        "languages": "Languages"
+      },
+      "licenses": {
+        "singleCompany": "One company"
+      },
+      "languages": {
+        "ar": "Arabic",
+        "en": "English"
+      }
+    }
+  },
   "community": {
     "meta": {
       "title": "Community",
@@ -2441,6 +2803,119 @@
     },
     "articles": {
       "title": "From the field"
+    }
+  },
+  "sectors": {
+    "items": {
+      "distribution": {
+        "description": "Delivery routes, orders, the warehouse and van stock counts.",
+        "apps": "Sales · Delivery · Warehouse"
+      },
+      "fieldSales": {
+        "description": "Sales rep visits, orders, collections and rep custody.",
+        "apps": "Sales · Collections · Attendance"
+      },
+      "carService": {
+        "description": "Appointments, work orders, technicians and spare parts.",
+        "apps": "Maintenance · Warehouse · Collections"
+      }
+    }
+  },
+  "solutions": {
+    "meta": {
+      "title": "Solutions by sector",
+      "description": "Albiruni's ready templates for distribution, field sales and car service centers: see a full workday in your sector, from the first step in the morning to closing the day."
+    },
+    "hero": {
+      "eyebrow": "Solutions · by sector",
+      "title": "Built for your sector, <br></br>ready from day one.",
+      "subtitle": "Pick your sector to see how Albiruni runs a real workday: from the first visit in the morning to closing the day.",
+      "sectorsLabel": "Choose your sector"
+    },
+    "day": {
+      "distribution": {
+        "eyebrow": "A day in the life of a sales rep",
+        "title": "From loading the van to closing the day, <br></br>every step connects to the next.",
+        "steps": {
+          "loading": {
+            "title": "Loading the van",
+            "description": "The storekeeper prepares the loading order, and the rep receives it by scanning."
+          },
+          "visits": {
+            "title": "Visits and orders",
+            "description": "A suggested route, visits logged by location, and orders sent to the manager."
+          },
+          "invoicing": {
+            "title": "Invoicing and collection",
+            "description": "An e-invoice printed from the phone, and payment in cash or by card."
+          },
+          "stockCount": {
+            "title": "Stock count and handover",
+            "description": "A blind count of the van, and what's left handed back to the warehouse."
+          },
+          "closing": {
+            "title": "Closing the day",
+            "description": "An automatic summary for the manager: sales, collections and returns."
+          }
+        }
+      },
+      "fieldSales": {
+        "eyebrow": "A day in the life of a field sales rep",
+        "title": "From the visit plan to settling custody, <br></br>every step connects to the next.",
+        "steps": {
+          "checkIn": {
+            "title": "Starting the day",
+            "description": "Check-in by location, with the day's visit plan ready on the phone."
+          },
+          "visit": {
+            "title": "Customer visit",
+            "description": "The visit logged by location, with the customer's balance and last orders at hand."
+          },
+          "order": {
+            "title": "The order",
+            "description": "An order at approved prices, sent to the manager for approval."
+          },
+          "collection": {
+            "title": "Collection",
+            "description": "Payment in cash or by card, with a receipt for the customer on the spot."
+          },
+          "settlement": {
+            "title": "Settling custody",
+            "description": "The rep hands over cash and custody, and the manager sees the day's summary."
+          }
+        }
+      },
+      "carService": {
+        "eyebrow": "A day in the life of a service center",
+        "title": "From the booking to handing over the car, <br></br>every step connects to the next.",
+        "steps": {
+          "reception": {
+            "title": "Car reception",
+            "description": "A booked appointment, and a check-in inspection with photos before work starts."
+          },
+          "workOrder": {
+            "title": "Work order",
+            "description": "Faults and a cost estimate in a work order the customer approves."
+          },
+          "repair": {
+            "title": "Technician and parts",
+            "description": "The technician gets the job, and parts are issued from the warehouse against the work order."
+          },
+          "invoicing": {
+            "title": "Invoicing and collection",
+            "description": "An e-invoice from the work order, and payment in cash or by card."
+          },
+          "handover": {
+            "title": "Car handover",
+            "description": "The customer hears the car is ready, and the manager gets the day's summary."
+          }
+        }
+      }
+    },
+    "sectors": {
+      "eyebrow": "Solutions by sector",
+      "title": "Sectors ready today.",
+      "subtitle": "Ready templates for each sector: fields, permissions and reports set up in advance. Don't see your sector? Book a diagnostic session and we'll assess what you need."
     }
   },
   "site": {

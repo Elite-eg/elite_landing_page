@@ -19,7 +19,7 @@ export function AgencySuccess({ application }: AgencySuccessProps) {
 
   return (
     <SuccessPanel
-      as="h3"
+      as="h2"
       focusTitle
       title={t("success.title")}
       subtitle={t("success.subtitle")}

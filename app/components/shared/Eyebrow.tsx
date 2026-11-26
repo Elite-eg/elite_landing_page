@@ -5,13 +5,15 @@ export interface EyebrowProps {
   children: ReactNode;
   /** "dark" renders on navy backgrounds. */
   tone?: "light" | "dark";
+  /** "h1" when the pill is the page's title (add-ons store hero, which has no other heading). */
+  as?: "p" | "h1";
   className?: string;
 }
 
 /** Small orange pill shown above hero and section titles. */
-export function Eyebrow({ children, tone = "light", className }: EyebrowProps) {
+export function Eyebrow({ children, tone = "light", as: Tag = "p", className }: EyebrowProps) {
   return (
-    <p
+    <Tag
       className={cn(
         "inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-caption",
         tone === "dark"
@@ -22,6 +24,6 @@ export function Eyebrow({ children, tone = "light", className }: EyebrowProps) {
     >
       <span className="size-1.5 rounded-full bg-secondary" aria-hidden="true" />
       {children}
-    </p>
+    </Tag>
   );
 }

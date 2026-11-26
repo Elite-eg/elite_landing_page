@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { layoutTransition } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
-export type FilterPillsSize = "sm" | "md" | "segmented";
+export type FilterPillsSize = "sm" | "md" | "segmented" | "glass";
 
 export interface FilterPillsProps<T extends string> {
   options: readonly T[];
@@ -18,7 +18,8 @@ export interface FilterPillsProps<T extends string> {
   label: string;
   /**
    * "sm" = filter beside a section title (jobs), "md" = bordered pills under a hero (projects),
-   * "segmented" = borderless pills inside one white bordered track (pricing billing toggle).
+   * "segmented" = borderless pills inside one white bordered track (pricing billing toggle),
+   * "glass" = translucent bordered pills on navy with an orange indicator (solutions hero sector tabs).
    */
   size?: FilterPillsSize;
 }
@@ -32,12 +33,18 @@ const SIZE_CLASSES: Record<FilterPillsSize, { group: string; pill: string; indic
     pill: "whitespace-nowrap bg-transparent px-[1.125rem] py-2 hover:bg-surface-alt",
     indicator: "inset-0",
   },
+  /** On navy: white labels on a faint white fill; the chosen pill turns orange (covers the border too). */
+  glass: {
+    group: "flex flex-wrap gap-2",
+    pill: "border border-white/15 bg-white/[0.07] px-[1.125rem] py-2.5 text-surface hover:bg-white/[0.12] hover:text-surface",
+    indicator: "-inset-px bg-secondary",
+  },
 };
 
 /**
  * Filter pills (keyboard accessible radio group: arrow keys move the selection).
- * The navy indicator glides to the selected pill (shared layout animation) with the labels above it. The new
- * label turns white 100ms in, as the indicator arrives, so it never shows white on the grey pill.
+ * The navy indicator (orange in "glass") glides to the selected pill (shared layout animation) with the labels above
+ * it. The new label turns white 100ms in, as the indicator arrives, so it never shows white on the grey pill.
  */
 export function FilterPills<T extends string>({
   options,

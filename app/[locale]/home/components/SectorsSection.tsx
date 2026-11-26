@@ -3,15 +3,15 @@ import { Container } from "@/app/components/shared/Container";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
+import { SECTION_TITLE_LEADING } from "@/app/components/shared/sectionTitleClasses";
+import { SectorCard } from "@/app/components/shared/sectors/SectorCard";
+import { SECTORS } from "@/app/components/shared/sectors/sectorsData";
 import { cn } from "@/lib/utils";
-import { HOME_SECTORS } from "../data/homeData";
 import { lineBreak } from "../utils/richText";
-import { SECTION_TITLE_LEADING } from "../utils/titleClasses";
-import { SectorCard } from "./SectorCard";
 
 /**
  * "Designed around how you work" (Figma "Industries"): title with its subtitle under it on the start side, then one
- * card per sector, each linking to its page.
+ * card per sector, each opening the solutions page on its workday.
  */
 export function SectorsSection() {
   const t = useTranslations("home.sectors");
@@ -29,7 +29,7 @@ export function SectorsSection() {
         />
 
         <RevealGroup className="grid gap-5 md:grid-cols-3">
-          {HOME_SECTORS.map((sector) => (
+          {SECTORS.map((sector) => (
             <Reveal key={sector.key} inGroup className="h-full">
               <SectorCard sector={sector} />
             </Reveal>
