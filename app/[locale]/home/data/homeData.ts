@@ -191,21 +191,6 @@ export const NEXT_STEPS: readonly NextStep[] = [
   { key: "eInvoicingGuide", icon: LuFileDown, href: ROUTES.learn.eInvoicing },
 ];
 
-/* ── Sectors ─────────────────────────────────────────────────────────────────────────────── */
-
-export interface HomeSector {
-  /** Name: `nav.sectorsItems.<key>` (header menu); copy: `home.sectors.items.<key>`. */
-  key: keyof typeof ROUTES.sectors;
-  icon: IconType;
-}
-
-/** Sector cards, each linking to its sector page (`ROUTES.sectors`, not built yet). */
-export const HOME_SECTORS: readonly HomeSector[] = [
-  { key: "distribution", icon: FiTruck },
-  { key: "fieldSales", icon: FiMapPin },
-  { key: "carService", icon: FiTool },
-];
-
 /* ── Process ─────────────────────────────────────────────────────────────────────────────── */
 
 /** Steps in order, numbered 01–04 from their position. Copy: `home.process.steps.<key>`. */

@@ -4,10 +4,10 @@ import { Button } from "@/app/components/shared/Button";
 import { Container } from "@/app/components/shared/Container";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
+import { SectionHeadingWithAside } from "@/app/components/shared/SectionHeadingWithAside";
 import { ROUTES } from "@/lib/constants";
 import { HOME_PROJECTS, PROJECTS } from "@/lib/projects";
 import { HomeProjectCard } from "./HomeProjectCard";
-import { HomeSectionHeader } from "./HomeSectionHeader";
 
 /** "Our projects" (Figma "Projects"): three project cards and a link to the projects page. */
 export function ProjectsSection() {
@@ -16,7 +16,7 @@ export function ProjectsSection() {
   return (
     <section className="bg-surface py-20 sm:py-24 lg:py-28">
       <Container>
-        <HomeSectionHeader
+        <SectionHeadingWithAside
           eyebrow={t("eyebrow")}
           title={t("title")}
           aside={

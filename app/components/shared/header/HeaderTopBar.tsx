@@ -22,7 +22,7 @@ export function HeaderTopBar() {
           ))}
         </nav>
 
-        {/* DOM order = reading order: country, language, support, login (right-to-left in Arabic). */}
+        {/* DOM order = reading order: country, language, login (right-to-left in Arabic). */}
         <div className="flex items-center gap-5">
           <CountrySwitcher className="text-surface" />
           <HeaderLanguageToggle className={LINK_CLASS} />

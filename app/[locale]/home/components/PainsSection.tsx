@@ -4,10 +4,10 @@ import { Button } from "@/app/components/shared/Button";
 import { Container } from "@/app/components/shared/Container";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
+import { SectionHeadingWithAside } from "@/app/components/shared/SectionHeadingWithAside";
 import { ROUTES } from "@/lib/constants";
 import { APP_SURFACES, PAIN_POINTS } from "../data/homeData";
 import { lineBreak } from "../utils/richText";
-import { HomeSectionHeader } from "./HomeSectionHeader";
 import { PainCard } from "./PainCard";
 import { SurfaceChip } from "./SurfaceChip";
 
@@ -18,7 +18,7 @@ export function PainsSection() {
   return (
     <section className="bg-surface py-20 sm:py-24 lg:py-28">
       <Container>
-        <HomeSectionHeader
+        <SectionHeadingWithAside
           layout="stacked"
           eyebrow={t("eyebrow")}
           title={t.rich("title", { br: lineBreak })}

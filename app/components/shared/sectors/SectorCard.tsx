@@ -1,18 +1,21 @@
 import { useTranslations } from "next-intl";
 import { FiArrowRight } from "react-icons/fi";
-import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
-import { StretchedLink } from "@/app/components/shared/StretchedLink";
-import { ROUTES } from "@/lib/constants";
+import { solutionsSectorHref } from "@/lib/sectors";
 import { cn } from "@/lib/utils";
-import type { HomeSector } from "../data/homeData";
+import { CARD_HOVER_CLASSES } from "../cardStyles";
+import { StretchedLink } from "../StretchedLink";
+import type { Sector } from "./sectorsData";
 
 export interface SectorCardProps {
-  sector: HomeSector;
+  sector: Sector;
 }
 
-/** A sector (Figma "Industry"): navy icon tile, name (links to the sector page), what it covers, its key apps. */
+/**
+ * A sector (Figma "Industry"): navy icon tile, name (opens the solutions page on the sector's workday), what it
+ * covers, its key apps. Home sectors section, solutions page.
+ */
 export function SectorCard({ sector: { key, icon: Icon } }: SectorCardProps) {
-  const t = useTranslations("home.sectors.items");
+  const t = useTranslations("sectors.items");
   const tNav = useTranslations("nav.sectorsItems");
 
   return (
@@ -32,7 +35,7 @@ export function SectorCard({ sector: { key, icon: Icon } }: SectorCardProps) {
         />
       </div>
       <h3 className="text-xl font-semibold text-body">
-        <StretchedLink href={ROUTES.sectors[key]} className="after:rounded-3xl">
+        <StretchedLink href={solutionsSectorHref(key)} className="after:rounded-3xl">
           {tNav(key)}
         </StretchedLink>
       </h3>

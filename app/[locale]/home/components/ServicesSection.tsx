@@ -5,7 +5,7 @@ import { RevealGroup } from "@/app/components/shared/RevealGroup";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
 import { cn } from "@/lib/utils";
 import { HOME_SERVICES, SERVICES_FIRST_ROW } from "../data/homeData";
-import { SECTION_TITLE_LEADING } from "../utils/titleClasses";
+import { SECTION_TITLE_LEADING } from "@/app/components/shared/sectionTitleClasses";
 import { ServiceTile } from "./ServiceTile";
 
 /**

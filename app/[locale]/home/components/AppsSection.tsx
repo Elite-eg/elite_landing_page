@@ -7,7 +7,7 @@ import { ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MORE_PLATFORM_APPS } from "../data/homeData";
 import { lineBreak } from "../utils/richText";
-import { SECTION_TITLE_LEADING } from "../utils/titleClasses";
+import { SECTION_TITLE_LEADING } from "@/app/components/shared/sectionTitleClasses";
 import { AppsExplorer } from "./AppsExplorer";
 
 /** "Start with what you need today" (Figma "Albiruni apps"): filterable app grid, then the apps not shown. */

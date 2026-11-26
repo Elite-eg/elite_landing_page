@@ -3,7 +3,7 @@ import { Container } from "@/app/components/shared/Container";
 import { SectionHeading } from "@/app/components/shared/SectionHeading";
 import { cn } from "@/lib/utils";
 import { lineBreak } from "../utils/richText";
-import { SECTION_TITLE_LEADING } from "../utils/titleClasses";
+import { SECTION_TITLE_LEADING } from "@/app/components/shared/sectionTitleClasses";
 import { PricingTeaser } from "./PricingTeaser";
 
 /** "Choose your sector, and pay for the size of your team" (Figma "Store teaser"). */

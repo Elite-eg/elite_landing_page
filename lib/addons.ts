@@ -1,5 +1,6 @@
 import { ROUTES, type AppLocale } from "./constants";
 import type { CountryCode, PaymentMethodKey } from "./countries";
+import { SECTOR_KEYS, type SectorKey } from "./sectors";
 
 /**
  * Albiruni add-ons store: the shapes the store and add-on pages work with, the store's taxonomy and its URL query.
@@ -18,10 +19,10 @@ export const ALBIRUNI_VERSIONS = ["2.4", "2.3"] as const;
 
 export type AlbiruniVersion = (typeof ALBIRUNI_VERSIONS)[number];
 
-/** Sectors an add-on is made for: the header menu's sectors (names: `nav.sectorsItems.<key>`). */
-export type AddonSector = keyof typeof ROUTES.sectors;
+/** Sectors an add-on is made for: the sectors in lib/sectors.ts (names: `nav.sectorsItems.<key>`). */
+export type AddonSector = SectorKey;
 
-export const ADDON_SECTORS = Object.keys(ROUTES.sectors) as AddonSector[];
+export const ADDON_SECTORS: AddonSector[] = [...SECTOR_KEYS];
 
 /** Tile colour behind an add-on's initials (until add-ons have their own icons). */
 export type AddonIconTone = "primary" | "primaryDark" | "secondary" | "secondaryDark" | "accent" | "success" | "albiruni" | "ink";

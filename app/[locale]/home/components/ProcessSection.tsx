@@ -5,7 +5,7 @@ import { SectionHeading } from "@/app/components/shared/SectionHeading";
 import { cn } from "@/lib/utils";
 import { PROCESS_STEPS } from "../data/homeData";
 import { lineBreak } from "../utils/richText";
-import { SECTION_TITLE_LEADING } from "../utils/titleClasses";
+import { SECTION_TITLE_LEADING } from "@/app/components/shared/sectionTitleClasses";
 import { ProcessStep } from "./ProcessStep";
 
 /**

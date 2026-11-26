@@ -2,8 +2,8 @@ import { useTranslations } from "next-intl";
 import { Container } from "@/app/components/shared/Container";
 import { Reveal } from "@/app/components/shared/Reveal";
 import { RevealGroup } from "@/app/components/shared/RevealGroup";
+import { SectionHeadingWithAside } from "@/app/components/shared/SectionHeadingWithAside";
 import { NEXT_STEPS } from "../data/homeData";
-import { HomeSectionHeader } from "./HomeSectionHeader";
 import { NextStepCard } from "./NextStepCard";
 
 /** "Start with the step that suits you" (Figma "Lead magnets"): the page's navy band with six free offers. */
@@ -13,7 +13,7 @@ export function NextStepsSection() {
   return (
     <section className="bg-gradient-to-tr from-primary-deep to-primary py-20 sm:py-24">
       <Container>
-        <HomeSectionHeader
+        <SectionHeadingWithAside
           layout="stacked"
           tone="dark"
           eyebrow={t("eyebrow")}

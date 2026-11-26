@@ -2,26 +2,13 @@
   "nav": {
     "home": "Home",
     "solutions": "Solutions",
-    "solutionsDropdown": "Solutions",
     "productsDropdown": "Products & projects",
-    "solutionsItems": {
-      "consulting": "Technical consulting",
-      "web": "Web platforms",
-      "mobile": "Mobile apps",
-      "erp": "ERP systems",
-      "ai": "AI & automation"
-    },
-    "techPlatforms": "Tech platforms",
-    "projects": "Projects & products",
-    "careers": "Careers",
     "jobs": "Careers",
     "about": "About Elite Tech",
     "community": "Community",
     "contact": "Contact us",
     "login": "Sign in",
-    "support": "Tech support",
     "bookDiagnosticCta": "Book a free diagnostic session",
-    "joinCommunity": "Join the community",
     "mainNav": "Main navigation",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -29,7 +16,6 @@
     "languageName": "العربية",
     "groups": {
       "albiruni": "Albiruni ERP",
-      "solutions": "Solutions",
       "learn": "Learning library",
       "developers": "Developers",
       "company": "Company"
@@ -84,11 +70,6 @@
       "fieldSales": "Field sales",
       "carService": "Car service centers"
     },
-    "sectorsDescriptions": {
-      "distribution": "Delivery routes, orders and warehouse",
-      "fieldSales": "Rep visits, collections and custody",
-      "carService": "Bookings, work orders and technicians"
-    },
     "productsDescriptions": {
       "albiruni": "Our platform for managing field sales and operations",
       "pricing": "Plans by sector and number of users",
@@ -105,16 +86,9 @@
       "arfa": "Specialized systems engineering company · Jeddah"
     },
     "megaMenu": {
-      "bySector": "By sector",
-      "byService": "By service",
       "ourProducts": "Our products",
       "projects": "Projects we're proud of",
       "allProjects": "All our projects",
-      "solutionsPromo": {
-        "title": "Not sure what you need?",
-        "text": "30 minutes with an operations expert and a developer to pin down the problem, priorities and solution.",
-        "cta": "Book a free session"
-      },
       "productsPromo": {
         "title": "Try Albiruni free",
         "text": "14 days with demo data that looks like your company. No card needed.",
@@ -567,21 +541,7 @@
     "sectors": {
       "eyebrow": "Solutions by sector",
       "title": "Designed around how you work, <br></br>to lift your team's productivity.",
-      "subtitle": "Ready templates for each sector: fields, permissions and reports set up in advance, so you go live within weeks.",
-      "items": {
-        "distribution": {
-          "description": "Delivery routes, orders, the warehouse and van stock counts.",
-          "apps": "Sales · Delivery · Warehouse"
-        },
-        "fieldSales": {
-          "description": "Sales rep visits, orders, collections and rep custody.",
-          "apps": "Sales · Collections · Attendance"
-        },
-        "carService": {
-          "description": "Appointments, work orders, technicians and spare parts.",
-          "apps": "Maintenance · Warehouse · Collections"
-        }
-      }
+      "subtitle": "Ready templates for each sector: fields, permissions and reports set up in advance, so you go live within weeks."
     },
     "process": {
       "eyebrow": "How we work with you",
@@ -2682,6 +2642,119 @@
     },
     "articles": {
       "title": "From the field"
+    }
+  },
+  "sectors": {
+    "items": {
+      "distribution": {
+        "description": "Delivery routes, orders, the warehouse and van stock counts.",
+        "apps": "Sales · Delivery · Warehouse"
+      },
+      "fieldSales": {
+        "description": "Sales rep visits, orders, collections and rep custody.",
+        "apps": "Sales · Collections · Attendance"
+      },
+      "carService": {
+        "description": "Appointments, work orders, technicians and spare parts.",
+        "apps": "Maintenance · Warehouse · Collections"
+      }
+    }
+  },
+  "solutions": {
+    "meta": {
+      "title": "Solutions by sector",
+      "description": "Albiruni's ready templates for distribution, field sales and car service centers: see a full workday in your sector, from the first step in the morning to closing the day."
+    },
+    "hero": {
+      "eyebrow": "Solutions · by sector",
+      "title": "Built for your sector, <br></br>ready from day one.",
+      "subtitle": "Pick your sector to see how Albiruni runs a real workday: from the first visit in the morning to closing the day.",
+      "sectorsLabel": "Choose your sector"
+    },
+    "day": {
+      "distribution": {
+        "eyebrow": "A day in the life of a sales rep",
+        "title": "From loading the van to closing the day, <br></br>every step connects to the next.",
+        "steps": {
+          "loading": {
+            "title": "Loading the van",
+            "description": "The storekeeper prepares the loading order, and the rep receives it by scanning."
+          },
+          "visits": {
+            "title": "Visits and orders",
+            "description": "A suggested route, visits logged by location, and orders sent to the manager."
+          },
+          "invoicing": {
+            "title": "Invoicing and collection",
+            "description": "An e-invoice printed from the phone, and payment in cash or by card."
+          },
+          "stockCount": {
+            "title": "Stock count and handover",
+            "description": "A blind count of the van, and what's left handed back to the warehouse."
+          },
+          "closing": {
+            "title": "Closing the day",
+            "description": "An automatic summary for the manager: sales, collections and returns."
+          }
+        }
+      },
+      "fieldSales": {
+        "eyebrow": "A day in the life of a field sales rep",
+        "title": "From the visit plan to settling custody, <br></br>every step connects to the next.",
+        "steps": {
+          "checkIn": {
+            "title": "Starting the day",
+            "description": "Check-in by location, with the day's visit plan ready on the phone."
+          },
+          "visit": {
+            "title": "Customer visit",
+            "description": "The visit logged by location, with the customer's balance and last orders at hand."
+          },
+          "order": {
+            "title": "The order",
+            "description": "An order at approved prices, sent to the manager for approval."
+          },
+          "collection": {
+            "title": "Collection",
+            "description": "Payment in cash or by card, with a receipt for the customer on the spot."
+          },
+          "settlement": {
+            "title": "Settling custody",
+            "description": "The rep hands over cash and custody, and the manager sees the day's summary."
+          }
+        }
+      },
+      "carService": {
+        "eyebrow": "A day in the life of a service center",
+        "title": "From the booking to handing over the car, <br></br>every step connects to the next.",
+        "steps": {
+          "reception": {
+            "title": "Car reception",
+            "description": "A booked appointment, and a check-in inspection with photos before work starts."
+          },
+          "workOrder": {
+            "title": "Work order",
+            "description": "Faults and a cost estimate in a work order the customer approves."
+          },
+          "repair": {
+            "title": "Technician and parts",
+            "description": "The technician gets the job, and parts are issued from the warehouse against the work order."
+          },
+          "invoicing": {
+            "title": "Invoicing and collection",
+            "description": "An e-invoice from the work order, and payment in cash or by card."
+          },
+          "handover": {
+            "title": "Car handover",
+            "description": "The customer hears the car is ready, and the manager gets the day's summary."
+          }
+        }
+      }
+    },
+    "sectors": {
+      "eyebrow": "Solutions by sector",
+      "title": "Sectors ready today.",
+      "subtitle": "Ready templates for each sector: fields, permissions and reports set up in advance. Don't see your sector? Book a diagnostic session and we'll assess what you need."
     }
   },
   "site": {

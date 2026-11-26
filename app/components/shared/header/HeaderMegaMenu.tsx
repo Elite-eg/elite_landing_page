@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { MegaMenuPromo } from "./MegaMenuPromo";
 import { MegaMenuSection } from "./MegaMenuSection";
 import { NAV_ITEM_ACTIVE, NAV_ITEM_BASE, NAV_ITEM_IDLE, NAV_ITEM_OPEN } from "./navItemStyles";
-import { useActiveRoute } from "./useActiveRoute";
+import { megaMenuHrefs, useActiveRoute } from "./useActiveRoute";
 
 export interface HeaderMegaMenuProps {
   /** Key inside the "nav" messages namespace. */
@@ -20,7 +20,7 @@ export interface HeaderMegaMenuProps {
 export function HeaderMegaMenu({ labelKey, menu }: HeaderMegaMenuProps) {
   const t = useTranslations("nav");
   const isActive = useActiveRoute();
-  const hasActiveChild = menu.sections.some((section) => section.items.some((item) => isActive(item.href)));
+  const hasActiveChild = megaMenuHrefs(menu).some(isActive);
 
   return (
     <Popover className="group/menu relative">
