@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { CARD_HOVER_CLASSES } from "@/app/components/shared/cardStyles";
 import { cn } from "@/lib/utils";
 import type { TutorialVideo } from "../data/videosData";
-import { formatDuration, isoDuration } from "../utils/formatDuration";
+import { formatDuration, isoDuration } from "@/lib/duration";
 import { VideoThumbnail } from "./VideoThumbnail";
 
 export interface VideoCardProps {

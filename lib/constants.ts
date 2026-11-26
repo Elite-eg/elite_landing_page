@@ -91,6 +91,8 @@ export const API_ENDPOINTS = {
   contactRequest: "/contact/request",
   /** TBD: backend endpoint that receives Albiruni agency applications (agents page form). */
   agencyApplication: "/agents/apply",
+  /** TBD: backend endpoint for the add-ons store: the list (search, filters, page) and `${addons}/{slug}` for one add-on. */
+  addons: "/addons",
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────

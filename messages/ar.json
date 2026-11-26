@@ -696,6 +696,14 @@
     "countryCode": "رمز الدولة",
     "countryCodeDetected": "تم تحديد رمز الدولة تلقائياً"
   },
+  "pagination": {
+    "label": "صفحات النتائج",
+    "previous": "السابق",
+    "next": "التالي",
+    "page": "الصفحة {page}",
+    "pageOf": "صفحة {page} من {count}",
+    "range": "عرض {from} إلى {to} من {total}"
+  },
   "appLinks": {
     "website": {
       "label": "تصفّح {name}"
@@ -2394,6 +2402,165 @@
           "question": "هل أقدر أضيف تطبيقات لاحقًا؟",
           "answer": "نعم. أضف أي تطبيق متى احتجته: الأساسية تشمل حتى {limit, plural, zero {بدون تطبيقات} one {تطبيق واحد} two {تطبيقين} few {# تطبيقات} many {# تطبيقًا} other {# تطبيق}}، والأعمال تشمل كل التطبيقات. وللمزايا غير الموجودة في الباقات تصفّح متجر الإضافات."
         }
+      }
+    }
+  },
+  "addons": {
+    "storeName": "متجر الإضافات",
+    "meta": {
+      "title": "متجر الإضافات",
+      "description": "إضافات لنظام البيروني من {brand} ومن مطورين معتمدين: الربط بواتساب، بوابات الدفع، الشحن، التقارير وغيرها. كل إضافة تمر بمراجعة واختبار قبل نشرها."
+    },
+    "hero": {
+      "subtitle": "ابحث عن الإضافة التي تحتاجها شركتك وركّبها على نظامك. كل إضافة تمر بمراجعة واختبار قبل نشرها في المتجر."
+    },
+    "search": {
+      "label": "ابحث في الإضافات",
+      "placeholder": "ابحث عن إضافة: واتساب، الشحن، التقارير…",
+      "submit": "بحث",
+      "clear": "مسح البحث"
+    },
+    "popular": {
+      "label": "الأكثر بحثًا:",
+      "items": {
+        "whatsapp": "واتساب",
+        "payments": "بوابات الدفع",
+        "shipping": "الشحن",
+        "barcode": "الباركود"
+      }
+    },
+    "categories": {
+      "label": "تصفية الإضافات حسب الفئة",
+      "all": "الكل",
+      "sales": "المبيعات والعملاء",
+      "inventory": "المخزون والمستودعات",
+      "accounting": "المحاسبة والمالية",
+      "hr": "الموارد البشرية",
+      "reports": "التقارير",
+      "integrations": "الربط والتكاملات",
+      "sectorTools": "أدوات القطاعات"
+    },
+    "results": {
+      "count": "{count, plural, zero {لا توجد إضافات} one {إضافة واحدة} two {إضافتان} few {{formatted} إضافات} many {{formatted} إضافة} other {{formatted} إضافة}}"
+    },
+    "filters": {
+      "label": "تصفية النتائج وترتيبها",
+      "labelWithValue": "{label}: {value}",
+      "all": "الكل",
+      "price": {
+        "label": "السعر",
+        "options": {
+          "all": "الكل",
+          "free": "مجانية",
+          "paid": "مدفوعة"
+        }
+      },
+      "sector": "القطاع",
+      "version": "التوافق",
+      "developer": "المطوّر",
+      "rating": {
+        "label": "التقييم",
+        "options": {
+          "all": "الكل",
+          "above45": "4.5 فأكثر",
+          "above4": "4 فأكثر"
+        }
+      },
+      "sort": {
+        "label": "ترتيب",
+        "options": {
+          "popular": "الأكثر تثبيتًا",
+          "rating": "الأعلى تقييمًا",
+          "newest": "الأحدث"
+        }
+      }
+    },
+    "developer": {
+      "official": "رسمي",
+      "certified": "مطوّر معتمد"
+    },
+    "price": {
+      "free": "مجانية",
+      "amount": "{amount} {symbol}"
+    },
+    "rating": {
+      "label": "التقييم {rating} من 5، {count, plural, zero {بلا تقييمات} one {من تقييم واحد} two {من تقييمين} few {من {formatted} تقييمات} many {من {formatted} تقييمًا} other {من {formatted} تقييم}}",
+      "count": "({formatted})",
+      "countLabel": "({count, plural, zero {لا تقييمات} one {تقييم واحد} two {تقييمان} few {{formatted} تقييمات} many {{formatted} تقييمًا} other {{formatted} تقييم}})"
+    },
+    "empty": {
+      "title": "لا توجد إضافات تطابق بحثك",
+      "text": "جرّب كلمة أخرى، أو أزِل بعض عوامل التصفية.",
+      "reset": "اعرض كل الإضافات"
+    },
+    "details": {
+      "breadcrumb": "مسار التنقل",
+      "meta": {
+        "installs": "{count, plural, zero {لا تثبيتات} one {تثبيت واحد} two {تثبيتان} few {{formatted} تثبيتات} many {{formatted} تثبيتًا} other {{formatted} تثبيت}}",
+        "version": "الإصدار {version}",
+        "compatibility": "متوافقة مع البيروني {versions}"
+      },
+      "tabs": {
+        "label": "أقسام صفحة الإضافة",
+        "description": "الوصف",
+        "media": "الصور والفيديو",
+        "installation": "طريقة التركيب",
+        "reviews": "التقييمات ({count})",
+        "changelog": "سجل الإصدارات"
+      },
+      "media": {
+        "choose": "اختر الفيديو أو إحدى الصور",
+        "videoCaption": "فيديو تعريفي · {duration} دقيقة",
+        "screenshotCaption": "لقطة شاشة {index} من {count}"
+      },
+      "about": {
+        "title": "عن الإضافة"
+      },
+      "installation": {
+        "title": "طريقة التركيب",
+        "help": "تحتاج مساعدة في التركيب؟ راسل المطوّر مباشرة من زر «تواصل مع المطوّر»."
+      },
+      "reviews": {
+        "title": "التقييمات",
+        "count": "{count, plural, zero {لا تقييمات} one {تقييم واحد} two {تقييمان} few {{formatted} تقييمات} many {{formatted} تقييمًا} other {{formatted} تقييم}}",
+        "bar": "{stars, plural, one {نجمة واحدة} two {نجمتان} few {{stars} نجوم} other {{stars} نجمة}}: {count, plural, zero {لا تقييمات} one {تقييم واحد} two {تقييمان} few {{formatted} تقييمات} many {{formatted} تقييمًا} other {{formatted} تقييم}}",
+        "author": "{author} · {company}",
+        "stars": "{rating} من 5 نجوم",
+        "empty": "لا توجد تقييمات بعد."
+      },
+      "changelog": {
+        "title": "سجل الإصدارات",
+        "version": "الإصدار {version}"
+      },
+      "purchase": {
+        "label": "شراء الإضافة",
+        "oneTime": "شراء لمرة واحدة · السعر لا يشمل الضريبة",
+        "freeNote": "مجانية لمشتركي البيروني",
+        "buy": "اشترِ الإضافة",
+        "install": "ثبّت الإضافة",
+        "contactDeveloper": "تواصل مع المطوّر",
+        "includes": "يشمل الشراء",
+        "includesFree": "تشمل الإضافة",
+        "reviewed": "راجعها فريق {brand} واختبرها قبل النشر.",
+        "buyMessage": "مرحبًا، أريد شراء إضافة «{name}» من {developer} في متجر الإضافات.",
+        "installMessage": "مرحبًا، أريد تثبيت إضافة «{name}» المجانية من {developer} في متجر الإضافات.",
+        "contactMessage": "مرحبًا، عندي سؤال عن إضافة «{name}» من {developer}."
+      },
+      "facts": {
+        "developer": "المطوّر",
+        "updatedAt": "آخر تحديث",
+        "version": "الإصدار",
+        "compatibility": "التوافق",
+        "compatibilityValue": "البيروني {versions}",
+        "license": "الترخيص",
+        "languages": "اللغات"
+      },
+      "licenses": {
+        "singleCompany": "لشركة واحدة"
+      },
+      "languages": {
+        "ar": "العربية",
+        "en": "الإنجليزية"
       }
     }
   },
