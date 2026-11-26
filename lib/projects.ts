@@ -18,7 +18,7 @@ import { ROUTES, type LocalizedText } from "./constants";
 
 /* ── Types ───────────────────────────────────────────────────────────────────────────────── */
 
-export type ProjectKey = "bareeq" | "amanCar" | "arfa" | "albiruni";
+export type ProjectKey = "bareeq" | "amanCar" | "arfa" | "tursa" | "albiruni";
 
 export type AppLinkKind = "website" | "googlePlay" | "appStore";
 
@@ -36,10 +36,11 @@ export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
 export type ProjectFilterValue = ProjectCategory | "all";
 
 /**
- * Cover colour: the client's identity where the design system has it (Bareeq teal), our own orange for Albiruni,
- * brand navy otherwise. It fills the cover and overlays the project photo, so the white wordmark stays readable.
+ * Cover colour: the client's identity where the design system has it (Bareeq teal; TURSA emerald, with its gold
+ * wordmark and an emerald dashboard sidebar), our own orange for Albiruni, brand navy otherwise. It fills the cover and
+ * overlays the project photo, so the wordmark stays readable.
  */
-export type ProjectTone = "bareeq" | "navy" | "midnight" | "brand";
+export type ProjectTone = "bareeq" | "tursa" | "navy" | "midnight" | "brand";
 
 /** Code-drawn screens on the projects page cover: two app phones or a web dashboard. */
 export type ProjectMockup = "phones" | "dashboard";
@@ -63,7 +64,7 @@ export interface CaseStudy {
 
 export interface Project {
   key: ProjectKey;
-  /** The project's page (from `ROUTES`). TBD: the Aman Car and ARFA pages aren't built yet. */
+  /** The project's page (from `ROUTES`). TBD: the Aman Car, ARFA and TURSA pages aren't built yet. */
   href: string;
   /** Projects page filter. */
   categories: readonly ProjectCategory[];
@@ -87,6 +88,7 @@ export interface Project {
 /* ── Projects ────────────────────────────────────────────────────────────────────────────── */
 
 const BAREEQ_LOGO = "/images/Bareeq.svg";
+const TURSA_LOGO = "/images/tursa-logo.png";
 
 export const PROJECTS = {
   bareeq: {
@@ -140,6 +142,15 @@ export const PROJECTS = {
     images: {},
     links: [{ kind: "website", href: "https://arfa-sa.com" }],
   },
+  tursa: {
+    key: "tursa",
+    href: ROUTES.projects.tursa,
+    categories: ["websites"],
+    cover: { tone: "tursa", mockup: "dashboard" },
+    /** From tursabest.sa: its hero photo (resized) and its site icon. */
+    images: { photo: "/images/hero-tursa.jpeg", logo: TURSA_LOGO },
+    links: [{ kind: "website", href: "https://www.tursabest.sa", logo: TURSA_LOGO }],
+  },
   albiruni: {
     key: "albiruni",
     href: ROUTES.albiruni.platform,
@@ -161,7 +172,7 @@ export const projectsFor = (keys: readonly ProjectKey[]): Project[] => keys.map(
 /* ── Where each project appears ──────────────────────────────────────────────────────────── */
 
 /** Projects page ("Our work", Figma "Work"), in display order. Its count is also the home stats strip figure. */
-export const WORK_PROJECTS: readonly ProjectKey[] = ["bareeq", "amanCar", "arfa"];
+export const WORK_PROJECTS: readonly ProjectKey[] = ["bareeq", "amanCar", "arfa", "tursa"];
 
 /** Projects page filter pills: "all", then the categories at least one listed project has (never an empty list). */
 export const WORK_PROJECT_FILTERS: readonly ProjectFilterValue[] = [
@@ -179,8 +190,9 @@ export const WORK_PROJECT_FILTERS: readonly ProjectFilterValue[] = [
 export const HOME_PROJECTS: readonly { key: ProjectKey; linkTo: "public" | "page" }[] = [
   { key: "bareeq", linkTo: "public" },
   { key: "amanCar", linkTo: "page" },
+  { key: "tursa", linkTo: "public" },
   { key: "albiruni", linkTo: "page" },
 ];
 
 /** Client wordmarks in the home hero ("From our projects:"). */
-export const HOME_PROOF_PROJECTS: readonly ProjectKey[] = ["bareeq", "arfa", "amanCar"];
+export const HOME_PROOF_PROJECTS: readonly ProjectKey[] = ["bareeq", "arfa", "amanCar", "tursa"];

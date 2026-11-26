@@ -9,7 +9,7 @@ import { ROUTES } from "@/lib/constants";
 import { HOME_PROJECTS, PROJECTS } from "@/lib/projects";
 import { HomeProjectCard } from "./HomeProjectCard";
 
-/** "Our projects" (Figma "Projects"): three project cards and a link to the projects page. */
+/** "Our projects" (Figma "Projects"): project cards, two per row from tablets, and a link to the projects page. */
 export function ProjectsSection() {
   const t = useTranslations("home.projects");
 
@@ -32,7 +32,7 @@ export function ProjectsSection() {
           }
         />
 
-        <RevealGroup className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup className="grid gap-5 md:grid-cols-2">
           {HOME_PROJECTS.map(({ key, linkTo }) => (
             <Reveal key={key} inGroup className="h-full">
               <HomeProjectCard project={PROJECTS[key]} linkTo={linkTo} />

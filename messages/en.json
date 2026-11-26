@@ -334,6 +334,18 @@
             "Laravel",
             "Payment gateway"
           ]
+        },
+        "tursa": {
+          "badge": "Company website · Makkah",
+          "description": "The website of an import, export and global sourcing company: its services, industries and markets, and a two-step quote request, in Arabic, English and Turkish.",
+          "credit": "Built by {brand} for TURSA Trading",
+          "tags": [
+            "UX/UI",
+            "Web development",
+            "Next.js",
+            "Multilingual",
+            "Quote requests"
+          ]
         }
       }
     },
@@ -2084,6 +2096,31 @@
           "WhatsApp"
         ],
         "meta": "Client: ARFA, a specialized systems engineering company · Jeddah, Saudi Arabia"
+      },
+      "tursa": {
+        "wordmark": "TURSA",
+        "name": "TURSA",
+        "tagline": "The website of TURSA, an import, export and global sourcing company",
+        "description": "A company website for a Saudi import and export firm in Makkah that presents its services, the industries and markets it serves, and turns visitors into quote requests.",
+        "tags": [
+          "Company website",
+          "3 languages",
+          "Makkah"
+        ],
+        "features": [
+          "A two-step quote request: request and service type, product, origin, destination and quantity, then contact details",
+          "Services, engagement models, industries and the sourcing process, each in its own section",
+          "A map of global trade hubs with transit times to the GCC",
+          "Arabic, English and Turkish, with direct contact on WhatsApp"
+        ],
+        "tech": [
+          "Next.js",
+          "Web design & development",
+          "Multilingual & RTL",
+          "Quote request forms",
+          "WhatsApp"
+        ],
+        "meta": "Client: TURSA Trading · Makkah, Saudi Arabia"
       },
       "albiruni": {
         "wordmark": "Albiruni",

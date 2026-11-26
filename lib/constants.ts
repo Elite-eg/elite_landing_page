@@ -124,6 +124,7 @@ export const ROUTES = {
     bareeq: "/projects/bareeq-x",
     amanCar: "/projects/aman-car",
     arfa: "/projects/arfa",
+    tursa: "/projects/tursa",
   },
   albiruni: {
     platform: "/albiruni",
