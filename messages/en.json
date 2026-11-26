@@ -650,7 +650,10 @@
     "activitiesRequired": "Choose at least one business activity.",
     "erpExperienceRequired": "Choose yes or no.",
     "companyAboutRequired": "Tell us briefly about your company.",
-    "consentRequired": "Agree to the privacy policy to send your application."
+    "officeNameRequired": "Enter your office name.",
+    "cityChoiceRequired": "Choose your city.",
+    "clientCountRequired": "Choose your approximate number of clients.",
+    "officeTypeRequired": "Choose your office type."
   },
   "phoneField": {
     "countryCode": "Country code",
@@ -1045,7 +1048,7 @@
       },
       "about": "About your company",
       "aboutPlaceholder": "Your business and current clients…",
-      "consent": "I agree to the <link>privacy policy</link> and to {brand} contacting me about this application.",
+      "privacyNote": "By sending the application, you agree to the <link>privacy policy</link> and to {brand} contacting you about it.",
       "submit": "Send application",
       "submitting": "Sending…",
       "errorToast": "We couldn't send your application right now. Check your connection and try again, or message us on WhatsApp."
@@ -1053,6 +1056,127 @@
     "success": {
       "title": "Your application has been sent!",
       "subtitle": "Our team will review it and reply within 3 business days.",
+      "backHome": "Back to home"
+    }
+  },
+  "partners": {
+    "meta": {
+      "title": "Partner program",
+      "description": "The {brand} partner program for accounting and audit offices: recommend Albiruni to your clients and earn a commission on every subscription, while we handle implementation and support."
+    },
+    "hero": {
+      "eyebrow": "For accounting and audit offices",
+      "title": "A partnership that adds value for your office and your clients.",
+      "subtitle": "Your clients ask you for a system to organize their sales and collections. Recommend Albiruni: we handle the implementation and support, and you earn a commission on every subscription.",
+      "join": "Join the program",
+      "whatsapp": "Talk to us on WhatsApp",
+      "whatsappMessage": "Hello, I'd like to know more about the partner program for accounting offices."
+    },
+    "benefits": {
+      "title": "What does your office gain?",
+      "items": {
+        "commission": {
+          "title": "A commission on every subscription",
+          "text": "{rate}% of your client's subscription for the first {months, plural, one {month} other {# months}}."
+        },
+        "dashboard": {
+          "title": "Partner dashboard",
+          "text": "Track your referred clients, their subscription status and your commissions."
+        },
+        "clientAccess": {
+          "title": "Accounting access to your clients",
+          "text": "With the client's permission, see sales and collection reports ready for closing."
+        },
+        "training": {
+          "title": "Training and partner certificate",
+          "text": "Training sessions for your team and a “Certified partner” badge for your website."
+        }
+      }
+    },
+    "steps": {
+      "title": "How referral and commission work",
+      "items": {
+        "register": {
+          "title": "Register your office",
+          "text": "Fill in the form, and we activate your partner dashboard and referral link within two business days."
+        },
+        "refer": {
+          "title": "Refer your client",
+          "text": "Share your link, or add the client from your partner dashboard and we contact them."
+        },
+        "onboard": {
+          "title": "We implement and follow up",
+          "text": "Our team sets up the account and trains the client's team, and keeps you informed."
+        },
+        "payout": {
+          "title": "Receive your commission",
+          "text": "Calculated monthly once the client pays, and transferred to your bank account."
+        }
+      }
+    },
+    "commission": {
+      "title": "Your commission per client",
+      "rate": "{rate}%",
+      "byAgreement": "By agreement",
+      "byAgreementText": "A rate we agree on based on the size of the project.",
+      "perClient": "{amount} a month per client",
+      "orAmount": "or {amount}",
+      "plans": {
+        "basic": "Basic plan",
+        "business": "Business plan",
+        "enterprise": "Enterprise plan"
+      },
+      "note": "Preliminary rates · calculated on the subscription value before VAT."
+    },
+    "form": {
+      "title": "Join the partner program",
+      "subtitle": "We review your application and reply within two business days.",
+      "officeName": "Office name",
+      "officeNamePlaceholder": "e.g. Al Nour Accounting Office",
+      "fullName": "Your name",
+      "fullNamePlaceholder": "Full name",
+      "phone": "Mobile number",
+      "email": "Email",
+      "emailPlaceholder": "name@office.com",
+      "city": "City",
+      "cityPlaceholder": "Choose your city",
+      "cities": {
+        "cairo": "Cairo",
+        "giza": "Giza",
+        "alexandria": "Alexandria",
+        "mansoura": "Mansoura",
+        "tanta": "Tanta",
+        "assiut": "Assiut",
+        "riyadh": "Riyadh",
+        "jeddah": "Jeddah",
+        "makkah": "Makkah",
+        "madinah": "Madinah",
+        "dammam": "Dammam",
+        "khobar": "Khobar",
+        "other": "Another city"
+      },
+      "clientCount": "Approximate number of clients",
+      "clientCountPlaceholder": "Choose a range",
+      "clientCounts": {
+        "under10": "Fewer than 10",
+        "from10to50": "10 – 50",
+        "from51to100": "51 – 100",
+        "over100": "More than 100"
+      },
+      "officeType": "Office type",
+      "officeTypes": {
+        "accounting": "Accounting",
+        "audit": "Audit",
+        "taxConsulting": "Tax consulting"
+      },
+      "privacyNote": "By sending the application, you agree to the <terms>partner program terms</terms> and the <privacy>privacy policy</privacy>. We never share your data with anyone.",
+      "submit": "Send application",
+      "submitting": "Sending…",
+      "errorToast": "We couldn't send your application right now. Check your connection and try again, or message us on WhatsApp."
+    },
+    "success": {
+      "title": "Application sent!",
+      "subtitle": "We'll review your application and reply within two business days.",
       "backHome": "Back to home"
     }
   },

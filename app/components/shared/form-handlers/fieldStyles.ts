@@ -62,3 +62,6 @@ export const FIELD_INNER_CONTROL_CLASSES = cn(
   FOCUS_RESET,
   "ring-0 focus:ring-0 focus-visible:ring-0"
 );
+
+/** A link inside a form's note under the submit button (privacy policy, program terms). */
+export const FORM_NOTE_LINK_CLASSES = "underline underline-offset-2 transition-colors hover:text-primary";

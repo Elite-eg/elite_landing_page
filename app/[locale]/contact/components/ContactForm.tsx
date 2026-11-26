@@ -1,21 +1,19 @@
 "use client";
 
-import { useEffect, useId } from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { motion } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { useLocale, useTranslations } from "next-intl";
-import { FiArrowRight } from "react-icons/fi";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { useCountry } from "@/app/store/useCountry";
-import { Button } from "@/app/components/shared/Button";
+import { FORM_NOTE_LINK_CLASSES } from "@/app/components/shared/form-handlers/fieldStyles";
+import { FormLayout } from "@/app/components/shared/form-handlers/FormLayout";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import { SelectField } from "@/app/components/shared/form-handlers/SelectField";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { Link } from "@/i18n/navigation";
-import { fadeInUp } from "@/lib/animations";
 import { API_ENDPOINTS, ROUTES, type AppLocale } from "@/lib/constants";
 import { COUNTRIES } from "@/lib/countries";
 import { internationalPhone } from "@/lib/phone";
@@ -43,7 +41,6 @@ export function ContactForm({ onSent, focusFirstField = false }: ContactFormProp
   const tValidation = useTranslations("validation");
   const locale = useLocale() as AppLocale;
   const countryOptions = COUNTRIES.map(({ code, name }) => ({ value: code, label: name[locale] }));
-  const titleId = useId();
   const { country: visitorCountry } = useCountry();
   const form = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
@@ -91,81 +88,66 @@ export function ContactForm({ onSent, focusFirstField = false }: ContactFormProp
   const field = { disabled: isSubmitting } as const;
 
   return (
-    <motion.form
-      variants={fadeInUp}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
+    <FormLayout
+      title={t("title")}
       onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      aria-labelledby={titleId}
+      submitLabel={t("submit")}
+      submittingLabel={t("submitting")}
+      isSubmitting={isSubmitting}
+      note={t.rich("privacyNote", {
+        link: (chunks) => (
+          <Link href={ROUTES.legal.privacy} className={FORM_NOTE_LINK_CLASSES}>
+            {chunks}
+          </Link>
+        ),
+      })}
     >
-      <h2 id={titleId} className="text-h3 font-bold text-body">
-        {t("title")}
-      </h2>
-
-      <div className="mt-[1.125rem] grid gap-[1.125rem] sm:grid-cols-2">
-        <InputField label={t("fullName")} placeholder={t("fullNamePlaceholder")} autoComplete="name" error={errorText(errors.fullName?.message)} {...field} {...register("fullName")} />
-        <InputField label={t("companyName")} placeholder={t("companyNamePlaceholder")} autoComplete="organization" error={errorText(errors.companyName?.message)} {...field} {...register("companyName")} />
-        <InputField type="email" dir="ltr" inputClassName="rtl:text-end" label={t("email")} placeholder={t("emailPlaceholder")} autoComplete="email" error={errorText(errors.email?.message)} {...field} {...register("email")} />
-        <InputField
-          as="phone"
-          label={t("phone")}
-          {...phone.fieldProps}
-          {...field}
-        />
-        <Controller
-          name="country"
-          control={control}
-          render={({ field: country }) => (
-            <SelectField label={t("country")} options={countryOptions} {...country} {...field} />
-          )}
-        />
-        <Controller
-          name="companySize"
-          control={control}
-          render={({ field: companySize }) => (
-            <SelectField
-              label={t("companySize")}
-              placeholder={t("companySizePlaceholder")}
-              options={COMPANY_SIZES.map((size) => ({ value: size, label: t(`companySizes.${size}`) }))}
-              error={errorText(errors.companySize?.message)}
-              {...companySize}
-              {...field}
-            />
-          )}
-        />
-        <Controller
-          name="need"
-          control={control}
-          render={({ field: need }) => (
-            <SelectField
-              label={t("need")}
-              placeholder={t("needPlaceholder")}
-              options={CONTACT_NEEDS.map((key) => ({ value: key, label: t(`needs.${key}`) }))}
-              error={errorText(errors.need?.message)}
-              className="sm:col-span-2"
-              {...need}
-              {...field}
-            />
-          )}
-        />
-        <InputField as="textarea" rows={3} label={t("message")} placeholder={t("messagePlaceholder")} className="sm:col-span-2" {...field} {...register("message")} />
-      </div>
-
-      <Button type="submit" variant="secondary" size="lg" fullWidth isLoading={isSubmitting} icon={<FiArrowRight />} flipIconInRtl className="mt-[1.125rem]">
-        {isSubmitting ? t("submitting") : t("submit")}
-      </Button>
-
-      <p className="mt-3 text-xs text-ink-400">
-        {t.rich("privacyNote", {
-          link: (chunks) => (
-            <Link href={ROUTES.legal.privacy} className="underline underline-offset-2 transition-colors hover:text-primary">
-              {chunks}
-            </Link>
-          ),
-        })}
-      </p>
-    </motion.form>
+      <InputField label={t("fullName")} placeholder={t("fullNamePlaceholder")} autoComplete="name" error={errorText(errors.fullName?.message)} {...field} {...register("fullName")} />
+      <InputField label={t("companyName")} placeholder={t("companyNamePlaceholder")} autoComplete="organization" error={errorText(errors.companyName?.message)} {...field} {...register("companyName")} />
+      <InputField type="email" dir="ltr" inputClassName="rtl:text-end" label={t("email")} placeholder={t("emailPlaceholder")} autoComplete="email" error={errorText(errors.email?.message)} {...field} {...register("email")} />
+      <InputField
+        as="phone"
+        label={t("phone")}
+        {...phone.fieldProps}
+        {...field}
+      />
+      <Controller
+        name="country"
+        control={control}
+        render={({ field: country }) => (
+          <SelectField label={t("country")} options={countryOptions} {...country} {...field} />
+        )}
+      />
+      <Controller
+        name="companySize"
+        control={control}
+        render={({ field: companySize }) => (
+          <SelectField
+            label={t("companySize")}
+            placeholder={t("companySizePlaceholder")}
+            options={COMPANY_SIZES.map((size) => ({ value: size, label: t(`companySizes.${size}`) }))}
+            error={errorText(errors.companySize?.message)}
+            {...companySize}
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        name="need"
+        control={control}
+        render={({ field: need }) => (
+          <SelectField
+            label={t("need")}
+            placeholder={t("needPlaceholder")}
+            options={CONTACT_NEEDS.map((key) => ({ value: key, label: t(`needs.${key}`) }))}
+            error={errorText(errors.need?.message)}
+            className="sm:col-span-2"
+            {...need}
+            {...field}
+          />
+        )}
+      />
+      <InputField as="textarea" rows={3} label={t("message")} placeholder={t("messagePlaceholder")} className="sm:col-span-2" {...field} {...register("message")} />
+    </FormLayout>
   );
 }

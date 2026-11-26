@@ -2,21 +2,19 @@
 
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { motion } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { useLocale, useTranslations } from "next-intl";
 import ApiService from "@/app/services/ApiService";
 import { log } from "@/app/services/logger";
 import { useCountry } from "@/app/store/useCountry";
-import { Button } from "@/app/components/shared/Button";
-import { CheckboxField } from "@/app/components/shared/form-handlers/CheckboxField";
 import { ChoiceChips } from "@/app/components/shared/form-handlers/ChoiceChips";
+import { FORM_NOTE_LINK_CLASSES } from "@/app/components/shared/form-handlers/fieldStyles";
+import { FormLayout } from "@/app/components/shared/form-handlers/FormLayout";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
 import { SelectField } from "@/app/components/shared/form-handlers/SelectField";
 import { usePhoneField } from "@/app/components/shared/form-handlers/usePhoneField";
 import { Link } from "@/i18n/navigation";
-import { fadeInUp } from "@/lib/animations";
 import { API_ENDPOINTS, COMPANY_INFO, ROUTES, type AppLocale } from "@/lib/constants";
 import { COUNTRIES } from "@/lib/countries";
 import { internationalPhone } from "@/lib/phone";
@@ -29,7 +27,8 @@ export interface AgencyFormProps {
 }
 
 /**
- * Agency application: two columns from sm, the chip questions, company summary and consent full width.
+ * Agency application in the shared form layout: two columns from sm, the chip questions and company summary full
+ * width, the privacy note under the button.
  * The country starts at the visitor's country, and the phone code follows the country until the visitor picks a code
  * themselves.
  */
@@ -78,15 +77,21 @@ export function AgencyForm({ onSent }: AgencyFormProps) {
   const field = { disabled: isSubmitting } as const;
 
   return (
-    <motion.form
-      variants={fadeInUp}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
+    <FormLayout
+      title={t("title")}
+      subtitle={t("subtitle")}
       onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      aria-label={t("title")}
-      className="grid gap-x-4 gap-y-5 sm:grid-cols-2"
+      submitLabel={t("submit")}
+      submittingLabel={t("submitting")}
+      isSubmitting={isSubmitting}
+      note={t.rich("privacyNote", {
+        brand: COMPANY_INFO.brandName[locale],
+        link: (chunks) => (
+          <Link href={ROUTES.legal.privacy} className={FORM_NOTE_LINK_CLASSES}>
+            {chunks}
+          </Link>
+        ),
+      })}
     >
       <InputField label={t("companyName")} placeholder={t("companyNamePlaceholder")} autoComplete="organization" error={errorText(errors.companyName?.message)} {...field} {...register("companyName")} />
       <InputField label={t("contactName")} placeholder={t("contactNamePlaceholder")} autoComplete="name" error={errorText(errors.contactName?.message)} {...field} {...register("contactName")} />
@@ -152,34 +157,6 @@ export function AgencyForm({ onSent }: AgencyFormProps) {
         )}
       />
       <InputField as="textarea" rows={4} label={t("about")} placeholder={t("aboutPlaceholder")} error={errorText(errors.about?.message)} className="sm:col-span-2" {...field} {...register("about")} />
-      <Controller
-        name="consent"
-        control={control}
-        render={({ field: consent }) => (
-          <CheckboxField
-            label={t.rich("consent", {
-              brand: COMPANY_INFO.brandName[locale],
-              link: (chunks) => (
-                <Link href={ROUTES.legal.privacy} className="underline underline-offset-2 transition-colors hover:text-primary">
-                  {chunks}
-                </Link>
-              ),
-            })}
-            checked={consent.value}
-            onChange={consent.onChange}
-            onBlur={consent.onBlur}
-            name={consent.name}
-            ref={consent.ref}
-            error={errorText(errors.consent?.message)}
-            className="sm:col-span-2"
-            {...field}
-          />
-        )}
-      />
-
-      <Button type="submit" variant="secondary" size="lg" fullWidth isLoading={isSubmitting} className="sm:col-span-2">
-        {isSubmitting ? t("submitting") : t("submit")}
-      </Button>
-    </motion.form>
+    </FormLayout>
   );
 }

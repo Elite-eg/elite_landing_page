@@ -3,8 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { FiSearch } from "react-icons/fi";
-import { Button } from "@/app/components/shared/Button";
 import { InputField } from "@/app/components/shared/form-handlers/InputField";
+import { SubmitButton } from "@/app/components/shared/form-handlers/SubmitButton";
 import { useAddonsQuery } from "../hooks/useAddonsQuery";
 
 /**
@@ -55,9 +55,9 @@ export function AddonsSearchForm() {
         className="min-w-0 flex-1"
         inputClassName="border-transparent text-base"
       />
-      <Button type="submit" variant="secondary" lift={false} className="shrink-0">
+      <SubmitButton size="md" fullWidth={false} lift={false} className="shrink-0">
         {t("submit")}
-      </Button>
+      </SubmitButton>
     </form>
   );
 }

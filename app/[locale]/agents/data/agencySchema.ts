@@ -17,7 +17,6 @@ export const agencySchema = z
     activities: z.array(z.enum(BUSINESS_ACTIVITIES)).min(1, "activitiesRequired"),
     erpExperience: choiceOf(ERP_EXPERIENCE, "erpExperienceRequired"),
     about: z.string().trim().min(1, "companyAboutRequired"),
-    consent: z.boolean().refine((agreed) => agreed, "consentRequired"),
   })
   .superRefine((values, ctx) => mobileNumberCheck(values.country)(values, ctx));
 
@@ -40,5 +39,4 @@ export const emptyAgencyValues = (country: CountryCode): AgencyValues => ({
   activities: [],
   erpExperience: "",
   about: "",
-  consent: false,
 });
