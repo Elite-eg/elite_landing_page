@@ -11,7 +11,8 @@ import type {
 /**
  * DRAFT SAMPLE / TBD: the add-ons store catalog until the backend exists. Delete this folder once
  * `addonsService.ts` calls the API. The first add-on is the Figma's add-on page (node 234:3620 in the v4 copy);
- * names, developers, prices and ratings of the first nine come from the Figma's store page (node 233:3482).
+ * names, developers, prices and ratings of the first nine come from the Figma's store page (node 233:3482); English
+ * names of the first add-on and its developer from the English purchase complete page (node 247:3245).
  * Developers, reviews, install counts and the extra three add-ons are invented samples.
  */
 
@@ -19,7 +20,7 @@ export type MockDeveloperId = "eliteTech" | "horizon" | "nawat" | "codePlus";
 
 export const MOCK_DEVELOPERS: Record<MockDeveloperId, { name: LocalizedText; official: boolean }> = {
   eliteTech: { name: COMPANY_INFO.brandName, official: true },
-  horizon: { name: { ar: "تقنية الأفق", en: "Horizon Tech" }, official: false },
+  horizon: { name: { ar: "تقنية الأفق", en: "Ofuq Tech" }, official: false },
   nawat: { name: { ar: "نواة للحلول", en: "Nawat Solutions" }, official: false },
   codePlus: { name: { ar: "كود بلس", en: "Code Plus" }, official: false },
 };
@@ -96,7 +97,7 @@ const ALL_VERSIONS: readonly AlbiruniVersion[] = ["2.4", "2.3"];
 export const MOCK_ADDONS: readonly MockAddon[] = [
   {
     slug: "rep-routes-map",
-    name: { ar: "مسارات المناديب على الخريطة", en: "Sales rep routes on the map" },
+    name: { ar: "مسارات المناديب على الخريطة", en: "Rep routes on the map" },
     summary: {
       ar: "خطة زيارات يومية جاهزة لكل مندوب على الخريطة، بأقصر طريق وأقل وقت.",
       en: "A ready daily visit plan for every rep on the map, with the shortest route and the least time.",

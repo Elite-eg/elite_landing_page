@@ -93,6 +93,11 @@ export const API_ENDPOINTS = {
   agencyApplication: "/agents/apply",
   /** TBD: backend endpoint for the add-ons store: the list (search, filters, page) and `${addons}/{slug}` for one add-on. */
   addons: "/addons",
+  /**
+   * TBD: backend endpoint for the signed-in customer's bought add-ons (My purchases) and `${addonPurchases}/{orderNumber}`
+   * for one order (purchase complete page). Needs the customer's session (no sign-in yet).
+   */
+  addonPurchases: "/addons/purchases",
 } as const;
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -134,6 +139,9 @@ export const ROUTES = {
     platform: "/albiruni",
     pricing: "/albiruni/pricing",
     addons: "/albiruni/add-ons",
+    /** Where the checkout returns the customer after buying an add-on, with `?order=<order number>`. */
+    addonPurchaseComplete: "/albiruni/add-ons/purchase-complete",
+    myPurchases: "/albiruni/add-ons/my-purchases",
     trial: "/albiruni/free-trial",
   },
   learn: {

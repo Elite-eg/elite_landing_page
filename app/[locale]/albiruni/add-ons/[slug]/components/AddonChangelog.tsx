@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import type { AddonRelease } from "@/lib/addons";
-import { formatReleaseDate } from "../utils/formatReleaseDate";
+import { formatLongDate } from "@/lib/dates";
 import { AddonDetailsSection } from "./AddonDetailsSection";
 
 export interface AddonChangelogProps {
@@ -23,7 +23,7 @@ export function AddonChangelog({ releases }: AddonChangelogProps) {
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="text-base font-semibold text-body">{t("version", { version: release.version })}</h3>
               <time dateTime={release.date} className="text-caption text-content">
-                {formatReleaseDate(release.date, locale)}
+                {formatLongDate(release.date, locale)}
               </time>
             </div>
             <ul className="mt-2 flex flex-col gap-1.5 text-caption text-ink-700">

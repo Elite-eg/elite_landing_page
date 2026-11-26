@@ -1,5 +1,5 @@
 import { ROUTES, type AppLocale } from "./constants";
-import type { CountryCode } from "./countries";
+import type { CountryCode, PaymentMethodKey } from "./countries";
 
 /**
  * Albiruni add-ons store: the shapes the store and add-on pages work with, the store's taxonomy and its URL query.
@@ -117,6 +117,55 @@ export interface AddonsPage {
   developers: AddonDeveloper[];
 }
 
+/* ── Purchases (the signed-in customer's bought add-ons) ────────────────────────────────── */
+
+/** The file a purchase downloads: the add-on's full source code. */
+export interface AddonFile {
+  /** "route-planner-1.6.2.zip" */
+  name: string;
+  /** Add-on version inside the file. */
+  version: string;
+  sizeBytes: number;
+  /** Download link (TBD: a signed link from the backend). */
+  url: string;
+}
+
+/** How an order was paid; `last4` = the card's last four digits (card payments). */
+export interface AddonPayment {
+  method: PaymentMethodKey;
+  last4?: string;
+}
+
+/**
+ * What the customer paid, in the currency of the country they bought in. Fixed amounts: unlike store prices, they
+ * don't follow the header country switcher.
+ */
+export interface AddonOrderAmounts {
+  country: CountryCode;
+  /** Price before VAT. */
+  price: number;
+  /** 0.14 = 14% */
+  vatRate: number;
+  vat: number;
+  total: number;
+}
+
+/** One bought add-on: its order (purchase complete page) and what the customer gets with it (My purchases). */
+export interface AddonPurchase {
+  orderNumber: string;
+  /** ISO date (YYYY-MM-DD). */
+  purchasedAt: string;
+  /** ISO date of the last day of free updates. */
+  updatesUntil: string;
+  /** Free updates still run today. */
+  updatesActive: boolean;
+  addon: Pick<AddonSummary, "slug" | "name" | "developer" | "icon">;
+  file: AddonFile;
+  licenseKey: string;
+  payment: AddonPayment;
+  amounts: AddonOrderAmounts;
+}
+
 /* ── Store query (the URL's search params) ──────────────────────────────────────────────── */
 
 /** Sort options; the first is the default. Names: `addons.filters.sort.options.<key>`. */
@@ -205,3 +254,6 @@ export function addonsStoreHref(query: Partial<AddonsQuery> = {}): string {
 
 /** Path of an add-on's page. */
 export const addonPath = (slug: string) => `${ROUTES.albiruni.addons}/${encodeURIComponent(slug)}`;
+
+/** The add-on page's "How to install" section. */
+export const addonInstallGuidePath = (slug: string) => `${addonPath(slug)}#installation`;

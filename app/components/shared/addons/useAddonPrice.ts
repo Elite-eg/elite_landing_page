@@ -1,11 +1,9 @@
 "use client";
 
-import { useCallback } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useCountry } from "@/app/store/useCountry";
 import type { AddonPrice } from "@/lib/addons";
-import type { AppLocale } from "@/lib/constants";
-import { intlLocale } from "@/lib/locale";
+import { useAddonAmount } from "./useAddonAmount";
 
 /**
  * Formats an add-on's price in the visitor's currency ("1,200 ج.م", or "Free"). Follows the header country
@@ -13,17 +11,8 @@ import { intlLocale } from "@/lib/locale";
  */
 export function useAddonPrice() {
   const t = useTranslations("addons.price");
-  const locale = useLocale() as AppLocale;
   const { country } = useCountry();
+  const formatAmount = useAddonAmount();
 
-  return useCallback(
-    (price: AddonPrice) =>
-      price === null
-        ? t("free")
-        : t("amount", {
-            amount: new Intl.NumberFormat(intlLocale(locale)).format(price[country.code]),
-            symbol: country.currencySymbol[locale],
-          }),
-    [t, locale, country]
-  );
+  return (price: AddonPrice) => (price === null ? t("free") : formatAmount(price[country.code], country.code));
 }

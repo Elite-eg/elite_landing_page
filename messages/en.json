@@ -2483,6 +2483,82 @@
       "free": "Free",
       "amount": "{symbol} {amount}"
     },
+    "contactDeveloper": {
+      "label": "Contact the developer",
+      "message": "Hello, I have a question about the “{name}” add-on by {developer}."
+    },
+    "file": {
+      "description": "Full source code · {size} MB"
+    },
+    "license": {
+      "label": "License key",
+      "copy": "Copy the license key",
+      "copied": "License key copied.",
+      "copyError": "Couldn't copy. Select the key and copy it yourself."
+    },
+    "order": {
+      "addon": "Add-on",
+      "developer": "Developer",
+      "orderNumber": "Order number",
+      "date": "Date",
+      "purchasedAt": "Purchase date",
+      "version": "Version",
+      "payment": "Payment method",
+      "cardEnding": "Card ending {last4}",
+      "price": "Price",
+      "vat": "VAT {rate}%",
+      "total": "Total",
+      "amountPaid": "Amount paid"
+    },
+    "purchaseComplete": {
+      "meta": {
+        "title": "Purchase complete",
+        "description": "Download the source code of the add-on you bought, copy its license key and follow the installation steps."
+      },
+      "title": "Your add-on purchase is complete",
+      "text": "The source code is ready to download, and we’ve emailed you the invoice and download link.",
+      "download": {
+        "title": "Download your add-on",
+        "download": "Download source code",
+        "installGuide": "Install guide"
+      },
+      "nextSteps": {
+        "title": "Next steps",
+        "items": {
+          "download": "Download the file and keep a copy.",
+          "install": "Follow the installation guide on the add-on page.",
+          "help": "If you need help, message the developer directly."
+        }
+      },
+      "orderTitle": "Order summary",
+      "updatesNote": "Free updates until {date}. You’ll always find the add-on in “My purchases”.",
+      "links": {
+        "myPurchases": "My purchases",
+        "store": "Back to the add-ons store"
+      }
+    },
+    "myPurchases": {
+      "meta": {
+        "title": "My purchases",
+        "description": "The add-ons you bought from the Albiruni add-ons store: their files, license keys and free updates."
+      },
+      "title": "My purchases",
+      "text": "Every add-on you bought in one place: download its file, copy its license key and see how long its free updates last.",
+      "browse": "Browse the add-ons store",
+      "updates": {
+        "active": "Free updates until {date}",
+        "ended": "Updates ended on {date}"
+      },
+      "actions": {
+        "download": "Download source code",
+        "installGuide": "Install guide"
+      },
+      "empty": {
+        "title": "No purchases yet",
+        "text": "Buy an add-on from the store, and you’ll find it here with its file and license key.",
+        "browse": "Browse the add-ons store"
+      }
+    },
     "rating": {
       "label": "Rated {rating} out of 5 from {count, plural, =0 {no ratings} one {{formatted} rating} other {{formatted} ratings}}",
       "count": "({formatted})",
@@ -2538,13 +2614,11 @@
         "freeNote": "Free for Albiruni subscribers",
         "buy": "Buy the add-on",
         "install": "Install the add-on",
-        "contactDeveloper": "Contact the developer",
         "includes": "Your purchase includes",
         "includesFree": "The add-on includes",
         "reviewed": "Reviewed and tested by the {brand} team before publishing.",
         "buyMessage": "Hello, I'd like to buy the “{name}” add-on by {developer} from the add-ons store.",
-        "installMessage": "Hello, I'd like to install the free “{name}” add-on by {developer} from the add-ons store.",
-        "contactMessage": "Hello, I have a question about the “{name}” add-on by {developer}."
+        "installMessage": "Hello, I'd like to install the free “{name}” add-on by {developer} from the add-ons store."
       },
       "facts": {
         "developer": "Developer",

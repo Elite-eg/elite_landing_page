@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { LuShieldCheck } from "react-icons/lu";
+import { AddonContactDeveloperButton } from "@/app/components/shared/addons/AddonContactDeveloperButton";
 import { Button } from "@/app/components/shared/Button";
 import { PlanFeatureList } from "@/app/components/shared/PlanFeatureList";
 import type { AddonDetails } from "@/lib/addons";
@@ -32,9 +33,7 @@ export function AddonPurchaseCard({ addon }: AddonPurchaseCardProps) {
       <Button href={whatsappUrl(t(isFree ? "installMessage" : "buyMessage", message))} external variant="secondary" size="lg" fullWidth>
         {isFree ? t("install") : t("buy")}
       </Button>
-      <Button href={whatsappUrl(t("contactMessage", message))} external variant="outline" size="lg" fullWidth>
-        {t("contactDeveloper")}
-      </Button>
+      <AddonContactDeveloperButton addon={addon} size="lg" fullWidth />
 
       <hr className="border-edge" />
       <p className="text-caption font-medium text-body">{isFree ? t("includesFree") : t("includes")}</p>

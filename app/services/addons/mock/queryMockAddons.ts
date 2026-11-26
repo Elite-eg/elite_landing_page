@@ -37,7 +37,7 @@ function averageRating(breakdown: AddonRatingBreakdown): number {
 
 const reviewCount = (addon: MockAddon) => addon.ratingBreakdown.reduce((sum, value) => sum + value, 0);
 
-function toDeveloper(id: MockDeveloperId, locale: AppLocale): AddonDeveloper {
+export function toDeveloper(id: MockDeveloperId, locale: AppLocale): AddonDeveloper {
   const { name, official } = MOCK_DEVELOPERS[id];
   return { id, name: name[locale], official };
 }
